@@ -7,12 +7,6 @@ import org.xmldb.api.base.Database;
 import org.xmldb.api.base.XMLDBException;
 import org.xmldb.api.modules.CollectionManagementService;
 import org.xmldb.api.modules.XMLResource;
-import www.rokzasok.rs.euprava.exist.AuthenticationUtilities.*;
-import www.rokzasok.rs.euprava.gradjanin.iskazivanje_interesovanja.ObrazacInteresovanja;
-import www.rokzasok.rs.euprava.gradjanin.obrazac_saglasnosti.ObrazacSaglasnosti;
-import www.rokzasok.rs.euprava.gradjanin.zahtev_za_sertifikat.Zahtev;
-import www.rokzasok.rs.euprava.sluzbenik.digitalni_sertifikat.*;
-import www.rokzasok.rs.euprava.zdravstveni_radnik.potvrda_vakcinacije.PotvrdaVakcinacije;
 
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.Marshaller;
@@ -23,7 +17,7 @@ import java.io.OutputStream;
 
 public class StoreAny {
 
-    private static ConnectionProperties conn;
+    private static AuthenticationUtilities.ConnectionProperties conn;
 
     public static void main(String[] args) throws Exception {
         args = new String[]{"/db/gradjanin/iskazivanje-interesovanja", "iskazivanje-interesovanja_x.xml", "./eUprava/src/main/resources/data/iskazivanje_interesovanja_primer.xml", "ObrazacInteresovanja", "www.rokzasok.rs.euprava.gradjanin.iskazivanje_interesovanja"};

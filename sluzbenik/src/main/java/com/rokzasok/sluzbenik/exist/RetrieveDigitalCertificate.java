@@ -1,12 +1,13 @@
 package com.rokzasok.sluzbenik.exist;
 
+import com.rokzasok.sluzbenik.dokumenti.digitalni_sertifikat.DigitalniSertifikat;
 import org.exist.xmldb.EXistResource;
 import org.xmldb.api.DatabaseManager;
 import org.xmldb.api.base.Collection;
 import org.xmldb.api.base.Database;
 import org.xmldb.api.base.XMLDBException;
 import org.xmldb.api.modules.XMLResource;
-import www.rokzasok.rs.euprava.sluzbenik.digitalni_sertifikat.DigitalniSertifikat;
+import com.rokzasok.sluzbenik.dokumenti.digitalni_sertifikat.DigitalniSertifikat;
 
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.Unmarshaller;
@@ -15,7 +16,7 @@ import javax.xml.transform.OutputKeys;
 public class RetrieveDigitalCertificate {
     
 	public static void main(String[] args) throws Exception {
-		RetrieveDigitalCertificate.run(www.rokzasok.rs.euprava.exist.AuthenticationUtilities.loadProperties(), args);
+		RetrieveDigitalCertificate.run(com.rokzasok.sluzbenik.exist.AuthenticationUtilities.loadProperties(), args);
 	}
     
     /**
@@ -23,7 +24,7 @@ public class RetrieveDigitalCertificate {
      * args[0] Should be the collection ID to access
      * args[1] Should be the document ID to store in the collection
      */
-    public static void run(www.rokzasok.rs.euprava.exist.AuthenticationUtilities.ConnectionProperties conn, String args[]) throws Exception {
+    public static void run(com.rokzasok.sluzbenik.exist.AuthenticationUtilities.ConnectionProperties conn, String args[]) throws Exception {
        
 
     	System.out.println("[INFO] " + RetrieveDigitalCertificate.class.getSimpleName());
