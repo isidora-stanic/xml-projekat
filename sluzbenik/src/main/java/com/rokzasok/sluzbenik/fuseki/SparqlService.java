@@ -1,5 +1,8 @@
 package com.rokzasok.sluzbenik.fuseki;
 
+import com.rokzasok.sluzbenik.fuseki.util.MetadataExtractor;
+import com.rokzasok.sluzbenik.fuseki.util.SparqlAuthenticationUtilities;
+import com.rokzasok.sluzbenik.fuseki.util.SparqlUtil;
 import org.apache.jena.query.QueryExecution;
 import org.apache.jena.query.QueryExecutionFactory;
 import org.apache.jena.query.ResultSet;
@@ -12,9 +15,6 @@ import org.apache.jena.update.UpdateProcessor;
 import org.apache.jena.update.UpdateRequest;
 import org.springframework.stereotype.Service;
 import org.xml.sax.SAXException;
-import www.rokzasok.rs.euprava.sparql.util.MetadataExtractor;
-import www.rokzasok.rs.euprava.sparql.util.SparqlAuthenticationUtilities;
-import www.rokzasok.rs.euprava.sparql.util.SparqlUtil;
 
 import javax.xml.transform.TransformerException;
 import java.io.ByteArrayOutputStream;
