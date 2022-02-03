@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<obr:obrazac_saglasnosti 
+    xmlns:obr="http://www.rokzasok.rs/gradjanin/obrazac-saglasnosti"
+    xmlns:tip="http://www.rokzasok.rs/tipovi"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.rokzasok.rs/gradjanin/obrazac-saglasnosti schema/obrazac_saglasnosti.xsd">
+    <obr:evidencija_pacijent>
+        <obr:pacijent>
+            <obr:drzavljanstvo>
+                <obr:srpsko>
+                    <tip:JMBG>1234567890123</tip:JMBG>
+                </obr:srpsko>
+            </obr:drzavljanstvo>
+            <obr:pacijent_info>
+                <obr:jmbg>1234567890123</obr:jmbg>
+                <obr:ime>Isidora</obr:ime>
+                <obr:prezime>Stanić</obr:prezime>
+                <obr:pol>Z</obr:pol>
+                <obr:datum_rodjenja>2007-10-26</obr:datum_rodjenja>
+                <obr:adresa>
+                    <obr:Mesto>Novi Sad</obr:Mesto>
+                    <obr:Ulica>Ulica</obr:Ulica>
+                    <obr:Broj>3</obr:Broj>
+                </obr:adresa>
+            </obr:pacijent_info>
+            <obr:kontakt>
+                <obr:tel_fiksni>0211234567</obr:tel_fiksni>
+                <obr:tel_mobilni>0601234568</obr:tel_mobilni>
+                <obr:email>isimail@mail.com</obr:email>
+            </obr:kontakt>
+            <obr:radni_status>student</obr:radni_status>
+            <obr:zanimanje>nista</obr:zanimanje>
+            <obr:socijalna_zastita>
+                <obr:korisnik>false</obr:korisnik>
+                <obr:sediste>
+                    <obr:naziv></obr:naziv>
+                    <obr:opstina></obr:opstina>
+                </obr:sediste>
+            </obr:socijalna_zastita>
+            <obr:ime_roditelja>Rade</obr:ime_roditelja>
+            <obr:mesto_rodjenja>Novi Sad</obr:mesto_rodjenja>
+        </obr:pacijent>
+        <obr:saglasnost>
+            <obr:izjava>false</obr:izjava>
+            <obr:naziv_leka>Pheizer</obr:naziv_leka>
+        </obr:saglasnost>
+    </obr:evidencija_pacijent>
+    <obr:evidencija_vakcinacija>
+        <obr:ustanova>
+            <obr:naziv>VMA</obr:naziv>
+            <obr:punkt>Punkt 11</obr:punkt>
+        </obr:ustanova>
+        <obr:lekar>
+            <obr:fax>0211234567</obr:fax>
+            <obr:ime>Žika</obr:ime>
+            <obr:prezime>Žikić</obr:prezime>
+            <obr:telefon>0601234567</obr:telefon>
+        </obr:lekar>
+        <obr:tabela>
+            <!--1 or more repetitions:-->
+            <obr:doza>
+                <obr:tip>AstraZeneca-Oxford</obr:tip>
+                <obr:proizvodjac>Gamaleya Institute</obr:proizvodjac>
+                <obr:datum>2013-05-22+02:00</obr:datum>
+                <obr:broj_serije>string</obr:broj_serije>
+                <obr:broj_doze>201</obr:broj_doze>
+                <obr:ustanova>
+                    <obr:naziv>VMA</obr:naziv>
+                    <obr:mesto>Punkt 3</obr:mesto>
+                </obr:ustanova>
+            </obr:doza>
+            <obr:privremene_kontraindikacije>
+                <obr:datum>2002-11-05</obr:datum>
+                <obr:dijagnoza></obr:dijagnoza>
+            </obr:privremene_kontraindikacije>
+            <obr:odluka_komisije>false</obr:odluka_komisije>
+        </obr:tabela>
+    </obr:evidencija_vakcinacija>
+    <obr:dokument_id>1234567</obr:dokument_id>
+</obr:obrazac_saglasnosti>

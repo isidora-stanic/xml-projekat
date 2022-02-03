@@ -1,0 +1,198 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified"
+    targetNamespace="http://www.rokzasok.rs/gradjanin/obrazac-saglasnosti"
+    xmlns:os="http://www.rokzasok.rs/gradjanin/obrazac-saglasnosti"
+    xmlns:tp="http://www.rokzasok.rs/tipovi">
+    <xs:import namespace="http://www.rokzasok.rs/tipovi" schemaLocation="tipovi.xsd"/>
+    <xs:element name="obrazac_saglasnosti">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="evidencija_pacijent">
+                    <xs:complexType>
+                        <xs:sequence>
+                            <xs:element name="pacijent">
+                                <xs:complexType>
+                                    <xs:sequence>
+                                        <xs:element name="drzavljanstvo" type="os:TDrzavljanstvo"/>
+                                        <xs:element name="pacijent_info" type="os:T_osoba"/>
+                                        <xs:element name="kontakt">
+                                            <xs:complexType>
+                                                <xs:sequence>
+                                                  <xs:element name="tel_fiksni" type="tp:T_fiksni"/>
+                                                  <xs:element name="tel_mobilni" type="tp:T_mobilni"/>
+                                                  <xs:element name="email" type="tp:T_email"/>
+                                                </xs:sequence>
+                                            </xs:complexType>
+                                        </xs:element>
+                                        <xs:element name="radni_status">
+                                            <xs:simpleType>
+                                                <xs:restriction base="xs:string">
+                                                  <xs:enumeration value="zaposlen"/>
+                                                  <xs:enumeration value="nezaposlen"/>
+                                                  <xs:enumeration value="penzioner"/>
+                                                  <xs:enumeration value="ucenik"/>
+                                                  <xs:enumeration value="student"/>
+                                                  <xs:enumeration value="dete"/>
+                                                </xs:restriction>
+                                            </xs:simpleType>
+                                        </xs:element>
+                                        <xs:element name="zanimanje">
+                                            <xs:simpleType>
+                                                <xs:restriction base="xs:string">
+                                                  <xs:enumeration value="zdravstvena zastita"/>
+                                                  <xs:enumeration value="socijalna zastita"/>
+                                                  <xs:enumeration value="prosveta"/>
+                                                  <xs:enumeration value="mup"/>
+                                                  <xs:enumeration value="vojska rs"/>
+                                                  <xs:enumeration value="drugo"/>
+                                                  <xs:enumeration value="nista"/>
+                                                </xs:restriction>
+                                            </xs:simpleType>
+                                        </xs:element>
+                                        <xs:element name="socijalna_zastita">
+                                            <xs:complexType>
+                                                <xs:sequence>
+                                                  <xs:element name="korisnik" type="xs:boolean"/>
+                                                  <xs:element minOccurs="1" name="sediste">
+                                                  <xs:complexType>
+                                                  <xs:sequence>
+                                                  <xs:element name="naziv" type="xs:string"/>
+                                                  <xs:element name="opstina" type="xs:string"/>
+                                                  </xs:sequence>
+                                                  </xs:complexType>
+                                                  </xs:element>
+                                                </xs:sequence>
+                                            </xs:complexType>
+                                        </xs:element>
+                                        <xs:element name="ime_roditelja" type="xs:string"/>
+                                        <xs:element name="mesto_rodjenja" type="xs:string"/>
+                                    </xs:sequence>
+                                </xs:complexType>
+                            </xs:element>
+                            <xs:element name="saglasnost">
+                                <xs:complexType>
+                                    <xs:sequence>
+                                        <xs:element name="izjava" type="xs:boolean"/>
+                                        <xs:element name="naziv_leka" type="xs:string"/>
+                                    </xs:sequence>
+                                </xs:complexType>
+                            </xs:element>
+                        </xs:sequence>
+                    </xs:complexType>
+                </xs:element>
+                <xs:element name="evidencija_vakcinacija">
+                    <xs:complexType>
+                        <xs:sequence>
+                            <xs:element name="ustanova">
+                                <xs:complexType>
+                                    <xs:sequence>
+                                        <xs:element name="naziv" type="xs:string"/>
+                                        <xs:element name="punkt" type="xs:string"/>
+                                    </xs:sequence>
+                                </xs:complexType>
+                            </xs:element>
+                            <xs:element name="lekar">
+                                <xs:complexType>
+                                    <xs:sequence>
+                                        <xs:element name="fax" type="tp:T_fiksni"/>
+                                        <xs:element name="ime" type="xs:string"/>
+                                        <xs:element name="prezime" type="xs:string"/>
+                                        <xs:element name="telefon" type="xs:string"/>
+                                    </xs:sequence>
+                                </xs:complexType>
+                            </xs:element>
+                            <xs:element name="tabela">
+                                <xs:complexType>
+                                    <xs:sequence>
+                                        <xs:element maxOccurs="unbounded" minOccurs="1" name="doza"
+                                            type="os:T_doza"/>
+                                        <xs:element name="privremene_kontraindikacije">
+                                            <xs:complexType>
+                                                <xs:sequence>
+                                                  <xs:element name="datum" type="xs:date"/>
+                                                  <xs:element name="dijagnoza" type="xs:string"/>
+                                                </xs:sequence>
+                                            </xs:complexType>
+                                        </xs:element>
+                                        <xs:element name="odluka_komisije" type="xs:boolean"/>
+                                    </xs:sequence>
+                                </xs:complexType>
+                            </xs:element>
+                        </xs:sequence>
+                    </xs:complexType>
+                </xs:element>
+                <xs:element name="dokument_id" type="xs:positiveInteger"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:complexType name="TDrzavljanstvo">
+        <xs:choice>
+            <xs:element name="strano">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element name="drzava" type="xs:string"/>
+                        <xs:element ref="tp:broj_pasosa"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="srpsko">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element ref="tp:JMBG"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+        </xs:choice>
+    </xs:complexType>
+    <xs:complexType name="T_osoba">
+        <xs:sequence>
+            <xs:element name="jmbg" type="tp:T_JMBG"/>
+            <xs:element name="ime" type="xs:string"/>
+            <xs:element name="prezime" type="xs:string"/>
+            <xs:element name="pol" type="tp:T_pol"/>
+            <xs:element name="datum_rodjenja" type="xs:date"/>
+            <xs:element name="adresa" type="os:T_adresa"/>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="T_doza">
+        <xs:sequence>
+            <xs:element name="tip">
+                <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                        <xs:enumeration value="Pfeizer-BioNTech"/>
+                        <xs:enumeration value="Sinopharm Verocell inactivated COVID-19 vaccine"/>
+                        <xs:enumeration value="Sputnik V"/>
+                        <xs:enumeration value="AstraZeneca-Oxford"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element name="proizvodjac">
+                <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                        <xs:enumeration value="BioNTech Manufacturing GMBH"/>
+                        <xs:enumeration value="Sinopharm"/>
+                        <xs:enumeration value="Gamaleya Institute"/>
+                        <xs:enumeration value="Oxford"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element name="datum" type="xs:date"/>
+            <xs:element name="broj_serije" type="xs:string"/>
+            <xs:element name="broj_doze" type="xs:positiveInteger"/>
+            <xs:element name="ustanova" type="os:T_ustanova"/>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="T_adresa">
+        <xs:sequence>
+            <xs:element name="Mesto" type="xs:string"/>
+            <xs:element name="Ulica" type="xs:string"/>
+            <xs:element name="Broj" type="xs:int"/>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="T_ustanova">
+        <xs:sequence>
+            <xs:element name="naziv" type="xs:string"/>
+            <xs:element name="mesto" type="xs:string"/>
+        </xs:sequence>
+    </xs:complexType>
+</xs:schema>

@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<is:obrazac_interesovanja xmlns:ns1="http://www.rokzasok.rs/tipovi"
+                          xmlns="http://www.w3.org/ns/rdfa#"
+                          xmlns:pred="http://www.rokzasok.rs/rdf/database/predicate/"
+                          xmlns:is="http://www.rokzasok.rs/gradjanin/iskazivanje-interesovanja"
+                          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                          xmlns:xs="http://www.w3.org/2001/XMLSchema#"
+                          xsi:schemaLocation="http://www.rokzasok.rs/gradjanin/iskazivanje-interesovanja schema/iskazivanje_interesovanja.xsd">
+    <is:podaci_o_osobi vocab="http://www.rokzasok.rs/rdf/database/predicate" about="http://www.rokzasok.rs/rdf/database/osoba/1001999980035">
+        <is:drzavljanstvo>Državljanin Republike Srbije</is:drzavljanstvo>
+        <ns1:JMBG>1001999980035</ns1:JMBG>
+        <is:ime>Jovan</is:ime>
+        <is:prezime>Đorđić</is:prezime>
+        <is:email datatype="xs:string" property="pred:email">jovan.d@mail.info</is:email>
+        <is:broj_mobilnog_telefona>066488755</is:broj_mobilnog_telefona>
+        <is:broj_fiksnog_telefona property="pred:brojFiksnogTelefona" datatype="xs:string">021666877</is:broj_fiksnog_telefona>
+    </is:podaci_o_osobi>
+    <is:opsti_podaci
+            vocab="http://www.rokzasok.rs/rdf/database/predicate"
+            about="http://www.rokzasok.rs/rdf/database/iskazivanje-interesovanja/1"
+            rel="pred:kreiranOdStrane" href="http://www.rokzasok.rs/rdf/database/osoba/1001999980035">
+        <is:lokacija_opstina datatype="xs:string" property="pred:lokacijaOpstina">Novi Sad</is:lokacija_opstina>
+        <is:tip_vakcine property="pred:tipVakcine" datatype="xs:string">Pfizer-BioNtech</is:tip_vakcine>
+        <is:davalac_krvi datatype="xs:boolean" property="pred:davalacKrvi">false</is:davalac_krvi>
+        <is:datum_podnosenja property="pred:datumPodnosenja" datatype="xs:date">2022-01-03</is:datum_podnosenja>
+    </is:opsti_podaci>
+    <is:dokument_id>1</is:dokument_id>
+</is:obrazac_interesovanja>

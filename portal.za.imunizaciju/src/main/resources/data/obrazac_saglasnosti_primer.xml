@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<os:obrazac_saglasnosti xmlns:os="http://www.rokzasok.rs/gradjanin/obrazac-saglasnosti"
+                        xmlns:tp="http://www.rokzasok.rs/tipovi"
+                        xmlns="http://www.w3.org/ns/rdfa#"
+                        xmlns:pred="http://www.rokzasok.rs/rdf/database/predicate/"
+                        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                        xsi:schemaLocation="http://www.rokzasok.rs/gradjanin/obrazac-saglasnosti schema/obrazac_saglasnosti.xsd"
+                        xmlns:xs="http://www.w3.org/2001/XMLSchema#">
+    <os:evidencija_pacijent>
+        <os:pacijent vocab="http://www.rokzasok.rs/rdf/database/predicate" about="http://www.rokzasok.rs/rdf/database/osoba/1234567890123">
+            <os:drzavljanstvo>
+                <os:srpsko>
+                    <tp:JMBG>1234567890123</tp:JMBG>
+                </os:srpsko>
+            </os:drzavljanstvo>
+            <os:pacijent_info>
+                <os:jmbg>1234567890123</os:jmbg>
+                <os:ime>Isidora</os:ime>
+                <os:prezime>Stanić</os:prezime>
+                <os:pol datatype="xs:string" property="pred:pol">Z</os:pol>
+                <os:datum_rodjenja property="pred:datumRodjenja" datatype="xs:date">2006-05-04</os:datum_rodjenja>
+                <os:adresa>
+                    <os:Mesto>Novi Sad</os:Mesto>
+                    <os:Ulica>Ulica</os:Ulica>
+                    <os:Broj>3</os:Broj>
+                </os:adresa>
+            </os:pacijent_info>
+            <os:kontakt>
+                <os:tel_fiksni datatype="xs:string" property="pred:brojFiksnogTelefona">0211234567</os:tel_fiksni>
+                <os:tel_mobilni>0601234568</os:tel_mobilni>
+                <os:email property="pred:email" datatype="xs:string">isimail@mail.com</os:email>
+            </os:kontakt>
+            <os:radni_status>student</os:radni_status>
+            <os:zanimanje>nista</os:zanimanje>
+            <os:socijalna_zastita>
+                <os:korisnik>false</os:korisnik>
+                <os:sediste>
+                    <os:naziv>naziv 1</os:naziv>
+                    <os:opstina>opstina 1</os:opstina>
+                </os:sediste>
+            </os:socijalna_zastita>
+            <os:ime_roditelja>Rade</os:ime_roditelja>
+            <os:mesto_rodjenja>Novi Sad</os:mesto_rodjenja>
+        </os:pacijent>
+        <os:saglasnost>
+            <os:izjava>false</os:izjava>
+            <os:naziv_leka>Pfizer</os:naziv_leka>
+        </os:saglasnost>
+    </os:evidencija_pacijent>
+    <os:evidencija_vakcinacija>
+        <os:ustanova>
+            <os:naziv>VMA</os:naziv>
+            <os:punkt>punkt 11</os:punkt>
+        </os:ustanova>
+        <os:lekar>
+            <os:fax>0211234567</os:fax>
+            <os:ime>Žika</os:ime>
+            <os:prezime>Žikić</os:prezime>
+            <os:telefon>0601234567</os:telefon>
+        </os:lekar>
+        <os:tabela>
+            <os:doza vocab="http://www.rokzasok.rs/rdf/database/predicate" rel="pred:saglasnost" about="http://www.rokzasok.rs/rdf/database/doza/1" href="http://www.rokzasok.rs/rdf/database/obrazac-saglasnosti/1">
+                <os:tip>AstraZeneca</os:tip>
+                <os:proizvodjac>Gamaleya Institute</os:proizvodjac>
+                <os:datum>2013-05-22+02:00</os:datum>
+                <os:broj_serije>broj_serije</os:broj_serije>
+                <os:broj_doze>50</os:broj_doze>
+                <os:ustanova>
+                    <os:naziv>VMA</os:naziv>
+                    <os:mesto>punkt 11</os:mesto>
+                </os:ustanova>
+            </os:doza>
+            <os:privremene_kontraindikacije>
+                <os:datum>2006-05-04</os:datum>
+                <os:dijagnoza>dijagnoza 1</os:dijagnoza>
+            </os:privremene_kontraindikacije>
+            <os:odluka_komisije>false</os:odluka_komisije>
+        </os:tabela>
+    </os:evidencija_vakcinacija>
+    <os:dokument_info vocab="http://www.rokzasok.rs/rdf/database/predicate" about="http://www.rokzasok.rs/rdf/database/obrazac-saglasnosti/1" rel="pred:kreiranOdStrane" href="http://www.rokzasok.rs/rdf/database/osoba/1234567890123">
+        <os:dokument_id>1</os:dokument_id>
+    </os:dokument_info>
+</os:obrazac_saglasnosti>

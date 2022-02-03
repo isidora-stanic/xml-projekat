@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ds:digitalni_sertifikat xmlns:ds="http://www.rokzasok.rs/sluzbenik/digitalni-sertifikat" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.rokzasok.rs/sluzbenik/digitalni-sertifikat schema/digitalni_sertifikat.xsd">
+    <ds:gradjanin>
+        <!-- Ovo može da bude tabela "Osoba/Građanin" -->
+        <ds:jmbg>1234567890231</ds:jmbg>
+        <ds:ime>Isi</ds:ime>
+        <ds:prezime>Isi</ds:prezime>
+        <ds:pol>M</ds:pol>
+        <ds:datum_rodjenja>1999-12-10</ds:datum_rodjenja>
+        <ds:adresa>
+            <ds:Mesto>NS</ds:Mesto>
+            <ds:Ulica>Ul</ds:Ulica>
+            <ds:Broj>1234</ds:Broj>
+        </ds:adresa>
+        <ds:broj_pasosa>123456789</ds:broj_pasosa>
+    </ds:gradjanin>
+    <ds:vakcinacija>
+        <ds:doza>
+            <ds:tip>Pfeizer-BioNTech</ds:tip> <!-- Ovo može da bude veza ka tabeli "Vakcina/Tip vakcine" -->
+            <ds:proizvodjac>BioNTech Manufacturing GMBH</ds:proizvodjac> <!-- Ovo može da bude veza ka tabeli "Proizvođač vakcine" ILI JOŠ BOLJE - Tip Vakcine proizvodi proizvođač, proizvođač proizvodi tip vakcine -->
+            <ds:datum>2021-03-05</ds:datum>
+            <ds:broj_serije>2345</ds:broj_serije>
+            <ds:broj_doze>1</ds:broj_doze>
+            <ds:ustanova>
+                <ds:naziv>VMA</ds:naziv>
+                <ds:mesto>BG</ds:mesto>
+            </ds:ustanova>
+        </ds:doza>
+    </ds:vakcinacija>
+    <ds:testovi>
+        <ds:test>
+            <ds:naziv>ewasdtfg</ds:naziv>
+            <ds:opis>asfdghj</ds:opis>
+            <ds:vrsta_uzorka>N/A</ds:vrsta_uzorka>
+            <ds:proizvodjac>N/A</ds:proizvodjac>
+            <ds:datum_i_vreme_uzorkovanja>N/A</ds:datum_i_vreme_uzorkovanja>
+            <ds:datum_i_vreme_rezultata>N/A</ds:datum_i_vreme_rezultata>
+            <ds:rezultat>N/A</ds:rezultat>
+            <ds:laboratorija>N/A</ds:laboratorija>
+        </ds:test>
+        <ds:test>
+            <ds:naziv>N/A</ds:naziv>
+            <ds:opis>N/A</ds:opis>
+            <ds:vrsta_uzorka>N/A</ds:vrsta_uzorka>
+            <ds:proizvodjac>N/A</ds:proizvodjac>
+            <ds:datum_i_vreme_uzorkovanja>N/A</ds:datum_i_vreme_uzorkovanja>
+            <ds:datum_i_vreme_rezultata>N/A</ds:datum_i_vreme_rezultata>
+            <ds:rezultat>N/A</ds:rezultat>
+            <ds:laboratorija>N/A</ds:laboratorija>
+        </ds:test>
+        <ds:test>
+            <ds:naziv>N/A</ds:naziv>
+            <ds:opis>N/A</ds:opis>
+            <ds:vrsta_uzorka>N/A</ds:vrsta_uzorka>
+            <ds:proizvodjac>N/A</ds:proizvodjac>
+            <ds:datum_i_vreme_uzorkovanja>N/A</ds:datum_i_vreme_uzorkovanja>
+            <ds:datum_i_vreme_rezultata>N/A</ds:datum_i_vreme_rezultata>
+            <ds:rezultat>N/A</ds:rezultat>
+            <ds:laboratorija>N/A</ds:laboratorija>
+        </ds:test>
+    </ds:testovi>
+    <ds:info_o_sertifikatu>
+        <ds:qr_link>www.google.com</ds:qr_link>
+        <ds:datum>2021-12-30</ds:datum>
+        <ds:broj_sertifikata>123456</ds:broj_sertifikata>
+    </ds:info_o_sertifikatu>
+    <ds:dokument_id>123456</ds:dokument_id>
+</ds:digitalni_sertifikat>

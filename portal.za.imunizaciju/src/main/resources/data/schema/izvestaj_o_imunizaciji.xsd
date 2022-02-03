@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified"
+    targetNamespace="http://www.rokzasok.rs/sluzbenik/izvestaj-o-imunizaciji"
+    xmlns:ioi="http://www.rokzasok.rs/sluzbenik/izvestaj-o-imunizaciji">
+
+    <xs:element name="izvestaj_o_imunizaciji">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="br_interesovanja" type="xs:positiveInteger"/>
+                <xs:element name="br_primljenih_zahteva_za_sertifikat" type="xs:positiveInteger"/>
+                <xs:element name="br_izdatih_zahteva_za_sertifikat" type="xs:positiveInteger"/>
+                <xs:element name="doze_vakcina">
+                    <xs:complexType>
+                        <xs:sequence>
+                            <xs:element maxOccurs="unbounded" minOccurs="1" name="doza">
+                                <xs:complexType>
+                                    <xs:sequence>
+                                        <xs:element name="redni_broj_doze" type="xs:positiveInteger"/>
+                                        <xs:element name="broj_datih" type="xs:positiveInteger"/>
+                                    </xs:sequence>
+                                </xs:complexType>
+                            </xs:element>
+                        </xs:sequence>
+                    </xs:complexType>
+                </xs:element>
+                <xs:element name="raspodela_po_proizvodjacima">
+                    <xs:complexType>
+                        <xs:sequence>
+                            <xs:element name="proizvodjac" maxOccurs="unbounded" minOccurs="1">
+                                <xs:complexType>
+                                    <xs:sequence>
+                                        <xs:element name="naziv">
+                                            <xs:simpleType>
+                                                <xs:restriction base="xs:string">
+                                                  <xs:enumeration value="Pfizer, BioNTech"/>
+                                                  <xs:enumeration value="Sinopharm"/>
+                                                  <xs:enumeration value="Sputnik V"/>
+                                                  <xs:enumeration value="AstraZeneca, Oxford"/>
+                                                </xs:restriction>
+                                            </xs:simpleType>
+                                        </xs:element>
+                                        <xs:element name="broj_primljenih_doza"
+                                            type="xs:positiveInteger"/>
+                                    </xs:sequence>
+                                </xs:complexType>
+                            </xs:element>
+                        </xs:sequence>
+                    </xs:complexType>
+                </xs:element>
+                <xs:element name="datum_izdavanja" type="xs:date"/>
+                <xs:element name="period_izvestaja">
+                    <xs:complexType>
+                        <xs:sequence>
+                            <xs:element name="od" type="xs:date"/>
+                            <xs:element name="do" type="xs:date"/>
+                        </xs:sequence>
+                    </xs:complexType>
+                </xs:element>
+                <xs:element name="dokument_id" type="xs:positiveInteger"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+</xs:schema>

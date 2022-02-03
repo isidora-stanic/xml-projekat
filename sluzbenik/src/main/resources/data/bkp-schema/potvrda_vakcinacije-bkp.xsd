@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified"
+           targetNamespace="http://www.rokzasok.rs/zdravstveni-radnik/potvrda-vakcinacije"
+           xmlns="http://www.rokzasok.rs/zdravstveni-radnik/potvrda-vakcinacije"
+           xmlns:tp="http://www.rokzasok.rs/tipovi">
+    <!-- 
+        Definition: Vaccination certificate document type
+        Author: Matija Matovic -->
+
+    <xs:import namespace="http://www.rokzasok.rs/tipovi" schemaLocation="tipovi.xsd"/>
+
+    <xs:element name="potvrda-vakcinacije">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="osoba">
+                    <xs:complexType>
+                        <xs:sequence>
+                            <xs:element name="jmbg" type="tp:T_JMBG"/>
+                            <xs:element name="ime" type="xs:string"/>
+                            <xs:element name="prezime" type="xs:string"/>
+                            <xs:element name="pol" type="tp:T_pol"/>
+                            <xs:element name="datum_rodjenja" type="xs:date"/>
+                        </xs:sequence>
+                    </xs:complexType>
+                </xs:element>
+
+                <xs:element name="doze">
+                    <xs:complexType>
+                        <xs:sequence minOccurs="2" maxOccurs="unbounded">
+                            <xs:element name="doza" type="T_doza"/>
+                        </xs:sequence>
+                    </xs:complexType>
+                </xs:element>
+                <xs:element name="razlog_izdavanja" type="xs:string"/>
+                <xs:element name="datum_izdavanja" type="xs:date"/>
+                <xs:element name="dokument_id" type="xs:positiveInteger"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+
+    <xs:complexType name="T_osoba">
+        <xs:sequence>
+            <xs:element name="jmbg" type="tp:T_JMBG"/>
+            <xs:element name="ime" type="xs:string"/>
+            <xs:element name="prezime" type="xs:string"/>
+            <xs:element name="pol" type="tp:T_pol"/>
+            <xs:element name="datum_rodjenja" type="xs:date"/>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="T_doza">
+        <xs:sequence>
+            <xs:element name="tip">
+                <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                        <xs:enumeration value="Pfeizer-BioNTech"/>
+                        <xs:enumeration value="Sinopharm Verocell inactivated COVID-19 vaccine"/>
+                        <xs:enumeration value="Sputnik V"/>
+                        <xs:enumeration value="AstraZeneca-Oxford"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element name="proizvodjac">
+                <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                        <xs:enumeration value="BioNTech Manufacturing GMBH"/>
+                        <xs:enumeration value="Sinopharm"/>
+                        <xs:enumeration value="Gamaleya Institute"/>
+                        <xs:enumeration value="Oxford"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element name="datum" type="xs:date"/>
+            <xs:element name="broj_serije" type="xs:string"/>
+            <xs:element name="broj_doze" type="xs:positiveInteger"/>
+            <xs:element name="ustanova" type="T_ustanova"/>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="T_ustanova">
+        <xs:sequence>
+            <xs:element name="naziv" type="xs:string"/>
+            <xs:element name="mesto" type="xs:string"/>
+        </xs:sequence>
+    </xs:complexType>
+</xs:schema>

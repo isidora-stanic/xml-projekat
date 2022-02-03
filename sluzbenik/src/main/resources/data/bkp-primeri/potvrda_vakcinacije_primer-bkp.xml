@@ -1,0 +1,38 @@
+<potvrda-vakcinacije xmlns:xs="http://www.w3.org/2001/XMLSchema-instance"
+                         xmlns="http://www.rokzasok.rs/zdravstveni-radnik/potvrda-vakcinacije"
+                         xs:schemaLocation="http://www.rokzasok.rs/zdravstveni-radnik/potvrda-vakcinacije schema/potvrda_vakcinacije.xsd">
+  <osoba>
+    <jmbg>1234567890123</jmbg>
+    <ime>Zdravko</ime>
+    <prezime>Krivokapic</prezime>
+    <pol>Z</pol>
+    <datum_rodjenja>1976-10-26</datum_rodjenja>
+  </osoba>
+  <doze>
+    <doza>
+      <tip>Pfeizer-BioNTech</tip>
+      <proizvodjac>BioNTech Manufacturing GMBH</proizvodjac>
+      <datum>2020-08-19+02:00</datum>
+      <broj_serije>string</broj_serije>
+      <broj_doze>1</broj_doze>
+      <ustanova>
+        <naziv>Dom zdravlja</naziv>
+        <mesto>Uzice</mesto>
+      </ustanova>
+    </doza>
+    <doza>
+      <tip>Sputnik V</tip>
+      <proizvodjac>BioNTech Manufacturing GMBH</proizvodjac>
+      <datum>2020-09-15</datum>
+      <broj_serije>string</broj_serije>
+      <broj_doze>2</broj_doze>
+      <ustanova>
+        <naziv>Sajam</naziv>
+        <mesto>Novi Sad</mesto>
+      </ustanova>
+    </doza>
+  </doze>
+  <razlog_izdavanja>Putovanje u Njemacku</razlog_izdavanja>
+  <datum_izdavanja>2013-12-21+01:00</datum_izdavanja>
+  <dokument_id>12345678</dokument_id>
+</potvrda-vakcinacije>
