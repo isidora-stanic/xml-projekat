@@ -1,18 +1,19 @@
 
 package com.rokzasok.sluzbenik.dokumenti.izvestaj_o_imunizaciji;
 
+import com.rokzasok.sluzbenik.interfaces.Identifiable;
+
 import javax.xml.bind.annotation.*;
 import javax.xml.datatype.XMLGregorianCalendar;
-import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.List;
 
 
 /**
  * <p>Java class for anonymous complex type.
- * 
+ *
  * <p>The following schema fragment specifies the expected content contained within this class.
- * 
+ *
  * <pre>
  * &lt;complexType&gt;
  *   &lt;complexContent&gt;
@@ -93,32 +94,30 @@ import java.util.List;
  *   &lt;/complexContent&gt;
  * &lt;/complexType&gt;
  * </pre>
- * 
- * 
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "", propOrder = {
-    "brInteresovanja",
-    "brPrimljenihZahtevaZaSertifikat",
-    "brIzdatihZahtevaZaSertifikat",
-    "dozeVakcina",
-    "raspodelaPoProizvodjacima",
-    "datumIzdavanja",
-    "periodIzvestaja",
-    "dokumentId"
+        "brInteresovanja",
+        "brPrimljenihZahtevaZaSertifikat",
+        "brIzdatihZahtevaZaSertifikat",
+        "dozeVakcina",
+        "raspodelaPoProizvodjacima",
+        "datumIzdavanja",
+        "periodIzvestaja",
+        "dokumentId"
 })
 @XmlRootElement(name = "izvestaj_o_imunizaciji", namespace = "http://www.rokzasok.rs/sluzbenik/izvestaj-o-imunizaciji")
-public class IzvestajOImunizaciji {
+public class IzvestajOImunizaciji implements Identifiable {
 
     @XmlElement(name = "br_interesovanja", namespace = "http://www.rokzasok.rs/sluzbenik/izvestaj-o-imunizaciji", required = true)
     @XmlSchemaType(name = "positiveInteger")
-    protected BigInteger brInteresovanja;
+    protected Long brInteresovanja;
     @XmlElement(name = "br_primljenih_zahteva_za_sertifikat", namespace = "http://www.rokzasok.rs/sluzbenik/izvestaj-o-imunizaciji", required = true)
     @XmlSchemaType(name = "positiveInteger")
-    protected BigInteger brPrimljenihZahtevaZaSertifikat;
+    protected Long brPrimljenihZahtevaZaSertifikat;
     @XmlElement(name = "br_izdatih_zahteva_za_sertifikat", namespace = "http://www.rokzasok.rs/sluzbenik/izvestaj-o-imunizaciji", required = true)
     @XmlSchemaType(name = "positiveInteger")
-    protected BigInteger brIzdatihZahtevaZaSertifikat;
+    protected Long brIzdatihZahtevaZaSertifikat;
     @XmlElement(name = "doze_vakcina", namespace = "http://www.rokzasok.rs/sluzbenik/izvestaj-o-imunizaciji", required = true)
     protected DozeVakcina dozeVakcina;
     @XmlElement(name = "raspodela_po_proizvodjacima", namespace = "http://www.rokzasok.rs/sluzbenik/izvestaj-o-imunizaciji", required = true)
@@ -130,87 +129,73 @@ public class IzvestajOImunizaciji {
     protected PeriodIzvestaja periodIzvestaja;
     @XmlElement(name = "dokument_id", namespace = "http://www.rokzasok.rs/sluzbenik/izvestaj-o-imunizaciji", required = true)
     @XmlSchemaType(name = "positiveInteger")
-    protected BigInteger dokumentId;
+    protected Long dokumentId;
 
     /**
      * Gets the value of the brInteresovanja property.
-     * 
-     * @return
-     *     possible object is
-     *     {@link BigInteger }
-     *     
+     *
+     * @return possible object is
+     * {@link Long }
      */
-    public BigInteger getBrInteresovanja() {
+    public Long getBrInteresovanja() {
         return brInteresovanja;
     }
 
     /**
      * Sets the value of the brInteresovanja property.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link BigInteger }
-     *     
+     *
+     * @param value allowed object is
+     *              {@link Long }
      */
-    public void setBrInteresovanja(BigInteger value) {
+    public void setBrInteresovanja(Long value) {
         this.brInteresovanja = value;
     }
 
     /**
      * Gets the value of the brPrimljenihZahtevaZaSertifikat property.
-     * 
-     * @return
-     *     possible object is
-     *     {@link BigInteger }
-     *     
+     *
+     * @return possible object is
+     * {@link Long }
      */
-    public BigInteger getBrPrimljenihZahtevaZaSertifikat() {
+    public Long getBrPrimljenihZahtevaZaSertifikat() {
         return brPrimljenihZahtevaZaSertifikat;
     }
 
     /**
      * Sets the value of the brPrimljenihZahtevaZaSertifikat property.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link BigInteger }
-     *     
+     *
+     * @param value allowed object is
+     *              {@link Long }
      */
-    public void setBrPrimljenihZahtevaZaSertifikat(BigInteger value) {
+    public void setBrPrimljenihZahtevaZaSertifikat(Long value) {
         this.brPrimljenihZahtevaZaSertifikat = value;
     }
 
     /**
      * Gets the value of the brIzdatihZahtevaZaSertifikat property.
-     * 
-     * @return
-     *     possible object is
-     *     {@link BigInteger }
-     *     
+     *
+     * @return possible object is
+     * {@link Long }
      */
-    public BigInteger getBrIzdatihZahtevaZaSertifikat() {
+    public Long getBrIzdatihZahtevaZaSertifikat() {
         return brIzdatihZahtevaZaSertifikat;
     }
 
     /**
      * Sets the value of the brIzdatihZahtevaZaSertifikat property.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link BigInteger }
-     *     
+     *
+     * @param value allowed object is
+     *              {@link Long }
      */
-    public void setBrIzdatihZahtevaZaSertifikat(BigInteger value) {
+    public void setBrIzdatihZahtevaZaSertifikat(Long value) {
         this.brIzdatihZahtevaZaSertifikat = value;
     }
 
     /**
      * Gets the value of the dozeVakcina property.
-     * 
-     * @return
-     *     possible object is
-     *     {@link DozeVakcina }
-     *     
+     *
+     * @return possible object is
+     * {@link DozeVakcina }
      */
     public DozeVakcina getDozeVakcina() {
         return dozeVakcina;
@@ -218,11 +203,9 @@ public class IzvestajOImunizaciji {
 
     /**
      * Sets the value of the dozeVakcina property.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link DozeVakcina }
-     *     
+     *
+     * @param value allowed object is
+     *              {@link DozeVakcina }
      */
     public void setDozeVakcina(DozeVakcina value) {
         this.dozeVakcina = value;
@@ -230,11 +213,9 @@ public class IzvestajOImunizaciji {
 
     /**
      * Gets the value of the raspodelaPoProizvodjacima property.
-     * 
-     * @return
-     *     possible object is
-     *     {@link RaspodelaPoProizvodjacima }
-     *     
+     *
+     * @return possible object is
+     * {@link RaspodelaPoProizvodjacima }
      */
     public RaspodelaPoProizvodjacima getRaspodelaPoProizvodjacima() {
         return raspodelaPoProizvodjacima;
@@ -242,11 +223,9 @@ public class IzvestajOImunizaciji {
 
     /**
      * Sets the value of the raspodelaPoProizvodjacima property.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link RaspodelaPoProizvodjacima }
-     *     
+     *
+     * @param value allowed object is
+     *              {@link RaspodelaPoProizvodjacima }
      */
     public void setRaspodelaPoProizvodjacima(RaspodelaPoProizvodjacima value) {
         this.raspodelaPoProizvodjacima = value;
@@ -254,11 +233,9 @@ public class IzvestajOImunizaciji {
 
     /**
      * Gets the value of the datumIzdavanja property.
-     * 
-     * @return
-     *     possible object is
-     *     {@link XMLGregorianCalendar }
-     *     
+     *
+     * @return possible object is
+     * {@link XMLGregorianCalendar }
      */
     public XMLGregorianCalendar getDatumIzdavanja() {
         return datumIzdavanja;
@@ -266,11 +243,9 @@ public class IzvestajOImunizaciji {
 
     /**
      * Sets the value of the datumIzdavanja property.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link XMLGregorianCalendar }
-     *     
+     *
+     * @param value allowed object is
+     *              {@link XMLGregorianCalendar }
      */
     public void setDatumIzdavanja(XMLGregorianCalendar value) {
         this.datumIzdavanja = value;
@@ -278,11 +253,9 @@ public class IzvestajOImunizaciji {
 
     /**
      * Gets the value of the periodIzvestaja property.
-     * 
-     * @return
-     *     possible object is
-     *     {@link PeriodIzvestaja }
-     *     
+     *
+     * @return possible object is
+     * {@link PeriodIzvestaja }
      */
     public PeriodIzvestaja getPeriodIzvestaja() {
         return periodIzvestaja;
@@ -290,11 +263,9 @@ public class IzvestajOImunizaciji {
 
     /**
      * Sets the value of the periodIzvestaja property.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link PeriodIzvestaja }
-     *     
+     *
+     * @param value allowed object is
+     *              {@link PeriodIzvestaja }
      */
     public void setPeriodIzvestaja(PeriodIzvestaja value) {
         this.periodIzvestaja = value;
@@ -302,34 +273,30 @@ public class IzvestajOImunizaciji {
 
     /**
      * Gets the value of the dokumentId property.
-     * 
-     * @return
-     *     possible object is
-     *     {@link BigInteger }
-     *     
+     *
+     * @return possible object is
+     * {@link Long }
      */
-    public BigInteger getDokumentId() {
+    public Long getDokumentId() {
         return dokumentId;
     }
 
     /**
      * Sets the value of the dokumentId property.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link BigInteger }
-     *     
+     *
+     * @param value allowed object is
+     *              {@link Long }
      */
-    public void setDokumentId(BigInteger value) {
+    public void setDokumentId(Long value) {
         this.dokumentId = value;
     }
 
 
     /**
      * <p>Java class for anonymous complex type.
-     * 
+     *
      * <p>The following schema fragment specifies the expected content contained within this class.
-     * 
+     *
      * <pre>
      * &lt;complexType&gt;
      *   &lt;complexContent&gt;
@@ -352,12 +319,10 @@ public class IzvestajOImunizaciji {
      *   &lt;/complexContent&gt;
      * &lt;/complexType&gt;
      * </pre>
-     * 
-     * 
      */
     @XmlAccessorType(XmlAccessType.FIELD)
     @XmlType(name = "", propOrder = {
-        "doza"
+            "doza"
     })
     public static class DozeVakcina {
 
@@ -366,25 +331,23 @@ public class IzvestajOImunizaciji {
 
         /**
          * Gets the value of the doza property.
-         * 
+         *
          * <p>
          * This accessor method returns a reference to the live list,
          * not a snapshot. Therefore any modification you make to the
          * returned list will be present inside the JAXB object.
          * This is why there is not a <CODE>set</CODE> method for the doza property.
-         * 
+         *
          * <p>
          * For example, to add a new item, do as follows:
          * <pre>
          *    getDoza().add(newItem);
          * </pre>
-         * 
-         * 
+         *
+         *
          * <p>
          * Objects of the following type(s) are allowed in the list
          * {@link Doza }
-         * 
-         * 
          */
         public List<Doza> getDoza() {
             if (doza == null) {
@@ -396,9 +359,9 @@ public class IzvestajOImunizaciji {
 
         /**
          * <p>Java class for anonymous complex type.
-         * 
+         *
          * <p>The following schema fragment specifies the expected content contained within this class.
-         * 
+         *
          * <pre>
          * &lt;complexType&gt;
          *   &lt;complexContent&gt;
@@ -411,68 +374,58 @@ public class IzvestajOImunizaciji {
          *   &lt;/complexContent&gt;
          * &lt;/complexType&gt;
          * </pre>
-         * 
-         * 
          */
         @XmlAccessorType(XmlAccessType.FIELD)
         @XmlType(name = "", propOrder = {
-            "redniBrojDoze",
-            "brojDatih"
+                "redniBrojDoze",
+                "brojDatih"
         })
         public static class Doza {
 
             @XmlElement(name = "redni_broj_doze", namespace = "http://www.rokzasok.rs/sluzbenik/izvestaj-o-imunizaciji", required = true)
             @XmlSchemaType(name = "positiveInteger")
-            protected BigInteger redniBrojDoze;
+            protected Long redniBrojDoze;
             @XmlElement(name = "broj_datih", namespace = "http://www.rokzasok.rs/sluzbenik/izvestaj-o-imunizaciji", required = true)
             @XmlSchemaType(name = "positiveInteger")
-            protected BigInteger brojDatih;
+            protected Long brojDatih;
 
             /**
              * Gets the value of the redniBrojDoze property.
-             * 
-             * @return
-             *     possible object is
-             *     {@link BigInteger }
-             *     
+             *
+             * @return possible object is
+             * {@link Long }
              */
-            public BigInteger getRedniBrojDoze() {
+            public Long getRedniBrojDoze() {
                 return redniBrojDoze;
             }
 
             /**
              * Sets the value of the redniBrojDoze property.
-             * 
-             * @param value
-             *     allowed object is
-             *     {@link BigInteger }
-             *     
+             *
+             * @param value allowed object is
+             *              {@link Long }
              */
-            public void setRedniBrojDoze(BigInteger value) {
+            public void setRedniBrojDoze(Long value) {
                 this.redniBrojDoze = value;
             }
 
             /**
              * Gets the value of the brojDatih property.
-             * 
-             * @return
-             *     possible object is
-             *     {@link BigInteger }
-             *     
+             *
+             * @return possible object is
+             * {@link Long }
              */
-            public BigInteger getBrojDatih() {
+            public Long getBrojDatih() {
                 return brojDatih;
             }
 
             /**
              * Sets the value of the brojDatih property.
-             * 
-             * @param value
-             *     allowed object is
-             *     {@link BigInteger }
-             *     
+             *
+             * @param value allowed object is
+             *              {@link Long }
              */
-            public void setBrojDatih(BigInteger value) {
+            public void setBrojDatih(Long value) {
                 this.brojDatih = value;
             }
 
@@ -483,9 +436,9 @@ public class IzvestajOImunizaciji {
 
     /**
      * <p>Java class for anonymous complex type.
-     * 
+     *
      * <p>The following schema fragment specifies the expected content contained within this class.
-     * 
+     *
      * <pre>
      * &lt;complexType&gt;
      *   &lt;complexContent&gt;
@@ -498,13 +451,11 @@ public class IzvestajOImunizaciji {
      *   &lt;/complexContent&gt;
      * &lt;/complexType&gt;
      * </pre>
-     * 
-     * 
      */
     @XmlAccessorType(XmlAccessType.FIELD)
     @XmlType(name = "", propOrder = {
-        "od",
-        "_do"
+            "od",
+            "_do"
     })
     public static class PeriodIzvestaja {
 
@@ -517,11 +468,9 @@ public class IzvestajOImunizaciji {
 
         /**
          * Gets the value of the od property.
-         * 
-         * @return
-         *     possible object is
-         *     {@link XMLGregorianCalendar }
-         *     
+         *
+         * @return possible object is
+         * {@link XMLGregorianCalendar }
          */
         public XMLGregorianCalendar getOd() {
             return od;
@@ -529,11 +478,9 @@ public class IzvestajOImunizaciji {
 
         /**
          * Sets the value of the od property.
-         * 
-         * @param value
-         *     allowed object is
-         *     {@link XMLGregorianCalendar }
-         *     
+         *
+         * @param value allowed object is
+         *              {@link XMLGregorianCalendar }
          */
         public void setOd(XMLGregorianCalendar value) {
             this.od = value;
@@ -541,11 +488,9 @@ public class IzvestajOImunizaciji {
 
         /**
          * Gets the value of the do property.
-         * 
-         * @return
-         *     possible object is
-         *     {@link XMLGregorianCalendar }
-         *     
+         *
+         * @return possible object is
+         * {@link XMLGregorianCalendar }
          */
         public XMLGregorianCalendar getDo() {
             return _do;
@@ -553,11 +498,9 @@ public class IzvestajOImunizaciji {
 
         /**
          * Sets the value of the do property.
-         * 
-         * @param value
-         *     allowed object is
-         *     {@link XMLGregorianCalendar }
-         *     
+         *
+         * @param value allowed object is
+         *              {@link XMLGregorianCalendar }
          */
         public void setDo(XMLGregorianCalendar value) {
             this._do = value;
@@ -568,9 +511,9 @@ public class IzvestajOImunizaciji {
 
     /**
      * <p>Java class for anonymous complex type.
-     * 
+     *
      * <p>The following schema fragment specifies the expected content contained within this class.
-     * 
+     *
      * <pre>
      * &lt;complexType&gt;
      *   &lt;complexContent&gt;
@@ -602,12 +545,10 @@ public class IzvestajOImunizaciji {
      *   &lt;/complexContent&gt;
      * &lt;/complexType&gt;
      * </pre>
-     * 
-     * 
      */
     @XmlAccessorType(XmlAccessType.FIELD)
     @XmlType(name = "", propOrder = {
-        "proizvodjac"
+            "proizvodjac"
     })
     public static class RaspodelaPoProizvodjacima {
 
@@ -616,25 +557,23 @@ public class IzvestajOImunizaciji {
 
         /**
          * Gets the value of the proizvodjac property.
-         * 
+         *
          * <p>
          * This accessor method returns a reference to the live list,
          * not a snapshot. Therefore any modification you make to the
          * returned list will be present inside the JAXB object.
          * This is why there is not a <CODE>set</CODE> method for the proizvodjac property.
-         * 
+         *
          * <p>
          * For example, to add a new item, do as follows:
          * <pre>
          *    getProizvodjac().add(newItem);
          * </pre>
-         * 
-         * 
+         *
+         *
          * <p>
          * Objects of the following type(s) are allowed in the list
          * {@link Proizvodjac }
-         * 
-         * 
          */
         public List<Proizvodjac> getProizvodjac() {
             if (proizvodjac == null) {
@@ -646,9 +585,9 @@ public class IzvestajOImunizaciji {
 
         /**
          * <p>Java class for anonymous complex type.
-         * 
+         *
          * <p>The following schema fragment specifies the expected content contained within this class.
-         * 
+         *
          * <pre>
          * &lt;complexType&gt;
          *   &lt;complexContent&gt;
@@ -670,13 +609,11 @@ public class IzvestajOImunizaciji {
          *   &lt;/complexContent&gt;
          * &lt;/complexType&gt;
          * </pre>
-         * 
-         * 
          */
         @XmlAccessorType(XmlAccessType.FIELD)
         @XmlType(name = "", propOrder = {
-            "naziv",
-            "brojPrimljenihDoza"
+                "naziv",
+                "brojPrimljenihDoza"
         })
         public static class Proizvodjac {
 
@@ -684,15 +621,13 @@ public class IzvestajOImunizaciji {
             protected String naziv;
             @XmlElement(name = "broj_primljenih_doza", namespace = "http://www.rokzasok.rs/sluzbenik/izvestaj-o-imunizaciji", required = true)
             @XmlSchemaType(name = "positiveInteger")
-            protected BigInteger brojPrimljenihDoza;
+            protected Long brojPrimljenihDoza;
 
             /**
              * Gets the value of the naziv property.
-             * 
-             * @return
-             *     possible object is
-             *     {@link String }
-             *     
+             *
+             * @return possible object is
+             * {@link String }
              */
             public String getNaziv() {
                 return naziv;
@@ -700,11 +635,9 @@ public class IzvestajOImunizaciji {
 
             /**
              * Sets the value of the naziv property.
-             * 
-             * @param value
-             *     allowed object is
-             *     {@link String }
-             *     
+             *
+             * @param value allowed object is
+             *              {@link String }
              */
             public void setNaziv(String value) {
                 this.naziv = value;
@@ -712,25 +645,21 @@ public class IzvestajOImunizaciji {
 
             /**
              * Gets the value of the brojPrimljenihDoza property.
-             * 
-             * @return
-             *     possible object is
-             *     {@link BigInteger }
-             *     
+             *
+             * @return possible object is
+             * {@link Long }
              */
-            public BigInteger getBrojPrimljenihDoza() {
+            public Long getBrojPrimljenihDoza() {
                 return brojPrimljenihDoza;
             }
 
             /**
              * Sets the value of the brojPrimljenihDoza property.
-             * 
-             * @param value
-             *     allowed object is
-             *     {@link BigInteger }
-             *     
+             *
+             * @param value allowed object is
+             *              {@link Long }
              */
-            public void setBrojPrimljenihDoza(BigInteger value) {
+            public void setBrojPrimljenihDoza(Long value) {
                 this.brojPrimljenihDoza = value;
             }
 
