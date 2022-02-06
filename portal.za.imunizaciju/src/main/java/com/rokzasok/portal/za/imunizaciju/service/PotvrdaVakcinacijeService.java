@@ -39,7 +39,7 @@ public class PotvrdaVakcinacijeService implements AbstractXmlService<PotvrdaVakc
     @Autowired
     private UUIDHelper uuidHelper;
 
-    @PostConstruct
+    //@PostConstruct
     public void injectRepositoryProperties() {
         this.potvrdaVakcinacijeRepository.injectRepositoryProperties(
                 "/db/sample/potvrda-vakcinacije",
@@ -51,6 +51,8 @@ public class PotvrdaVakcinacijeService implements AbstractXmlService<PotvrdaVakc
 
     @Override
     public List<PotvrdaVakcinacije> findAll() {
+        injectRepositoryProperties();
+
         try {
             return this.potvrdaVakcinacijeRepository.getAllEntities();
         } catch (XMLDBException e) {
@@ -62,6 +64,8 @@ public class PotvrdaVakcinacijeService implements AbstractXmlService<PotvrdaVakc
 
     @Override
     public PotvrdaVakcinacije findById(Long entityId) {
+        injectRepositoryProperties();
+
         try {
             PotvrdaVakcinacije izvestaj = this.potvrdaVakcinacijeRepository.getEntity(entityId);
             if (izvestaj == null)
@@ -76,6 +80,8 @@ public class PotvrdaVakcinacijeService implements AbstractXmlService<PotvrdaVakc
 
     @Override
     public PotvrdaVakcinacije create(String entityXml) {
+        injectRepositoryProperties();
+
         PotvrdaVakcinacije potvrdaVakcinacije;
 
         try {
@@ -115,6 +121,8 @@ public class PotvrdaVakcinacijeService implements AbstractXmlService<PotvrdaVakc
 
     @Override
     public PotvrdaVakcinacije update(String entityXml) {
+        injectRepositoryProperties();
+
         PotvrdaVakcinacije potvrdaVakcinacije;
         try {
             potvrdaVakcinacije = this.potvrdaVakcinacijeXmlConversionAgent.unmarshall(entityXml, this.jaxbContextPath);
@@ -137,6 +145,8 @@ public class PotvrdaVakcinacijeService implements AbstractXmlService<PotvrdaVakc
 
     @Override
     public boolean deleteById(Long entityId) {
+        injectRepositoryProperties();
+
         try {
             return this.potvrdaVakcinacijeRepository.deleteEntity(entityId);
         } catch (XMLDBException e) {

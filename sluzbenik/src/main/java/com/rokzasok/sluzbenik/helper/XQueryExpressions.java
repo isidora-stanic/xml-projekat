@@ -70,6 +70,17 @@ public class XQueryExpressions {
             "xquery version \"3.1\";\n" +
                     "xmldb:remove('/db/sample/izvestaj-o-imunizaciji', '%s')";
 
+
+
+    public static final String X_QUERY_FIND_ALL_DIGITALNI_SERTIFIKAT_EXPRESSION = "xquery version \"3.1\";\n" +
+            "declare default element namespace \"http://www.rokzasok.rs/sluzbenik/digitalni-sertifikat\";\n" +
+            "for $x in collection(\"/db/sample/digitalni_sertifikat\")\n" +
+            "return $x";
+
+    public static final String X_UPDATE_REMOVE_DIGITALNI_SERTIFIKAT_BY_ID_EXPRESSION =
+            "xquery version \"3.1\";\n" +
+                    "xmldb:remove('/db/sample/digitalni_sertifikat', '%s')";
+
     public static final String SEARCH_IZVESTAJI = "xquery version \"3.1\";\n"
             + "declare default element namespace \"http://www.rokzasok.rs/sluzbenik/izvestaj-o-imunizaciji\";\n"
             + "for $x in collection(\"/db/sample/izvestaj-o-imunizaciji\")\n"

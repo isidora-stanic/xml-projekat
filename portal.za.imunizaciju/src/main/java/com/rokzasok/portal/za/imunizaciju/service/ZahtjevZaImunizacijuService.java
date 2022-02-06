@@ -57,7 +57,7 @@ public class ZahtjevZaImunizacijuService implements AbstractXmlService<ObrazacIn
 //    @Autowired
 //    private IzvestajClient izvestajClient;
 
-    @PostConstruct
+    //@PostConstruct
     public void injectRepositoryProperties() {
         this.izvestajAbstractXmlRepository.injectRepositoryProperties(
                 "/db/sample/iskazivanje-interesovanja",
@@ -81,16 +81,22 @@ public class ZahtjevZaImunizacijuService implements AbstractXmlService<ObrazacIn
 
     @Override
     public List<ObrazacInteresovanja> findAll() {
+        injectRepositoryProperties();
+
         return null;
     }
 
     @Override
     public ObrazacInteresovanja findById(Long entityId) {
+        injectRepositoryProperties();
+
         return null;
     }
 
     @Override
     public ObrazacInteresovanja create(String xmlEntity) {
+        injectRepositoryProperties();
+
         ObrazacInteresovanja obrazacInteresovanja = null;
         try {
             obrazacInteresovanja = this.izvestajXmlConversionAgent.unmarshall(xmlEntity, this.jaxbContextPath);
@@ -130,11 +136,15 @@ public class ZahtjevZaImunizacijuService implements AbstractXmlService<ObrazacIn
 
     @Override
     public ObrazacInteresovanja update(String entityXml) {
+        injectRepositoryProperties();
+
         return null;
     }
 
     @Override
     public boolean deleteById(Long entityId) {
+        injectRepositoryProperties();
+
         return false;
     }
 }

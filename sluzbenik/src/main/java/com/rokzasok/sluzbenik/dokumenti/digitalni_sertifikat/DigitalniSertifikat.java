@@ -1,6 +1,8 @@
 
 package com.rokzasok.sluzbenik.dokumenti.digitalni_sertifikat;
 
+import com.rokzasok.sluzbenik.interfaces.Identifiable;
+
 import javax.xml.bind.annotation.*;
 import javax.xml.datatype.XMLGregorianCalendar;
 import java.math.BigInteger;
@@ -112,7 +114,7 @@ import java.util.List;
     "dokumentId"
 })
 @XmlRootElement(name = "digitalni_sertifikat", namespace = "http://www.rokzasok.rs/sluzbenik/digitalni-sertifikat")
-public class DigitalniSertifikat {
+public class DigitalniSertifikat implements Identifiable {
 
     @XmlElement(namespace = "http://www.rokzasok.rs/sluzbenik/digitalni-sertifikat", required = true)
     protected Gradjanin gradjanin;
@@ -124,7 +126,7 @@ public class DigitalniSertifikat {
     protected InfoOSertifikatu infoOSertifikatu;
     @XmlElement(name = "dokument_id", namespace = "http://www.rokzasok.rs/sluzbenik/digitalni-sertifikat", required = true)
     @XmlSchemaType(name = "positiveInteger")
-    protected BigInteger dokumentId;
+    protected Long dokumentId;
     @XmlAttribute(name = "vocab")
     protected String vocab;
     @XmlAttribute(name = "about")
@@ -238,7 +240,7 @@ public class DigitalniSertifikat {
      *     {@link BigInteger }
      *     
      */
-    public BigInteger getDokumentId() {
+    public Long getDokumentId() {
         return dokumentId;
     }
 
@@ -250,7 +252,7 @@ public class DigitalniSertifikat {
      *     {@link BigInteger }
      *     
      */
-    public void setDokumentId(BigInteger value) {
+    public void setDokumentId(Long value) {
         this.dokumentId = value;
     }
 
