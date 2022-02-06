@@ -1,6 +1,8 @@
 
 package com.rokzasok.portal.za.imunizaciju.dokumenti.gradjanin.iskazivanje_interesovanja;
 
+import com.rokzasok.portal.za.imunizaciju.interfaces.Identifiable;
+
 import javax.xml.bind.annotation.*;
 import javax.xml.datatype.XMLGregorianCalendar;
 import java.math.BigInteger;
@@ -134,7 +136,7 @@ import java.math.BigInteger;
     "dokumentId"
 })
 @XmlRootElement(name = "obrazac_interesovanja", namespace = "http://www.rokzasok.rs/gradjanin/iskazivanje-interesovanja")
-public class ObrazacInteresovanja {
+public class ObrazacInteresovanja implements Identifiable {
 
     @XmlElement(name = "podaci_o_osobi", namespace = "http://www.rokzasok.rs/gradjanin/iskazivanje-interesovanja", required = true)
     protected PodaciOOsobi podaciOOsobi;
@@ -142,7 +144,7 @@ public class ObrazacInteresovanja {
     protected OpstiPodaci opstiPodaci;
     @XmlElement(name = "dokument_id", namespace = "http://www.rokzasok.rs/gradjanin/iskazivanje-interesovanja", required = true)
     @XmlSchemaType(name = "positiveInteger")
-    protected BigInteger dokumentId;
+    protected Long dokumentId;
 
     /**
      * Gets the value of the podaciOOsobi property.
@@ -200,7 +202,7 @@ public class ObrazacInteresovanja {
      *     {@link BigInteger }
      *     
      */
-    public BigInteger getDokumentId() {
+    public Long getDokumentId() {
         return dokumentId;
     }
 
@@ -212,7 +214,7 @@ public class ObrazacInteresovanja {
      *     {@link BigInteger }
      *     
      */
-    public void setDokumentId(BigInteger value) {
+    public void setDokumentId(Long value) {
         this.dokumentId = value;
     }
 
