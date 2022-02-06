@@ -30,6 +30,14 @@ public class ObjectFactory {
     }
 
     /**
+     * Create an instance of {@link KolekcijaIzvestaja }
+     *
+     */
+    public KolekcijaIzvestaja createKolekcijaIzvestaja() {
+        return new KolekcijaIzvestaja();
+    }
+
+    /**
      * Create an instance of {@link IzvestajOImunizaciji }
      * 
      */

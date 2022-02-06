@@ -1,6 +1,7 @@
 package com.rokzasok.sluzbenik.controller;
 
 import com.rokzasok.sluzbenik.dokumenti.izvestaj_o_imunizaciji.IzvestajOImunizaciji;
+import com.rokzasok.sluzbenik.dokumenti.izvestaj_o_imunizaciji.KolekcijaIzvestaja;
 import com.rokzasok.sluzbenik.service.IzvestajOImunizacijiService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.InputStreamResource;
@@ -21,11 +22,10 @@ public class IzvestajOImunizacijiController {
     private IzvestajOImunizacijiService izvestajService;
 
     @GetMapping(produces = MediaType.APPLICATION_XML_VALUE)
-    ResponseEntity<List<IzvestajOImunizaciji>> findAll() {
-        //KolekcijaIzvestajOImunizacijia kolekcijaIzvestajOImunizacijia = new KolekcijaIzvestajOImunizacijia();
-        //kolekcijaIzvestajOImunizacijia.setIzvestajOImunizaciji(this.izvestajService.findAll());
-        //return new ResponseEntity<>(kolekcijaIzvestajOImunizacijia, HttpStatus.OK);
-        return new ResponseEntity<>(this.izvestajService.findAll(), HttpStatus.OK);
+    ResponseEntity<KolekcijaIzvestaja> findAll() {
+        KolekcijaIzvestaja kolekcijaIzvestajOImunizaciji = new KolekcijaIzvestaja();
+        kolekcijaIzvestajOImunizaciji.setIzvestaj(this.izvestajService.findAll());
+        return new ResponseEntity<>(kolekcijaIzvestajOImunizaciji, HttpStatus.OK);
     }
 
     @GetMapping(value = "/{id}", produces = MediaType.APPLICATION_XML_VALUE)
