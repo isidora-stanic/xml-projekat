@@ -17,26 +17,26 @@ import org.springframework.web.bind.annotation.*;
 public class DigitalniSertifikatController {
 
     @Autowired
-    private DigitalniSertifikatService izvestajService;
+    private DigitalniSertifikatService digitalniSertifikatService;
 
     @GetMapping(value = "/{id}", produces = MediaType.APPLICATION_XML_VALUE)
     ResponseEntity<DigitalniSertifikat> findOne(@PathVariable("id") Long id) {
-        return new ResponseEntity<>(this.izvestajService.findById(id), HttpStatus.OK);
+        return new ResponseEntity<>(this.digitalniSertifikatService.findById(id), HttpStatus.OK);
     }
 
     @PostMapping(produces = MediaType.APPLICATION_XML_VALUE)
     ResponseEntity<DigitalniSertifikat> create(@RequestBody String body) {
-        return new ResponseEntity<>(this.izvestajService.create(body), HttpStatus.OK);
+        return new ResponseEntity<>(this.digitalniSertifikatService.create(body), HttpStatus.OK);
     }
 
     @PutMapping(produces = MediaType.APPLICATION_XML_VALUE)
     ResponseEntity<DigitalniSertifikat> update(@RequestBody String body) {
-        return new ResponseEntity<>(this.izvestajService.update(body), HttpStatus.OK);
+        return new ResponseEntity<>(this.digitalniSertifikatService.update(body), HttpStatus.OK);
     }
 
     @DeleteMapping(value = "/{id}")
     ResponseEntity<Void> delete(@PathVariable("id") Long id) {
-        this.izvestajService.deleteById(id);
+        this.digitalniSertifikatService.deleteById(id);
         return new ResponseEntity<>(HttpStatus.OK);
     }
 }

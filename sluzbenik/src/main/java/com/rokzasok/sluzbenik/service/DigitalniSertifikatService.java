@@ -83,6 +83,8 @@ public class DigitalniSertifikatService implements AbstractXmlService<DigitalniS
 
     @Override
     public List<DigitalniSertifikat> findAll() {
+        injectRepositoryProperties();
+
         try {
             return this.digitalniSertifikatAbstractXmlRepository.getAllEntities();
         } catch (XMLDBException e) {
@@ -94,6 +96,8 @@ public class DigitalniSertifikatService implements AbstractXmlService<DigitalniS
 
     @Override
     public DigitalniSertifikat findById(Long entityId) {
+        injectRepositoryProperties();
+
         try {
             DigitalniSertifikat izvestaj = this.digitalniSertifikatAbstractXmlRepository.getEntity(entityId);
             if (izvestaj == null)
@@ -148,6 +152,8 @@ public class DigitalniSertifikatService implements AbstractXmlService<DigitalniS
 
     @Override
     public DigitalniSertifikat update(String xmlEntity) {
+        injectRepositoryProperties();
+
         DigitalniSertifikat izvestaj;
         try {
             izvestaj = this.digitalniSertifikatXmlConversionAgent.unmarshall(xmlEntity, this.jaxbContextPath);
@@ -170,6 +176,8 @@ public class DigitalniSertifikatService implements AbstractXmlService<DigitalniS
 
     @Override
     public boolean deleteById(Long entityId) {
+        injectRepositoryProperties();
+
         try {
             return this.digitalniSertifikatAbstractXmlRepository.deleteEntity(entityId);
         } catch (XMLDBException e) {

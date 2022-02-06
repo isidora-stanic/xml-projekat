@@ -61,7 +61,7 @@ public class IzvestajOImunizacijiService implements AbstractXmlService<IzvestajO
 //    @Autowired
 //    private IzvestajClient izvestajClient;
 
-    @PostConstruct
+    //@PostConstruct
     public void injectRepositoryProperties() {
         this.izvestajAbstractXmlRepository.injectRepositoryProperties(
                 "/db/sample/izvestaj-o-imunizaciji",
@@ -85,6 +85,8 @@ public class IzvestajOImunizacijiService implements AbstractXmlService<IzvestajO
 
     @Override
     public List<IzvestajOImunizaciji> findAll() {
+        injectRepositoryProperties();
+
         try {
             return this.izvestajAbstractXmlRepository.getAllEntities();
         } catch (XMLDBException e) {
@@ -96,6 +98,8 @@ public class IzvestajOImunizacijiService implements AbstractXmlService<IzvestajO
 
     @Override
     public IzvestajOImunizaciji findById(Long entityId) {
+        injectRepositoryProperties();
+
         try {
             IzvestajOImunizaciji izvestaj = this.izvestajAbstractXmlRepository.getEntity(entityId);
             if (izvestaj == null)
@@ -110,6 +114,7 @@ public class IzvestajOImunizacijiService implements AbstractXmlService<IzvestajO
 
     @Override
     public IzvestajOImunizaciji create(String xmlEntity) {
+        injectRepositoryProperties();
 
         IzvestajOImunizaciji izvestaj;
         try {
@@ -149,6 +154,8 @@ public class IzvestajOImunizacijiService implements AbstractXmlService<IzvestajO
 
     @Override
     public IzvestajOImunizaciji update(String xmlEntity) {
+        injectRepositoryProperties();
+
         IzvestajOImunizaciji izvestaj;
         try {
             izvestaj = this.izvestajXmlConversionAgent.unmarshall(xmlEntity, this.jaxbContextPath);
@@ -171,6 +178,8 @@ public class IzvestajOImunizacijiService implements AbstractXmlService<IzvestajO
 
     @Override
     public boolean deleteById(Long entityId) {
+        injectRepositoryProperties();
+
         try {
             return this.izvestajAbstractXmlRepository.deleteEntity(entityId);
         } catch (XMLDBException e) {
