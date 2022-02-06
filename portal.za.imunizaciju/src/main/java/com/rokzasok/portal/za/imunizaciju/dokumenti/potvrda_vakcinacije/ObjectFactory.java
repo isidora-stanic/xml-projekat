@@ -35,6 +35,8 @@ public class ObjectFactory {
     public ObjectFactory() {
     }
 
+    public KolekcijaPotvrdaVakcinacije createKolekcijaPotvrdaVakcinacije() { return new KolekcijaPotvrdaVakcinacije(); }
+
     /**
      * Create an instance of {@link PotvrdaVakcinacije }
      * 

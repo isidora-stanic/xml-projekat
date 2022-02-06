@@ -27,6 +27,19 @@ public class AbstractXmlRepository<T extends Identifiable> {
     @Autowired
     XmlConversionAgent<T> xmlConversionAgent;
 
+    public List<T> getAllEntities() throws XMLDBException, JAXBException {
+        ArrayList<T> entities = new ArrayList<>();
+        Collection collection = this.dbConnection.getCollection(this.collectionId);
+        XQueryService xQueryService = (XQueryService) collection.getService("XQueryService", "1.0");
+        CompiledExpression compiledExpression = xQueryService.compile(this.X_QUERY_FIND_ALL_ENTITIES);
+        ResourceSet resourceSet = xQueryService.execute(compiledExpression);
+        ResourceIterator resourceIterator = resourceSet.getIterator();
+        while (resourceIterator.hasMoreResources()) {
+            XMLResource xmlResource = (XMLResource) resourceIterator.nextResource();
+            entities.add(this.xmlConversionAgent.unmarshall(xmlResource.getContentAsDOM(), this.jaxbContextPath));
+        }
+        return entities;
+    }
 
     public T getEntity(long entityId) throws XMLDBException, JAXBException {
         Collection collection = this.dbConnection.getCollection(this.collectionId);
