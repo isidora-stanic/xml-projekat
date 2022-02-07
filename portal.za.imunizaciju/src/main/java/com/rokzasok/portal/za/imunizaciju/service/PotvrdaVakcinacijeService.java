@@ -2,10 +2,10 @@ package com.rokzasok.portal.za.imunizaciju.service;
 
 import com.rokzasok.portal.za.imunizaciju.dokumenti.gradjanin.iskazivanje_interesovanja.ObrazacInteresovanja;
 import com.rokzasok.portal.za.imunizaciju.dokumenti.potvrda_vakcinacije.PotvrdaVakcinacije;
-import com.rokzasok.portal.za.imunizaciju.exist.EntityNotFoundException;
-import com.rokzasok.portal.za.imunizaciju.exist.InvalidXmlDatabaseException;
-import com.rokzasok.portal.za.imunizaciju.exist.InvalidXmlException;
-import com.rokzasok.portal.za.imunizaciju.exist.XmlDatabaseException;
+import com.rokzasok.portal.za.imunizaciju.exception.EntityNotFoundException;
+import com.rokzasok.portal.za.imunizaciju.exception.InvalidXmlDatabaseException;
+import com.rokzasok.portal.za.imunizaciju.exception.InvalidXmlException;
+import com.rokzasok.portal.za.imunizaciju.exception.XmlDatabaseException;
 import com.rokzasok.portal.za.imunizaciju.helper.UUIDHelper;
 import com.rokzasok.portal.za.imunizaciju.helper.XmlConversionAgent;
 import com.rokzasok.portal.za.imunizaciju.repository.AbstractXmlRepository;
@@ -13,7 +13,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.xmldb.api.base.XMLDBException;
 
-import javax.annotation.PostConstruct;
 import javax.xml.bind.JAXBException;
 import java.util.List;
 
@@ -23,7 +22,7 @@ import static com.rokzasok.portal.za.imunizaciju.helper.XQueryExpressions.*;
 public class PotvrdaVakcinacijeService implements AbstractXmlService<PotvrdaVakcinacije> {
     private final String jaxbContextPath = "com.rokzasok.portal.za.imunizaciju.dokumenti.potvrda_vakcinacije";
 
-    private static final String SPARQL_NAMED_GRAPH_URI = "/potvrda_vakcinacije/sparql/metadata";
+    private static final String SPARQL_NAMED_GRAPH_URI = "/sparql/metadata";
 
     public static final String OUTPUT_FOLDER_XML = "output_xml";
     public static final String OUTPUT_FOLDER_PDF = "output_pdf";

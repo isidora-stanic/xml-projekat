@@ -25,7 +25,7 @@ public class DigitalniSertifikatService implements AbstractXmlService<DigitalniS
 
     private final String jaxbContextPath = "com.rokzasok.sluzbenik.dokumenti.digitalni_sertifikat";
 
-    private static final String SPARQL_NAMED_GRAPH_URI = "/digitalni_sertifikat/sparql/metadata";
+    private static final String SPARQL_NAMED_GRAPH_URI = "/sparql/metadata";
 
     public static final String OUTPUT_FOLDER_XML = "output_xml";
     public static final String OUTPUT_FOLDER_PDF = "output_pdf";

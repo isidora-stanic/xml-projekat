@@ -60,11 +60,11 @@
         </os:lekar>
         <os:tabela>
             <os:doza vocab="http://www.rokzasok.rs/rdf/database/predicate" rel="pred:saglasnost" about="http://www.rokzasok.rs/rdf/database/doza/1" href="http://www.rokzasok.rs/rdf/database/obrazac-saglasnosti/1">
-                <os:tip>AstraZeneca</os:tip>
-                <os:proizvodjac>Gamaleya Institute</os:proizvodjac>
-                <os:datum>2013-05-22+02:00</os:datum>
-                <os:broj_serije>broj_serije</os:broj_serije>
-                <os:broj_doze>50</os:broj_doze>
+                <os:tip property="pred:tipVakcine" datatype="xs:string">AstraZeneca</os:tip>
+                <os:proizvodjac property="pred:proizvodjacVakcine">Gamaleya Institute</os:proizvodjac>
+                <os:datum property="pred:datumPrimanja" datatype="xs:date">2013-05-22+02:00</os:datum>
+                <os:broj_serije property="pred:brojSerije" datatype="xs:string">broj_serije</os:broj_serije>
+                <os:broj_doze property="pred:brojDoze" datatype="xs:positiveInteger">50</os:broj_doze>
                 <os:ustanova>
                     <os:naziv>VMA</os:naziv>
                     <os:mesto>punkt 11</os:mesto>

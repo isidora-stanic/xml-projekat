@@ -2,10 +2,11 @@ package com.rokzasok.portal.za.imunizaciju.service;
 
 import com.rokzasok.portal.za.imunizaciju.dokumenti.gradjanin.iskazivanje_interesovanja.ObrazacInteresovanja;
 import com.rokzasok.portal.za.imunizaciju.dokumenti.gradjanin.obrazac_saglasnosti.ObrazacSaglasnosti;
-import com.rokzasok.portal.za.imunizaciju.exist.EntityNotFoundException;
-import com.rokzasok.portal.za.imunizaciju.exist.InvalidXmlDatabaseException;
-import com.rokzasok.portal.za.imunizaciju.exist.InvalidXmlException;
-import com.rokzasok.portal.za.imunizaciju.exist.XmlDatabaseException;
+import com.rokzasok.portal.za.imunizaciju.dokumenti.potvrda_vakcinacije.PotvrdaVakcinacije;
+import com.rokzasok.portal.za.imunizaciju.exception.EntityNotFoundException;
+import com.rokzasok.portal.za.imunizaciju.exception.InvalidXmlDatabaseException;
+import com.rokzasok.portal.za.imunizaciju.exception.InvalidXmlException;
+import com.rokzasok.portal.za.imunizaciju.exception.XmlDatabaseException;
 import com.rokzasok.portal.za.imunizaciju.helper.UUIDHelper;
 import com.rokzasok.portal.za.imunizaciju.helper.XmlConversionAgent;
 import com.rokzasok.portal.za.imunizaciju.repository.AbstractXmlRepository;
@@ -23,7 +24,7 @@ import static com.rokzasok.portal.za.imunizaciju.helper.XQueryExpressions.X_UPDA
 public class ObrazacSaglasnostiService implements AbstractXmlService<ObrazacSaglasnosti> {
     private final String jaxbContextPath = "com.rokzasok.portal.za.imunizaciju.dokumenti.gradjanin.obrazac_saglasnosti";
 
-    private static final String SPARQL_NAMED_GRAPH_URI = "/obrazac_saglasnosti/sparql/metadata";
+    private static final String SPARQL_NAMED_GRAPH_URI = "/sparql/metadata";
 
     public static final String OUTPUT_FOLDER_XML = "output_xml";
     public static final String OUTPUT_FOLDER_PDF = "output_pdf";
@@ -38,6 +39,9 @@ public class ObrazacSaglasnostiService implements AbstractXmlService<ObrazacSagl
 
     @Autowired
     private UUIDHelper uuidHelper;
+
+    @Autowired
+    private RDFService rdfService;
 
     //@PostConstruct
     public void injectRepositoryProperties() {
@@ -87,7 +91,7 @@ public class ObrazacSaglasnostiService implements AbstractXmlService<ObrazacSagl
         try {
             potvrdaVakcinacije = this.obrazacSaglasnostiXmlConversionAgent.unmarshall(entityXml, this.jaxbContextPath);
             potvrdaVakcinacije.setDokumentId(this.uuidHelper.getUUID());
-            //this.handleMetadata(izvestaj);
+            this.handleMetadata(potvrdaVakcinacije);
         } catch (JAXBException e) {
             e.printStackTrace();
             throw new InvalidXmlException(ObrazacInteresovanja.class, e.getMessage());
@@ -108,9 +112,9 @@ public class ObrazacSaglasnostiService implements AbstractXmlService<ObrazacSagl
         try {
             entityXml = this.obrazacSaglasnostiXmlConversionAgent.marshall(potvrdaVakcinacije, this.jaxbContextPath);
             System.out.println(entityXml);
-//            if (!rdfService.save(xmlEntity, SPARQL_NAMED_GRAPH_URI)) {
-//                System.out.println("[ERROR] Neuspesno cuvanje metapodataka zahteva u RDF DB.");
-//            }
+            if (!rdfService.save(entityXml, SPARQL_NAMED_GRAPH_URI)) {
+                System.out.println("[ERROR] Neuspesno cuvanje metapodataka zahteva u RDF DB.");
+            }
         } catch (JAXBException e) {
             e.printStackTrace();
         }
@@ -152,5 +156,50 @@ public class ObrazacSaglasnostiService implements AbstractXmlService<ObrazacSagl
         } catch (XMLDBException e) {
             throw new XmlDatabaseException(e.getMessage());
         }
+    }
+
+    private void handleMetadata(ObrazacSaglasnosti izvestaj) {
+        izvestaj.getEvidencijaPacijent().getPacijent().setVocab("http://www.rokzasok.rs/rdf/database/predicate");
+        izvestaj.getEvidencijaPacijent().getPacijent().setAbout("http://www.rokzasok.rs/rdf/database/osoba/" +
+                izvestaj.getEvidencijaPacijent().getPacijent().getPacijentInfo().getJmbg()); // TODO ID
+
+        izvestaj.getEvidencijaPacijent().getPacijent().getPacijentInfo().getPol().setProperty("pred:pol");
+        izvestaj.getEvidencijaPacijent().getPacijent().getPacijentInfo().getPol().setDatatype("xs:string");
+
+        izvestaj.getEvidencijaPacijent().getPacijent().getPacijentInfo().getDatumRodjenja().setProperty("pred:datumRodjenja");
+        izvestaj.getEvidencijaPacijent().getPacijent().getPacijentInfo().getDatumRodjenja().setDatatype("xs:date");
+
+        izvestaj.getEvidencijaPacijent().getPacijent().getKontakt().getTelFiksni().setProperty("pred:brojFiksnogTelefona");
+        izvestaj.getEvidencijaPacijent().getPacijent().getKontakt().getTelFiksni().setDatatype("xs:string");
+
+        izvestaj.getEvidencijaPacijent().getPacijent().getKontakt().getEmail().setProperty("pred:email");
+        izvestaj.getEvidencijaPacijent().getPacijent().getKontakt().getEmail().setDatatype("xs:string");
+
+
+        for (ObrazacSaglasnosti.EvidencijaVakcinacija.Tabela.Doza doza : izvestaj.getEvidencijaVakcinacija().getTabela().getDoza()) {
+            doza.setVocab("http://www.rokzasok.rs/rdf/database/predicate");
+            doza.setRel("pred:saglasnost");
+            doza.setAbout("http://www.rokzasok.rs/rdf/database/doza/" + doza.getBrojDoze().toString());
+            doza.setHref("http://www.rokzasok.rs/rdf/database/obrazac-saglasnosti/" + doza.getBrojDoze().toString());
+
+            doza.getTip().setProperty("pred:tipVakcine");
+            doza.getTip().setDatatype("xs:string");
+
+            doza.getProizvodjac().setProperty("pred:proizvodjacVakcine");
+
+            doza.getDatum().setProperty("pred:datumPrimanja");
+            doza.getDatum().setDatatype("xs:date");
+
+            doza.getBrojSerije().setProperty("pred:brojSerije");
+            doza.getBrojSerije().setDatatype("xs:string");
+
+            doza.getBrojDoze().setProperty("pred:brojDoze");
+            doza.getBrojDoze().setDatatype("xs:positiveInteger");
+        }
+
+        izvestaj.getDokumentInfo().setVocab("http://www.rokzasok.rs/rdf/database/predicate");
+        izvestaj.getDokumentInfo().setAbout("http://www.rokzasok.rs/rdf/database/obrazac-saglasnosti/" + izvestaj.getDokumentId());
+        izvestaj.getDokumentInfo().setRel("pred:kreiranOdStrane");
+        izvestaj.getDokumentInfo().setHref("http://www.rokzasok.rs/rdf/database/osoba/" + izvestaj.getEvidencijaPacijent().getPacijent().getPacijentInfo().getJmbg()); // TODO ID
     }
 }

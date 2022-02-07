@@ -27,7 +27,7 @@ public class IzvestajOImunizacijiService implements AbstractXmlService<IzvestajO
 
     private final String jaxbContextPath = "com.rokzasok.sluzbenik.dokumenti.izvestaj_o_imunizaciji";
 
-    private static final String SPARQL_NAMED_GRAPH_URI = "/izvestaj-o-imunizaciji/sparql/metadata";
+    private static final String SPARQL_NAMED_GRAPH_URI = "/sparql/metadata";
 
     public static final String OUTPUT_FOLDER_XML = "output_xml";
     public static final String OUTPUT_FOLDER_PDF = "output_pdf";

@@ -1,9 +1,8 @@
 package com.rokzasok.portal.za.imunizaciju.service;
 
 import com.rokzasok.portal.za.imunizaciju.dokumenti.gradjanin.iskazivanje_interesovanja.ObrazacInteresovanja;
-import com.rokzasok.portal.za.imunizaciju.exist.InvalidXmlDatabaseException;
-import com.rokzasok.portal.za.imunizaciju.exist.InvalidXmlException;
-import com.rokzasok.portal.za.imunizaciju.exist.XmlDatabaseException;
+import com.rokzasok.portal.za.imunizaciju.exception.InvalidXmlDatabaseException;
+import com.rokzasok.portal.za.imunizaciju.exception.XmlDatabaseException;
 import com.rokzasok.portal.za.imunizaciju.helper.UUIDHelper;
 import com.rokzasok.portal.za.imunizaciju.helper.XmlConversionAgent;
 import com.rokzasok.portal.za.imunizaciju.repository.AbstractXmlRepository;
@@ -14,7 +13,6 @@ import org.xmldb.api.base.XMLDBException;
 import static com.rokzasok.portal.za.imunizaciju.helper.XQueryExpressions.X_QUERY_FIND_ALL_IZVESTAJI_EXPRESSION;
 import static com.rokzasok.portal.za.imunizaciju.helper.XQueryExpressions.X_UPDATE_REMOVE_IZVESTAJ_BY_ID_EXPRESSION;
 
-import javax.annotation.PostConstruct;
 import javax.xml.bind.JAXBException;
 import java.util.List;
 
@@ -23,7 +21,7 @@ public class ZahtjevZaImunizacijuService implements AbstractXmlService<ObrazacIn
 
     private final String jaxbContextPath = "com.rokzasok.portal.za.imunizaciju.dokumenti.gradjanin.iskazivanje_interesovanja";
 
-    private static final String SPARQL_NAMED_GRAPH_URI = "/iskazivanje-interesovanja/sparql/metadata";
+    private static final String SPARQL_NAMED_GRAPH_URI = "/sparql/metadata";
 
     public static final String OUTPUT_FOLDER_XML = "output_xml";
     public static final String OUTPUT_FOLDER_PDF = "output_pdf";

@@ -1,14 +1,14 @@
-package com.rokzasok.portal.za.imunizaciju.exist;
+package com.rokzasok.portal.za.imunizaciju.exception;
 
-public class InvalidXmlDatabaseException extends RuntimeException {
+public class InvalidXmlException extends RuntimeException {
 
     private Class classObject;
     private String text;
 
-    public InvalidXmlDatabaseException() {
+    public InvalidXmlException() {
     }
 
-    public InvalidXmlDatabaseException(Class classObject, String text) {
+    public InvalidXmlException(Class classObject, String text) {
         this.classObject = classObject;
         this.text = text;
     }
@@ -28,5 +28,4 @@ public class InvalidXmlDatabaseException extends RuntimeException {
     public void setText(String text) {
         this.text = text;
     }
-
 }

@@ -1,4 +1,4 @@
-package com.rokzasok.portal.za.imunizaciju.exist;
+package com.rokzasok.portal.za.imunizaciju.exception;
 
 public class XmlDatabaseException extends RuntimeException {
 
