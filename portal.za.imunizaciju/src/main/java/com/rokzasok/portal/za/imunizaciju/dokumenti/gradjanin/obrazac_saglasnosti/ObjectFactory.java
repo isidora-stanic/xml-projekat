@@ -1,6 +1,8 @@
 
 package com.rokzasok.portal.za.imunizaciju.dokumenti.gradjanin.obrazac_saglasnosti;
 
+import com.rokzasok.portal.za.imunizaciju.dokumenti.potvrda_vakcinacije.KolekcijaPotvrdaVakcinacije;
+
 import javax.xml.bind.JAXBElement;
 import javax.xml.bind.annotation.XmlElementDecl;
 import javax.xml.bind.annotation.XmlRegistry;
@@ -34,6 +36,12 @@ public class ObjectFactory {
      */
     public ObjectFactory() {
     }
+
+    /**
+     * Create an instance of {@link KolekcijaObrazacaSaglasnosti }
+     *
+     */
+    public KolekcijaObrazacaSaglasnosti createKolekcijaObrazacaSaglasnosti() { return new KolekcijaObrazacaSaglasnosti(); }
 
     /**
      * Create an instance of {@link ObrazacSaglasnosti }

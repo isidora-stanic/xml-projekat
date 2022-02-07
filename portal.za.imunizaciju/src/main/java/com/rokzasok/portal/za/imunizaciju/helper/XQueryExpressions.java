@@ -24,4 +24,15 @@ public class XQueryExpressions {
     public static final String X_UPDATE_REMOVE_POTVRDA_BY_ID_EXPRESSION =
             "xquery version \"3.1\";\n" +
                     "xmldb:remove('/db/sample/potvrda-vakcinacije', '%s')";
+
+
+    public static final String X_QUERY_FIND_ALL_OBRAZAC_SAGLASNOSTI_EXPRESSION = "xquery version \"3.1\";\n" +
+            "declare default element namespace \"http://www.rokzasok.rs/gradjanin/obrazac-saglasnosti\";\n" +
+            "for $x in collection(\"/db/sample/obrazac_saglasnosti\")\n" +
+            "return $x";
+
+    public static final String X_UPDATE_REMOVE_OBRAZAC_SAGLASNOSTI_BY_ID_EXPRESSION =
+            "xquery version \"3.1\";\n" +
+                    "xmldb:remove('/db/sample/obrazac_saglasnosti', '%s')";
+
 }
