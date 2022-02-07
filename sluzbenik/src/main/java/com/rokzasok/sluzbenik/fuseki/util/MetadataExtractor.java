@@ -14,7 +14,7 @@ import java.io.*;
 public class MetadataExtractor {
     private TransformerFactory transformerFactory;
 
-    private static final String XSLT_FILE = "./sluzbenik/src/main/resources/data/grddl.xsl";
+    private static final String XSLT_FILE = "./src/main/resources/data/grddl.xsl";
 
 
     public MetadataExtractor() throws SAXException, IOException {

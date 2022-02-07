@@ -39,8 +39,8 @@ public class DigitalniSertifikatService implements AbstractXmlService<DigitalniS
     @Autowired
     private XmlConversionAgent<DigitalniSertifikat> digitalniSertifikatXmlConversionAgent;
 
-//    @Autowired
-//    private RDFService rdfService;
+    @Autowired
+    private RDFService rdfService;
 //
 //    @Autowired
 //    private PretrageHelper pretrageHelper;
@@ -118,7 +118,7 @@ public class DigitalniSertifikatService implements AbstractXmlService<DigitalniS
         try {
             izvestaj = this.digitalniSertifikatXmlConversionAgent.unmarshall(xmlEntity, this.jaxbContextPath);
             izvestaj.setDokumentId(this.uuidHelper.getUUID());
-            //this.handleMetadata(izvestaj);
+            this.handleMetadata(izvestaj);
         } catch (JAXBException e) {
             throw new InvalidXmlException(IzvestajOImunizaciji.class, e.getMessage());
         }
@@ -138,9 +138,9 @@ public class DigitalniSertifikatService implements AbstractXmlService<DigitalniS
         try {
             xmlEntity = this.digitalniSertifikatXmlConversionAgent.marshall(izvestaj, this.jaxbContextPath);
             System.out.println(xmlEntity);
-//            if (!rdfService.save(xmlEntity, SPARQL_NAMED_GRAPH_URI)) {
-//                System.out.println("[ERROR] Neuspesno cuvanje metapodataka zahteva u RDF DB.");
-//            }
+            if (!rdfService.save(xmlEntity, SPARQL_NAMED_GRAPH_URI)) {
+                System.out.println("[ERROR] Neuspesno cuvanje metapodataka zahteva u RDF DB.");
+            }
         } catch (JAXBException e) {
             e.printStackTrace();
         }
@@ -183,5 +183,28 @@ public class DigitalniSertifikatService implements AbstractXmlService<DigitalniS
         } catch (XMLDBException e) {
             throw new XmlDatabaseException(e.getMessage());
         }
+    }
+
+    private void handleMetadata(DigitalniSertifikat izvestaj) {
+        izvestaj.setVocab("http://www.rokzasok.rs/rdf/database/predicate");
+        izvestaj.setAbout("http://www.rokzasok.rs/rdf/database/digitalni-sertifikat/" + izvestaj.getDokumentId().toString());
+        izvestaj.setRel("pred:kreiranOdStrane");
+        izvestaj.setHref("http://www.rokzasok.rs/rdf/database/osoba/" + izvestaj.getGradjanin().getJmbg()); // TODO ID
+
+
+        izvestaj.getGradjanin().setVocab("http://www.rokzasok.rs/rdf/database/predicate");
+        izvestaj.getGradjanin().setAbout("http://www.rokzasok.rs/rdf/database/osoba/" + izvestaj.getGradjanin().getJmbg()); // TODO ID
+
+        izvestaj.getInfoOSertifikatu().getQrLink().setProperty("pred:qrLink");
+        izvestaj.getInfoOSertifikatu().getQrLink().setDatatype("xs:string");
+
+        izvestaj.getInfoOSertifikatu().getDatum().setProperty("pred:datumIzdavanja");
+        izvestaj.getInfoOSertifikatu().getDatum().setDatatype("xs:string");
+
+//        izvestaj.getDatumPodnosenja().setContent(this.dateHelper.toDate(izvestaj.getDatumPodnosenja()));
+//        izvestaj.setId(izvestaj.getId());
+//
+//        izvestaj.setVocab("http://ftn.uns.ac.rs.tim5/model/predicate");
+//        izvestaj.getDatumPodnosenja().setProperty("pred:datum");
     }
 }
