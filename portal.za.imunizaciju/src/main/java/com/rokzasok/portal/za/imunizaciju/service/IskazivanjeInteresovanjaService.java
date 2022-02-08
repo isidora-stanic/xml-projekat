@@ -1,7 +1,9 @@
 package com.rokzasok.portal.za.imunizaciju.service;
 
 import com.rokzasok.portal.za.imunizaciju.dokumenti.gradjanin.iskazivanje_interesovanja.ObrazacInteresovanja;
+import com.rokzasok.portal.za.imunizaciju.exception.EntityNotFoundException;
 import com.rokzasok.portal.za.imunizaciju.exception.InvalidXmlDatabaseException;
+import com.rokzasok.portal.za.imunizaciju.exception.InvalidXmlException;
 import com.rokzasok.portal.za.imunizaciju.exception.XmlDatabaseException;
 import com.rokzasok.portal.za.imunizaciju.helper.UUIDHelper;
 import com.rokzasok.portal.za.imunizaciju.helper.XmlConversionAgent;
@@ -17,7 +19,7 @@ import javax.xml.bind.JAXBException;
 import java.util.List;
 
 @Service
-public class ZahtjevZaImunizacijuService implements AbstractXmlService<ObrazacInteresovanja> {
+public class IskazivanjeInteresovanjaService implements AbstractXmlService<ObrazacInteresovanja> {
 
     private final String jaxbContextPath = "com.rokzasok.portal.za.imunizaciju.dokumenti.gradjanin.iskazivanje_interesovanja";
 
@@ -30,10 +32,10 @@ public class ZahtjevZaImunizacijuService implements AbstractXmlService<ObrazacIn
 
     @Autowired
     //@Qualifier("izvestajRepository")
-    private AbstractXmlRepository<ObrazacInteresovanja> izvestajAbstractXmlRepository;
+    private AbstractXmlRepository<ObrazacInteresovanja> obrazacInteresovanjaAbstractXmlRepository;
 
     @Autowired
-    private XmlConversionAgent<ObrazacInteresovanja> izvestajXmlConversionAgent;
+    private XmlConversionAgent<ObrazacInteresovanja> obrazacInteresovanjaXmlConversionAgent;
 
     @Autowired
     private RDFService rdfService;
@@ -57,7 +59,7 @@ public class ZahtjevZaImunizacijuService implements AbstractXmlService<ObrazacIn
 
     //@PostConstruct
     public void injectRepositoryProperties() {
-        this.izvestajAbstractXmlRepository.injectRepositoryProperties(
+        this.obrazacInteresovanjaAbstractXmlRepository.injectRepositoryProperties(
                 "/db/sample/iskazivanje-interesovanja",
                 jaxbContextPath,
                 X_QUERY_FIND_ALL_IZVESTAJI_EXPRESSION,
@@ -88,7 +90,16 @@ public class ZahtjevZaImunizacijuService implements AbstractXmlService<ObrazacIn
     public ObrazacInteresovanja findById(Long entityId) {
         injectRepositoryProperties();
 
-        return null;
+        try {
+            ObrazacInteresovanja obrazacInteresovanja = this.obrazacInteresovanjaAbstractXmlRepository.getEntity(entityId);
+            if (obrazacInteresovanja == null)
+                throw new EntityNotFoundException(entityId, ObrazacInteresovanja.class);
+            return obrazacInteresovanja;
+        } catch (XMLDBException e) {
+            throw new XmlDatabaseException(e.getMessage());
+        } catch (JAXBException e) {
+            throw new InvalidXmlDatabaseException(ObrazacInteresovanja.class, e.getMessage());
+        }
     }
 
     @Override
@@ -97,7 +108,7 @@ public class ZahtjevZaImunizacijuService implements AbstractXmlService<ObrazacIn
 
         ObrazacInteresovanja obrazacInteresovanja = null;
         try {
-            obrazacInteresovanja = this.izvestajXmlConversionAgent.unmarshall(xmlEntity, this.jaxbContextPath);
+            obrazacInteresovanja = this.obrazacInteresovanjaXmlConversionAgent.unmarshall(xmlEntity, this.jaxbContextPath);
             obrazacInteresovanja.setDokumentId(this.uuidHelper.getUUID());
             this.handleMetadata(obrazacInteresovanja);
         } catch (JAXBException e) {
@@ -106,7 +117,7 @@ public class ZahtjevZaImunizacijuService implements AbstractXmlService<ObrazacIn
         }
 
         try {
-            obrazacInteresovanja = izvestajAbstractXmlRepository.createEntity(obrazacInteresovanja);
+            obrazacInteresovanja = obrazacInteresovanjaAbstractXmlRepository.createEntity(obrazacInteresovanja);
         } catch (XMLDBException e) {
             throw new XmlDatabaseException(e.getMessage());
         } catch (JAXBException e) {
@@ -118,7 +129,7 @@ public class ZahtjevZaImunizacijuService implements AbstractXmlService<ObrazacIn
             We marshall because we need RDFa (which was set by handleMetadata)
          */
         try {
-            xmlEntity = this.izvestajXmlConversionAgent.marshall(obrazacInteresovanja, this.jaxbContextPath);
+            xmlEntity = this.obrazacInteresovanjaXmlConversionAgent.marshall(obrazacInteresovanja, this.jaxbContextPath);
             System.out.println(xmlEntity);
             if (!rdfService.save(xmlEntity, SPARQL_NAMED_GRAPH_URI)) {
                 System.out.println("[ERROR] Neuspesno cuvanje metapodataka zahteva u RDF DB.");
@@ -136,14 +147,34 @@ public class ZahtjevZaImunizacijuService implements AbstractXmlService<ObrazacIn
     public ObrazacInteresovanja update(String entityXml) {
         injectRepositoryProperties();
 
-        return null;
+        ObrazacInteresovanja obrazacInteresovanja;
+        try {
+            obrazacInteresovanja = this.obrazacInteresovanjaXmlConversionAgent.unmarshall(entityXml, this.jaxbContextPath);
+        } catch (JAXBException e) {
+            throw new InvalidXmlException(ObrazacInteresovanja.class, e.getMessage());
+        }
+
+        try {
+            if (!this.obrazacInteresovanjaAbstractXmlRepository.updateEntity(obrazacInteresovanja)) {
+                throw new EntityNotFoundException(obrazacInteresovanja.getDokumentId(), ObrazacInteresovanja.class);
+            }
+            return obrazacInteresovanja;
+        } catch (XMLDBException e) {
+            throw new XmlDatabaseException(e.getMessage());
+        } catch (JAXBException e) {
+            throw new InvalidXmlDatabaseException(ObrazacInteresovanja.class, e.getMessage());
+        }
     }
 
     @Override
     public boolean deleteById(Long entityId) {
         injectRepositoryProperties();
 
-        return false;
+        try {
+            return this.obrazacInteresovanjaAbstractXmlRepository.deleteEntity(entityId);
+        } catch (XMLDBException e) {
+            throw new XmlDatabaseException(e.getMessage());
+        }
     }
 
     private void handleMetadata(ObrazacInteresovanja interesovanje){
