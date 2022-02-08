@@ -1,9 +1,10 @@
 
 package com.rokzasok.portal.za.imunizaciju.dokumenti.gradjanin.zahtev_za_sertifikat;
 
+import com.rokzasok.portal.za.imunizaciju.interfaces.Identifiable;
+
 import javax.xml.bind.annotation.*;
 import javax.xml.datatype.XMLGregorianCalendar;
-import java.math.BigInteger;
 
 
 /**
@@ -74,7 +75,7 @@ import java.math.BigInteger;
 
 })
 @XmlRootElement(name = "zahtev", namespace = "www.rokzasok.rs/gradjanin/zahtev-za-sertifikat")
-public class Zahtev {
+public class Zahtev implements Identifiable {
 
     @XmlElement(name = "razlog_podnosenja", namespace = "www.rokzasok.rs/gradjanin/zahtev-za-sertifikat", required = true)
     protected RazlogPodnosenja razlogPodnosenja;
@@ -86,7 +87,7 @@ public class Zahtev {
     protected Pacijent pacijent;
     @XmlElement(name = "dokument_id", namespace = "www.rokzasok.rs/gradjanin/zahtev-za-sertifikat", required = true)
     @XmlSchemaType(name = "positiveInteger")
-    protected BigInteger dokumentId;
+    protected Long dokumentId;
     @XmlAttribute(name = "vocab")
     protected String vocab;
     @XmlAttribute(name = "about")
@@ -197,10 +198,10 @@ public class Zahtev {
      * 
      * @return
      *     possible object is
-     *     {@link BigInteger }
+     *     {@link Long }
      *     
      */
-    public BigInteger getDokumentId() {
+    public Long getDokumentId() {
         return dokumentId;
     }
 
@@ -209,10 +210,10 @@ public class Zahtev {
      * 
      * @param value
      *     allowed object is
-     *     {@link BigInteger }
+     *     {@link Long }
      *     
      */
-    public void setDokumentId(BigInteger value) {
+    public void setDokumentId(Long value) {
         this.dokumentId = value;
     }
 
