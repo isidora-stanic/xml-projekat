@@ -35,8 +35,8 @@ public class ZahtjevZaImunizacijuService implements AbstractXmlService<ObrazacIn
     @Autowired
     private XmlConversionAgent<ObrazacInteresovanja> izvestajXmlConversionAgent;
 
-//    @Autowired
-//    private RDFService rdfService;
+    @Autowired
+    private RDFService rdfService;
 //
 //    @Autowired
 //    private PretrageHelper pretrageHelper;
@@ -99,7 +99,7 @@ public class ZahtjevZaImunizacijuService implements AbstractXmlService<ObrazacIn
         try {
             obrazacInteresovanja = this.izvestajXmlConversionAgent.unmarshall(xmlEntity, this.jaxbContextPath);
             obrazacInteresovanja.setDokumentId(this.uuidHelper.getUUID());
-            //this.handleMetadata(izvestaj);
+            this.handleMetadata(obrazacInteresovanja);
         } catch (JAXBException e) {
             e.printStackTrace();
             //throw new InvalidXmlException(ObrazacInteresovanja.class, e.getMessage());
@@ -120,9 +120,9 @@ public class ZahtjevZaImunizacijuService implements AbstractXmlService<ObrazacIn
         try {
             xmlEntity = this.izvestajXmlConversionAgent.marshall(obrazacInteresovanja, this.jaxbContextPath);
             System.out.println(xmlEntity);
-//            if (!rdfService.save(xmlEntity, SPARQL_NAMED_GRAPH_URI)) {
-//                System.out.println("[ERROR] Neuspesno cuvanje metapodataka zahteva u RDF DB.");
-//            }
+            if (!rdfService.save(xmlEntity, SPARQL_NAMED_GRAPH_URI)) {
+                System.out.println("[ERROR] Neuspesno cuvanje metapodataka zahteva u RDF DB.");
+            }
         } catch (JAXBException e) {
             e.printStackTrace();
         }
@@ -144,5 +144,34 @@ public class ZahtjevZaImunizacijuService implements AbstractXmlService<ObrazacIn
         injectRepositoryProperties();
 
         return false;
+    }
+
+    private void handleMetadata(ObrazacInteresovanja interesovanje){
+        interesovanje.getPodaciOOsobi().setVocab("http://www.rokzasok.rs/rdf/database/predicate");
+        interesovanje.getPodaciOOsobi().setAbout("http://www.rokzasok.rs/rdf/database/osoba/" + interesovanje.getPodaciOOsobi().getJMBG());
+
+        interesovanje.getPodaciOOsobi().getEmail().setDatatype("xs:string");
+        interesovanje.getPodaciOOsobi().getEmail().setProperty("pred:email");
+
+        interesovanje.getPodaciOOsobi().getBrojFiksnogTelefona().setProperty("pred:brojFiksnogTelefona");
+        interesovanje.getPodaciOOsobi().getBrojFiksnogTelefona().setDatatype("xs:string");
+
+        interesovanje.getOpstiPodaci().setVocab("http://www.rokzasok.rs/rdf/database/predicate");
+        interesovanje.getOpstiPodaci().setAbout("http://www.rokzasok.rs/rdf/database/iskazivanje-interesovanja/" + interesovanje.getDokumentId().toString());
+        interesovanje.getOpstiPodaci().setRel("pred:kreiranOdStrane");
+        interesovanje.getOpstiPodaci().setHref("http://www.rokzasok.rs/rdf/database/osoba/" + interesovanje.getPodaciOOsobi().getJMBG());
+
+        interesovanje.getOpstiPodaci().getLokacijaOpstina().setDatatype("xs:string");
+        interesovanje.getOpstiPodaci().getLokacijaOpstina().setProperty("pred:lokacijaOpstina");
+
+        interesovanje.getOpstiPodaci().getTipVakcine().setProperty("pred:tipVakcine");
+        interesovanje.getOpstiPodaci().getTipVakcine().setDatatype("xs:string");
+
+        interesovanje.getOpstiPodaci().getDavalacKrvi().setDatatype("xs:boolean");
+        interesovanje.getOpstiPodaci().getDavalacKrvi().setProperty("pred:davalacKrvi");
+
+        interesovanje.getOpstiPodaci().getDatumPodnosenja().setProperty("pred:datumPodnosenja");
+        interesovanje.getOpstiPodaci().getDatumPodnosenja().setDatatype("xs:date");
+
     }
 }
