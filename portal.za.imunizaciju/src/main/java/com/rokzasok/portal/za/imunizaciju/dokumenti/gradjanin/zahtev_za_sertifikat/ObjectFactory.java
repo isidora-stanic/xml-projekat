@@ -8,18 +8,17 @@ import javax.xml.namespace.QName;
 
 
 /**
- * This object contains factory methods for each 
- * Java content interface and Java element interface 
- * generated in the www.rokzasok.rs.euprava.gradjanin.zahtev_za_sertifikat package. 
- * <p>An ObjectFactory allows you to programatically 
- * construct new instances of the Java representation 
- * for XML content. The Java representation of XML 
- * content can consist of schema derived interfaces 
- * and classes representing the binding of schema 
- * type definitions, element declarations and model 
- * groups.  Factory methods for each of these are 
+ * This object contains factory methods for each
+ * Java content interface and Java element interface
+ * generated in the www.rokzasok.rs.euprava.gradjanin.zahtev_za_sertifikat package.
+ * <p>An ObjectFactory allows you to programatically
+ * construct new instances of the Java representation
+ * for XML content. The Java representation of XML
+ * content can consist of schema derived interfaces
+ * and classes representing the binding of schema
+ * type definitions, element declarations and model
+ * groups.  Factory methods for each of these are
  * provided in this class.
- * 
  */
 @XmlRegistry
 public class ObjectFactory {
@@ -30,14 +29,20 @@ public class ObjectFactory {
 
     /**
      * Create a new ObjectFactory that can be used to create new instances of schema derived classes for package: www.rokzasok.rs.euprava.gradjanin.zahtev_za_sertifikat
-     * 
      */
     public ObjectFactory() {
     }
 
     /**
+     * Create an instance of {@link KolekcijaZahtevaZaSertifikat }
+     */
+    public KolekcijaZahtevaZaSertifikat createKolekcijaZahtevaZaSertifikat() {
+        return new KolekcijaZahtevaZaSertifikat();
+    }
+
+
+    /**
      * Create an instance of {@link Zahtev }
-     * 
      */
     public Zahtev createZahtev() {
         return new Zahtev();
@@ -45,7 +50,6 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link Zahtev.RazlogPodnosenja }
-     * 
      */
     public Zahtev.RazlogPodnosenja createZahtevRazlogPodnosenja() {
         return new Zahtev.RazlogPodnosenja();
@@ -53,7 +57,6 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link Zahtev.Mesto }
-     * 
      */
     public Zahtev.Mesto createZahtevMesto() {
         return new Zahtev.Mesto();
@@ -61,7 +64,6 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link Zahtev.Datum }
-     * 
      */
     public Zahtev.Datum createZahtevDatum() {
         return new Zahtev.Datum();
@@ -69,7 +71,6 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link Zahtev.Pacijent }
-     * 
      */
     public Zahtev.Pacijent createZahtevPacijent() {
         return new Zahtev.Pacijent();
@@ -77,7 +78,6 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link TOsoba }
-     * 
      */
     public TOsoba createTOsoba() {
         return new TOsoba();
@@ -85,11 +85,9 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link String }{@code >}
-     * 
-     * @param value
-     *     Java instance representing xml element's value.
-     * @return
-     *     the new instance of {@link JAXBElement }{@code <}{@link String }{@code >}
+     *
+     * @param value Java instance representing xml element's value.
+     * @return the new instance of {@link JAXBElement }{@code <}{@link String }{@code >}
      */
     @XmlElementDecl(namespace = "http://www.rokzasok.rs/tipovi", name = "JMBG")
     public JAXBElement<String> createJMBG(String value) {
@@ -98,11 +96,9 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link TPol }{@code >}
-     * 
-     * @param value
-     *     Java instance representing xml element's value.
-     * @return
-     *     the new instance of {@link JAXBElement }{@code <}{@link TPol }{@code >}
+     *
+     * @param value Java instance representing xml element's value.
+     * @return the new instance of {@link JAXBElement }{@code <}{@link TPol }{@code >}
      */
     @XmlElementDecl(namespace = "http://www.rokzasok.rs/tipovi", name = "pol")
     public JAXBElement<TPol> createPol(TPol value) {
@@ -111,11 +107,9 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link String }{@code >}
-     * 
-     * @param value
-     *     Java instance representing xml element's value.
-     * @return
-     *     the new instance of {@link JAXBElement }{@code <}{@link String }{@code >}
+     *
+     * @param value Java instance representing xml element's value.
+     * @return the new instance of {@link JAXBElement }{@code <}{@link String }{@code >}
      */
     @XmlElementDecl(namespace = "http://www.rokzasok.rs/tipovi", name = "broj_pasosa")
     public JAXBElement<String> createBrojPasosa(String value) {
