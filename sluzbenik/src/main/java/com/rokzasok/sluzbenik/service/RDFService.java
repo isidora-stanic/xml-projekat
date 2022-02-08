@@ -51,6 +51,7 @@ public class RDFService {
     public boolean save(String rdfa, String named_graph_uri) {
         String tmpFilename = "" + System.currentTimeMillis() + ".xml";
         try {
+            // TODO SKLONI OVAJ KOD
             PrintWriter p = new PrintWriter(new FileOutputStream(tmpFilename, true));
             p.println(rdfa);
             p.close();
