@@ -1,7 +1,10 @@
 package com.rokzasok.portal.za.imunizaciju.controller;
 
 import com.rokzasok.portal.za.imunizaciju.dokumenti.gradjanin.iskazivanje_interesovanja.ObrazacInteresovanja;
+import com.rokzasok.portal.za.imunizaciju.fuseki.SparqlService;
 import com.rokzasok.portal.za.imunizaciju.service.IskazivanjeInteresovanjaService;
+import org.apache.jena.query.ResultSet;
+import org.apache.jena.query.ResultSetFormatter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -10,11 +13,14 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 @Controller
-@RequestMapping(value = "api/gradjanin")
+@RequestMapping(value = "api/iskazivanje-interesovanja")
 public class IskazivanjeInteresovanjaController {
 
     @Autowired
     IskazivanjeInteresovanjaService zahtjevZaImunizacijuService;
+
+    @Autowired
+    SparqlService sparqlService;
 
     public void registracija(){
 
@@ -62,5 +68,17 @@ public class IskazivanjeInteresovanjaController {
     ResponseEntity<Void> delete(@PathVariable("id") Long id) {
         this.zahtjevZaImunizacijuService.deleteById(id);
         return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+    // todo premestiti u neki kontroler za ovo - u servisu nekom treba pozvati findById za sva dokumenta koja se nadju
+    @GetMapping(value = "kreirao/{osobaId}")
+    void getKreiranOdStrane(@PathVariable("osobaId") String osobaId) {
+        ResultSet dokumenti = this.sparqlService.getAllKreiranOdStrane(osobaId);
+    }
+
+    // todo premestiti u neki kontroler za ovo - u servisu nekom treba pozvati findById za sva dokumenta koja se nadju
+    @GetMapping(value = "od/{d1}/do/{d2}")
+    void getKreiranOdStrane(@PathVariable("d1") String d1, @PathVariable("d2") String d2) {
+        ResultSet dokumenti = this.sparqlService.getAllOdDo(d1, d2);
     }
 }

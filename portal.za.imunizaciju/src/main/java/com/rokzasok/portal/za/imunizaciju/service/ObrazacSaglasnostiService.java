@@ -183,18 +183,18 @@ public class ObrazacSaglasnostiService implements AbstractXmlService<ObrazacSagl
             doza.setHref("http://www.rokzasok.rs/rdf/database/obrazac-saglasnosti/" + doza.getBrojDoze().toString());
 
             doza.getTip().setProperty("pred:tipVakcine");
-            doza.getTip().setDatatype("xs:string");
+            doza.getTip().setDatatype("xs:#string");
 
             doza.getProizvodjac().setProperty("pred:proizvodjacVakcine");
 
             doza.getDatum().setProperty("pred:datumPrimanja");
-            doza.getDatum().setDatatype("xs:date");
+            doza.getDatum().setDatatype("xs:#date");
 
             doza.getBrojSerije().setProperty("pred:brojSerije");
-            doza.getBrojSerije().setDatatype("xs:string");
+            doza.getBrojSerije().setDatatype("xs:#string");
 
             doza.getBrojDoze().setProperty("pred:brojDoze");
-            doza.getBrojDoze().setDatatype("xs:positiveInteger");
+            doza.getBrojDoze().setDatatype("xs:#positiveInteger");
         }
 
         izvestaj.getDokumentInfo().setVocab("http://www.rokzasok.rs/rdf/database/predicate");

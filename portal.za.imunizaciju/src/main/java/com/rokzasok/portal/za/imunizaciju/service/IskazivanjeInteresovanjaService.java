@@ -181,28 +181,28 @@ public class IskazivanjeInteresovanjaService implements AbstractXmlService<Obraz
         interesovanje.getPodaciOOsobi().setVocab("http://www.rokzasok.rs/rdf/database/predicate");
         interesovanje.getPodaciOOsobi().setAbout("http://www.rokzasok.rs/rdf/database/osoba/" + interesovanje.getPodaciOOsobi().getJMBG());
 
-        interesovanje.getPodaciOOsobi().getEmail().setDatatype("xs:string");
+        interesovanje.getPodaciOOsobi().getEmail().setDatatype("xs:#string");
         interesovanje.getPodaciOOsobi().getEmail().setProperty("pred:email");
 
         interesovanje.getPodaciOOsobi().getBrojFiksnogTelefona().setProperty("pred:brojFiksnogTelefona");
-        interesovanje.getPodaciOOsobi().getBrojFiksnogTelefona().setDatatype("xs:string");
+        interesovanje.getPodaciOOsobi().getBrojFiksnogTelefona().setDatatype("xs:#string");
 
         interesovanje.getOpstiPodaci().setVocab("http://www.rokzasok.rs/rdf/database/predicate");
         interesovanje.getOpstiPodaci().setAbout("http://www.rokzasok.rs/rdf/database/iskazivanje-interesovanja/" + interesovanje.getDokumentId().toString());
         interesovanje.getOpstiPodaci().setRel("pred:kreiranOdStrane");
         interesovanje.getOpstiPodaci().setHref("http://www.rokzasok.rs/rdf/database/osoba/" + interesovanje.getPodaciOOsobi().getJMBG());
 
-        interesovanje.getOpstiPodaci().getLokacijaOpstina().setDatatype("xs:string");
+        interesovanje.getOpstiPodaci().getLokacijaOpstina().setDatatype("xs:#string");
         interesovanje.getOpstiPodaci().getLokacijaOpstina().setProperty("pred:lokacijaOpstina");
 
         interesovanje.getOpstiPodaci().getTipVakcine().setProperty("pred:tipVakcine");
-        interesovanje.getOpstiPodaci().getTipVakcine().setDatatype("xs:string");
+        interesovanje.getOpstiPodaci().getTipVakcine().setDatatype("xs:#string");
 
-        interesovanje.getOpstiPodaci().getDavalacKrvi().setDatatype("xs:boolean");
+        interesovanje.getOpstiPodaci().getDavalacKrvi().setDatatype("xs:#boolean");
         interesovanje.getOpstiPodaci().getDavalacKrvi().setProperty("pred:davalacKrvi");
 
         interesovanje.getOpstiPodaci().getDatumPodnosenja().setProperty("pred:datumPodnosenja");
-        interesovanje.getOpstiPodaci().getDatumPodnosenja().setDatatype("xs:date");
+        interesovanje.getOpstiPodaci().getDatumPodnosenja().setDatatype("xs:#date");
 
     }
 }

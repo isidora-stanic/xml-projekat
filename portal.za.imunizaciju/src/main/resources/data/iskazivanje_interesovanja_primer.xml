@@ -11,18 +11,18 @@
         <ns1:JMBG>1001999980035</ns1:JMBG>
         <is:ime>Jovan</is:ime>
         <is:prezime>Đorđić</is:prezime>
-        <is:email datatype="xs:string" property="pred:email">jovan.d@mail.info</is:email>
+        <is:email>jovan.d@mail.info</is:email>
         <is:broj_mobilnog_telefona>066488755</is:broj_mobilnog_telefona>
-        <is:broj_fiksnog_telefona property="pred:brojFiksnogTelefona" datatype="xs:string">021666877</is:broj_fiksnog_telefona>
+        <is:broj_fiksnog_telefona>021666877</is:broj_fiksnog_telefona>
     </is:podaci_o_osobi>
     <is:opsti_podaci
             vocab="http://www.rokzasok.rs/rdf/database/predicate"
             about="http://www.rokzasok.rs/rdf/database/iskazivanje-interesovanja/1"
             rel="pred:kreiranOdStrane" href="http://www.rokzasok.rs/rdf/database/osoba/1001999980035">
-        <is:lokacija_opstina datatype="xs:string" property="pred:lokacijaOpstina">Novi Sad</is:lokacija_opstina>
-        <is:tip_vakcine property="pred:tipVakcine" datatype="xs:string">Pfizer-BioNtech</is:tip_vakcine>
-        <is:davalac_krvi datatype="xs:boolean" property="pred:davalacKrvi">false</is:davalac_krvi>
-        <is:datum_podnosenja property="pred:datumPodnosenja" datatype="xs:date">2022-01-03</is:datum_podnosenja>
+        <is:lokacija_opstina>Novi Sad</is:lokacija_opstina>
+        <is:tip_vakcine>Pfizer-BioNtech</is:tip_vakcine>
+        <is:davalac_krvi>false</is:davalac_krvi>
+        <is:datum_podnosenja>2022-01-03</is:datum_podnosenja>
     </is:opsti_podaci>
     <is:dokument_id>1</is:dokument_id>
 </is:obrazac_interesovanja>

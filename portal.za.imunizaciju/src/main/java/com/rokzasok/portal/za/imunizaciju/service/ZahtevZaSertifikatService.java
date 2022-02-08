@@ -152,13 +152,13 @@ public class ZahtevZaSertifikatService implements AbstractXmlService<Zahtev> {
         zahtev.setRel("pred:kreiranOdStrane");
         zahtev.setHref("http://www.rokzasok.rs/rdf/database/osoba/" + zahtev.getPacijent().getJmbg()); // todo: id umesto JMBG
 
-        zahtev.getRazlogPodnosenja().setDatatype("xs:string");
+        zahtev.getRazlogPodnosenja().setDatatype("xs:#string");
         zahtev.getRazlogPodnosenja().setProperty("pred:razlogPodnosenja");
 
-        zahtev.getMesto().setDatatype("xs:string");
+        zahtev.getMesto().setDatatype("xs:#string");
         zahtev.getMesto().setProperty("pred:mestoPodnosenja");
 
-        zahtev.getDatum().setDatatype("xs:date");
+        zahtev.getDatum().setDatatype("xs:#date");
         zahtev.getDatum().setProperty("pred:datumPodnosenja");
 
         zahtev.getPacijent().setAbout("http://www.rokzasok.rs/rdf/database/osoba/" + zahtev.getPacijent().getJmbg()); // todo: id umesto JMBG

@@ -196,10 +196,10 @@ public class DigitalniSertifikatService implements AbstractXmlService<DigitalniS
         izvestaj.getGradjanin().setAbout("http://www.rokzasok.rs/rdf/database/osoba/" + izvestaj.getGradjanin().getJmbg()); // TODO ID
 
         izvestaj.getInfoOSertifikatu().getQrLink().setProperty("pred:qrLink");
-        izvestaj.getInfoOSertifikatu().getQrLink().setDatatype("xs:string");
+        izvestaj.getInfoOSertifikatu().getQrLink().setDatatype("xs:#string");
 
         izvestaj.getInfoOSertifikatu().getDatum().setProperty("pred:datumIzdavanja");
-        izvestaj.getInfoOSertifikatu().getDatum().setDatatype("xs:string");
+        izvestaj.getInfoOSertifikatu().getDatum().setDatatype("xs:#string");
 
 //        izvestaj.getDatumPodnosenja().setContent(this.dateHelper.toDate(izvestaj.getDatumPodnosenja()));
 //        izvestaj.setId(izvestaj.getId());
