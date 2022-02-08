@@ -200,11 +200,5 @@ public class DigitalniSertifikatService implements AbstractXmlService<DigitalniS
 
         izvestaj.getInfoOSertifikatu().getDatum().setProperty("pred:datumIzdavanja");
         izvestaj.getInfoOSertifikatu().getDatum().setDatatype("xs:#string");
-
-//        izvestaj.getDatumPodnosenja().setContent(this.dateHelper.toDate(izvestaj.getDatumPodnosenja()));
-//        izvestaj.setId(izvestaj.getId());
-//
-//        izvestaj.setVocab("http://ftn.uns.ac.rs.tim5/model/predicate");
-//        izvestaj.getDatumPodnosenja().setProperty("pred:datum");
     }
 }
