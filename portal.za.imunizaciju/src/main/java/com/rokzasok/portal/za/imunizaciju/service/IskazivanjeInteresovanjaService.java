@@ -5,9 +5,15 @@ import com.rokzasok.portal.za.imunizaciju.exception.EntityNotFoundException;
 import com.rokzasok.portal.za.imunizaciju.exception.InvalidXmlDatabaseException;
 import com.rokzasok.portal.za.imunizaciju.exception.InvalidXmlException;
 import com.rokzasok.portal.za.imunizaciju.exception.XmlDatabaseException;
+import com.rokzasok.portal.za.imunizaciju.fuseki.SparqlService;
+import com.rokzasok.portal.za.imunizaciju.fuseki.util.SparqlUtil;
 import com.rokzasok.portal.za.imunizaciju.helper.UUIDHelper;
 import com.rokzasok.portal.za.imunizaciju.helper.XmlConversionAgent;
 import com.rokzasok.portal.za.imunizaciju.repository.AbstractXmlRepository;
+import org.apache.jena.query.QueryExecution;
+import org.apache.jena.query.QueryExecutionFactory;
+import org.apache.jena.query.ResultSet;
+import org.apache.jena.query.ResultSetFormatter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.xmldb.api.base.XMLDBException;
@@ -39,6 +45,7 @@ public class IskazivanjeInteresovanjaService implements AbstractXmlService<Obraz
 
     @Autowired
     private RDFService rdfService;
+
 //
 //    @Autowired
 //    private PretrageHelper pretrageHelper;
@@ -109,6 +116,11 @@ public class IskazivanjeInteresovanjaService implements AbstractXmlService<Obraz
         ObrazacInteresovanja obrazacInteresovanja = null;
         try {
             obrazacInteresovanja = this.obrazacInteresovanjaXmlConversionAgent.unmarshall(xmlEntity, this.jaxbContextPath);
+            if(!proveriDaLiMozeDaKreiraInteresovanje(obrazacInteresovanja.getPodaciOOsobi().getJMBG())){
+                //TODO:neka umjesto jmbg bude id
+                System.out.println("OBRAZAC INTERESOVANJA JE VEC NAPRAVLJEN I NIJE PROSLO 7 DANA, PA SE NE MOZE NAPRAVITI NOVI.");
+                return null;
+            }
             obrazacInteresovanja.setDokumentId(this.uuidHelper.getUUID());
             this.handleMetadata(obrazacInteresovanja);
         } catch (JAXBException e) {
@@ -205,4 +217,22 @@ public class IskazivanjeInteresovanjaService implements AbstractXmlService<Obraz
         interesovanje.getOpstiPodaci().getDatumPodnosenja().setDatatype("xs:#date");
 
     }
+
+    public boolean proveriDaLiMozeDaKreiraInteresovanje(String osobaId){
+        System.out.println("[INFO] Retrieving obrasci interesovanja  by " + osobaId + " from RDF store.");
+        System.out.println("[INFO] Using \"" + SPARQL_NAMED_GRAPH_URI + "\" named graph.");
+        String sparqlQuery = SparqlUtil.selectObrasciInteresovanjaByOsoba(osobaId);
+        System.out.println(sparqlQuery);
+        QueryExecution query = QueryExecutionFactory.sparqlService("http://localhost:8080/fuseki/eUpravaDataset", sparqlQuery);
+        ResultSet results = query.execSelect();
+        Boolean retVal = true;
+        if(results.hasNext()){
+            //TODO:provjera za 7 dana
+            retVal = false;
+        }
+        ResultSetFormatter.out(System.out, results);
+        query.close();
+        return retVal;
+    }
+
 }

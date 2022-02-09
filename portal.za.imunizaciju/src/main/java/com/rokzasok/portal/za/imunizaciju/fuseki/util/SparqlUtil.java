@@ -89,4 +89,12 @@ public class SparqlUtil {
                 "    FILTER (?date >= \""+d1+"\"^^xsd:date && ?date <= \""+d2+"\"^^xsd:date) .\n" +
                 "}";
     }
+
+    public static String selectObrasciInteresovanjaByOsoba(String osobaId){
+        return "SELECT * FROM <http://localhost:8080/fuseki/eUpravaDataset/data/sparql/metadata>\n" +
+                "WHERE{\n" +
+                "\t?document <http://www.rokzasok.rs/rdf/database/predicate/kreiranOdStrane> <http://www.rokzasok.rs/rdf/database/osoba/" + osobaId + "> .\n" +
+                "  FILTER ( strstarts(str(?document), \"http://www.rokzasok.rs/rdf/database/obrazac-saglasnosti\") ) .\n" +
+                "}";
+    }
 }
