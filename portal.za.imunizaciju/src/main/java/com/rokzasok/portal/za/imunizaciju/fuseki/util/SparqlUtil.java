@@ -90,11 +90,14 @@ public class SparqlUtil {
                 "}";
     }
 
-    public static String selectObrasciInteresovanjaByOsoba(String osobaId){
-        return "SELECT * FROM <http://localhost:8080/fuseki/eUpravaDataset/data/sparql/metadata>\n" +
-                "WHERE{\n" +
-                "\t?document <http://www.rokzasok.rs/rdf/database/predicate/kreiranOdStrane> <http://www.rokzasok.rs/rdf/database/osoba/" + osobaId + "> .\n" +
-                "  FILTER ( strstarts(str(?document), \"http://www.rokzasok.rs/rdf/database/obrazac-saglasnosti\") ) .\n" +
+    public static String selectObrasciInteresovanjaByOsobaPre7Dana(String osobaId, String pre7DanaDatum){
+        return "PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>\n" +
+                "\n" +
+                "SELECT ?dokument FROM <http://localhost:8080/fuseki/eUpravaDataset/data/sparql/metadata>\n" +
+                "WHERE {\n" +
+                "  ?dokument <http://www.rokzasok.rs/rdf/database/predicate/kreiranOdStrane> <http://www.rokzasok.rs/rdf/database/osoba/"+osobaId+"> ;\n" +
+                "  <http://www.rokzasok.rs/rdf/database/predicate/datumPodnosenja> ?date .\n" +
+                "    FILTER (?date > \""+pre7DanaDatum+"\"^^xsd:date) .\n" +
                 "}";
     }
 }

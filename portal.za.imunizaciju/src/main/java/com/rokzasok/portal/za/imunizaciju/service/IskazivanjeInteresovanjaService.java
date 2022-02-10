@@ -1,10 +1,7 @@
 package com.rokzasok.portal.za.imunizaciju.service;
 
 import com.rokzasok.portal.za.imunizaciju.dokumenti.gradjanin.iskazivanje_interesovanja.ObrazacInteresovanja;
-import com.rokzasok.portal.za.imunizaciju.exception.EntityNotFoundException;
-import com.rokzasok.portal.za.imunizaciju.exception.InvalidXmlDatabaseException;
-import com.rokzasok.portal.za.imunizaciju.exception.InvalidXmlException;
-import com.rokzasok.portal.za.imunizaciju.exception.XmlDatabaseException;
+import com.rokzasok.portal.za.imunizaciju.exception.*;
 import com.rokzasok.portal.za.imunizaciju.fuseki.SparqlService;
 import com.rokzasok.portal.za.imunizaciju.fuseki.util.SparqlUtil;
 import com.rokzasok.portal.za.imunizaciju.helper.UUIDHelper;
@@ -22,6 +19,8 @@ import static com.rokzasok.portal.za.imunizaciju.helper.XQueryExpressions.X_QUER
 import static com.rokzasok.portal.za.imunizaciju.helper.XQueryExpressions.X_UPDATE_REMOVE_IZVESTAJ_BY_ID_EXPRESSION;
 
 import javax.xml.bind.JAXBException;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 @Service
@@ -119,7 +118,7 @@ public class IskazivanjeInteresovanjaService implements AbstractXmlService<Obraz
             if(!proveriDaLiMozeDaKreiraInteresovanje(obrazacInteresovanja.getPodaciOOsobi().getJMBG())){
                 //TODO:neka umjesto jmbg bude id
                 System.out.println("OBRAZAC INTERESOVANJA JE VEC NAPRAVLJEN I NIJE PROSLO 7 DANA, PA SE NE MOZE NAPRAVITI NOVI.");
-                return null;
+                throw new ObrazacInteresovanjaException("OBRAZAC INTERESOVANJA JE VEC NAPRAVLJEN I NIJE PROSLO 7 DANA, PA SE NE MOZE NAPRAVITI NOVI.");
             }
             obrazacInteresovanja.setDokumentId(this.uuidHelper.getUUID());
             this.handleMetadata(obrazacInteresovanja);
@@ -221,15 +220,13 @@ public class IskazivanjeInteresovanjaService implements AbstractXmlService<Obraz
     public boolean proveriDaLiMozeDaKreiraInteresovanje(String osobaId){
         System.out.println("[INFO] Retrieving obrasci interesovanja  by " + osobaId + " from RDF store.");
         System.out.println("[INFO] Using \"" + SPARQL_NAMED_GRAPH_URI + "\" named graph.");
-        String sparqlQuery = SparqlUtil.selectObrasciInteresovanjaByOsoba(osobaId);
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        String pre7Dana = LocalDate.now().minusDays(7).format(formatter);
+        String sparqlQuery = SparqlUtil.selectObrasciInteresovanjaByOsobaPre7Dana(osobaId, pre7Dana);
         System.out.println(sparqlQuery);
         QueryExecution query = QueryExecutionFactory.sparqlService("http://localhost:8080/fuseki/eUpravaDataset", sparqlQuery);
         ResultSet results = query.execSelect();
-        Boolean retVal = true;
-        if(results.hasNext()){
-            //TODO:provjera za 7 dana
-            retVal = false;
-        }
+        boolean retVal = !results.hasNext();
         ResultSetFormatter.out(System.out, results);
         query.close();
         return retVal;
