@@ -14,10 +14,7 @@ import org.apache.jena.query.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.xmldb.api.base.XMLDBException;
-
 import javax.xml.bind.JAXBException;
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 import static com.rokzasok.portal.za.imunizaciju.helper.XQueryExpressions.X_QUERY_FIND_ALL_OBRAZAC_SAGLASNOSTI_EXPRESSION;
@@ -133,6 +130,7 @@ public class ObrazacSaglasnostiService implements AbstractXmlService<ObrazacSagl
         ObrazacSaglasnosti potvrdaVakcinacije;
         try {
             potvrdaVakcinacije = this.obrazacSaglasnostiXmlConversionAgent.unmarshall(entityXml, this.jaxbContextPath);
+            handleMetadata(potvrdaVakcinacije);
         } catch (JAXBException e) {
             throw new InvalidXmlException(ObrazacSaglasnosti.class, e.getMessage());
         }
@@ -141,13 +139,28 @@ public class ObrazacSaglasnostiService implements AbstractXmlService<ObrazacSagl
             if (!this.obrazacSaglasnostiRepository.updateEntity(potvrdaVakcinacije)) {
                 throw new EntityNotFoundException(potvrdaVakcinacije.getDokumentId(), ObrazacSaglasnosti.class);
             }
-            return potvrdaVakcinacije;
+
         } catch (XMLDBException e) {
             throw new XmlDatabaseException(e.getMessage());
         } catch (JAXBException e) {
             throw new InvalidXmlDatabaseException(ObrazacSaglasnosti.class, e.getMessage());
         }
 
+        /*
+        Save to RDF DB
+        We marshall because we need RDFa (which was set by handleMetadata)
+     */
+        try {
+            entityXml = this.obrazacSaglasnostiXmlConversionAgent.marshall(potvrdaVakcinacije, this.jaxbContextPath);
+            System.out.println(entityXml);
+            if (!rdfService.save(entityXml, SPARQL_NAMED_GRAPH_URI)) { // todo umesto save treba update, da ne bi upisivao vise istih torki
+                System.out.println("[ERROR] Neuspesno cuvanje metapodataka zahteva u RDF DB.");
+            }
+
+        } catch (JAXBException e) {
+            e.printStackTrace();
+        }
+        return potvrdaVakcinacije;
     }
 
     @Override
@@ -178,26 +191,27 @@ public class ObrazacSaglasnostiService implements AbstractXmlService<ObrazacSagl
         izvestaj.getEvidencijaPacijent().getPacijent().getKontakt().getEmail().setProperty("pred:email");
         izvestaj.getEvidencijaPacijent().getPacijent().getKontakt().getEmail().setDatatype("xs:string");
 
+        if (izvestaj.getEvidencijaVakcinacija() != null) {
+            for (ObrazacSaglasnosti.EvidencijaVakcinacija.Tabela.Doza doza : izvestaj.getEvidencijaVakcinacija().getTabela().getDoza()) {
+                doza.setVocab("http://www.rokzasok.rs/rdf/database/predicate");
+                doza.setRel("pred:saglasnost");
+                doza.setAbout("http://www.rokzasok.rs/rdf/database/doza/" + doza.getBrojDoze().toString());
+                doza.setHref("http://www.rokzasok.rs/rdf/database/obrazac-saglasnosti/" + doza.getBrojDoze().toString());
 
-        for (ObrazacSaglasnosti.EvidencijaVakcinacija.Tabela.Doza doza : izvestaj.getEvidencijaVakcinacija().getTabela().getDoza()) {
-            doza.setVocab("http://www.rokzasok.rs/rdf/database/predicate");
-            doza.setRel("pred:saglasnost");
-            doza.setAbout("http://www.rokzasok.rs/rdf/database/doza/" + doza.getBrojDoze().toString());
-            doza.setHref("http://www.rokzasok.rs/rdf/database/obrazac-saglasnosti/" + doza.getBrojDoze().toString());
+                doza.getTip().setProperty("pred:tipVakcine");
+                doza.getTip().setDatatype("xs:#string");
 
-            doza.getTip().setProperty("pred:tipVakcine");
-            doza.getTip().setDatatype("xs:#string");
+                doza.getProizvodjac().setProperty("pred:proizvodjacVakcine");
 
-            doza.getProizvodjac().setProperty("pred:proizvodjacVakcine");
+                doza.getDatum().setProperty("pred:datumPrimanja");
+                doza.getDatum().setDatatype("xs:#date");
 
-            doza.getDatum().setProperty("pred:datumPrimanja");
-            doza.getDatum().setDatatype("xs:#date");
+                doza.getBrojSerije().setProperty("pred:brojSerije");
+                doza.getBrojSerije().setDatatype("xs:#string");
 
-            doza.getBrojSerije().setProperty("pred:brojSerije");
-            doza.getBrojSerije().setDatatype("xs:#string");
-
-            doza.getBrojDoze().setProperty("pred:brojDoze");
-            doza.getBrojDoze().setDatatype("xs:#positiveInteger");
+                doza.getBrojDoze().setProperty("pred:brojDoze");
+                doza.getBrojDoze().setDatatype("xs:#positiveInteger");
+            }
         }
 
         izvestaj.getDokumentInfo().setVocab("http://www.rokzasok.rs/rdf/database/predicate");
