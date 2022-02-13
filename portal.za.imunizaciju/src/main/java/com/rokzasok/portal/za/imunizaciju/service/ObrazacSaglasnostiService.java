@@ -2,19 +2,22 @@ package com.rokzasok.portal.za.imunizaciju.service;
 
 import com.rokzasok.portal.za.imunizaciju.dokumenti.gradjanin.iskazivanje_interesovanja.ObrazacInteresovanja;
 import com.rokzasok.portal.za.imunizaciju.dokumenti.gradjanin.obrazac_saglasnosti.ObrazacSaglasnosti;
-import com.rokzasok.portal.za.imunizaciju.dokumenti.potvrda_vakcinacije.PotvrdaVakcinacije;
 import com.rokzasok.portal.za.imunizaciju.exception.EntityNotFoundException;
 import com.rokzasok.portal.za.imunizaciju.exception.InvalidXmlDatabaseException;
 import com.rokzasok.portal.za.imunizaciju.exception.InvalidXmlException;
 import com.rokzasok.portal.za.imunizaciju.exception.XmlDatabaseException;
+import com.rokzasok.portal.za.imunizaciju.fuseki.util.SparqlUtil;
 import com.rokzasok.portal.za.imunizaciju.helper.UUIDHelper;
 import com.rokzasok.portal.za.imunizaciju.helper.XmlConversionAgent;
 import com.rokzasok.portal.za.imunizaciju.repository.AbstractXmlRepository;
+import org.apache.jena.query.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.xmldb.api.base.XMLDBException;
 
 import javax.xml.bind.JAXBException;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 import static com.rokzasok.portal.za.imunizaciju.helper.XQueryExpressions.X_QUERY_FIND_ALL_OBRAZAC_SAGLASNOSTI_EXPRESSION;
@@ -201,5 +204,27 @@ public class ObrazacSaglasnostiService implements AbstractXmlService<ObrazacSagl
         izvestaj.getDokumentInfo().setAbout("http://www.rokzasok.rs/rdf/database/obrazac-saglasnosti/" + izvestaj.getDokumentId());
         izvestaj.getDokumentInfo().setRel("pred:kreiranOdStrane");
         izvestaj.getDokumentInfo().setHref("http://www.rokzasok.rs/rdf/database/osoba/" + izvestaj.getEvidencijaPacijent().getPacijent().getPacijentInfo().getJmbg()); // TODO ID
+
+        izvestaj.getDokumentInfo().getSaglasnost().getIzjava().setProperty("pred:izjava");
+        izvestaj.getDokumentInfo().getSaglasnost().getIzjava().setDatatype("xs:#boolean");
+
+        izvestaj.getDokumentInfo().getSaglasnost().getNazivLeka().setProperty("pred:nazivLeka");
+        izvestaj.getDokumentInfo().getSaglasnost().getNazivLeka().setDatatype("xs:#string");
     }
+
+    // todo return something usable
+    public List<ObrazacSaglasnosti> getSaglasnostByOsoba(String osobaId) {
+        System.out.println("[INFO] Retrieving obrasci saglasnosti  by " + osobaId + " from RDF store.");
+        System.out.println("[INFO] Using \"" + SPARQL_NAMED_GRAPH_URI + "\" named graph.");
+        String sparqlQuery = SparqlUtil.selectPotvrdniObrasciSaglasnostiOsobe(osobaId);
+        System.out.println(sparqlQuery);
+        QueryExecution query = QueryExecutionFactory.sparqlService("http://localhost:8080/fuseki/eUpravaDataset", sparqlQuery);
+        ResultSet results = query.execSelect();
+        //QuerySolution retVal = results.next();
+        ResultSetFormatter.out(System.out, results);
+        query.close();
+        //return retVal;
+        return null;
+    }
+
 }
