@@ -3,7 +3,14 @@ package com.rokzasok.portal.za.imunizaciju.dokumenti.gradjanin.zahtev_za_sertifi
 
 import com.rokzasok.portal.za.imunizaciju.interfaces.Identifiable;
 
-import javax.xml.bind.annotation.*;
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlAttribute;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlSchemaType;
+import javax.xml.bind.annotation.XmlType;
+import javax.xml.bind.annotation.XmlValue;
 import javax.xml.datatype.XMLGregorianCalendar;
 
 
@@ -58,6 +65,16 @@ import javax.xml.datatype.XMLGregorianCalendar;
  *           &lt;/complexType&gt;
  *         &lt;/element&gt;
  *         &lt;element name="dokument_id" type="{http://www.w3.org/2001/XMLSchema}positiveInteger"/&gt;
+ *         &lt;element name="status" minOccurs="0"&gt;
+ *           &lt;complexType&gt;
+ *             &lt;simpleContent&gt;
+ *               &lt;extension base="&lt;http://www.w3.org/2001/XMLSchema&gt;boolean"&gt;
+ *                 &lt;attribute name="property" type="{http://www.w3.org/2001/XMLSchema}string" default="pred:status" /&gt;
+ *                 &lt;attribute name="datatype" type="{http://www.w3.org/2001/XMLSchema}string" default="xs:boolean" /&gt;
+ *               &lt;/extension&gt;
+ *             &lt;/simpleContent&gt;
+ *           &lt;/complexType&gt;
+ *         &lt;/element&gt;
  *       &lt;/all&gt;
  *       &lt;attribute name="vocab" type="{http://www.w3.org/2001/XMLSchema}string" fixed="http://www.rokzasok.rs/rdf/database/predicate" /&gt;
  *       &lt;attribute name="about" type="{http://www.w3.org/2001/XMLSchema}string" /&gt;
@@ -88,6 +105,8 @@ public class Zahtev implements Identifiable {
     @XmlElement(name = "dokument_id", namespace = "www.rokzasok.rs/gradjanin/zahtev-za-sertifikat", required = true)
     @XmlSchemaType(name = "positiveInteger")
     protected Long dokumentId;
+    @XmlElement(namespace = "www.rokzasok.rs/gradjanin/zahtev-za-sertifikat")
+    protected Status status;
     @XmlAttribute(name = "vocab")
     protected String vocab;
     @XmlAttribute(name = "about")
@@ -215,6 +234,30 @@ public class Zahtev implements Identifiable {
      */
     public void setDokumentId(Long value) {
         this.dokumentId = value;
+    }
+
+    /**
+     * Gets the value of the status property.
+     * 
+     * @return
+     *     possible object is
+     *     {@link Status }
+     *     
+     */
+    public Status getStatus() {
+        return status;
+    }
+
+    /**
+     * Sets the value of the status property.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link Status }
+     *     
+     */
+    public void setStatus(Status value) {
+        this.status = value;
     }
 
     /**
@@ -733,6 +776,112 @@ public class Zahtev implements Identifiable {
         public String getDatatype() {
             if (datatype == null) {
                 return "xs:string";
+            } else {
+                return datatype;
+            }
+        }
+
+        /**
+         * Sets the value of the datatype property.
+         * 
+         * @param value
+         *     allowed object is
+         *     {@link String }
+         *     
+         */
+        public void setDatatype(String value) {
+            this.datatype = value;
+        }
+
+    }
+
+
+    /**
+     * <p>Java class for anonymous complex type.
+     * 
+     * <p>The following schema fragment specifies the expected content contained within this class.
+     * 
+     * <pre>
+     * &lt;complexType&gt;
+     *   &lt;simpleContent&gt;
+     *     &lt;extension base="&lt;http://www.w3.org/2001/XMLSchema&gt;boolean"&gt;
+     *       &lt;attribute name="property" type="{http://www.w3.org/2001/XMLSchema}string" default="pred:status" /&gt;
+     *       &lt;attribute name="datatype" type="{http://www.w3.org/2001/XMLSchema}string" default="xs:boolean" /&gt;
+     *     &lt;/extension&gt;
+     *   &lt;/simpleContent&gt;
+     * &lt;/complexType&gt;
+     * </pre>
+     * 
+     * 
+     */
+    @XmlAccessorType(XmlAccessType.FIELD)
+    @XmlType(name = "", propOrder = {
+        "value"
+    })
+    public static class Status {
+
+        @XmlValue
+        protected boolean value;
+        @XmlAttribute(name = "property")
+        protected String property;
+        @XmlAttribute(name = "datatype")
+        protected String datatype;
+
+        /**
+         * Gets the value of the value property.
+         * 
+         */
+        public boolean isValue() {
+            return value;
+        }
+
+        /**
+         * Sets the value of the value property.
+         * 
+         */
+        public void setValue(boolean value) {
+            this.value = value;
+        }
+
+        /**
+         * Gets the value of the property property.
+         * 
+         * @return
+         *     possible object is
+         *     {@link String }
+         *     
+         */
+        public String getProperty() {
+            if (property == null) {
+                return "pred:status";
+            } else {
+                return property;
+            }
+        }
+
+        /**
+         * Sets the value of the property property.
+         * 
+         * @param value
+         *     allowed object is
+         *     {@link String }
+         *     
+         */
+        public void setProperty(String value) {
+            this.property = value;
+        }
+
+        /**
+         * Gets the value of the datatype property.
+         * 
+         * @return
+         *     possible object is
+         *     {@link String }
+         *     
+         */
+        public String getDatatype() {
+            if (datatype == null) {
+                return "xs:boolean";
             } else {
                 return datatype;
             }

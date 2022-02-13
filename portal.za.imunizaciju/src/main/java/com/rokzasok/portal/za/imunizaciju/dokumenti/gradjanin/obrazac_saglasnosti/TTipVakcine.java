@@ -31,7 +31,7 @@ public enum TTipVakcine {
     @XmlEnumValue("Pfizer-BioNtech")
     PFIZER_BIO_NTECH("Pfizer-BioNtech"),
     @XmlEnumValue("Sputnik V (Gamaleya istra\u017eiva\u010dki centar)")
-    SPUTNIK_V_GAMALEYA_ISTRAZIVACKI_CENTAR("Sputnik V (Gamaleya istra\u017eiva\u010dki centar)"),
+    SPUTNIK_V_GAMALEYA_ISTRAŽIVAČKI_CENTAR("Sputnik V (Gamaleya istra\u017eiva\u010dki centar)"),
     @XmlEnumValue("Sinopharm")
     SINOPHARM("Sinopharm"),
     @XmlEnumValue("AstraZeneca")

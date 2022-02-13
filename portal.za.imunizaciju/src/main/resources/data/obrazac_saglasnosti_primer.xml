@@ -42,10 +42,6 @@
             <os:ime_roditelja>Rade</os:ime_roditelja>
             <os:mesto_rodjenja>Novi Sad</os:mesto_rodjenja>
         </os:pacijent>
-        <os:saglasnost>
-            <os:izjava>false</os:izjava>
-            <os:naziv_leka>Pfizer</os:naziv_leka>
-        </os:saglasnost>
     </os:evidencija_pacijent>
     <os:evidencija_vakcinacija>
         <os:ustanova>
@@ -79,5 +75,9 @@
     </os:evidencija_vakcinacija>
     <os:dokument_info vocab="http://www.rokzasok.rs/rdf/database/predicate" about="http://www.rokzasok.rs/rdf/database/obrazac-saglasnosti/1" rel="pred:kreiranOdStrane" href="http://www.rokzasok.rs/rdf/database/osoba/1234567890123">
         <os:dokument_id>1</os:dokument_id>
+        <os:saglasnost>
+            <os:izjava property="pred:izjava" datatype="xs:boolean">false</os:izjava>
+            <os:naziv_leka property="pred:nazivLeka" datatype="xs:string">Pfizer</os:naziv_leka>
+        </os:saglasnost>
     </os:dokument_info>
 </os:obrazac_saglasnosti>
