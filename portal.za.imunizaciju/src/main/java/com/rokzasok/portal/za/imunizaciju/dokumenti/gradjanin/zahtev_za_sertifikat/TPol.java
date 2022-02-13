@@ -14,7 +14,7 @@ import javax.xml.bind.annotation.XmlType;
  * &lt;simpleType name="T_pol"&gt;
  *   &lt;restriction base="{http://www.w3.org/2001/XMLSchema}string"&gt;
  *     &lt;enumeration value="M"/&gt;
- *     &lt;enumeration value="Z"/&gt;
+ *     &lt;enumeration value="Ž"/&gt;
  *   &lt;/restriction&gt;
  * &lt;/simpleType&gt;
  * </pre>
@@ -25,7 +25,7 @@ import javax.xml.bind.annotation.XmlType;
 public enum TPol {
 
     M,
-    Z;
+    Ž;
 
     public String value() {
         return name();
