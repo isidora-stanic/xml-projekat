@@ -3,9 +3,15 @@ package com.rokzasok.portal.za.imunizaciju.dokumenti.gradjanin.iskazivanje_inter
 
 import com.rokzasok.portal.za.imunizaciju.interfaces.Identifiable;
 
-import javax.xml.bind.annotation.*;
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlAttribute;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlSchemaType;
+import javax.xml.bind.annotation.XmlType;
+import javax.xml.bind.annotation.XmlValue;
 import javax.xml.datatype.XMLGregorianCalendar;
-import java.math.BigInteger;
 
 
 /**
@@ -60,6 +66,12 @@ import java.math.BigInteger;
  *                 &lt;/sequence&gt;
  *                 &lt;attribute name="vocab" type="{http://www.w3.org/2001/XMLSchema}string" fixed="http://www.rokzasok.rs/rdf/database/predicate" /&gt;
  *                 &lt;attribute name="about" type="{http://www.w3.org/2001/XMLSchema}string" /&gt;
+ *                 &lt;attribute name="idOsobe" use="required"&gt;
+ *                   &lt;simpleType&gt;
+ *                     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}long"&gt;
+ *                     &lt;/restriction&gt;
+ *                   &lt;/simpleType&gt;
+ *                 &lt;/attribute&gt;
  *               &lt;/restriction&gt;
  *             &lt;/complexContent&gt;
  *           &lt;/complexType&gt;
@@ -199,7 +211,7 @@ public class ObrazacInteresovanja implements Identifiable {
      * 
      * @return
      *     possible object is
-     *     {@link BigInteger }
+     *     {@link Long }
      *     
      */
     public Long getDokumentId() {
@@ -211,7 +223,7 @@ public class ObrazacInteresovanja implements Identifiable {
      * 
      * @param value
      *     allowed object is
-     *     {@link BigInteger }
+     *     {@link Long }
      *     
      */
     public void setDokumentId(Long value) {
@@ -1008,6 +1020,12 @@ public class ObrazacInteresovanja implements Identifiable {
      *       &lt;/sequence&gt;
      *       &lt;attribute name="vocab" type="{http://www.w3.org/2001/XMLSchema}string" fixed="http://www.rokzasok.rs/rdf/database/predicate" /&gt;
      *       &lt;attribute name="about" type="{http://www.w3.org/2001/XMLSchema}string" /&gt;
+     *       &lt;attribute name="idOsobe" use="required"&gt;
+     *         &lt;simpleType&gt;
+     *           &lt;restriction base="{http://www.w3.org/2001/XMLSchema}long"&gt;
+     *           &lt;/restriction&gt;
+     *         &lt;/simpleType&gt;
+     *       &lt;/attribute&gt;
      *     &lt;/restriction&gt;
      *   &lt;/complexContent&gt;
      * &lt;/complexType&gt;
@@ -1045,6 +1063,8 @@ public class ObrazacInteresovanja implements Identifiable {
         protected String vocab;
         @XmlAttribute(name = "about")
         protected String about;
+        @XmlAttribute(name = "idOsobe", required = true)
+        protected long idOsobe;
 
         /**
          * Gets the value of the drzavljanstvo property.
@@ -1264,6 +1284,22 @@ public class ObrazacInteresovanja implements Identifiable {
          */
         public void setAbout(String value) {
             this.about = value;
+        }
+
+        /**
+         * Gets the value of the idOsobe property.
+         * 
+         */
+        public long getIdOsobe() {
+            return idOsobe;
+        }
+
+        /**
+         * Sets the value of the idOsobe property.
+         * 
+         */
+        public void setIdOsobe(long value) {
+            this.idOsobe = value;
         }
 
 

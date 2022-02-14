@@ -3,11 +3,17 @@ package com.rokzasok.sluzbenik.dokumenti.digitalni_sertifikat;
 
 import com.rokzasok.sluzbenik.interfaces.Identifiable;
 
-import javax.xml.bind.annotation.*;
-import javax.xml.datatype.XMLGregorianCalendar;
-import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.List;
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlAttribute;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlSchemaType;
+import javax.xml.bind.annotation.XmlType;
+import javax.xml.bind.annotation.XmlValue;
+import javax.xml.datatype.XMLGregorianCalendar;
 
 
 /**
@@ -26,6 +32,12 @@ import java.util.List;
  *               &lt;extension base="{http://www.rokzasok.rs/sluzbenik/digitalni-sertifikat}TOsoba"&gt;
  *                 &lt;attribute name="vocab" type="{http://www.w3.org/2001/XMLSchema}string" fixed="http://www.rokzasok.rs/rdf/database/predicate" /&gt;
  *                 &lt;attribute name="about" type="{http://www.w3.org/2001/XMLSchema}string" /&gt;
+ *                 &lt;attribute name="idGradjanina" use="required"&gt;
+ *                   &lt;simpleType&gt;
+ *                     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}long"&gt;
+ *                     &lt;/restriction&gt;
+ *                   &lt;/simpleType&gt;
+ *                 &lt;/attribute&gt;
  *               &lt;/extension&gt;
  *             &lt;/complexContent&gt;
  *           &lt;/complexType&gt;
@@ -237,7 +249,7 @@ public class DigitalniSertifikat implements Identifiable {
      * 
      * @return
      *     possible object is
-     *     {@link BigInteger }
+     *     {@link Long }
      *     
      */
     public Long getDokumentId() {
@@ -249,7 +261,7 @@ public class DigitalniSertifikat implements Identifiable {
      * 
      * @param value
      *     allowed object is
-     *     {@link BigInteger }
+     *     {@link Long }
      *     
      */
     public void setDokumentId(Long value) {
@@ -376,6 +388,12 @@ public class DigitalniSertifikat implements Identifiable {
      *     &lt;extension base="{http://www.rokzasok.rs/sluzbenik/digitalni-sertifikat}TOsoba"&gt;
      *       &lt;attribute name="vocab" type="{http://www.w3.org/2001/XMLSchema}string" fixed="http://www.rokzasok.rs/rdf/database/predicate" /&gt;
      *       &lt;attribute name="about" type="{http://www.w3.org/2001/XMLSchema}string" /&gt;
+     *       &lt;attribute name="idGradjanina" use="required"&gt;
+     *         &lt;simpleType&gt;
+     *           &lt;restriction base="{http://www.w3.org/2001/XMLSchema}long"&gt;
+     *           &lt;/restriction&gt;
+     *         &lt;/simpleType&gt;
+     *       &lt;/attribute&gt;
      *     &lt;/extension&gt;
      *   &lt;/complexContent&gt;
      * &lt;/complexType&gt;
@@ -393,6 +411,8 @@ public class DigitalniSertifikat implements Identifiable {
         protected String vocab;
         @XmlAttribute(name = "about")
         protected String about;
+        @XmlAttribute(name = "idGradjanina", required = true)
+        protected long idGradjanina;
 
         /**
          * Gets the value of the vocab property.
@@ -444,6 +464,22 @@ public class DigitalniSertifikat implements Identifiable {
          */
         public void setAbout(String value) {
             this.about = value;
+        }
+
+        /**
+         * Gets the value of the idGradjanina property.
+         * 
+         */
+        public long getIdGradjanina() {
+            return idGradjanina;
+        }
+
+        /**
+         * Sets the value of the idGradjanina property.
+         * 
+         */
+        public void setIdGradjanina(long value) {
+            this.idGradjanina = value;
         }
 
     }
@@ -502,7 +538,7 @@ public class DigitalniSertifikat implements Identifiable {
         protected Datum datum;
         @XmlElement(name = "broj_sertifikata", namespace = "http://www.rokzasok.rs/sluzbenik/digitalni-sertifikat", required = true)
         @XmlSchemaType(name = "positiveInteger")
-        protected BigInteger brojSertifikata;
+        protected Long brojSertifikata;
 
         /**
          * Gets the value of the qrLink property.
@@ -557,10 +593,10 @@ public class DigitalniSertifikat implements Identifiable {
          * 
          * @return
          *     possible object is
-         *     {@link BigInteger }
+         *     {@link Long }
          *     
          */
-        public BigInteger getBrojSertifikata() {
+        public Long getBrojSertifikata() {
             return brojSertifikata;
         }
 
@@ -569,10 +605,10 @@ public class DigitalniSertifikat implements Identifiable {
          * 
          * @param value
          *     allowed object is
-         *     {@link BigInteger }
+         *     {@link Long }
          *     
          */
-        public void setBrojSertifikata(BigInteger value) {
+        public void setBrojSertifikata(Long value) {
             this.brojSertifikata = value;
         }
 

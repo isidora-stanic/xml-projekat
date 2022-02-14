@@ -115,8 +115,7 @@ public class IskazivanjeInteresovanjaService implements AbstractXmlService<Obraz
         ObrazacInteresovanja obrazacInteresovanja = null;
         try {
             obrazacInteresovanja = this.obrazacInteresovanjaXmlConversionAgent.unmarshall(xmlEntity, this.jaxbContextPath);
-            if(!proveriDaLiMozeDaKreiraInteresovanje(obrazacInteresovanja.getPodaciOOsobi().getJMBG())){
-                //TODO:neka umjesto jmbg bude id
+            if(!proveriDaLiMozeDaKreiraInteresovanje(obrazacInteresovanja.getPodaciOOsobi().getIdOsobe())){
                 System.out.println("OBRAZAC INTERESOVANJA JE VEC NAPRAVLJEN I NIJE PROSLO 7 DANA, PA SE NE MOZE NAPRAVITI NOVI.");
                 throw new ObrazacInteresovanjaException("OBRAZAC INTERESOVANJA JE VEC NAPRAVLJEN I NIJE PROSLO 7 DANA, PA SE NE MOZE NAPRAVITI NOVI.");
             }
@@ -190,7 +189,7 @@ public class IskazivanjeInteresovanjaService implements AbstractXmlService<Obraz
 
     private void handleMetadata(ObrazacInteresovanja interesovanje){
         interesovanje.getPodaciOOsobi().setVocab("http://www.rokzasok.rs/rdf/database/predicate");
-        interesovanje.getPodaciOOsobi().setAbout("http://www.rokzasok.rs/rdf/database/osoba/" + interesovanje.getPodaciOOsobi().getJMBG());
+        interesovanje.getPodaciOOsobi().setAbout("http://www.rokzasok.rs/rdf/database/osoba/" + interesovanje.getPodaciOOsobi().getIdOsobe());
 
         interesovanje.getPodaciOOsobi().getEmail().setDatatype("xs:#string");
         interesovanje.getPodaciOOsobi().getEmail().setProperty("pred:email");
@@ -217,12 +216,12 @@ public class IskazivanjeInteresovanjaService implements AbstractXmlService<Obraz
 
     }
 
-    public boolean proveriDaLiMozeDaKreiraInteresovanje(String osobaId){
+    public boolean proveriDaLiMozeDaKreiraInteresovanje(Long osobaId){
         System.out.println("[INFO] Retrieving obrasci interesovanja  by " + osobaId + " from RDF store.");
         System.out.println("[INFO] Using \"" + SPARQL_NAMED_GRAPH_URI + "\" named graph.");
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
         String pre7Dana = LocalDate.now().minusDays(7).format(formatter);
-        String sparqlQuery = SparqlUtil.selectObrasciInteresovanjaByOsobaPre7Dana(osobaId, pre7Dana);
+        String sparqlQuery = SparqlUtil.selectObrasciInteresovanjaByOsobaPre7Dana(Long.toString(osobaId), pre7Dana);
         System.out.println(sparqlQuery);
         QueryExecution query = QueryExecutionFactory.sparqlService("http://localhost:8080/fuseki/eUpravaDataset", sparqlQuery);
         ResultSet results = query.execSelect();

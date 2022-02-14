@@ -10,7 +10,7 @@ import javax.xml.namespace.QName;
 /**
  * This object contains factory methods for each 
  * Java content interface and Java element interface 
- * generated in the obrazac_saglasnosti package. 
+ * generated in the com.rokzasok.portal.za.imunizaciju.dokumenti.gradjanin.obrazac_saglasnosti package. 
  * <p>An ObjectFactory allows you to programatically 
  * construct new instances of the Java representation 
  * for XML content. The Java representation of XML 
@@ -29,18 +29,11 @@ public class ObjectFactory {
     private final static QName _BrojPasosa_QNAME = new QName("http://www.rokzasok.rs/tipovi", "broj_pasosa");
 
     /**
-     * Create a new ObjectFactory that can be used to create new instances of schema derived classes for package: obrazac_saglasnosti
+     * Create a new ObjectFactory that can be used to create new instances of schema derived classes for package: com.rokzasok.portal.za.imunizaciju.dokumenti.gradjanin.obrazac_saglasnosti
      * 
      */
     public ObjectFactory() {
     }
-
-    /**
-     * Create an instance of {@link KolekcijaObrazacaSaglasnosti }
-     *
-     */
-    public KolekcijaObrazacaSaglasnosti createKolekcijaObrazacaSaglasnosti() { return new KolekcijaObrazacaSaglasnosti(); }
-
 
     /**
      * Create an instance of {@link ObrazacSaglasnosti }

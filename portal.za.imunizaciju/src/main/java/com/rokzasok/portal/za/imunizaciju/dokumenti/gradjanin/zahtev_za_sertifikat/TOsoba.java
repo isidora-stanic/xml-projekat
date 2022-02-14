@@ -44,7 +44,7 @@ import javax.xml.datatype.XMLGregorianCalendar;
     "brojPasosa"
 })
 @XmlSeeAlso({
-        com.rokzasok.portal.za.imunizaciju.dokumenti.gradjanin.zahtev_za_sertifikat.Zahtev.Pacijent.class
+    Zahtev.Pacijent.class
 })
 public class TOsoba {
 

@@ -3,11 +3,17 @@ package com.rokzasok.portal.za.imunizaciju.dokumenti.potvrda_vakcinacije;
 
 import com.rokzasok.portal.za.imunizaciju.interfaces.Identifiable;
 
-import javax.xml.bind.annotation.*;
-import javax.xml.datatype.XMLGregorianCalendar;
-import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.List;
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlAttribute;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlSchemaType;
+import javax.xml.bind.annotation.XmlType;
+import javax.xml.bind.annotation.XmlValue;
+import javax.xml.datatype.XMLGregorianCalendar;
 
 
 /**
@@ -47,6 +53,12 @@ import java.util.List;
  *                 &lt;/sequence&gt;
  *                 &lt;attribute name="vocab" type="{http://www.w3.org/2001/XMLSchema}string" fixed="http://www.rokzasok.rs/rdf/database/predicate" /&gt;
  *                 &lt;attribute name="about" type="{http://www.w3.org/2001/XMLSchema}string" /&gt;
+ *                 &lt;attribute name="idOsobe" use="required"&gt;
+ *                   &lt;simpleType&gt;
+ *                     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}long"&gt;
+ *                     &lt;/restriction&gt;
+ *                   &lt;/simpleType&gt;
+ *                 &lt;/attribute&gt;
  *               &lt;/restriction&gt;
  *             &lt;/complexContent&gt;
  *           &lt;/complexType&gt;
@@ -95,7 +107,7 @@ import java.util.List;
  *       &lt;/sequence&gt;
  *       &lt;attribute name="vocab" type="{http://www.w3.org/2001/XMLSchema}string" fixed="http://www.rokzasok.rs/rdf/database/predicate" /&gt;
  *       &lt;attribute name="about" type="{http://www.w3.org/2001/XMLSchema}string" /&gt;
- *       &lt;attribute name="rel" type="{http://www.w3.org/2001/XMLSchema}string" default="pred:kreatorDokumenta" /&gt;
+ *       &lt;attribute name="rel" type="{http://www.w3.org/2001/XMLSchema}string" default="pred:kreiranOdStrane" /&gt;
  *       &lt;attribute name="href" type="{http://www.w3.org/2001/XMLSchema}string" default="xs:string" /&gt;
  *     &lt;/restriction&gt;
  *   &lt;/complexContent&gt;
@@ -317,7 +329,7 @@ public class PotvrdaVakcinacije implements Identifiable {
      */
     public String getRel() {
         if (rel == null) {
-            return "pred:kreatorDokumenta";
+            return "pred:kreiranOdStrane";
         } else {
             return rel;
         }
@@ -668,6 +680,12 @@ public class PotvrdaVakcinacije implements Identifiable {
      *       &lt;/sequence&gt;
      *       &lt;attribute name="vocab" type="{http://www.w3.org/2001/XMLSchema}string" fixed="http://www.rokzasok.rs/rdf/database/predicate" /&gt;
      *       &lt;attribute name="about" type="{http://www.w3.org/2001/XMLSchema}string" /&gt;
+     *       &lt;attribute name="idOsobe" use="required"&gt;
+     *         &lt;simpleType&gt;
+     *           &lt;restriction base="{http://www.w3.org/2001/XMLSchema}long"&gt;
+     *           &lt;/restriction&gt;
+     *         &lt;/simpleType&gt;
+     *       &lt;/attribute&gt;
      *     &lt;/restriction&gt;
      *   &lt;/complexContent&gt;
      * &lt;/complexType&gt;
@@ -699,6 +717,8 @@ public class PotvrdaVakcinacije implements Identifiable {
         protected String vocab;
         @XmlAttribute(name = "about")
         protected String about;
+        @XmlAttribute(name = "idOsobe", required = true)
+        protected long idOsobe;
 
         /**
          * Gets the value of the jmbg property.
@@ -870,6 +890,22 @@ public class PotvrdaVakcinacije implements Identifiable {
          */
         public void setAbout(String value) {
             this.about = value;
+        }
+
+        /**
+         * Gets the value of the idOsobe property.
+         * 
+         */
+        public long getIdOsobe() {
+            return idOsobe;
+        }
+
+        /**
+         * Sets the value of the idOsobe property.
+         * 
+         */
+        public void setIdOsobe(long value) {
+            this.idOsobe = value;
         }
 
 
