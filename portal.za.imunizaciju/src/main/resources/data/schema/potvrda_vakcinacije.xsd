@@ -87,7 +87,7 @@
             <xs:attribute fixed="http://www.rokzasok.rs/rdf/database/predicate" name="vocab"
                           type="xs:string"/>
             <xs:attribute name="about" type="xs:string"/>
-            <xs:attribute default="pred:kreatorDokumenta" name="rel" type="xs:string"/>
+            <xs:attribute default="pred:kreiranOdStrane" name="rel" type="xs:string"/>
             <xs:attribute default="xs:string" name="href" type="xs:string"/>
         </xs:complexType>
     </xs:element>

@@ -163,7 +163,7 @@ public class PotvrdaVakcinacijeService implements AbstractXmlService<PotvrdaVakc
 
         potvrda.setAbout(String.format("http://www.rokzasok.rs/rdf/database/potvrda-vakcinacije/%d", potvrda.getDokumentId()));
         potvrda.setVocab("http://www.rokzasok.rs/rdf/database/predicate");
-        potvrda.setRel("pred:kreatorDokumenta");
+        potvrda.setRel("pred:kreiranOdStrane");
         potvrda.setHref(String.format("http://www.rokzasok.rs/rdf/database/osoba/%s", jmbg));
 
         potvrda.getOsoba().setAbout(String.format("http://www.rokzasok.rs/rdf/database/osoba/%s", jmbg));

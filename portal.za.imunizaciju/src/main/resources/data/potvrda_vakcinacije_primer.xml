@@ -5,7 +5,7 @@
                         xmlns:po="http://www.rokzasok.rs/zdravstveni-radnik/potvrda-vakcinacije"
                         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
                         xsi:schemaLocation="http://www.rokzasok.rs/zdravstveni-radnik/potvrda-vakcinacije schema/potvrda_vakcinacije.xsd"
-                        about="http://www.rokzasok.rs/rdf/database/potvrda-vakcinacije/1" rel="pred:kreatorDokumenta"
+                        about="http://www.rokzasok.rs/rdf/database/potvrda-vakcinacije/1" rel="pred:kreiranOdStrane"
                         xmlns:xs="http://www.w3.org/2001/XMLSchema#"
                         href="http://www.rokzasok.rs/rdf/database/osoba/1234567890123"
                         vocab="http://www.rokzasok.rs/rdf/database/predicate">
