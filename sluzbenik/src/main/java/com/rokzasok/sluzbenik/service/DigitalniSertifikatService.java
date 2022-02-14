@@ -189,11 +189,11 @@ public class DigitalniSertifikatService implements AbstractXmlService<DigitalniS
         izvestaj.setVocab("http://www.rokzasok.rs/rdf/database/predicate");
         izvestaj.setAbout("http://www.rokzasok.rs/rdf/database/digitalni-sertifikat/" + izvestaj.getDokumentId().toString());
         izvestaj.setRel("pred:kreiranOdStrane");
-        izvestaj.setHref("http://www.rokzasok.rs/rdf/database/osoba/" + izvestaj.getGradjanin().getJmbg()); // TODO ID
+        izvestaj.setHref("http://www.rokzasok.rs/rdf/database/osoba/" + izvestaj.getGradjanin().getIdGradjanina());
 
 
         izvestaj.getGradjanin().setVocab("http://www.rokzasok.rs/rdf/database/predicate");
-        izvestaj.getGradjanin().setAbout("http://www.rokzasok.rs/rdf/database/osoba/" + izvestaj.getGradjanin().getJmbg()); // TODO ID
+        izvestaj.getGradjanin().setAbout("http://www.rokzasok.rs/rdf/database/osoba/" + izvestaj.getGradjanin().getIdGradjanina());
 
         izvestaj.getInfoOSertifikatu().getQrLink().setProperty("pred:qrLink");
         izvestaj.getInfoOSertifikatu().getQrLink().setDatatype("xs:#string");
