@@ -1,7 +1,7 @@
 package com.rokzasok.portal.za.imunizaciju.controller;
 
-import com.rokzasok.portal.za.imunizaciju.dokumenti.gradjanin.zahtev_za_sertifikat.KolekcijaZahtevaZaSertifikat;
-import com.rokzasok.portal.za.imunizaciju.dokumenti.gradjanin.zahtev_za_sertifikat.Zahtev;
+import com.rokzasok.portal.za.imunizaciju.model.dokumenti.gradjanin.zahtev_za_sertifikat.KolekcijaZahtevaZaSertifikat;
+import com.rokzasok.portal.za.imunizaciju.model.dokumenti.gradjanin.zahtev_za_sertifikat.Zahtev;
 import com.rokzasok.portal.za.imunizaciju.service.ZahtevZaSertifikatService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
