@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified"
+    targetNamespace="www.rokzasok.rs/termini" xmlns:ter="www.rokzasok.rs/termini">
+    <xs:element name="spisakTermina">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element maxOccurs="unbounded" minOccurs="3" name="termini">
+                    <xs:complexType>
+                        <xs:sequence>
+                            <xs:element maxOccurs="unbounded" minOccurs="3" name="dan">
+                                <xs:complexType>
+                                    <xs:sequence>
+                                        <xs:element name="maxBrojTermina" type="xs:positiveInteger"/>
+                                        <xs:element name="brojZakazanihTermina"
+                                            type="xs:positiveInteger"/>
+                                    </xs:sequence>
+                                    <xs:attribute name="datum" type="xs:date" use="required"/>
+                                </xs:complexType>
+                            </xs:element>
+                        </xs:sequence>
+                        <xs:attribute name="mesto" type="xs:string" use="required"/>
+                    </xs:complexType>
+                    <xs:unique name="uniqueDatumKey">
+                        <xs:selector xpath="./ter:dan"/>
+                        <xs:field xpath="@datum"/>
+                    </xs:unique>
+                </xs:element>
+            </xs:sequence>
+        </xs:complexType>
+        <xs:unique name="uniqueMestoKey">
+            <xs:selector xpath="ter:termini"/>
+            <xs:field xpath="@mesto"/>
+        </xs:unique>
+    </xs:element>
+</xs:schema>
