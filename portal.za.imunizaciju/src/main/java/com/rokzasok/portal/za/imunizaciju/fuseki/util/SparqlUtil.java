@@ -89,4 +89,26 @@ public class SparqlUtil {
                 "    FILTER (?date >= \""+d1+"\"^^xsd:date && ?date <= \""+d2+"\"^^xsd:date) .\n" +
                 "}";
     }
+
+    public static String selectObrasciInteresovanjaByOsobaPre7Dana(String osobaId, String pre7DanaDatum){
+        return "PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>\n" +
+                "\n" +
+                "SELECT ?dokument FROM <http://localhost:8080/fuseki/eUpravaDataset/data/sparql/metadata>\n" +
+                "WHERE {\n" +
+                "  ?dokument <http://www.rokzasok.rs/rdf/database/predicate/kreiranOdStrane> <http://www.rokzasok.rs/rdf/database/osoba/"+osobaId+"> ;\n" +
+                "  <http://www.rokzasok.rs/rdf/database/predicate/datumPodnosenja> ?date .\n" +
+                "    FILTER (?date > \""+pre7DanaDatum+"\"^^xsd:date) .\n" +
+                "}";
+    }
+
+    public static String selectPotvrdniObrasciSaglasnostiOsobe(String osobaId) {
+        return "PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>\n" +
+                "\n" +
+                "SELECT ?dokument ?izjava FROM <http://localhost:8080/fuseki/eUpravaDataset/data/sparql/metadata>\n" +
+                "WHERE {\n" +
+                "  ?dokument <http://www.rokzasok.rs/rdf/database/predicate/kreiranOdStrane> <http://www.rokzasok.rs/rdf/database/osoba/"+osobaId+"> ;\n" +
+                "            <http://www.rokzasok.rs/rdf/database/predicate/izjava> ?izjava.\n" +
+                "  FILTER (?izjava = \"true\"^^xsd:boolean) .\n" +
+                "}";
+    }
 }

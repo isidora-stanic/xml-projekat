@@ -14,7 +14,9 @@ import org.springframework.stereotype.Service;
 import org.xmldb.api.base.XMLDBException;
 
 import javax.xml.bind.JAXBException;
+import java.util.Iterator;
 import java.util.List;
+import java.util.ListIterator;
 
 import static com.rokzasok.portal.za.imunizaciju.helper.XQueryExpressions.*;
 
@@ -37,6 +39,9 @@ public class PotvrdaVakcinacijeService implements AbstractXmlService<PotvrdaVakc
 
     @Autowired
     private UUIDHelper uuidHelper;
+
+    @Autowired
+    private RDFService rdfService;
 
     //@PostConstruct
     public void injectRepositoryProperties() {
@@ -86,7 +91,7 @@ public class PotvrdaVakcinacijeService implements AbstractXmlService<PotvrdaVakc
         try {
             potvrdaVakcinacije = this.potvrdaVakcinacijeXmlConversionAgent.unmarshall(entityXml, this.jaxbContextPath);
             potvrdaVakcinacije.setDokumentId(this.uuidHelper.getUUID());
-            //this.handleMetadata(izvestaj);
+            this.handleMetadata(potvrdaVakcinacije);
         } catch (JAXBException e) {
             e.printStackTrace();
             throw new InvalidXmlException(ObrazacInteresovanja.class, e.getMessage());
@@ -107,9 +112,9 @@ public class PotvrdaVakcinacijeService implements AbstractXmlService<PotvrdaVakc
         try {
             entityXml = this.potvrdaVakcinacijeXmlConversionAgent.marshall(potvrdaVakcinacije, this.jaxbContextPath);
             System.out.println(entityXml);
-//            if (!rdfService.save(xmlEntity, SPARQL_NAMED_GRAPH_URI)) {
-//                System.out.println("[ERROR] Neuspesno cuvanje metapodataka zahteva u RDF DB.");
-//            }
+            if (!rdfService.save(entityXml, SPARQL_NAMED_GRAPH_URI)) {
+                System.out.println("[ERROR] Neuspesno cuvanje metapodataka zahteva u RDF DB.");
+            }
         } catch (JAXBException e) {
             e.printStackTrace();
         }
@@ -151,5 +156,30 @@ public class PotvrdaVakcinacijeService implements AbstractXmlService<PotvrdaVakc
         } catch (XMLDBException e) {
             throw new XmlDatabaseException(e.getMessage());
         }
+    }
+
+    public void handleMetadata(PotvrdaVakcinacije potvrda) {
+        String jmbg = potvrda.getOsoba().getJmbg();
+
+        potvrda.setAbout(String.format("http://www.rokzasok.rs/rdf/database/potvrda-vakcinacije/%d", potvrda.getDokumentId()));
+        potvrda.setVocab("http://www.rokzasok.rs/rdf/database/predicate");
+        potvrda.setRel("pred:kreiranOdStrane");
+        potvrda.setHref(String.format("http://www.rokzasok.rs/rdf/database/osoba/%s", jmbg));
+
+        potvrda.getOsoba().setAbout(String.format("http://www.rokzasok.rs/rdf/database/osoba/%s", jmbg));
+        potvrda.getOsoba().setVocab("http://www.rokzasok.rs/rdf/database/predicate");
+
+        ListIterator<PotvrdaVakcinacije.Doze.Doza> dozaIterator = potvrda.getDoze().getDoza().listIterator();
+        while (dozaIterator.hasNext()) {
+            int index = dozaIterator.nextIndex();
+            PotvrdaVakcinacije.Doze.Doza doza = dozaIterator.next();
+            doza.setAbout(String.format("http://www.rokzasok.rs/rdf/database/doza/%d", index));
+            doza.setVocab("http://www.rokzasok.rs/rdf/database/predicate");
+        }
+
+        potvrda.getRazlogIzdavanja().setDatatype("xs:#string");
+        potvrda.getRazlogIzdavanja().setProperty("pred:razlogIzdavanja");
+        potvrda.getDatumIzdavanja().setDatatype("xs:#date");
+        potvrda.getDatumIzdavanja().setProperty("pred:datumIzdavanja");
     }
 }

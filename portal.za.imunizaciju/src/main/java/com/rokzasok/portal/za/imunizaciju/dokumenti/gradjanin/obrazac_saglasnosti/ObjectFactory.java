@@ -1,8 +1,6 @@
 
 package com.rokzasok.portal.za.imunizaciju.dokumenti.gradjanin.obrazac_saglasnosti;
 
-import com.rokzasok.portal.za.imunizaciju.dokumenti.potvrda_vakcinacije.KolekcijaPotvrdaVakcinacije;
-
 import javax.xml.bind.JAXBElement;
 import javax.xml.bind.annotation.XmlElementDecl;
 import javax.xml.bind.annotation.XmlRegistry;
@@ -12,7 +10,7 @@ import javax.xml.namespace.QName;
 /**
  * This object contains factory methods for each 
  * Java content interface and Java element interface 
- * generated in the www.rokzasok.rs.euprava.gradjanin.obrazac_saglasnosti package. 
+ * generated in the obrazac_saglasnosti package. 
  * <p>An ObjectFactory allows you to programatically 
  * construct new instances of the Java representation 
  * for XML content. The Java representation of XML 
@@ -31,7 +29,7 @@ public class ObjectFactory {
     private final static QName _BrojPasosa_QNAME = new QName("http://www.rokzasok.rs/tipovi", "broj_pasosa");
 
     /**
-     * Create a new ObjectFactory that can be used to create new instances of schema derived classes for package: www.rokzasok.rs.euprava.gradjanin.obrazac_saglasnosti
+     * Create a new ObjectFactory that can be used to create new instances of schema derived classes for package: obrazac_saglasnosti
      * 
      */
     public ObjectFactory() {
@@ -42,6 +40,7 @@ public class ObjectFactory {
      *
      */
     public KolekcijaObrazacaSaglasnosti createKolekcijaObrazacaSaglasnosti() { return new KolekcijaObrazacaSaglasnosti(); }
+
 
     /**
      * Create an instance of {@link ObrazacSaglasnosti }
@@ -73,6 +72,22 @@ public class ObjectFactory {
      */
     public TDrzavljanstvo createTDrzavljanstvo() {
         return new TDrzavljanstvo();
+    }
+
+    /**
+     * Create an instance of {@link ObrazacSaglasnosti.DokumentInfo }
+     * 
+     */
+    public ObrazacSaglasnosti.DokumentInfo createObrazacSaglasnostiDokumentInfo() {
+        return new ObrazacSaglasnosti.DokumentInfo();
+    }
+
+    /**
+     * Create an instance of {@link ObrazacSaglasnosti.DokumentInfo.Saglasnost }
+     * 
+     */
+    public ObrazacSaglasnosti.DokumentInfo.Saglasnost createObrazacSaglasnostiDokumentInfoSaglasnost() {
+        return new ObrazacSaglasnosti.DokumentInfo.Saglasnost();
     }
 
     /**
@@ -121,14 +136,6 @@ public class ObjectFactory {
      */
     public ObrazacSaglasnosti.EvidencijaPacijent.Pacijent.Kontakt createObrazacSaglasnostiEvidencijaPacijentPacijentKontakt() {
         return new ObrazacSaglasnosti.EvidencijaPacijent.Pacijent.Kontakt();
-    }
-
-    /**
-     * Create an instance of {@link ObrazacSaglasnosti.DokumentInfo }
-     * 
-     */
-    public ObrazacSaglasnosti.DokumentInfo createObrazacSaglasnostiDokumentInfo() {
-        return new ObrazacSaglasnosti.DokumentInfo();
     }
 
     /**
@@ -220,6 +227,22 @@ public class ObjectFactory {
     }
 
     /**
+     * Create an instance of {@link ObrazacSaglasnosti.DokumentInfo.Saglasnost.Izjava }
+     * 
+     */
+    public ObrazacSaglasnosti.DokumentInfo.Saglasnost.Izjava createObrazacSaglasnostiDokumentInfoSaglasnostIzjava() {
+        return new ObrazacSaglasnosti.DokumentInfo.Saglasnost.Izjava();
+    }
+
+    /**
+     * Create an instance of {@link ObrazacSaglasnosti.DokumentInfo.Saglasnost.NazivLeka }
+     * 
+     */
+    public ObrazacSaglasnosti.DokumentInfo.Saglasnost.NazivLeka createObrazacSaglasnostiDokumentInfoSaglasnostNazivLeka() {
+        return new ObrazacSaglasnosti.DokumentInfo.Saglasnost.NazivLeka();
+    }
+
+    /**
      * Create an instance of {@link ObrazacSaglasnosti.EvidencijaVakcinacija.Ustanova }
      * 
      */
@@ -249,14 +272,6 @@ public class ObjectFactory {
      */
     public ObrazacSaglasnosti.EvidencijaVakcinacija.Tabela.PrivremeneKontraindikacije createObrazacSaglasnostiEvidencijaVakcinacijaTabelaPrivremeneKontraindikacije() {
         return new ObrazacSaglasnosti.EvidencijaVakcinacija.Tabela.PrivremeneKontraindikacije();
-    }
-
-    /**
-     * Create an instance of {@link ObrazacSaglasnosti.EvidencijaPacijent.Saglasnost }
-     * 
-     */
-    public ObrazacSaglasnosti.EvidencijaPacijent.Saglasnost createObrazacSaglasnostiEvidencijaPacijentSaglasnost() {
-        return new ObrazacSaglasnosti.EvidencijaPacijent.Saglasnost();
     }
 
     /**
