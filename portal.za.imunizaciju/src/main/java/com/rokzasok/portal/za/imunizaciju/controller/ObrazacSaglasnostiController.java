@@ -43,4 +43,11 @@ public class ObrazacSaglasnostiController {
         this.obrazacSaglasnostiService.deleteById(id);
         return new ResponseEntity<>(HttpStatus.OK);
     }
+
+    @GetMapping(value="/by/{osobaId}")
+    ResponseEntity<KolekcijaObrazacaSaglasnosti> getSaglasnostByOsoba(@PathVariable("osobaId") Long osobaId) {
+        KolekcijaObrazacaSaglasnosti kolekcijaObrazacaSaglasnosti = new KolekcijaObrazacaSaglasnosti();
+        kolekcijaObrazacaSaglasnosti.setObrasciSaglasnosti(this.obrazacSaglasnostiService.getSaglasnostByOsoba(osobaId.toString()));
+        return new ResponseEntity<>(kolekcijaObrazacaSaglasnosti, HttpStatus.OK);
+    }
 }
