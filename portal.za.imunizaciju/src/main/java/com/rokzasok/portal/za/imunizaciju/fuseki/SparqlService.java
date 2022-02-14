@@ -12,16 +12,9 @@ import org.apache.jena.query.QueryExecution;
 import org.apache.jena.query.QueryExecutionFactory;
 import org.apache.jena.query.ResultSet;
 import org.apache.jena.query.ResultSetFormatter;
-import org.apache.jena.rdf.model.Model;
-import org.apache.jena.rdf.model.ModelFactory;
-import org.apache.jena.update.UpdateExecutionFactory;
-import org.apache.jena.update.UpdateFactory;
-import org.apache.jena.update.UpdateProcessor;
-import org.apache.jena.update.UpdateRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.xml.sax.SAXException;
-
 import javax.xml.transform.TransformerException;
 import java.io.ByteArrayOutputStream;
 import java.io.FileInputStream;
@@ -37,14 +30,13 @@ public class SparqlService {
     @Autowired
     private RDFDBConnectionProperties rdfdbConnectionProperties;
 
-
     // todo sredi da vrati nesto pametno
     public ResultSet getAllKreiranOdStrane(String osobaId) {
         System.out.println("[INFO] Retrieving dokument kreiranOdStrane " + osobaId +" from RDF store.");
         System.out.println("[INFO] Using \"" + SPARQL_NAMED_GRAPH_URI + "\" named graph.");
         String sparqlQuery = SparqlUtil.selectKreiranOdStrane(osobaId);
         System.out.println(sparqlQuery);
-        QueryExecution query = QueryExecutionFactory.sparqlService("http://localhost:8080/fuseki/eUpravaDataset", sparqlQuery);
+        QueryExecution query = QueryExecutionFactory.sparqlService("http://localhost:3030/eUpravaDataset", sparqlQuery);
         ResultSet results = query.execSelect();
         System.out.println(results.hasNext());
         ResultSetFormatter.out(System.out, results);
@@ -58,7 +50,7 @@ public class SparqlService {
         System.out.println("[INFO] Using \"" + SPARQL_NAMED_GRAPH_URI + "\" named graph.");
         String sparqlQuery = SparqlUtil.selectAllDatumPodnosenja(d1, d2);
         System.out.println(sparqlQuery);
-        QueryExecution query = QueryExecutionFactory.sparqlService("http://localhost:8080/fuseki/eUpravaDataset", sparqlQuery);
+        QueryExecution query = QueryExecutionFactory.sparqlService("http://localhost:3030/eUpravaDataset", sparqlQuery);
         ResultSet results = query.execSelect();
         ResultSetFormatter.out(System.out, results);
         query.close();

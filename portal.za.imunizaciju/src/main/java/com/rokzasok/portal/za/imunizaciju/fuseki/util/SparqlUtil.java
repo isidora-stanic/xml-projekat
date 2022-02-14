@@ -74,7 +74,7 @@ public class SparqlUtil {
     }
 
     public static String selectKreiranOdStrane(String osobaId) {
-        return "SELECT * FROM <http://localhost:8080/fuseki/eUpravaDataset/data/sparql/metadata>\n" +
+        return "SELECT * FROM <http://localhost:3030/eUpravaDataset/data/sparql/metadata>\n" +
                 "WHERE {\n" +
                 "\t?dokument <http://www.rokzasok.rs/rdf/database/predicate/kreiranOdStrane> <http://www.rokzasok.rs/rdf/database/osoba/" + osobaId + "> .\n" +
                 "}";
@@ -83,7 +83,7 @@ public class SparqlUtil {
     public static String selectAllDatumPodnosenja(String d1, String d2) {
         return "PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>\n" +
                 "\n" +
-                "SELECT ?dokument ?date FROM <http://localhost:8080/fuseki/eUpravaDataset/data/sparql/metadata>\n" +
+                "SELECT ?dokument ?date FROM <http://localhost:3030/eUpravaDataset/data/sparql/metadata>\n" +
                 "WHERE {\n" +
                 "\t?dokument <http://www.rokzasok.rs/rdf/database/predicate/datumPodnosenja> ?date .\n" +
                 "    FILTER (?date >= \""+d1+"\"^^xsd:date && ?date <= \""+d2+"\"^^xsd:date) .\n" +
