@@ -9,4 +9,4 @@
         }
 
 )
-package com.rokzasok.sluzbenik.dokumenti.digitalni_sertifikat;
+package com.rokzasok.sluzbenik.model.dokumenti.digitalni_sertifikat;

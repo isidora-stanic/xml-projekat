@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<dostupneDoze xmlns="www.rokzasok.rs/dostupne-doze-vakcina"
+ xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+ xsi:schemaLocation="www.rokzasok.rs/dostupne-doze-vakcina ./schema/dostupne_doze.xsd">
+    <brojDoza tipVakcine="Pfizer-BioNtech">50</brojDoza>
+    <brojDoza tipVakcine="Sputnik V (Gamaleya istraživački centar)">50</brojDoza>
+</dostupneDoze>

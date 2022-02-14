@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified"
+    targetNamespace="www.rokzasok.rs/dostupne-doze-vakcina"
+    xmlns:ddv="www.rokzasok.rs/dostupne-doze-vakcina">
+
+    <xs:element name="dostupneDoze">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="brojDoza" maxOccurs="unbounded">
+                    <xs:complexType>
+                        <xs:simpleContent>
+                            <xs:extension base="xs:positiveInteger">
+                                <xs:attribute name="tipVakcine" type="ddv:T_tip_vakcine"
+                                    use="required"/>
+                            </xs:extension>
+                        </xs:simpleContent>
+                    </xs:complexType>
+                </xs:element>
+            </xs:sequence>
+        </xs:complexType>
+        <xs:unique name="tipVakcineUniqueKey">
+            <xs:selector xpath="ddv:brojDoza"/>
+            <xs:field xpath="@tipVakcine"/>
+        </xs:unique>
+    </xs:element>
+    <xs:simpleType name="T_tip_vakcine">
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="Pfizer-BioNtech"/>
+            <xs:enumeration value="Sputnik V (Gamaleya istraživački centar)"/>
+            <xs:enumeration value="Sinopharm"/>
+            <xs:enumeration value="AstraZeneca"/>
+            <xs:enumeration value="Moderna"/>
+        </xs:restriction>
+    </xs:simpleType>
+</xs:schema>

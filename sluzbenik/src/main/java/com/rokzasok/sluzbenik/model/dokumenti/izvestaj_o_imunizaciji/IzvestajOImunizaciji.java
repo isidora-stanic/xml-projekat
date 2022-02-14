@@ -1,5 +1,5 @@
 
-package com.rokzasok.sluzbenik.dokumenti.izvestaj_o_imunizaciji;
+package com.rokzasok.sluzbenik.model.dokumenti.izvestaj_o_imunizaciji;
 
 import com.rokzasok.sluzbenik.interfaces.Identifiable;
 

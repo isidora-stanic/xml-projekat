@@ -1,5 +1,5 @@
 
-package com.rokzasok.sluzbenik.dokumenti.digitalni_sertifikat;
+package com.rokzasok.sluzbenik.model.dokumenti.digitalni_sertifikat;
 
 import javax.xml.bind.annotation.XmlEnum;
 import javax.xml.bind.annotation.XmlType;

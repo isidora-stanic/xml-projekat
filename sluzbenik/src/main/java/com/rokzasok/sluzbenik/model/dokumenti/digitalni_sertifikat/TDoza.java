@@ -1,5 +1,5 @@
 
-package com.rokzasok.sluzbenik.dokumenti.digitalni_sertifikat;
+package com.rokzasok.sluzbenik.model.dokumenti.digitalni_sertifikat;
 
 import java.math.BigInteger;
 import javax.xml.bind.annotation.XmlAccessType;

@@ -1,7 +1,7 @@
 package com.rokzasok.sluzbenik.service;
 
-import com.rokzasok.sluzbenik.dokumenti.digitalni_sertifikat.DigitalniSertifikat;
-import com.rokzasok.sluzbenik.dokumenti.izvestaj_o_imunizaciji.IzvestajOImunizaciji;
+import com.rokzasok.sluzbenik.model.dokumenti.digitalni_sertifikat.DigitalniSertifikat;
+import com.rokzasok.sluzbenik.model.dokumenti.izvestaj_o_imunizaciji.IzvestajOImunizaciji;
 import com.rokzasok.sluzbenik.exception.EntityNotFoundException;
 import com.rokzasok.sluzbenik.exception.InvalidXmlDatabaseException;
 import com.rokzasok.sluzbenik.exception.InvalidXmlException;
@@ -13,7 +13,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.xmldb.api.base.XMLDBException;
 
-import javax.annotation.PostConstruct;
 import javax.xml.bind.JAXBException;
 import java.util.List;
 
