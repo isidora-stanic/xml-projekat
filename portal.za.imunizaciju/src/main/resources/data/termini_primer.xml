@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<spisakTermina xmlns="www.rokzasok.rs/termini"
+ xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+ xsi:schemaLocation="www.rokzasok.rs/termini file:/Users/jovandjordjic/Documents/fakultet/xml/projekat-git/portal.za.imunizaciju/src/main/resources/data/schema/termini.xsd">
+    <termini mesto="mesto1">
+        <dan datum="2006-05-04">
+            <maxBrojTermina>50</maxBrojTermina>
+            <brojZakazanihTermina>50</brojZakazanihTermina>
+        </dan>
+        <dan datum="2006-05-05">
+            <maxBrojTermina>50</maxBrojTermina>
+            <brojZakazanihTermina>50</brojZakazanihTermina>
+        </dan>
+        <dan datum="2006-05-06">
+            <maxBrojTermina>50</maxBrojTermina>
+            <brojZakazanihTermina>50</brojZakazanihTermina>
+        </dan>
+    </termini>
+    <termini mesto="mesto3">
+        <dan datum="2006-05-04">
+            <maxBrojTermina>50</maxBrojTermina>
+            <brojZakazanihTermina>50</brojZakazanihTermina>
+        </dan>
+        <dan datum="2006-05-05">
+            <maxBrojTermina>50</maxBrojTermina>
+            <brojZakazanihTermina>50</brojZakazanihTermina>
+        </dan>
+        <dan datum="2006-05-06">
+            <maxBrojTermina>50</maxBrojTermina>
+            <brojZakazanihTermina>50</brojZakazanihTermina>
+        </dan>
+    </termini>
+    <termini mesto="mesto5">
+        <dan datum="2006-05-04">
+            <maxBrojTermina>50</maxBrojTermina>
+            <brojZakazanihTermina>50</brojZakazanihTermina>
+        </dan>
+        <dan datum="2006-05-05">
+            <maxBrojTermina>50</maxBrojTermina>
+            <brojZakazanihTermina>50</brojZakazanihTermina>
+        </dan>
+        <dan datum="2006-05-06">
+            <maxBrojTermina>50</maxBrojTermina>
+            <brojZakazanihTermina>50</brojZakazanihTermina>
+        </dan>
+    </termini>
+</spisakTermina>
