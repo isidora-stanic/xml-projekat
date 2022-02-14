@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<spisakKorisnika xmlns="www.rokzasok.rs/korisnici"
+ xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+ xsi:schemaLocation="www.rokzasok.rs/korisnici ./schema/korisnici.xsd">
+    <korisnik korisnickoIme="korisnickoIme1" id="1">
+        <lozinka>lozinka0</lozinka>
+        <uloge>
+            <uloga>gradjanin</uloga>
+        </uloge>
+    </korisnik>
+    <korisnik korisnickoIme="korisnickoIme3" id="2">
+        <lozinka>lozinka1</lozinka>
+        <uloge>
+            <uloga>zdravstveni_radnik</uloga>
+        </uloge>
+    </korisnik>
+</spisakKorisnika>
