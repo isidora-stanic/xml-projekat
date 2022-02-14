@@ -48,6 +48,11 @@
                                 <xs:attribute fixed="http://www.rokzasok.rs/rdf/database/predicate"
                                     name="vocab" type="xs:string"/>
                                 <xs:attribute name="about" type="xs:string"/>
+                                <xs:attribute name="idPacijenta" use="required">
+                                    <xs:simpleType>
+                                        <xs:restriction base="xs:long"/>
+                                    </xs:simpleType>
+                                </xs:attribute>
                             </xs:extension>
                         </xs:complexContent>
                     </xs:complexType>

@@ -159,14 +159,14 @@ public class PotvrdaVakcinacijeService implements AbstractXmlService<PotvrdaVakc
     }
 
     public void handleMetadata(PotvrdaVakcinacije potvrda) {
-        String jmbg = potvrda.getOsoba().getJmbg();
+        String idOsobe = Long.toString(potvrda.getOsoba().getIdOsobe());
 
         potvrda.setAbout(String.format("http://www.rokzasok.rs/rdf/database/potvrda-vakcinacije/%d", potvrda.getDokumentId()));
         potvrda.setVocab("http://www.rokzasok.rs/rdf/database/predicate");
         potvrda.setRel("pred:kreiranOdStrane");
-        potvrda.setHref(String.format("http://www.rokzasok.rs/rdf/database/osoba/%s", jmbg));
+        potvrda.setHref(String.format("http://www.rokzasok.rs/rdf/database/osoba/%s", idOsobe));
 
-        potvrda.getOsoba().setAbout(String.format("http://www.rokzasok.rs/rdf/database/osoba/%s", jmbg));
+        potvrda.getOsoba().setAbout(String.format("http://www.rokzasok.rs/rdf/database/osoba/%s", idOsobe));
         potvrda.getOsoba().setVocab("http://www.rokzasok.rs/rdf/database/predicate");
 
         ListIterator<PotvrdaVakcinacije.Doze.Doza> dozaIterator = potvrda.getDoze().getDoza().listIterator();

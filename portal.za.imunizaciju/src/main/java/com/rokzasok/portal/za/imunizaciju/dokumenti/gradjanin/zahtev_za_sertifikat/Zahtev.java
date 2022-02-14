@@ -60,6 +60,12 @@ import javax.xml.datatype.XMLGregorianCalendar;
  *               &lt;extension base="{www.rokzasok.rs/gradjanin/zahtev-za-sertifikat}T_osoba"&gt;
  *                 &lt;attribute name="vocab" type="{http://www.w3.org/2001/XMLSchema}string" fixed="http://www.rokzasok.rs/rdf/database/predicate" /&gt;
  *                 &lt;attribute name="about" type="{http://www.w3.org/2001/XMLSchema}string" /&gt;
+ *                 &lt;attribute name="idPacijenta" use="required"&gt;
+ *                   &lt;simpleType&gt;
+ *                     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}long"&gt;
+ *                     &lt;/restriction&gt;
+ *                   &lt;/simpleType&gt;
+ *                 &lt;/attribute&gt;
  *               &lt;/extension&gt;
  *             &lt;/complexContent&gt;
  *           &lt;/complexType&gt;
@@ -609,6 +615,12 @@ public class Zahtev implements Identifiable {
      *     &lt;extension base="{www.rokzasok.rs/gradjanin/zahtev-za-sertifikat}T_osoba"&gt;
      *       &lt;attribute name="vocab" type="{http://www.w3.org/2001/XMLSchema}string" fixed="http://www.rokzasok.rs/rdf/database/predicate" /&gt;
      *       &lt;attribute name="about" type="{http://www.w3.org/2001/XMLSchema}string" /&gt;
+     *       &lt;attribute name="idPacijenta" use="required"&gt;
+     *         &lt;simpleType&gt;
+     *           &lt;restriction base="{http://www.w3.org/2001/XMLSchema}long"&gt;
+     *           &lt;/restriction&gt;
+     *         &lt;/simpleType&gt;
+     *       &lt;/attribute&gt;
      *     &lt;/extension&gt;
      *   &lt;/complexContent&gt;
      * &lt;/complexType&gt;
@@ -626,6 +638,8 @@ public class Zahtev implements Identifiable {
         protected String vocab;
         @XmlAttribute(name = "about")
         protected String about;
+        @XmlAttribute(name = "idPacijenta", required = true)
+        protected long idPacijenta;
 
         /**
          * Gets the value of the vocab property.
@@ -677,6 +691,22 @@ public class Zahtev implements Identifiable {
          */
         public void setAbout(String value) {
             this.about = value;
+        }
+
+        /**
+         * Gets the value of the idPacijenta property.
+         * 
+         */
+        public long getIdPacijenta() {
+            return idPacijenta;
+        }
+
+        /**
+         * Sets the value of the idPacijenta property.
+         * 
+         */
+        public void setIdPacijenta(long value) {
+            this.idPacijenta = value;
         }
 
     }

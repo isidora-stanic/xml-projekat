@@ -91,7 +91,7 @@ import javax.xml.datatype.XMLGregorianCalendar;
     "ustanova"
 })
 @XmlSeeAlso({
-        com.rokzasok.portal.za.imunizaciju.dokumenti.gradjanin.obrazac_saglasnosti.ObrazacSaglasnosti.EvidencijaVakcinacija.Tabela.Doza.class
+    ObrazacSaglasnosti.EvidencijaVakcinacija.Tabela.Doza.class
 })
 public class TDoza {
 

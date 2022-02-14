@@ -177,7 +177,7 @@ public class ObrazacSaglasnostiService implements AbstractXmlService<ObrazacSagl
     private void handleMetadata(ObrazacSaglasnosti izvestaj) {
         izvestaj.getEvidencijaPacijent().getPacijent().setVocab("http://www.rokzasok.rs/rdf/database/predicate");
         izvestaj.getEvidencijaPacijent().getPacijent().setAbout("http://www.rokzasok.rs/rdf/database/osoba/" +
-                izvestaj.getEvidencijaPacijent().getPacijent().getPacijentInfo().getJmbg()); // TODO ID
+                izvestaj.getEvidencijaPacijent().getPacijent().getIdPacijenta());
 
         izvestaj.getEvidencijaPacijent().getPacijent().getPacijentInfo().getPol().setProperty("pred:pol");
         izvestaj.getEvidencijaPacijent().getPacijent().getPacijentInfo().getPol().setDatatype("xs:string");
@@ -217,7 +217,7 @@ public class ObrazacSaglasnostiService implements AbstractXmlService<ObrazacSagl
         izvestaj.getDokumentInfo().setVocab("http://www.rokzasok.rs/rdf/database/predicate");
         izvestaj.getDokumentInfo().setAbout("http://www.rokzasok.rs/rdf/database/obrazac-saglasnosti/" + izvestaj.getDokumentId());
         izvestaj.getDokumentInfo().setRel("pred:kreiranOdStrane");
-        izvestaj.getDokumentInfo().setHref("http://www.rokzasok.rs/rdf/database/osoba/" + izvestaj.getEvidencijaPacijent().getPacijent().getPacijentInfo().getJmbg()); // TODO ID
+        izvestaj.getDokumentInfo().setHref("http://www.rokzasok.rs/rdf/database/osoba/" + izvestaj.getEvidencijaPacijent().getPacijent().getIdPacijenta());
 
         izvestaj.getDokumentInfo().getSaglasnost().getIzjava().setProperty("pred:izjava");
         izvestaj.getDokumentInfo().getSaglasnost().getIzjava().setDatatype("xs:#boolean");
