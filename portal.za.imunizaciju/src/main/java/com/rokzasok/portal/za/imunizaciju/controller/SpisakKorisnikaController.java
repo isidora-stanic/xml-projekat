@@ -1,9 +1,9 @@
-package com.rokzasok.sluzbenik.controller;
+package com.rokzasok.portal.za.imunizaciju.controller;
 
-import com.rokzasok.sluzbenik.model.dto.CreateKorisnikDTO;
-import com.rokzasok.sluzbenik.model.ostalo.spisak_korisnika.Korisnik;
-import com.rokzasok.sluzbenik.model.ostalo.spisak_korisnika.SpisakKorisnika;
-import com.rokzasok.sluzbenik.service.SpisakKorisnikaService;
+import com.rokzasok.portal.za.imunizaciju.model.dto.CreateKorisnikDTO;
+import com.rokzasok.portal.za.imunizaciju.model.ostalo.spisak_korisnika.Korisnik;
+import com.rokzasok.portal.za.imunizaciju.model.ostalo.spisak_korisnika.SpisakKorisnika;
+import com.rokzasok.portal.za.imunizaciju.service.SpisakKorisnikaService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -39,9 +39,14 @@ public class SpisakKorisnikaController {
         return new ResponseEntity<>(this.spisakKorisnikaService.getKorisnik(id), HttpStatus.OK);
     }
 
-    @PatchMapping(value = "/dodaj-korisnika", produces = APPLICATION_XML_VALUE)
-    ResponseEntity<Korisnik> addKorisnik(@RequestBody CreateKorisnikDTO createKorisnikDTO) {
-        return new ResponseEntity<>(this.spisakKorisnikaService.addKorisnik(createKorisnikDTO), HttpStatus.OK);
+    @PatchMapping(value = "/dodaj-gradjanina", produces = APPLICATION_XML_VALUE)
+    ResponseEntity<Korisnik> addGradjanin(@RequestBody CreateKorisnikDTO createKorisnikDTO) {
+        return new ResponseEntity<>(this.spisakKorisnikaService.addKorisnik(createKorisnikDTO, "gradjanin"), HttpStatus.OK);
+    }
+
+    @PatchMapping(value = "/dodaj-zdravstvenog-radnika", produces = APPLICATION_XML_VALUE)
+    ResponseEntity<Korisnik> addZdravstveniRadnik(@RequestBody CreateKorisnikDTO createKorisnikDTO) {
+        return new ResponseEntity<>(this.spisakKorisnikaService.addKorisnik(createKorisnikDTO, "zdravstveni_radnik"), HttpStatus.OK);
     }
 
     @DeleteMapping(value = "/{id}")
@@ -55,4 +60,6 @@ public class SpisakKorisnikaController {
 
         return new ResponseEntity<>(HttpStatus.OK);
     }
+
+
 }

@@ -44,4 +44,24 @@ public class XQueryExpressions {
             "xquery version \"3.1\";\n" +
                     "xmldb:remove('/db/sample/zahtev_za_sertifikat', '%s')";
 
+
+    public static final String X_QUERY_FIND_ALL_SPISAK_KORISNIKA = "xquery version \"3.1\";\n" +
+            "declare default element namespace \"http://www.rokzasok.rs/korisnici\";\n" +
+            "for $x in collection(\"/db/sample/korisnici\")\n" +
+            "return $x";
+
+    public static final String X_UPDATE_REMOVE_SPISAK_KORISNIKA_BY_ID_EXPRESSION =
+            "xquery version \"3.1\";\n" +
+                    "xmldb:remove('/db/sample/korisnici', '%s')";
+
+    public static final String X_QUERY_FIND_ALL_SPISAK_TERMINA = "xquery version \"3.1\";\n" +
+            "declare default element namespace \"http://www.rokzasok.rs/termini\";\n" +
+            "for $x in collection(\"/db/sample/termini\")\n" +
+            "return $x";
+
+    public static final String X_UPDATE_REMOVE_SPISAK_TERMINA_BY_ID_EXPRESSION =
+            "xquery version \"3.1\";\n" +
+                    "xmldb:remove('/db/sample/termini', '%s')";
+
+
 }

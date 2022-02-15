@@ -1,8 +1,6 @@
 
 package com.rokzasok.portal.za.imunizaciju.model.ostalo.spisak_termina;
 
-import com.rokzasok.portal.za.imunizaciju.interfaces.Identifiable;
-
 import javax.xml.bind.annotation.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -18,8 +16,9 @@ import java.util.List;
  *   &lt;complexContent&gt;
  *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
  *       &lt;sequence&gt;
- *         &lt;element ref="{www.rokzasok.rs/termini}termini" maxOccurs="unbounded" minOccurs="0"/&gt;
+ *         &lt;element ref="{www.rokzasok.rs/termini}dan" maxOccurs="unbounded" minOccurs="0"/&gt;
  *       &lt;/sequence&gt;
+ *       &lt;attribute name="mesto" use="required" type="{http://www.w3.org/2001/XMLSchema}string" /&gt;
  *     &lt;/restriction&gt;
  *   &lt;/complexContent&gt;
  * &lt;/complexType&gt;
@@ -29,50 +28,67 @@ import java.util.List;
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "", propOrder = {
-    "termini"
+    "dan"
 })
-@XmlRootElement(name = "spisakTermina", namespace = "www.rokzasok.rs/termini")
-public class SpisakTermina implements Identifiable {
+@XmlRootElement(name = "termini", namespace = "www.rokzasok.rs/termini")
+public class Termini {
 
     @XmlElement(namespace = "www.rokzasok.rs/termini")
-    protected List<Termini> termini;
+    protected List<Dan> dan;
+    @XmlAttribute(name = "mesto", required = true)
+    protected String mesto;
 
     /**
-     * Gets the value of the termini property.
+     * Gets the value of the dan property.
      * 
      * <p>
      * This accessor method returns a reference to the live list,
      * not a snapshot. Therefore any modification you make to the
      * returned list will be present inside the JAXB object.
-     * This is why there is not a <CODE>set</CODE> method for the termini property.
+     * This is why there is not a <CODE>set</CODE> method for the dan property.
      * 
      * <p>
      * For example, to add a new item, do as follows:
      * <pre>
-     *    getTermini().add(newItem);
+     *    getDan().add(newItem);
      * </pre>
      * 
      * 
      * <p>
      * Objects of the following type(s) are allowed in the list
-     * {@link Termini }
+     * {@link Dan }
      * 
      * 
      */
-    public List<Termini> getTermini() {
-        if (termini == null) {
-            termini = new ArrayList<Termini>();
+    public List<Dan> getDan() {
+        if (dan == null) {
+            dan = new ArrayList<Dan>();
         }
-        return this.termini;
+        return this.dan;
     }
 
-    @Override
-    public Long getDokumentId() {
-        return 1L;
+    /**
+     * Gets the value of the mesto property.
+     * 
+     * @return
+     *     possible object is
+     *     {@link String }
+     *     
+     */
+    public String getMesto() {
+        return mesto;
     }
 
-    @Override
-    public void setDokumentId(Long id) {
-
+    /**
+     * Sets the value of the mesto property.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link String }
+     *     
+     */
+    public void setMesto(String value) {
+        this.mesto = value;
     }
+
 }

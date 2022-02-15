@@ -1,15 +1,15 @@
-package com.rokzasok.sluzbenik.service;
+package com.rokzasok.portal.za.imunizaciju.service;
 
-import com.rokzasok.sluzbenik.exception.EntityNotFoundException;
-import com.rokzasok.sluzbenik.exception.InvalidXmlDatabaseException;
-import com.rokzasok.sluzbenik.exception.InvalidXmlException;
-import com.rokzasok.sluzbenik.exception.XmlDatabaseException;
-import com.rokzasok.sluzbenik.helper.UUIDHelper;
-import com.rokzasok.sluzbenik.helper.XmlConversionAgent;
-import com.rokzasok.sluzbenik.model.dto.CreateKorisnikDTO;
-import com.rokzasok.sluzbenik.model.ostalo.spisak_korisnika.Korisnik;
-import com.rokzasok.sluzbenik.model.ostalo.spisak_korisnika.SpisakKorisnika;
-import com.rokzasok.sluzbenik.repository.AbstractXmlRepository;
+import com.rokzasok.portal.za.imunizaciju.exception.EntityNotFoundException;
+import com.rokzasok.portal.za.imunizaciju.exception.InvalidXmlDatabaseException;
+import com.rokzasok.portal.za.imunizaciju.exception.InvalidXmlException;
+import com.rokzasok.portal.za.imunizaciju.exception.XmlDatabaseException;
+import com.rokzasok.portal.za.imunizaciju.helper.UUIDHelper;
+import com.rokzasok.portal.za.imunizaciju.helper.XmlConversionAgent;
+import com.rokzasok.portal.za.imunizaciju.model.dto.CreateKorisnikDTO;
+import com.rokzasok.portal.za.imunizaciju.model.ostalo.spisak_korisnika.Korisnik;
+import com.rokzasok.portal.za.imunizaciju.model.ostalo.spisak_korisnika.SpisakKorisnika;
+import com.rokzasok.portal.za.imunizaciju.repository.AbstractXmlRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.xmldb.api.base.XMLDBException;
@@ -17,12 +17,13 @@ import org.xmldb.api.base.XMLDBException;
 import javax.xml.bind.JAXBException;
 import java.util.List;
 
-import static com.rokzasok.sluzbenik.helper.XQueryExpressions.*;
+import static com.rokzasok.portal.za.imunizaciju.helper.XQueryExpressions.X_QUERY_FIND_ALL_SPISAK_KORISNIKA;
+import static com.rokzasok.portal.za.imunizaciju.helper.XQueryExpressions.X_UPDATE_REMOVE_SPISAK_KORISNIKA_BY_ID_EXPRESSION;
 
 @Service
 public class SpisakKorisnikaService implements AbstractXmlService<SpisakKorisnika> {
 
-    private final String jaxbContextPath = "com.rokzasok.sluzbenik.model.ostalo.spisak_korisnika";
+    private final String jaxbContextPath = "com.rokzasok.portal.za.imunizaciju.model.ostalo.spisak_korisnika";
 
     @Autowired
     private AbstractXmlRepository<SpisakKorisnika> spisakKorisnikaAbstractXmlRepository;
@@ -129,7 +130,7 @@ public class SpisakKorisnikaService implements AbstractXmlService<SpisakKorisnik
         }
     }
 
-    public Korisnik addKorisnik(CreateKorisnikDTO noviKorisnikDTO) {
+    public Korisnik addKorisnik(CreateKorisnikDTO noviKorisnikDTO, String uloga) {
         SpisakKorisnika spisakKorisnika = findById(1L);
         List<Korisnik> korisnici = spisakKorisnika.getKorisnik();
 
@@ -138,7 +139,7 @@ public class SpisakKorisnikaService implements AbstractXmlService<SpisakKorisnik
         noviKorisnik.setKorisnickoIme(noviKorisnikDTO.getKorisnickoIme());
         noviKorisnik.setLozinka(noviKorisnikDTO.getLozinka());
         Korisnik.Uloge uloge = new Korisnik.Uloge();
-        uloge.getUloga().add("sluzbenik");
+        uloge.getUloga().add(uloga);
         noviKorisnik.setUloge(uloge);
 
         noviKorisnik.setId(uuidHelper.getUUID());
@@ -172,6 +173,7 @@ public class SpisakKorisnikaService implements AbstractXmlService<SpisakKorisnik
         } catch (XmlDatabaseException | InvalidXmlDatabaseException e) {
             e.printStackTrace();
         }
+        return;
     }
 
     public Korisnik getKorisnik(Long idKorisnika) {
