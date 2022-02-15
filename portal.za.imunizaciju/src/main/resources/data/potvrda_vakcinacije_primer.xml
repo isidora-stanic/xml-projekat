@@ -10,7 +10,7 @@
                         href="http://www.rokzasok.rs/rdf/database/osoba/1234567890123"
                         vocab="http://www.rokzasok.rs/rdf/database/predicate">
     <po:osoba vocab="http://www.rokzasok.rs/rdf/database/predicate"
-              about="http://www.rokzasok.rs/rdf/database/osoba/1234567890123">
+              about="http://www.rokzasok.rs/rdf/database/osoba/1234567890123" idOsobe="1234">
         <po:jmbg>1234567890123</po:jmbg>
         <po:ime>Zdravko</po:ime>
         <po:prezime>Krivokapic</po:prezime>
