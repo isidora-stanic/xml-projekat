@@ -9,7 +9,7 @@
                 <xs:element name="brojDoza" maxOccurs="unbounded">
                     <xs:complexType>
                         <xs:simpleContent>
-                            <xs:extension base="xs:positiveInteger">
+                            <xs:extension base="xs:nonNegativeInteger">
                                 <xs:attribute name="tipVakcine" type="ddv:T_tip_vakcine"
                                     use="required"/>
                             </xs:extension>

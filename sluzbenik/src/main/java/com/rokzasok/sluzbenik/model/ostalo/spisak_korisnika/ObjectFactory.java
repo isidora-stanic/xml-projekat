@@ -7,7 +7,7 @@ import javax.xml.bind.annotation.XmlRegistry;
 /**
  * This object contains factory methods for each 
  * Java content interface and Java element interface 
- * generated in the com.rokzasok.portal.za.imunizaciju.model.ostalo.spisak_korisnika package. 
+ * generated in the com.rokzasok.sluzbenik.model.ostalo.spisak_korisnika package. 
  * <p>An ObjectFactory allows you to programatically 
  * construct new instances of the Java representation 
  * for XML content. The Java representation of XML 
@@ -23,10 +23,18 @@ public class ObjectFactory {
 
 
     /**
-     * Create a new ObjectFactory that can be used to create new instances of schema derived classes for package: com.rokzasok.portal.za.imunizaciju.model.ostalo.spisak_korisnika
+     * Create a new ObjectFactory that can be used to create new instances of schema derived classes for package: com.rokzasok.sluzbenik.model.ostalo.spisak_korisnika
      * 
      */
     public ObjectFactory() {
+    }
+
+    /**
+     * Create an instance of {@link Korisnik }
+     * 
+     */
+    public Korisnik createKorisnik() {
+        return new Korisnik();
     }
 
     /**
@@ -38,19 +46,11 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link SpisakKorisnika.Korisnik }
+     * Create an instance of {@link Korisnik.Uloge }
      * 
      */
-    public SpisakKorisnika.Korisnik createSpisakKorisnikaKorisnik() {
-        return new SpisakKorisnika.Korisnik();
-    }
-
-    /**
-     * Create an instance of {@link SpisakKorisnika.Korisnik.Uloge }
-     * 
-     */
-    public SpisakKorisnika.Korisnik.Uloge createSpisakKorisnikaKorisnikUloge() {
-        return new SpisakKorisnika.Korisnik.Uloge();
+    public Korisnik.Uloge createKorisnikUloge() {
+        return new Korisnik.Uloge();
     }
 
 }

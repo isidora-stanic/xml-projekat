@@ -21,7 +21,7 @@ import static com.rokzasok.sluzbenik.helper.XQueryExpressions.X_UPDATE_REMOVE_IZ
 @Service
 public class IzvestajOImunizacijiService implements AbstractXmlService<IzvestajOImunizaciji> {
 
-    private final String jaxbContextPath = "com.rokzasok.sluzbenik.dokumenti.izvestaj_o_imunizaciji";
+    private final String jaxbContextPath = "com.rokzasok.sluzbenik.model.dokumenti.izvestaj_o_imunizaciji";
 
     private static final String SPARQL_NAMED_GRAPH_URI = "/sparql/metadata";
 
