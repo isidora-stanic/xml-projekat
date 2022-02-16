@@ -220,4 +220,25 @@ public class PotvrdaVakcinacijeService implements AbstractXmlService<PotvrdaVakc
 
         return null;
     }
+
+    public ByteArrayInputStream generatePDF_FO(Long dokumentId) throws IOException, SAXException, JAXBException {
+        String xslFile = "src/main/resources/data/xsl-transformations/potvrda_vakcinacije_fo.xsl";
+        String outputPdfFile = "src/main/resources/data/xsl-transformations/generated/output-pdf/potvrda.pdf";
+        String outputXmlFile = "src/main/resources/data/xsl-transformations/generated/output-xml-fo/potvrda.xml";
+
+        XSLTransformer xslTransformer = new XSLTransformer();
+        xslTransformer.setXSL_FO_FILE(xslFile);
+        xslTransformer.setOUTPUT_FILE_PDF(outputPdfFile);
+
+        PotvrdaVakcinacije potvrda = this.findById(dokumentId);
+        try {
+            this.potvrdaVakcinacijeXmlConversionAgent.marshallToFile(potvrda, this.jaxbContextPath, outputXmlFile);
+            xslTransformer.generatePDF_FO(outputXmlFile);
+            return new ByteArrayInputStream(FileUtils.readFileToByteArray(new File(outputPdfFile)));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return null;
+    }
 }

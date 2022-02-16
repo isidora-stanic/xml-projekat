@@ -13,6 +13,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.xml.sax.SAXException;
 
+import javax.xml.bind.JAXBException;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 
@@ -63,6 +64,23 @@ public class PotvrdaVakcinacijeController {
 
         HttpHeaders headers = new HttpHeaders();
         headers.add("Content-Disposition", "inline: filename=potvrda.html");
+
+        return new ResponseEntity<>(new InputStreamResource(is), headers, HttpStatus.OK);
+    }
+
+    @GetMapping(value = "/pdf-fo/{dokumentId}")
+    ResponseEntity<InputStreamResource> getPdfFo(@PathVariable Long dokumentId) {
+        ByteArrayInputStream is;
+        try {
+            is = this.potvrdaVakcinacijeService.generatePDF_FO(dokumentId);
+        }
+        catch (IOException | SAXException | JAXBException e) {
+            e.printStackTrace();
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+
+        HttpHeaders headers = new HttpHeaders();
+        headers.add("Content-Disposition", "inline: filename=potvrda.pdf");
 
         return new ResponseEntity<>(new InputStreamResource(is), headers, HttpStatus.OK);
     }
