@@ -1,7 +1,9 @@
 package com.rokzasok.sluzbenik.soap.dostupne_doze;
 
-import com.rokzasok.sluzbenik.soap.dostupne_doze.model.DozeRequest;
-import com.rokzasok.sluzbenik.soap.dostupne_doze.model.DozeResponse;
+import com.rokzasok.sluzbenik.soap.dostupne_doze.model.ProveriDostupnostVakcineRequest;
+import com.rokzasok.sluzbenik.soap.dostupne_doze.model.ProveriDostupnostVakcineResponse;
+import com.rokzasok.sluzbenik.soap.dostupne_doze.model.UkloniJednuDozuVakcineRequest;
+import com.rokzasok.sluzbenik.soap.dostupne_doze.model.UkloniJednuDozuVakcineResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ws.server.endpoint.annotation.Endpoint;
 import org.springframework.ws.server.endpoint.annotation.PayloadRoot;
@@ -15,18 +17,18 @@ public class DostupneDozeSoapEndpoint {
     @Autowired
     private DostupneDozeSoapRepository dostupneDozeSoapRepository;
 
-    @PayloadRoot(namespace = NAMESPACE_URI, localPart = "proveri-dostupnost")
+    @PayloadRoot(namespace = NAMESPACE_URI, localPart = "proveriDostupnostVakcineRequest")
     @ResponsePayload
-    public DozeResponse proveriDostpunost(@RequestPayload DozeRequest request) {
-        DozeResponse response = new DozeResponse();
+    public ProveriDostupnostVakcineResponse proveriDostpunost(@RequestPayload ProveriDostupnostVakcineRequest request) {
+        ProveriDostupnostVakcineResponse response = new ProveriDostupnostVakcineResponse();
         response.setUspesnost(dostupneDozeSoapRepository.proveriDostupnost(request));
         return response;
     }
 
-    @PayloadRoot(namespace = NAMESPACE_URI, localPart = "ukloni-jednu-dozu")
+    @PayloadRoot(namespace = NAMESPACE_URI, localPart = "ukloniJednuDozuVakcineRequest")
     @ResponsePayload
-    public DozeResponse ukloniJednuDozu(@RequestPayload DozeRequest request) {
-        DozeResponse response = new DozeResponse();
+    public UkloniJednuDozuVakcineResponse ukloniJednuDozu(@RequestPayload UkloniJednuDozuVakcineRequest request) {
+        UkloniJednuDozuVakcineResponse response = new UkloniJednuDozuVakcineResponse();
         response.setUspesnost(dostupneDozeSoapRepository.smanjiBrojDoza(request));
         return response;
     }

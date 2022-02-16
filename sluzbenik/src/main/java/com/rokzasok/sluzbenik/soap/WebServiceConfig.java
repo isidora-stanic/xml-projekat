@@ -36,11 +36,11 @@ public class WebServiceConfig {
     @Bean
     public XsdSchema dostupneDozeSchema() {
         String currentPath = System.getProperty("user.dir");
-        return new SimpleXsdSchema(new ClassPathResource("dostupne_doze_soap.xsd"));
+        return new SimpleXsdSchema(new ClassPathResource("data/soap_schema/dostupne_doze_soap.xsd"));
     }
 
-    @Bean
-    public XsdSchema korisniciSchema() {
-        return new SimpleXsdSchema(new ClassPathResource("dostupne_doze_soap.xsd"));
-    }
+//    @Bean
+//    public XsdSchema korisniciSchema() {
+//        return new SimpleXsdSchema(new ClassPathResource("data/soap_schema/dostupne_doze_soap.xsd"));
+//    }
 }

@@ -2,20 +2,36 @@
 <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified"
     targetNamespace="http://www.rokzasok.rs/soap/dostupne_doze"
     xmlns:dds="http://www.rokzasok.rs/soap/dostupne_doze">
-    <xs:element name="dozeRequest">
+    <xs:element name="proveriDostupnostVakcineRequest">
         <xs:complexType>
             <xs:sequence>
                 <xs:element name="tipVakcine" type="dds:T_tip_vakcine"/>
             </xs:sequence>
         </xs:complexType>
     </xs:element>
-    <xs:element name="dozeResponse">
+    <xs:element name="proveriDostupnostVakcineResponse">
         <xs:complexType>
             <xs:sequence>
                 <xs:element name="uspesnost" type="xs:boolean"/>
             </xs:sequence>
         </xs:complexType>
     </xs:element>
+
+    <xs:element name="ukloniJednuDozuVakcineRequest">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="tipVakcine" type="dds:T_tip_vakcine"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="ukloniJednuDozuVakcineResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="uspesnost" type="xs:boolean"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
     <xs:simpleType name="T_tip_vakcine">
         <xs:restriction base="xs:string">
             <xs:enumeration value="Pfizer-BioNtech"/>
@@ -23,7 +39,6 @@
             <xs:enumeration value="Sinopharm"/>
             <xs:enumeration value="AstraZeneca"/>
             <xs:enumeration value="Moderna"/>
-            <xs:enumeration value="Bilo koja"/>
         </xs:restriction>
     </xs:simpleType>
 </xs:schema>
