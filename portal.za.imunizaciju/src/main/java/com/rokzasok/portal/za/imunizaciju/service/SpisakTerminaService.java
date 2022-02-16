@@ -6,6 +6,7 @@ import com.rokzasok.portal.za.imunizaciju.exception.InvalidXmlException;
 import com.rokzasok.portal.za.imunizaciju.exception.XmlDatabaseException;
 import com.rokzasok.portal.za.imunizaciju.helper.UUIDHelper;
 import com.rokzasok.portal.za.imunizaciju.helper.XmlConversionAgent;
+import com.rokzasok.portal.za.imunizaciju.model.dto.ZakazivanjeTerminaDTO;
 import com.rokzasok.portal.za.imunizaciju.model.ostalo.spisak_termina.Dan;
 import com.rokzasok.portal.za.imunizaciju.model.ostalo.spisak_termina.SpisakTermina;
 import com.rokzasok.portal.za.imunizaciju.model.ostalo.spisak_termina.Termini;
@@ -136,53 +137,6 @@ public class SpisakTerminaService implements AbstractXmlService<SpisakTermina> {
             throw new XmlDatabaseException(e.getMessage());
         }
     }
-/*
-    public Dan zakaziTermin(String mesto, LocalDate zeljeniDatum) {
-        SpisakTermina spisakTermina = findById(1L);
-        List<Termini> terminiPoMestu = spisakTermina.getTermini();
-
-        for (Termini termini : terminiPoMestu) {
-            if (termini.getMesto().equals(mesto)) {
-                List<Dan> dani = termini.getDan();
-
-                dani.sort(Comparator.comparing(o -> o.getDatum().toGregorianCalendar()));
-
-
-                for (int i = 0; i < dani.size(); i++) {
-                    Dan dan = dani.get(i);
-                    LocalDate datumDana = LocalDate.of(dan.getDatum().getYear(), dan.getDatum().getMonth(), dan.getDatum().getDay());
-
-                    if (datumDana == zeljeniDatum) {
-                        boolean canAddTermin = checkSlobodniTerminiZaDan(dan);
-
-                        if (canAddTermin) {
-                            dan.setBrojZakazanihTermina(dan.getBrojZakazanihTermina().add(BigInteger.ONE));
-                            return dan;
-                        }
-                        if (i + 1 < dani.size()) {
-                            Dan mozdaSutraDan = dani.get(i + 1);
-                            LocalDate mozdaSutraDatum = LocalDate.of(mozdaSutraDan.getDatum().getYear(), mozdaSutraDan.getDatum().getMonth(), mozdaSutraDan.getDatum().getDay());
-
-                            LocalDate sutra = zeljeniDatum.plusDays(1);
-
-                            if (mozdaSutraDatum == sutra) {
-                                boolean canAddTermin2 = checkSlobodniTerminiZaDan(mozdaSutraDan);
-                                if (canAddTermin2) {
-                                    mozdaSutraDan.setBrojZakazanihTermina(mozdaSutraDan.getBrojZakazanihTermina().add(BigInteger.ONE));
-                                    return mozdaSutraDan;
-                                }
-                            }
-                        }
-
-                    }
-                    BigInteger maxBrojTermina = dan.getMaxBrojTermina();
-
-                }
-
-            }
-        }
-
-    }*/
 
     private boolean checkSlobodniTerminiZaDan(Dan dan) {
         return dan.getBrojZakazanihTermina().compareTo(dan.getMaxBrojTermina()) < 0;
@@ -227,6 +181,11 @@ public class SpisakTerminaService implements AbstractXmlService<SpisakTermina> {
     }
 
     public Dan zakaziTermin(String mesto, LocalDate zeljeniDatum, String tipVakcine, int unapred) {
+
+        if (zeljeniDatum.isBefore(LocalDate.now())){
+            throw new InvalidXmlException(ZakazivanjeTerminaDTO.class, "Odabran datum nije validan");
+        }
+
         // if (!servis.checkImaVakcine(tipVakcine)) return null // throw... todo: Komunikacija sa bekendom!!!
         SpisakTermina spisakTermina = findById(1L);
         List<Dan> dani = checkMesto(mesto, spisakTermina);
