@@ -17,12 +17,12 @@ public class SparqlAuthenticationUtilities {
 
         public ConnectionProperties(Properties props) {
             super();
-            dataset = props.getProperty("conn.dataset").trim();
-            endpoint = props.getProperty("conn.endpoint").trim();
+            dataset = props.getProperty("rdfdb.conn.dataset").trim();
+            endpoint = props.getProperty("rdfdb.conn.endpoint").trim();
 
-            queryEndpoint = String.join("/", endpoint, dataset, props.getProperty("conn.query").trim());
-            updateEndpoint = String.join("/", endpoint, dataset, props.getProperty("conn.update").trim());
-            dataEndpoint = String.join("/", endpoint, dataset, props.getProperty("conn.data").trim());
+            queryEndpoint = String.join("/", endpoint, dataset, props.getProperty("rdfdb.conn.query").trim());
+            updateEndpoint = String.join("/", endpoint, dataset, props.getProperty("rdfdb.conn.update").trim());
+            dataEndpoint = String.join("/", endpoint, dataset, props.getProperty("rdfdb.conn.data").trim());
 
             System.out.println("[INFO] Parsing connection properties:");
             System.out.println("[INFO] Query endpoint: " + queryEndpoint);
@@ -37,7 +37,7 @@ public class SparqlAuthenticationUtilities {
      * @return the configuration object
      */
     public static ConnectionProperties loadProperties() throws IOException {
-        String propsName = "connection.properties";
+        String propsName = "application.properties";
 
         InputStream propsStream = openStream(propsName);
         if (propsStream == null)

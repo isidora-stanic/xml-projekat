@@ -15,7 +15,7 @@ import java.io.ByteArrayInputStream;
 import java.util.List;
 
 @Controller
-@RequestMapping(value = "/izvestaj")
+@RequestMapping(value = "/api/izvestaj-o-imunizaciji")
 public class IzvestajOImunizacijiController {
 
     @Autowired
