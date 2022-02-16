@@ -1,7 +1,7 @@
 package com.rokzasok.portal.za.imunizaciju.controller;
 
-import com.rokzasok.portal.za.imunizaciju.dokumenti.gradjanin.obrazac_saglasnosti.KolekcijaObrazacaSaglasnosti;
-import com.rokzasok.portal.za.imunizaciju.dokumenti.gradjanin.obrazac_saglasnosti.ObrazacSaglasnosti;
+import com.rokzasok.portal.za.imunizaciju.model.dokumenti.gradjanin.obrazac_saglasnosti.KolekcijaObrazacaSaglasnosti;
+import com.rokzasok.portal.za.imunizaciju.model.dokumenti.gradjanin.obrazac_saglasnosti.ObrazacSaglasnosti;
 import com.rokzasok.portal.za.imunizaciju.service.ObrazacSaglasnostiService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;

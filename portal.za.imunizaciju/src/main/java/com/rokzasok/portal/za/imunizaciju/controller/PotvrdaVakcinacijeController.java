@@ -1,7 +1,7 @@
 package com.rokzasok.portal.za.imunizaciju.controller;
 
-import com.rokzasok.portal.za.imunizaciju.dokumenti.potvrda_vakcinacije.KolekcijaPotvrdaVakcinacije;
-import com.rokzasok.portal.za.imunizaciju.dokumenti.potvrda_vakcinacije.PotvrdaVakcinacije;
+import com.rokzasok.portal.za.imunizaciju.model.dokumenti.potvrda_vakcinacije.KolekcijaPotvrdaVakcinacije;
+import com.rokzasok.portal.za.imunizaciju.model.dokumenti.potvrda_vakcinacije.PotvrdaVakcinacije;
 import com.rokzasok.portal.za.imunizaciju.service.PotvrdaVakcinacijeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.InputStreamResource;

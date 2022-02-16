@@ -1,8 +1,7 @@
 package com.rokzasok.portal.za.imunizaciju.service;
 
-import com.rokzasok.portal.za.imunizaciju.dokumenti.gradjanin.iskazivanje_interesovanja.ObrazacInteresovanja;
+import com.rokzasok.portal.za.imunizaciju.model.dokumenti.gradjanin.iskazivanje_interesovanja.ObrazacInteresovanja;
 import com.rokzasok.portal.za.imunizaciju.exception.*;
-import com.rokzasok.portal.za.imunizaciju.fuseki.SparqlService;
 import com.rokzasok.portal.za.imunizaciju.fuseki.util.SparqlUtil;
 import com.rokzasok.portal.za.imunizaciju.helper.UUIDHelper;
 import com.rokzasok.portal.za.imunizaciju.helper.XmlConversionAgent;

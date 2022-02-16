@@ -1,7 +1,6 @@
 package com.rokzasok.sluzbenik.service;
 
-import com.rokzasok.sluzbenik.dokumenti.digitalni_sertifikat.DigitalniSertifikat;
-import com.rokzasok.sluzbenik.dokumenti.izvestaj_o_imunizaciji.IzvestajOImunizaciji;
+import com.rokzasok.sluzbenik.model.dokumenti.digitalni_sertifikat.DigitalniSertifikat;
 import com.rokzasok.sluzbenik.exception.EntityNotFoundException;
 import com.rokzasok.sluzbenik.exception.InvalidXmlDatabaseException;
 import com.rokzasok.sluzbenik.exception.InvalidXmlException;
@@ -13,7 +12,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.xmldb.api.base.XMLDBException;
 
-import javax.annotation.PostConstruct;
 import javax.xml.bind.JAXBException;
 import java.util.List;
 
@@ -23,17 +21,11 @@ import static com.rokzasok.sluzbenik.helper.XQueryExpressions.X_UPDATE_REMOVE_DI
 @Service
 public class DigitalniSertifikatService implements AbstractXmlService<DigitalniSertifikat> {
 
-    private final String jaxbContextPath = "com.rokzasok.sluzbenik.dokumenti.digitalni_sertifikat";
+    private final String jaxbContextPath = "com.rokzasok.sluzbenik.model.dokumenti.digitalni_sertifikat";
 
     private static final String SPARQL_NAMED_GRAPH_URI = "/sparql/metadata";
 
-    public static final String OUTPUT_FOLDER_XML = "output_xml";
-    public static final String OUTPUT_FOLDER_PDF = "output_pdf";
-    public static final String OUTPUT_FOLDER_HTML = "output_html";
-    public static final String OUTPUT_FOLDER_METADATA = "output_metadata";
-
     @Autowired
-    //@Qualifier("izvestajRepository")
     private AbstractXmlRepository<DigitalniSertifikat> digitalniSertifikatAbstractXmlRepository;
 
     @Autowired
@@ -41,44 +33,17 @@ public class DigitalniSertifikatService implements AbstractXmlService<DigitalniS
 
     @Autowired
     private RDFService rdfService;
-//
-//    @Autowired
-//    private PretrageHelper pretrageHelper;
 
-//    private rs.ac.uns.ftn.tim5.transofrmation.XSLFOTransformer XSLFOTransformer;
-
-    //    @Autowired
-//    private DateHelper dateHelper;
-//
     @Autowired
     private UUIDHelper uuidHelper;
-//
-//    @Autowired
-//    private SparqlUtil sparqlUtil;
 
-//    @Autowired
-//    private IzvestajClient izvestajClient;
-
-    //@PostConstruct
     public void injectRepositoryProperties() {
         this.digitalniSertifikatAbstractXmlRepository.injectRepositoryProperties(
                 "/db/sample/digitalni_sertifikat",
-                "com.rokzasok.sluzbenik.dokumenti.digitalni_sertifikat",
+                jaxbContextPath,
                 X_QUERY_FIND_ALL_DIGITALNI_SERTIFIKAT_EXPRESSION,
                 X_UPDATE_REMOVE_DIGITALNI_SERTIFIKAT_BY_ID_EXPRESSION
         );
-
-//        this.XSLFOTransformer = new XSLFOTransformer();
-//        try {
-//            this.XSLFOTransformer.injectTransformerProperties(
-//                    "classpath:transformations/xsl/izvestaj.xsl",
-//                    "classpath:transformations/xsl_fo/izvestaj_fo.xsl",
-//                    "output_pdf/izvestaj.pdf",
-//                    "output_html/izvestaj.html"
-//            );
-//        } catch (SAXException | IOException e) {
-//            e.printStackTrace();
-//        }
     }
 
     @Override
@@ -90,7 +55,7 @@ public class DigitalniSertifikatService implements AbstractXmlService<DigitalniS
         } catch (XMLDBException e) {
             throw new XmlDatabaseException(e.getMessage());
         } catch (JAXBException e) {
-            throw new InvalidXmlDatabaseException(IzvestajOImunizaciji.class, e.getMessage());
+            throw new InvalidXmlDatabaseException(DigitalniSertifikat.class, e.getMessage());
         }
     }
 
@@ -101,12 +66,12 @@ public class DigitalniSertifikatService implements AbstractXmlService<DigitalniS
         try {
             DigitalniSertifikat izvestaj = this.digitalniSertifikatAbstractXmlRepository.getEntity(entityId);
             if (izvestaj == null)
-                throw new EntityNotFoundException(entityId, IzvestajOImunizaciji.class);
+                throw new EntityNotFoundException(entityId, DigitalniSertifikat.class);
             return izvestaj;
         } catch (XMLDBException e) {
             throw new XmlDatabaseException(e.getMessage());
         } catch (JAXBException e) {
-            throw new InvalidXmlDatabaseException(IzvestajOImunizaciji.class, e.getMessage());
+            throw new InvalidXmlDatabaseException(DigitalniSertifikat.class, e.getMessage());
         }
     }
 
@@ -120,7 +85,7 @@ public class DigitalniSertifikatService implements AbstractXmlService<DigitalniS
             izvestaj.setDokumentId(this.uuidHelper.getUUID());
             this.handleMetadata(izvestaj);
         } catch (JAXBException e) {
-            throw new InvalidXmlException(IzvestajOImunizaciji.class, e.getMessage());
+            throw new InvalidXmlException(DigitalniSertifikat.class, e.getMessage());
         }
 
         try {
@@ -128,7 +93,7 @@ public class DigitalniSertifikatService implements AbstractXmlService<DigitalniS
         } catch (XMLDBException e) {
             throw new XmlDatabaseException(e.getMessage());
         } catch (JAXBException e) {
-            throw new InvalidXmlDatabaseException(IzvestajOImunizaciji.class, e.getMessage());
+            throw new InvalidXmlDatabaseException(DigitalniSertifikat.class, e.getMessage());
         }
 
         /*
@@ -163,13 +128,13 @@ public class DigitalniSertifikatService implements AbstractXmlService<DigitalniS
 
         try {
             if (!this.digitalniSertifikatAbstractXmlRepository.updateEntity(izvestaj)) {
-                throw new EntityNotFoundException(izvestaj.getDokumentId(), IzvestajOImunizaciji.class);
+                throw new EntityNotFoundException(izvestaj.getDokumentId(), DigitalniSertifikat.class);
             }
             return izvestaj;
         } catch (XMLDBException e) {
             throw new XmlDatabaseException(e.getMessage());
         } catch (JAXBException e) {
-            throw new InvalidXmlDatabaseException(IzvestajOImunizaciji.class, e.getMessage());
+            throw new InvalidXmlDatabaseException(DigitalniSertifikat.class, e.getMessage());
         }
 
     }

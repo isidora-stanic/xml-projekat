@@ -1,7 +1,7 @@
 package com.rokzasok.portal.za.imunizaciju.service;
 
-import com.rokzasok.portal.za.imunizaciju.dokumenti.gradjanin.iskazivanje_interesovanja.ObrazacInteresovanja;
-import com.rokzasok.portal.za.imunizaciju.dokumenti.potvrda_vakcinacije.PotvrdaVakcinacije;
+import com.rokzasok.portal.za.imunizaciju.model.dokumenti.gradjanin.iskazivanje_interesovanja.ObrazacInteresovanja;
+import com.rokzasok.portal.za.imunizaciju.model.dokumenti.potvrda_vakcinacije.PotvrdaVakcinacije;
 import com.rokzasok.portal.za.imunizaciju.exception.EntityNotFoundException;
 import com.rokzasok.portal.za.imunizaciju.exception.InvalidXmlDatabaseException;
 import com.rokzasok.portal.za.imunizaciju.exception.InvalidXmlException;
@@ -17,10 +17,6 @@ import org.xml.sax.SAXException;
 import org.xmldb.api.base.XMLDBException;
 
 import javax.xml.bind.JAXBException;
-import java.io.ByteArrayInputStream;
-import java.io.File;
-import java.io.IOException;
-import java.util.Iterator;
 import java.util.List;
 import java.util.ListIterator;
 

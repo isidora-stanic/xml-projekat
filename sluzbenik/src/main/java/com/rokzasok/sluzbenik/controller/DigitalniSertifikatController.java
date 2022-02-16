@@ -1,10 +1,7 @@
 package com.rokzasok.sluzbenik.controller;
 
-import com.rokzasok.sluzbenik.dokumenti.digitalni_sertifikat.DigitalniSertifikat;
-import com.rokzasok.sluzbenik.dokumenti.izvestaj_o_imunizaciji.IzvestajOImunizaciji;
-import com.rokzasok.sluzbenik.dokumenti.izvestaj_o_imunizaciji.KolekcijaIzvestaja;
+import com.rokzasok.sluzbenik.model.dokumenti.digitalni_sertifikat.DigitalniSertifikat;
 import com.rokzasok.sluzbenik.service.DigitalniSertifikatService;
-import com.rokzasok.sluzbenik.service.IzvestajOImunizacijiService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -13,7 +10,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 @Controller
-@RequestMapping(value = "/digitalni-sertifikat")
+@RequestMapping(value = "/api/digitalni-sertifikat")
 public class DigitalniSertifikatController {
 
     @Autowired

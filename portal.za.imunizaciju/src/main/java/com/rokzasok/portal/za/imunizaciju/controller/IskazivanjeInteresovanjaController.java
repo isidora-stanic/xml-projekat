@@ -1,10 +1,9 @@
 package com.rokzasok.portal.za.imunizaciju.controller;
 
-import com.rokzasok.portal.za.imunizaciju.dokumenti.gradjanin.iskazivanje_interesovanja.ObrazacInteresovanja;
+import com.rokzasok.portal.za.imunizaciju.model.dokumenti.gradjanin.iskazivanje_interesovanja.ObrazacInteresovanja;
 import com.rokzasok.portal.za.imunizaciju.fuseki.SparqlService;
 import com.rokzasok.portal.za.imunizaciju.service.IskazivanjeInteresovanjaService;
 import org.apache.jena.query.ResultSet;
-import org.apache.jena.query.ResultSetFormatter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;

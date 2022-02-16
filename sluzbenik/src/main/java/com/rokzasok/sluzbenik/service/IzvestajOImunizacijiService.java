@@ -1,6 +1,6 @@
 package com.rokzasok.sluzbenik.service;
 
-import com.rokzasok.sluzbenik.dokumenti.izvestaj_o_imunizaciji.IzvestajOImunizaciji;
+import com.rokzasok.sluzbenik.model.dokumenti.izvestaj_o_imunizaciji.IzvestajOImunizaciji;
 import com.rokzasok.sluzbenik.exception.EntityNotFoundException;
 import com.rokzasok.sluzbenik.exception.InvalidXmlDatabaseException;
 import com.rokzasok.sluzbenik.exception.InvalidXmlException;
@@ -9,14 +9,10 @@ import com.rokzasok.sluzbenik.helper.UUIDHelper;
 import com.rokzasok.sluzbenik.helper.XmlConversionAgent;
 import com.rokzasok.sluzbenik.repository.AbstractXmlRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
-import org.xml.sax.SAXException;
 import org.xmldb.api.base.XMLDBException;
 
-import javax.annotation.PostConstruct;
 import javax.xml.bind.JAXBException;
-import java.io.IOException;
 import java.util.List;
 
 import static com.rokzasok.sluzbenik.helper.XQueryExpressions.X_QUERY_FIND_ALL_IZVESTAJI_EXPRESSION;
@@ -25,7 +21,7 @@ import static com.rokzasok.sluzbenik.helper.XQueryExpressions.X_UPDATE_REMOVE_IZ
 @Service
 public class IzvestajOImunizacijiService implements AbstractXmlService<IzvestajOImunizaciji> {
 
-    private final String jaxbContextPath = "com.rokzasok.sluzbenik.dokumenti.izvestaj_o_imunizaciji";
+    private final String jaxbContextPath = "com.rokzasok.sluzbenik.model.dokumenti.izvestaj_o_imunizaciji";
 
     private static final String SPARQL_NAMED_GRAPH_URI = "/sparql/metadata";
 
