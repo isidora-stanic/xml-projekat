@@ -9,8 +9,11 @@ import com.rokzasok.portal.za.imunizaciju.exception.XmlDatabaseException;
 import com.rokzasok.portal.za.imunizaciju.helper.UUIDHelper;
 import com.rokzasok.portal.za.imunizaciju.helper.XmlConversionAgent;
 import com.rokzasok.portal.za.imunizaciju.repository.AbstractXmlRepository;
+import com.rokzasok.portal.za.imunizaciju.transformation.XSLTransformer;
+import org.apache.commons.io.FileUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.xml.sax.SAXException;
 import org.xmldb.api.base.XMLDBException;
 
 import javax.xml.bind.JAXBException;
@@ -180,5 +183,37 @@ public class PotvrdaVakcinacijeService implements AbstractXmlService<PotvrdaVakc
         potvrda.getRazlogIzdavanja().setProperty("pred:razlogIzdavanja");
         potvrda.getDatumIzdavanja().setDatatype("xs:#date");
         potvrda.getDatumIzdavanja().setProperty("pred:datumIzdavanja");
+    }
+
+    public ByteArrayInputStream generateHtml(Long dokumentId) throws IOException, SAXException {
+        String xslFile = "src/main/resources/data/xsl-transformations/potvrda_vakcinacije.xsl";
+        String outputHtmlFile = "src/main/resources/data/xsl-transformations/generated/output-html/potvrda.html";
+        String outputXmlFile = "src/main/resources/data/xsl-transformations/generated/output-xml/potvrda.xml";
+
+        XSLTransformer xslTransformer = new XSLTransformer();
+        xslTransformer.setXSLT_FILE(xslFile);
+        xslTransformer.setOUTPUT_FILE_HTML(outputHtmlFile);
+
+        PotvrdaVakcinacije potvrda = this.findById(dokumentId);
+
+        try {
+            this.potvrdaVakcinacijeXmlConversionAgent.marshallToFile(
+                    potvrda,
+                    this.jaxbContextPath,
+                    outputXmlFile
+            );
+
+            xslTransformer.generateHTML(
+                    outputXmlFile
+            );
+            return new ByteArrayInputStream(FileUtils.readFileToByteArray(
+                    new File(outputHtmlFile)
+            ));
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return null;
     }
 }

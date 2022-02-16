@@ -4,11 +4,17 @@ import com.rokzasok.portal.za.imunizaciju.model.dokumenti.potvrda_vakcinacije.Ko
 import com.rokzasok.portal.za.imunizaciju.model.dokumenti.potvrda_vakcinacije.PotvrdaVakcinacije;
 import com.rokzasok.portal.za.imunizaciju.service.PotvrdaVakcinacijeService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.InputStreamResource;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
+import org.xml.sax.SAXException;
+
+import java.io.ByteArrayInputStream;
+import java.io.IOException;
 
 @Controller
 @RequestMapping(value = "api/potvrda-vakcinacije")
@@ -42,5 +48,22 @@ public class PotvrdaVakcinacijeController {
     ResponseEntity<Void> delete(@PathVariable("id") Long id) {
         this.potvrdaVakcinacijeService.deleteById(id);
         return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+    @GetMapping(value = "/html/{dokumentId}")
+    ResponseEntity<InputStreamResource> getHtml(@PathVariable Long dokumentId) {
+        ByteArrayInputStream is;
+        try {
+            is = this.potvrdaVakcinacijeService.generateHtml(dokumentId);
+        }
+        catch (IOException | SAXException e) {
+            e.printStackTrace();
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+
+        HttpHeaders headers = new HttpHeaders();
+        headers.add("Content-Disposition", "inline: filename=potvrda.html");
+
+        return new ResponseEntity<>(new InputStreamResource(is), headers, HttpStatus.OK);
     }
 }
