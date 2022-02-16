@@ -2,13 +2,13 @@
 <spisakKorisnika xmlns="www.rokzasok.rs/korisnici"
                  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
                  xsi:schemaLocation="www.rokzasok.rs/korisnici ./schema/korisnici.xsd">
-    <korisnik korisnickoIme="korisnickoIme1" id="1">
+    <korisnik korisnickoIme="korisnickoIme1" id="1" email="nekimail@info.com">
         <lozinka>lozinka0</lozinka>
         <uloge>
             <uloga>sluzbenik</uloga>
         </uloge>
     </korisnik>
-    <korisnik korisnickoIme="korisnickoIme3" id="2">
+    <korisnik korisnickoIme="korisnickoIme3" id="2" email="nekidrugimail@info.com">
         <lozinka>lozinka1</lozinka>
         <uloge>
             <uloga>sluzbenik</uloga>

@@ -44,6 +44,7 @@ import javax.xml.bind.annotation.XmlType;
  *       &lt;/sequence&gt;
  *       &lt;attribute name="korisnickoIme" use="required" type="{http://www.w3.org/2001/XMLSchema}string" /&gt;
  *       &lt;attribute name="id" use="required" type="{http://www.w3.org/2001/XMLSchema}long" /&gt;
+ *       &lt;attribute name="email" use="required" type="{www.rokzasok.rs/korisnici}T_email" /&gt;
  *     &lt;/restriction&gt;
  *   &lt;/complexContent&gt;
  * &lt;/complexType&gt;
@@ -67,6 +68,8 @@ public class Korisnik {
     protected String korisnickoIme;
     @XmlAttribute(name = "id", required = true)
     protected long id;
+    @XmlAttribute(name = "email", required = true)
+    protected String email;
 
     /**
      * Gets the value of the lozinka property.
@@ -154,6 +157,30 @@ public class Korisnik {
      */
     public void setId(long value) {
         this.id = value;
+    }
+
+    /**
+     * Gets the value of the email property.
+     * 
+     * @return
+     *     possible object is
+     *     {@link String }
+     *     
+     */
+    public String getEmail() {
+        return email;
+    }
+
+    /**
+     * Sets the value of the email property.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link String }
+     *     
+     */
+    public void setEmail(String value) {
+        this.email = value;
     }
 
 

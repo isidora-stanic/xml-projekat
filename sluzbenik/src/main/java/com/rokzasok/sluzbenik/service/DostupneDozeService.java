@@ -138,7 +138,7 @@ public class DostupneDozeService implements AbstractXmlService<DostupneDoze> {
         throw new EntityNotFoundException(1L, DostupneDoze.BrojDoza.class);
     }
 
-    public DostupneDoze removeDoze(String tipVakcine, BigInteger obrisaneDoze) {
+    public DostupneDoze removeDoze(String tipVakcine, BigInteger obrisaneDoze) throws InvalidXmlException, EntityNotFoundException {
         DostupneDoze dostupneDoze = findById(1L);
         List<DostupneDoze.BrojDoza> dozePoTipu = dostupneDoze.getBrojDoza();
 
@@ -178,5 +178,17 @@ public class DostupneDozeService implements AbstractXmlService<DostupneDoze> {
         dozePoTipu.add(noviTipVakcine);
 
         return dostupneDoze;
+    }
+
+    public DostupneDoze.BrojDoza findByTipVakcine(String tipVakcine) {
+        DostupneDoze dostupneDoze = findById(1L);
+        List<DostupneDoze.BrojDoza> dozePoTipu = dostupneDoze.getBrojDoza();
+
+        for (DostupneDoze.BrojDoza brojDoza : dozePoTipu) {
+            if (brojDoza.getTipVakcine().value().equals(tipVakcine)) {
+                return brojDoza;
+            }
+        }
+        return null;
     }
 }
