@@ -5,19 +5,26 @@ import com.rokzasok.portal.za.imunizaciju.exception.*;
 import com.rokzasok.portal.za.imunizaciju.fuseki.util.SparqlUtil;
 import com.rokzasok.portal.za.imunizaciju.helper.UUIDHelper;
 import com.rokzasok.portal.za.imunizaciju.helper.XmlConversionAgent;
+import com.rokzasok.portal.za.imunizaciju.model.dokumenti.potvrda_vakcinacije.PotvrdaVakcinacije;
 import com.rokzasok.portal.za.imunizaciju.repository.AbstractXmlRepository;
+import com.rokzasok.portal.za.imunizaciju.transformation.XSLTransformer;
+import org.apache.commons.io.FileUtils;
 import org.apache.jena.query.QueryExecution;
 import org.apache.jena.query.QueryExecutionFactory;
 import org.apache.jena.query.ResultSet;
 import org.apache.jena.query.ResultSetFormatter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.xml.sax.SAXException;
 import org.xmldb.api.base.XMLDBException;
 
 import static com.rokzasok.portal.za.imunizaciju.helper.XQueryExpressions.X_QUERY_FIND_ALL_IZVESTAJI_EXPRESSION;
 import static com.rokzasok.portal.za.imunizaciju.helper.XQueryExpressions.X_UPDATE_REMOVE_IZVESTAJ_BY_ID_EXPRESSION;
 
 import javax.xml.bind.JAXBException;
+import java.io.ByteArrayInputStream;
+import java.io.File;
+import java.io.IOException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
@@ -25,7 +32,7 @@ import java.util.List;
 @Service
 public class IskazivanjeInteresovanjaService implements AbstractXmlService<ObrazacInteresovanja> {
 
-    private final String jaxbContextPath = "com.rokzasok.portal.za.imunizaciju.dokumenti.gradjanin.iskazivanje_interesovanja";
+    private final String jaxbContextPath = "com.rokzasok.portal.za.imunizaciju.model.dokumenti.gradjanin.iskazivanje_interesovanja";
 
     private static final String SPARQL_NAMED_GRAPH_URI = "/sparql/metadata";
 
@@ -230,4 +237,35 @@ public class IskazivanjeInteresovanjaService implements AbstractXmlService<Obraz
         return retVal;
     }
 
+    public ByteArrayInputStream generateHtml(Long dokumentId) throws IOException, SAXException {
+        String xslFile = "src/main/resources/data/xsl-transformations/iskazivanje_interesovanja.xsl";
+        String outputHtmlFile = "src/main/resources/data/xsl-transformations/generated/output-html/interesovanje.html";
+        String outputXmlFile = "src/main/resources/data/xsl-transformations/generated/output-xml/interesovanje.xml";
+
+        XSLTransformer xslTransformer = new XSLTransformer();
+        xslTransformer.setXSLT_FILE(xslFile);
+        xslTransformer.setOUTPUT_FILE_HTML(outputHtmlFile);
+
+        ObrazacInteresovanja potvrda = this.findById(dokumentId);
+
+        try {
+            this.obrazacInteresovanjaXmlConversionAgent.marshallToFile(
+                    potvrda,
+                    this.jaxbContextPath,
+                    outputXmlFile
+            );
+
+            xslTransformer.generateHTML(
+                    outputXmlFile
+            );
+            return new ByteArrayInputStream(FileUtils.readFileToByteArray(
+                    new File(outputHtmlFile)
+            ));
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return null;
+    }
 }
