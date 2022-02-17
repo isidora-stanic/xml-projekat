@@ -1,6 +1,5 @@
 package com.rokzasok.sluzbenik.soap;
 
-import com.rokzasok.sluzbenik.model.ostalo.dostupne_doze.DostupneDoze;
 import org.springframework.boot.web.servlet.ServletRegistrationBean;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
@@ -15,6 +14,8 @@ import org.springframework.xml.xsd.XsdSchema;
 @EnableWs
 @Configuration
 public class WebServiceConfig {
+
+    // todo: Skontaj kako da dodaš i korisnike
     @Bean
     public ServletRegistrationBean messageDispatcherServlet(ApplicationContext applicationContext) {
         MessageDispatcherServlet servlet = new MessageDispatcherServlet();

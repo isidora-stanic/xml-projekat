@@ -11,6 +11,7 @@ import com.rokzasok.portal.za.imunizaciju.model.ostalo.spisak_termina.Dan;
 import com.rokzasok.portal.za.imunizaciju.model.ostalo.spisak_termina.SpisakTermina;
 import com.rokzasok.portal.za.imunizaciju.model.ostalo.spisak_termina.Termini;
 import com.rokzasok.portal.za.imunizaciju.repository.AbstractXmlRepository;
+import com.rokzasok.portal.za.imunizaciju.soap.dostupne_doze.DostupneDozeConfiguration;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.xmldb.api.base.XMLDBException;
@@ -41,6 +42,9 @@ public class SpisakTerminaService implements AbstractXmlService<SpisakTermina> {
 
     @Autowired
     private UUIDHelper uuidHelper;
+
+    @Autowired
+    private DostupneDozeConfiguration dozeConfiguration;
 
 
     public void injectRepositoryProperties() {
@@ -182,11 +186,17 @@ public class SpisakTerminaService implements AbstractXmlService<SpisakTermina> {
 
     public Dan zakaziTermin(String mesto, LocalDate zeljeniDatum, String tipVakcine, int unapred) {
 
-        if (zeljeniDatum.isBefore(LocalDate.now())){
+        if (zeljeniDatum.isBefore(LocalDate.now())) {
             throw new InvalidXmlException(ZakazivanjeTerminaDTO.class, "Odabran datum nije validan");
         }
 
         // if (!servis.checkImaVakcine(tipVakcine)) return null // throw... todo: Komunikacija sa bekendom!!!
+
+
+//        if (dozeClient.proveriDostupnostVakcine(tipVakcine).isUspesnost()) {
+//            System.out.println("Jovan i Isidora su carevi, jebu mamu");
+//        }
+
         SpisakTermina spisakTermina = findById(1L);
         List<Dan> dani = checkMesto(mesto, spisakTermina);
         for (int i = 0; i < unapred; i++) {
