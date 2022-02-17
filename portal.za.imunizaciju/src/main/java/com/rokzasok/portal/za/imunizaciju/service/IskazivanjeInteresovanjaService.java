@@ -205,7 +205,7 @@ public class IskazivanjeInteresovanjaService implements AbstractXmlService<Obraz
         interesovanje.getOpstiPodaci().setVocab("http://www.rokzasok.rs/rdf/database/predicate");
         interesovanje.getOpstiPodaci().setAbout("http://www.rokzasok.rs/rdf/database/iskazivanje-interesovanja/" + interesovanje.getDokumentId().toString());
         interesovanje.getOpstiPodaci().setRel("pred:kreiranOdStrane");
-        interesovanje.getOpstiPodaci().setHref("http://www.rokzasok.rs/rdf/database/osoba/" + interesovanje.getPodaciOOsobi().getJMBG());
+        interesovanje.getOpstiPodaci().setHref("http://www.rokzasok.rs/rdf/database/osoba/" + interesovanje.getPodaciOOsobi().getIdOsobe());
 
         interesovanje.getOpstiPodaci().getLokacijaOpstina().setDatatype("xs:#string");
         interesovanje.getOpstiPodaci().getLokacijaOpstina().setProperty("pred:lokacijaOpstina");
