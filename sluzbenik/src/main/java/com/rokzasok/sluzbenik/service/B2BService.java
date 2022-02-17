@@ -14,7 +14,7 @@ public class B2BService {
 
     // dokumenti od korisnka
     public DokumentiKorisnikaDTO getDokumentiKorisnika(String idKorisnika) {
-        WebClient client = WebClient.create("http://localhost:9090");
+        WebClient client = WebClient.create("http://localhost:9091");
 
         DokumentiKorisnikaDTO dokumenti = client.get()
                 .uri("/b2b/dokumenti-po-korisniku/" + idKorisnika)
