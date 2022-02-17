@@ -173,6 +173,9 @@ public class SpisakTerminaService implements AbstractXmlService<SpisakTermina> {
             }
         }
         if (!found) {
+            if (!b2bService.ukloniDozuVakcine(tipVakcine))
+                throw new Exception("Neuspesno uzimanje vakcine");
+
             Dan noviDan = new Dan();
             noviDan.setBrojZakazanihTermina(BigInteger.ONE); // jedan zakazan dan - ovaj sto sad dodajemo
             noviDan.setDatum(DatatypeFactory.newInstance().newXMLGregorianCalendar(datum.toString()));
