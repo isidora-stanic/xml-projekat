@@ -16,6 +16,7 @@ import org.xml.sax.SAXException;
 
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
+import java.util.List;
 
 @Controller
 @RequestMapping(value = "api/iskazivanje-interesovanja")
@@ -78,7 +79,11 @@ public class IskazivanjeInteresovanjaController {
     // todo premestiti u neki kontroler za ovo - u servisu nekom treba pozvati findById za sva dokumenta koja se nadju
     @GetMapping(value = "kreirao/{osobaId}")
     void getKreiranOdStrane(@PathVariable("osobaId") String osobaId) {
-        ResultSet dokumenti = this.sparqlService.getAllKreiranOdStrane(osobaId);
+        try {
+            List<SparqlService.SparqlQueryResult> dokumenti = this.sparqlService.getAllKreiranOdStrane(osobaId);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     // todo premestiti u neki kontroler za ovo - u servisu nekom treba pozvati findById za sva dokumenta koja se nadju
