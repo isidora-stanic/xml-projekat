@@ -21,7 +21,6 @@ public class SparqlService {
     @Autowired
     private RDFDBConnectionProperties rdfdbConnectionProperties;
 
-    // todo sredi da vrati nesto pametno
     public List<SparqlQueryResult> getAllKreiranOdStrane(String osobaId) throws IOException {
         System.out.println("[INFO] Retrieving dokument kreiranOdStrane " + osobaId + " from RDF store.");
         System.out.println("[INFO] Using \"" + SPARQL_NAMED_GRAPH_URI + "\" named graph.");
@@ -32,16 +31,13 @@ public class SparqlService {
     }
 
     // todo sredi da vrati nesto pametno
-    public ResultSet getAllOdDo(String d1, String d2) {
+    public List<SparqlQueryResult> getAllOdDo(String d1, String d2) throws IOException {
         System.out.println("[INFO] Retrieving dokument od " + d1 + " do " + d2 + " from RDF store.");
         System.out.println("[INFO] Using \"" + SPARQL_NAMED_GRAPH_URI + "\" named graph.");
         String sparqlQuery = SparqlUtil.selectAllDatumPodnosenja(d1, d2);
         System.out.println(sparqlQuery);
-        QueryExecution query = QueryExecutionFactory.sparqlService("http://localhost:3030/eUpravaDataset", sparqlQuery);
-        ResultSet results = query.execSelect();
-        ResultSetFormatter.out(System.out, results);
-        query.close();
-        return results;
+
+        return getResults(sparqlQuery);
     }
 
     public List<SparqlQueryResult> getResults(String queryString) throws IOException {

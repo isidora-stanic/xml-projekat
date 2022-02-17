@@ -12,9 +12,11 @@ import java.util.Objects;
 @Service
 public class B2BService {
 
+    private static final String BASE_URI = "http://localhost:9090";
+
     // vakcine
     public boolean proveriDostupnostVakcine(String tipVakcine) {
-        WebClient client = WebClient.create("http://localhost:9090");
+        WebClient client = WebClient.create(BASE_URI);
 
         DostupnostResponseDTO dostupnost = client.get()
                 .uri("/b2b/vakcine/proveri-dostupnost/" + tipVakcine)
@@ -31,7 +33,7 @@ public class B2BService {
     }
 
     public boolean ukloniDozuVakcine(String tipVakcine) {
-        WebClient client = WebClient.create("http://localhost:9090");
+        WebClient client = WebClient.create(BASE_URI);
 
         HttpStatus status = Objects.requireNonNull(client.get()
                 .uri("/b2b/vakcine/ukloni-dozu/" + tipVakcine)

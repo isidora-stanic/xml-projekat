@@ -21,9 +21,11 @@ import java.util.Objects;
 @Service
 public class B2BService {
 
+    private static final String BASE_URI = "http://localhost:9091";
+
     // dokumenti od korisnka
     public DokumentiKorisnikaDTO getDokumentiKorisnika(String idKorisnika) {
-        WebClient client = WebClient.create("http://localhost:9091");
+        WebClient client = WebClient.create(BASE_URI);
 
         DokumentiKorisnikaDTO dokumenti = client.get()
                 .uri("/b2b/dokumenti-po-korisniku/" + idKorisnika)
@@ -37,7 +39,7 @@ public class B2BService {
 
     // dokumenti sa portala
     public ObrazacInteresovanja getIskazivanjeInteresovanja(String id) {
-        WebClient client = WebClient.create("http://localhost:9090");
+        WebClient client = WebClient.create(BASE_URI);
 
         ObrazacInteresovanja dokument = client.get()
                 .uri("/b2b/iskazivanje-interesovanja/" + id)
@@ -50,7 +52,7 @@ public class B2BService {
     }
 
     public ObrazacSaglasnosti getObrazacSaglasnosti(String id) {
-        WebClient client = WebClient.create("http://localhost:9090");
+        WebClient client = WebClient.create(BASE_URI);
 
         ObrazacSaglasnosti dokument = client.get()
                 .uri("/b2b/obrazac-saglasnosti/" + id)
@@ -63,7 +65,7 @@ public class B2BService {
     }
 
     public PotvrdaVakcinacije getPotvrdaVakcinacije(String id) {
-        WebClient client = WebClient.create("http://localhost:9090");
+        WebClient client = WebClient.create(BASE_URI);
 
         PotvrdaVakcinacije dokument = client.get()
                 .uri("/b2b/potvra-vakcinacije/" + id)
@@ -76,7 +78,7 @@ public class B2BService {
     }
 
     public Zahtev getZahtevZaSertifikat(String id) {
-        WebClient client = WebClient.create("http://localhost:9090");
+        WebClient client = WebClient.create(BASE_URI);
 
         Zahtev dokument = client.get()
                 .uri("/b2b/zahtev-za-sertifikat/" + id)
@@ -90,7 +92,7 @@ public class B2BService {
 
     // podaci za izvestaj
     public IzvestajOImunizaciji getIzvestajOImunizaciji(String odDatum, String doDatum) throws DatatypeConfigurationException {
-        WebClient client = WebClient.create("http://localhost:9090");
+        WebClient client = WebClient.create(BASE_URI);
 
         IzvestajOImunizaciji dokument = client.get()
                 .uri(uriBuilder -> uriBuilder
