@@ -42,6 +42,8 @@ public class SpisakTerminaService implements AbstractXmlService<SpisakTermina> {
     @Autowired
     private UUIDHelper uuidHelper;
 
+    @Autowired B2BService b2bService;
+
 
     public void injectRepositoryProperties() {
         this.spisakTerminaAbstractXmlRepository.injectRepositoryProperties(
@@ -155,7 +157,7 @@ public class SpisakTerminaService implements AbstractXmlService<SpisakTermina> {
         return addMesto(mesto, spisak).getDan();
     }
 
-    private Dan checkDan(LocalDate datum, List<Dan> dani) throws DatatypeConfigurationException {
+    private Dan checkDan(LocalDate datum, List<Dan> dani, String tipVakcine) throws DatatypeConfigurationException, Exception {
         boolean found = false;
 
         for (Dan dan : dani) {
@@ -163,7 +165,8 @@ public class SpisakTerminaService implements AbstractXmlService<SpisakTermina> {
             if (datumDana.equals(datum)) {
                 found = true;
                 if (checkSlobodniTerminiZaDan(dan)) {
-                    // todo: smanji br vakcine za 1 (remove) - sa bekendom, ide Event!
+                    if (!b2bService.ukloniDozuVakcine(tipVakcine))
+                        throw new Exception("Neuspesno uzimanje vakcine");
                     dan.setBrojZakazanihTermina(dan.getBrojZakazanihTermina().add(BigInteger.ONE));
                     return dan;
                 }
@@ -186,22 +189,26 @@ public class SpisakTerminaService implements AbstractXmlService<SpisakTermina> {
             throw new InvalidXmlException(ZakazivanjeTerminaDTO.class, "Odabran datum nije validan");
         }
 
-        // if (!servis.checkImaVakcine(tipVakcine)) return null // throw... todo: Komunikacija sa bekendom!!!
+        if (!b2bService.proveriDostupnostVakcine(tipVakcine))
+            return null; // todo throw...
         SpisakTermina spisakTermina = findById(1L);
         List<Dan> dani = checkMesto(mesto, spisakTermina);
         for (int i = 0; i < unapred; i++) {
             Dan dan = null;
             try {
-                dan = checkDan(zeljeniDatum.plusDays(i), dani);
+                dan = checkDan(zeljeniDatum.plusDays(i), dani, tipVakcine);
             } catch (DatatypeConfigurationException e) {
-                e.printStackTrace(); // todo exception
+                e.printStackTrace(); // todo exception za neuspesno konvertovanje datuma u xml gregorian calendar
+            } catch (Exception e) {
+                System.out.println(e.getMessage());
+                e.printStackTrace(); // todo excepiton za neuspesno smanjivanje kolicine doze
             }
             if (dan != null) {
 
                 try {
                     update(spisakTerminaXmlConversionAgent.marshall(spisakTermina, jaxbContextPath));
                 } catch (JAXBException e) {
-                    e.printStackTrace(); // todo exception
+                    e.printStackTrace(); // todo exception za neuspesno konvertovanje u xml(ne bi trebalo da baci al aj kao)
                 }
 
                 return dan;
