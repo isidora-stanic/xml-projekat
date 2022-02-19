@@ -228,7 +228,7 @@ public class IskazivanjeInteresovanjaService implements AbstractXmlService<Obraz
         String pre7Dana = LocalDate.now().minusDays(7).format(formatter);
         String sparqlQuery = SparqlUtil.selectObrasciInteresovanjaByOsobaPre7Dana(Long.toString(osobaId), pre7Dana);
         System.out.println(sparqlQuery);
-        QueryExecution query = QueryExecutionFactory.sparqlService("http://localhost:3030/eUpravaDataset", sparqlQuery);
+        QueryExecution query = QueryExecutionFactory.sparqlService("http://localhost:8080/fuseki/eUpravaDataset", sparqlQuery);
         ResultSet results = query.execSelect();
         boolean retVal = !results.hasNext();
         ResultSetFormatter.out(System.out, results);

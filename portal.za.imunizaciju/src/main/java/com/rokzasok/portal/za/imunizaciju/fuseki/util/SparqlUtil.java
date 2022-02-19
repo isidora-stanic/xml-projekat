@@ -1,6 +1,15 @@
 package com.rokzasok.portal.za.imunizaciju.fuseki.util;
 
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.PropertySource;
+
+@Configuration
+@PropertySource("classpath:application.properties")
 public class SparqlUtil {
+
+    @Value("${rdf.conn.endpoint}")
+    public static String FROM_URI; // todo porveri da li radi
 
     /* The following operation causes all of the triples in all of the graphs to be deleted */
     private static final String DROP_ALL = "DROP ALL";
@@ -74,7 +83,7 @@ public class SparqlUtil {
     }
 
     public static String selectKreiranOdStrane(String osobaId) {
-        return "SELECT * FROM <http://localhost:3030/eUpravaDataset/data/sparql/metadata>\n" +
+        return "SELECT * FROM <"+FROM_URI+"/eUpravaDataset/data/sparql/metadata>\n" +
                 "WHERE {\n" +
                 "\t?dokument <http://www.rokzasok.rs/rdf/database/predicate/kreiranOdStrane> <http://www.rokzasok.rs/rdf/database/osoba/" + osobaId + "> .\n" +
                 "}";
@@ -83,7 +92,7 @@ public class SparqlUtil {
     public static String selectAllDatumPodnosenja(String d1, String d2) { // todo: da li da se vrati samo dokument????
         return "PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>\n" +
                 "\n" +
-                "SELECT ?dokument ?date FROM <http://localhost:3030/eUpravaDataset/data/sparql/metadata>\n" +
+                "SELECT ?dokument ?date FROM <"+FROM_URI+"/eUpravaDataset/data/sparql/metadata>\n" +
                 "WHERE {\n" +
                 "\t?dokument <http://www.rokzasok.rs/rdf/database/predicate/datumPodnosenja> ?date .\n" +
                 "    FILTER (?date >= \""+d1+"\"^^xsd:date && ?date <= \""+d2+"\"^^xsd:date) .\n" +
@@ -93,7 +102,7 @@ public class SparqlUtil {
     public static String selectObrasciInteresovanjaByOsobaPre7Dana(String osobaId, String pre7DanaDatum){
         return "PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>\n" +
                 "\n" +
-                "SELECT ?dokument FROM <http://localhost:8080/fuseki/eUpravaDataset/data/sparql/metadata>\n" +
+                "SELECT ?dokument FROM <"+FROM_URI+"/eUpravaDataset/data/sparql/metadata>\n" +
                 "WHERE {\n" +
                 "  ?dokument <http://www.rokzasok.rs/rdf/database/predicate/kreiranOdStrane> <http://www.rokzasok.rs/rdf/database/osoba/"+osobaId+"> ;\n" +
                 "  <http://www.rokzasok.rs/rdf/database/predicate/datumPodnosenja> ?date .\n" +
@@ -104,11 +113,68 @@ public class SparqlUtil {
     public static String selectPotvrdniObrasciSaglasnostiOsobe(String osobaId) {
         return "PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>\n" +
                 "\n" +
-                "SELECT ?dokument ?izjava FROM <http://localhost:8080/fuseki/eUpravaDataset/data/sparql/metadata>\n" +
+                "SELECT ?dokument ?izjava FROM <"+FROM_URI+"/eUpravaDataset/data/sparql/metadata>\n" +
                 "WHERE {\n" +
                 "  ?dokument <http://www.rokzasok.rs/rdf/database/predicate/kreiranOdStrane> <http://www.rokzasok.rs/rdf/database/osoba/"+osobaId+"> ;\n" +
                 "            <http://www.rokzasok.rs/rdf/database/predicate/izjava> ?izjava.\n" +
                 "  FILTER (?izjava = \"true\"^^xsd:boolean) .\n" +
+                "}";
+    }
+
+    public static String selectBrojIskazaInteresovanjaUVremenskomPeriodu(String d1, String d2){
+        return "PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>\n" +
+                "\n" +
+                "SELECT (count(?dokument) as ?brDokumenata) FROM <"+FROM_URI+"/eUpravaDataset/data/sparql/metadata>\n" +
+                "WHERE {\n" +
+                "  ?dokument <http://www.rokzasok.rs/rdf/database/predicate/datumPodnosenja> ?date .\n" +
+                "  FILTER (?date >= \""+d1+"\"^^xsd:date && ?date <= \""+d2+"\"^^xsd:date) .\n" +
+                "  FILTER regex(str(?dokument), \".iskazivanje-interesovanja.\") .\n" +
+                "}";
+    }
+
+    public static String selectBrojZahtevaZaSertifikatUVremenskomPeriodu(String d1, String d2){
+        return "PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>\n" +
+                "\n" +
+                "SELECT (count(?dokument) as ?brDokumenata) FROM <"+FROM_URI+"/eUpravaDataset/data/sparql/metadata>\n" +
+                "WHERE {\n" +
+                "  ?dokument <http://www.rokzasok.rs/rdf/database/predicate/datumPodnosenja> ?date .\n" +
+                "  FILTER (?date >= \""+d1+"\"^^xsd:date && ?date <= \""+d2+"\"^^xsd:date) .\n" +
+                "  FILTER regex(str(?dokument), \".zahtev-za-sertifikat.\") .\n" +
+                "}";
+    }
+
+    public static String selectBrojPotvrdaVakcinacijeUVremenskomPeriodu(String d1, String d2){
+        return "PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>\n" +
+                "\n" +
+                "SELECT (count(?dokument) as ?brDokumenata) FROM <"+FROM_URI+"/eUpravaDataset/data/sparql/metadata>\n" +
+                "WHERE {\n" +
+                "  ?dokument <http://www.rokzasok.rs/rdf/database/predicate/datumPodnosenja> ?date .\n" +
+                "  FILTER (?date >= \""+d1+"\"^^xsd:date && ?date <= \""+d2+"\"^^xsd:date) .\n" +
+                "  FILTER regex(str(?dokument), \".potvrda-vakcinacije.\") .\n" +
+                "}";
+    }
+
+    public static String getBrojPrimljenihXDoza(String d1, String d2, String brDoze) {
+        return "PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>\n" +
+                "\n" +
+                "SELECT (count(?doza) as ?brojPrimljenih) FROM <"+FROM_URI+"/eUpravaDataset/data/sparql/metadata>\n" +
+                "WHERE {\n" +
+                "  ?doza <http://www.rokzasok.rs/rdf/database/predicate/datumPrimanja> ?date ;\n" +
+                "            <http://www.rokzasok.rs/rdf/database/predicate/brojDoze> ?brDoze .\n" +
+                "  FILTER (?date >= \""+d1+"\"^^xsd:date && ?date <= \""+d2+"\"^^xsd:date) .\n" +
+                "  FILTER (?brDoze = \""+brDoze+"\"^^xsd:positiveInteger) .\n" +
+                "}";
+    }
+
+    public static String getBrojPoProizvodjacima(String d1, String d2, String proizvodjac) {
+        return "PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>\n" +
+                "\n" +
+                "SELECT (count(?doza) as ?brojProizvodjac) FROM <"+FROM_URI+"/eUpravaDataset/data/sparql/metadata>\n" +
+                "WHERE {\n" +
+                "  ?doza <http://www.rokzasok.rs/rdf/database/predicate/datumPrimanja> ?date ;\n" +
+                "            <http://www.rokzasok.rs/rdf/database/predicate/proizvodjacVakcine> ?proizvodjac .\n" +
+                "  FILTER (?date >= \""+d1+"\"^^xsd:date && ?date <= \""+d2+"\"^^xsd:date) .\n" +
+                "  FILTER (?proizvodjac = \""+proizvodjac+"\"^^<http://www.w3.org/1999/02/22-rdf-syntax-ns#XMLLiteral>) .\n" +
                 "}";
     }
 }

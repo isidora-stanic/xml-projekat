@@ -22,7 +22,7 @@ import static com.rokzasok.portal.za.imunizaciju.helper.XQueryExpressions.X_UPDA
 
 @Service
 public class ObrazacSaglasnostiService implements AbstractXmlService<ObrazacSaglasnosti> {
-    private final String jaxbContextPath = "com.rokzasok.portal.za.imunizaciju.dokumenti.gradjanin.obrazac_saglasnosti";
+    private final String jaxbContextPath = "com.rokzasok.portal.za.imunizaciju.model.dokumenti.gradjanin.obrazac_saglasnosti";
 
     private static final String SPARQL_NAMED_GRAPH_URI = "/sparql/metadata";
 
@@ -195,8 +195,8 @@ public class ObrazacSaglasnostiService implements AbstractXmlService<ObrazacSagl
             for (ObrazacSaglasnosti.EvidencijaVakcinacija.Tabela.Doza doza : izvestaj.getEvidencijaVakcinacija().getTabela().getDoza()) {
                 doza.setVocab("http://www.rokzasok.rs/rdf/database/predicate");
                 doza.setRel("pred:saglasnost");
-                doza.setAbout("http://www.rokzasok.rs/rdf/database/doza/" + doza.getBrojDoze().toString());
-                doza.setHref("http://www.rokzasok.rs/rdf/database/obrazac-saglasnosti/" + doza.getBrojDoze().toString());
+                doza.setAbout("http://www.rokzasok.rs/rdf/database/doza/" + doza.getBrojDoze().getValue().toString());
+                doza.setHref("http://www.rokzasok.rs/rdf/database/obrazac-saglasnosti/" + izvestaj.getDokumentId());
 
                 doza.getTip().setProperty("pred:tipVakcine");
                 doza.getTip().setDatatype("xs:#string");

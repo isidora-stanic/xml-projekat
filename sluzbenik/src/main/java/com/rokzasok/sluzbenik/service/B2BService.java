@@ -7,16 +7,11 @@ import com.rokzasok.sluzbenik.model.b2b.potvrda_vakcinacije.PotvrdaVakcinacije;
 import com.rokzasok.sluzbenik.model.dokumenti.izvestaj_o_imunizaciji.IzvestajOImunizaciji;
 import com.rokzasok.sluzbenik.model.dto.DokumentiKorisnikaDTO;
 import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;
 
 import javax.xml.datatype.DatatypeConfigurationException;
-import javax.xml.datatype.DatatypeFactory;
-import javax.xml.datatype.XMLGregorianCalendar;
-import java.time.LocalDate;
-import java.util.Objects;
 
 @Service
 public class B2BService {
@@ -105,10 +100,6 @@ public class B2BService {
                 .bodyToMono(IzvestajOImunizaciji.class)
                 .log()
                 .block();
-
-        XMLGregorianCalendar xmlGregorianCalendar =
-                DatatypeFactory.newInstance().newXMLGregorianCalendar(LocalDate.now().toString());
-        dokument.setDatumIzdavanja(xmlGregorianCalendar);
 
         return dokument;
     }
