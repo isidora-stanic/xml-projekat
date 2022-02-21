@@ -26,7 +26,7 @@ public class SparqlToDTOService {
         try {
             List<SparqlService.SparqlQueryResult> sparqlBrDIgitalnih = sparqlService.getBrojDigitalnihSertifikataUVremenskomPeriodu(odDatum, doDatum);
 
-            return Long.valueOf(sparqlBrDIgitalnih.get(0).getVarValue().toString());
+            return Long.valueOf(sparqlBrDIgitalnih.get(0).getVarValue().asNode().getLiteralValue().toString());
 
         } catch (IOException e) {
             e.printStackTrace();

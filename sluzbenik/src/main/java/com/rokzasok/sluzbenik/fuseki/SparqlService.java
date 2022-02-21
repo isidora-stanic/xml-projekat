@@ -35,7 +35,7 @@ public class SparqlService {
     public List<SparqlQueryResult> getBrojDigitalnihSertifikataUVremenskomPeriodu(String d1, String d2) throws IOException {
         System.out.println("[INFO] Retrieving broj digitalnih sertifikata od " + d1 + " do " + d2 + " from RDF store.");
         System.out.println("[INFO] Using \"" + SPARQL_NAMED_GRAPH_URI + "\" named graph.");
-        String sparqlQuery = SparqlUtil.selectBrojDigitalnihSertifikataUVremenskomPeriodu(d1, d2);
+        String sparqlQuery = SparqlUtil.selectBrojDigitalnihSertifikataUVremenskomPeriodu(d1, d2, rdfdbConnectionProperties.getDataEndpoint());
         System.out.println(sparqlQuery);
 
         return getResults(sparqlQuery);

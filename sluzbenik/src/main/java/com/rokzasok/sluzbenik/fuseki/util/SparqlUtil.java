@@ -4,8 +4,6 @@ import org.springframework.beans.factory.annotation.Value;
 
 public class SparqlUtil {
 
-    @Value("${rdf.conn.endpoint}")
-    public static String FROM_URI; // todo porveri da li radi
 
     /* The following operation causes all of the triples in all of the graphs to be deleted */
     private static final String DROP_ALL = "DROP ALL";
@@ -78,13 +76,13 @@ public class SparqlUtil {
         return String.format(SELECT_DISTINCT_NAMED_GRAPH_TEMPLATE, graphURI, sparqlCondition);
     }
 
-    public static String selectBrojDigitalnihSertifikataUVremenskomPeriodu(String d1, String d2){
+    public static String selectBrojDigitalnihSertifikataUVremenskomPeriodu(String d1, String d2, String dataEndpointString) {
         return "PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>\n" +
                 "\n" +
-                "SELECT (count(?dokument) as ?brDokumenata) FROM <"+FROM_URI+"/eUpravaDataset/data/sparql/metadata>\n" +
+                "SELECT (count(?dokument) as ?brDokumenata) FROM <" + dataEndpointString + "/sparql/metadata>\n" +
                 "WHERE {\n" +
                 "  ?dokument <http://www.rokzasok.rs/rdf/database/predicate/datumPodnosenja> ?date .\n" +
-                "  FILTER (?date >= \""+d1+"\"^^xsd:date && ?date <= \""+d2+"\"^^xsd:date) .\n" +
+                "  FILTER (?date >= \"" + d1 + "\"^^xsd:date && ?date <= \"" + d2 + "\"^^xsd:date) .\n" +
                 "  FILTER regex(str(?dokument), \".digitalni-sertifikat.\") .\n" +
                 "}";
     }
