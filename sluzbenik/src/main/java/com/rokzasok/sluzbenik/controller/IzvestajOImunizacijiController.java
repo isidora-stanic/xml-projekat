@@ -2,7 +2,9 @@ package com.rokzasok.sluzbenik.controller;
 
 import com.rokzasok.sluzbenik.model.dokumenti.izvestaj_o_imunizaciji.IzvestajOImunizaciji;
 import com.rokzasok.sluzbenik.model.dokumenti.izvestaj_o_imunizaciji.KolekcijaIzvestaja;
+import com.rokzasok.sluzbenik.service.B2BService;
 import com.rokzasok.sluzbenik.service.IzvestajOImunizacijiService;
+import com.rokzasok.sluzbenik.service.SparqlToDTOService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -10,12 +12,22 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+import javax.xml.datatype.DatatypeConfigurationException;
+import javax.xml.datatype.DatatypeFactory;
+import java.time.LocalDate;
+
 @Controller
 @RequestMapping(value = "/izvestaj")
 public class IzvestajOImunizacijiController {
 
     @Autowired
     private IzvestajOImunizacijiService izvestajService;
+
+    @Autowired
+    private SparqlToDTOService sparqlToDTOService;
+
+    @Autowired
+    private B2BService b2bService;
 
     @GetMapping(produces = MediaType.APPLICATION_XML_VALUE)
     ResponseEntity<KolekcijaIzvestaja> findAll() {
@@ -45,71 +57,19 @@ public class IzvestajOImunizacijiController {
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
-    // todo
-//    @GetMapping(value = "/pdf/{id}", produces = MediaType.APPLICATION_PDF_VALUE)
-//    public ResponseEntity<InputStreamResource> pdf(@PathVariable Long id) {
-//        ByteArrayInputStream bis = this.izvestajService.generatePdf(id);
-//
-//        HttpHeaders headers = new HttpHeaders();
-//        headers.add("Content-Disposition", "inline; filename=izvestaj.pdf");
-//
-//        return ResponseEntity
-//                .ok()
-//                .headers(headers)
-//                .contentType(MediaType.APPLICATION_PDF)
-//                .body(new InputStreamResource(bis));
-//    }
-//
-//    @GetMapping(value = "/html/{id}")
-//    public ResponseEntity<InputStreamResource> html(@PathVariable Long id) {
-//        ByteArrayInputStream bis = this.izvestajService.generateHtml(id);
-//
-//        HttpHeaders headers = new HttpHeaders();
-//        headers.add("Content-Disposition", "inline; filename=izvestaj.html");
-//
-//        return ResponseEntity
-//                .ok()
-//                .headers(headers)
-//                .body(new InputStreamResource(bis));
-//    }
-//
-//    @GetMapping(value = "/metadata/json/{id}")
-//    public ResponseEntity<InputStreamResource> jsonMetadata(@PathVariable Long id) {
-//        ByteArrayInputStream bis = this.izvestajService.exportMetadataAsJson(id);
-//
-//        HttpHeaders headers = new HttpHeaders();
-//        headers.add("Content-Disposition", "inline; filename=izvestaj.json");
-//
-//        return ResponseEntity
-//                .ok()
-//                .headers(headers)
-//                .body(new InputStreamResource(bis));
-//    }
-//
-//    @GetMapping(value = "/metadata/xml/{id}")
-//    public ResponseEntity<InputStreamResource> xmlMetadata(@PathVariable Long id) {
-//        ByteArrayInputStream bis = this.izvestajService.exportMetadataAsXml(id);
-//
-//        HttpHeaders headers = new HttpHeaders();
-//        headers.add("Content-Disposition", "inline; filename=izvestaj.xml");
-//
-//        return ResponseEntity
-//                .ok()
-//                .headers(headers)
-//                .body(new InputStreamResource(bis));
-//    }
-//
-//    @GetMapping(value = "/metadata/rdf/{id}")
-//    public ResponseEntity<InputStreamResource> rdfMetadata(@PathVariable Long id) {
-//        ByteArrayInputStream bis = this.izvestajService.exportMetadataAsRdf(id);
-//
-//        HttpHeaders headers = new HttpHeaders();
-//        headers.add("Content-Disposition", "inline; filename=izvestaj.ttl");
-//
-//        return ResponseEntity
-//                .ok()
-//                .headers(headers)
-//                .body(new InputStreamResource(bis));
-//    }
+    @GetMapping(value = "/gen", produces = MediaType.APPLICATION_XML_VALUE)
+    ResponseEntity<IzvestajOImunizaciji> findOne(@RequestParam("odKad") String odKad, @RequestParam("doKad") String doKad) {
+        IzvestajOImunizaciji izvestaj;
+        try {
+            izvestaj = b2bService.getIzvestajOImunizaciji(odKad, doKad);
+            izvestaj.setBrPrimljenihZahtevaZaSertifikat(sparqlToDTOService.getBrojDigitalnihSertifikata(odKad, doKad));
+            izvestaj.setDatumIzdavanja(
+                    DatatypeFactory.newInstance().newXMLGregorianCalendar(
+                            LocalDate.now().toString()));
+        } catch (DatatypeConfigurationException e) {
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+        return new ResponseEntity<>(izvestaj, HttpStatus.OK);
+    }
 
 }

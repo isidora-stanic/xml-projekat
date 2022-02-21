@@ -166,6 +166,12 @@
 			<version>1.5</version>
 		</dependency>
 
+		<!--b2b: DefaultWebClient-->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-webflux</artifactId>
+		</dependency>
+
 	</dependencies>
 
 	<build>
