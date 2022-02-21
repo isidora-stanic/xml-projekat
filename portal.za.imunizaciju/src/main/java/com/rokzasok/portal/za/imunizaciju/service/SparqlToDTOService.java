@@ -2,8 +2,6 @@ package com.rokzasok.portal.za.imunizaciju.service;
 
 import com.rokzasok.portal.za.imunizaciju.fuseki.SparqlService;
 import com.rokzasok.portal.za.imunizaciju.model.b2b.izvestaj_o_imunizaciji.IzvestajOImunizaciji;
-import com.rokzasok.portal.za.imunizaciju.model.dokumenti.gradjanin.obrazac_saglasnosti.ObrazacSaglasnosti;
-import com.rokzasok.portal.za.imunizaciju.model.dokumenti.potvrda_vakcinacije.PotvrdaVakcinacije;
 import com.rokzasok.portal.za.imunizaciju.model.dto.DokumentiKorisnikaDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -61,9 +59,9 @@ public class SparqlToDTOService {
             // popunjavanje izvestaja
             IzvestajOImunizaciji izvestaj = new IzvestajOImunizaciji();
 
-            izvestaj.setBrInteresovanja(Long.valueOf(sparqlBrInteresovanja.get(0).getVarValue().toString()));
+            izvestaj.setBrInteresovanja(Long.valueOf(sparqlBrInteresovanja.get(0).getVarValue().asNode().getLiteralValue().toString()));
             izvestaj.setBrIzdatihZahtevaZaSertifikat(0L); // todo: ovo popunjava sluzbenik!!!
-            izvestaj.setBrPrimljenihZahtevaZaSertifikat(Long.valueOf(sparqlBrZahteva.get(0).getVarValue().toString()));
+            izvestaj.setBrPrimljenihZahtevaZaSertifikat(Long.valueOf(sparqlBrZahteva.get(0).getVarValue().asNode().getLiteralValue().toString()));
 
             // redni br doze
             setUpDoze(izvestaj, 1L, odDatum, doDatum);
@@ -97,13 +95,13 @@ public class SparqlToDTOService {
         List<SparqlService.SparqlQueryResult> sparqlBrDoza = sparqlService.getBrojPrimljenihXDoza(odDatum, doDatum, brDoze.toString());
         IzvestajOImunizaciji.DozeVakcina.Doza doza = new IzvestajOImunizaciji.DozeVakcina.Doza();
         doza.setRedniBrojDoze(brDoze);
-        doza.setBrojDatih(Long.valueOf(sparqlBrDoza.get(0).getVarValue().toString()));
+        doza.setBrojDatih(Long.valueOf(sparqlBrDoza.get(0).getVarValue().asNode().getLiteralValue().toString()));
         izvestaj.getDozeVakcina().getDoza().add(doza);
     }
 
     public void setUpProizvodjac(IzvestajOImunizaciji izvestaj, String proizvodjac, String odDatum, String doDatum) throws IOException {
         List<SparqlService.SparqlQueryResult> sparqlBrPfizer = sparqlService.getBrojPoProizvodjacima(odDatum, doDatum, proizvodjac);
-        Long brP = Long.valueOf(sparqlBrPfizer.get(0).getVarValue().toString());
+        Long brP = Long.valueOf(sparqlBrPfizer.get(0).getVarValue().asNode().getLiteralValue().toString());
         IzvestajOImunizaciji.RaspodelaPoProizvodjacima.Proizvodjac p = new IzvestajOImunizaciji.RaspodelaPoProizvodjacima.Proizvodjac();
         p.setNaziv(proizvodjac);
         p.setBrojPrimljenihDoza(brP);

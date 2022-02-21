@@ -24,7 +24,7 @@ public class SparqlService {
     public List<SparqlQueryResult> getAllKreiranOdStrane(String osobaId) throws IOException {
         System.out.println("[INFO] Retrieving dokument kreiranOdStrane " + osobaId + " from RDF store.");
         System.out.println("[INFO] Using \"" + SPARQL_NAMED_GRAPH_URI + "\" named graph.");
-        String sparqlQuery = SparqlUtil.selectKreiranOdStrane(osobaId);
+        String sparqlQuery = SparqlUtil.selectKreiranOdStrane(osobaId, rdfdbConnectionProperties.getDataEndpoint());
         System.out.println(sparqlQuery);
 
         return getResults(sparqlQuery);
@@ -34,7 +34,7 @@ public class SparqlService {
     public List<SparqlQueryResult> getAllOdDo(String d1, String d2) throws IOException {
         System.out.println("[INFO] Retrieving dokument od " + d1 + " do " + d2 + " from RDF store.");
         System.out.println("[INFO] Using \"" + SPARQL_NAMED_GRAPH_URI + "\" named graph.");
-        String sparqlQuery = SparqlUtil.selectAllDatumPodnosenja(d1, d2);
+        String sparqlQuery = SparqlUtil.selectAllDatumPodnosenja(d1, d2, rdfdbConnectionProperties.getDataEndpoint());
         System.out.println(sparqlQuery);
 
         return getResults(sparqlQuery);
@@ -44,7 +44,7 @@ public class SparqlService {
     public List<SparqlQueryResult> selectBrojIskazaInteresovanjaUVremenskomPeriodu(String d1, String d2) throws IOException {
         System.out.println("[INFO] Retrieving broj interesovanja od " + d1 + " do " + d2 + " from RDF store.");
         System.out.println("[INFO] Using \"" + SPARQL_NAMED_GRAPH_URI + "\" named graph.");
-        String sparqlQuery = SparqlUtil.selectBrojIskazaInteresovanjaUVremenskomPeriodu(d1, d2);
+        String sparqlQuery = SparqlUtil.selectBrojIskazaInteresovanjaUVremenskomPeriodu(d1, d2, rdfdbConnectionProperties.getDataEndpoint());
         System.out.println(sparqlQuery);
 
         return getResults(sparqlQuery);
@@ -53,7 +53,7 @@ public class SparqlService {
     public List<SparqlQueryResult> selectBrojZahtevaZaSertifikatUVremenskomPeriodu(String d1, String d2) throws IOException {
         System.out.println("[INFO] Retrieving broj zahteva od " + d1 + " do " + d2 + " from RDF store.");
         System.out.println("[INFO] Using \"" + SPARQL_NAMED_GRAPH_URI + "\" named graph.");
-        String sparqlQuery = SparqlUtil.selectBrojZahtevaZaSertifikatUVremenskomPeriodu(d1, d2);
+        String sparqlQuery = SparqlUtil.selectBrojZahtevaZaSertifikatUVremenskomPeriodu(d1, d2, rdfdbConnectionProperties.getDataEndpoint());
         System.out.println(sparqlQuery);
 
         return getResults(sparqlQuery);
@@ -62,7 +62,7 @@ public class SparqlService {
     public List<SparqlQueryResult> selectBrojPotvrdaVakcinacijeUVremenskomPeriodu(String d1, String d2) throws IOException {
         System.out.println("[INFO] Retrieving broj potvrda od " + d1 + " do " + d2 + " from RDF store.");
         System.out.println("[INFO] Using \"" + SPARQL_NAMED_GRAPH_URI + "\" named graph.");
-        String sparqlQuery = SparqlUtil.selectBrojPotvrdaVakcinacijeUVremenskomPeriodu(d1, d2);
+        String sparqlQuery = SparqlUtil.selectBrojPotvrdaVakcinacijeUVremenskomPeriodu(d1, d2, rdfdbConnectionProperties.getDataEndpoint());
         System.out.println(sparqlQuery);
 
         return getResults(sparqlQuery);
@@ -71,7 +71,7 @@ public class SparqlService {
     public List<SparqlQueryResult> getBrojPrimljenihXDoza(String d1, String d2, String brDoze) throws IOException {
         System.out.println("[INFO] Retrieving broj potvrda od " + d1 + " do " + d2 + " from RDF store.");
         System.out.println("[INFO] Using \"" + SPARQL_NAMED_GRAPH_URI + "\" named graph.");
-        String sparqlQuery = SparqlUtil.getBrojPrimljenihXDoza(d1, d2, brDoze);
+        String sparqlQuery = SparqlUtil.getBrojPrimljenihXDoza(d1, d2, brDoze, rdfdbConnectionProperties.getDataEndpoint());
         System.out.println(sparqlQuery);
 
         return getResults(sparqlQuery);
@@ -80,7 +80,7 @@ public class SparqlService {
     public List<SparqlQueryResult> getBrojPoProizvodjacima(String d1, String d2, String proizvodjac) throws IOException {
         System.out.println("[INFO] Retrieving broj potvrda od " + d1 + " do " + d2 + " from RDF store.");
         System.out.println("[INFO] Using \"" + SPARQL_NAMED_GRAPH_URI + "\" named graph.");
-        String sparqlQuery = SparqlUtil.getBrojPoProizvodjacima(d1, d2, proizvodjac);
+        String sparqlQuery = SparqlUtil.getBrojPoProizvodjacima(d1, d2, proizvodjac, rdfdbConnectionProperties.getDataEndpoint());
         System.out.println(sparqlQuery);
 
         return getResults(sparqlQuery);

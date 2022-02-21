@@ -226,9 +226,9 @@ public class IskazivanjeInteresovanjaService implements AbstractXmlService<Obraz
         System.out.println("[INFO] Using \"" + SPARQL_NAMED_GRAPH_URI + "\" named graph.");
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
         String pre7Dana = LocalDate.now().minusDays(7).format(formatter);
-        String sparqlQuery = SparqlUtil.selectObrasciInteresovanjaByOsobaPre7Dana(Long.toString(osobaId), pre7Dana);
+        String sparqlQuery = SparqlUtil.selectObrasciInteresovanjaByOsobaPre7Dana(Long.toString(osobaId), pre7Dana, rdfService.getRdfdbConnectionProperties().getDataEndpoint());
         System.out.println(sparqlQuery);
-        QueryExecution query = QueryExecutionFactory.sparqlService("http://localhost:8080/fuseki/eUpravaDataset", sparqlQuery);
+        QueryExecution query = QueryExecutionFactory.sparqlService(rdfService.getRdfdbConnectionProperties().getQueryEndpoint(), sparqlQuery);
         ResultSet results = query.execSelect();
         boolean retVal = !results.hasNext();
         ResultSetFormatter.out(System.out, results);

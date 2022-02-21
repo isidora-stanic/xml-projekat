@@ -230,9 +230,9 @@ public class ObrazacSaglasnostiService implements AbstractXmlService<ObrazacSagl
     public List<ObrazacSaglasnosti> getSaglasnostByOsoba(String osobaId) {
         System.out.println("[INFO] Retrieving obrasci saglasnosti  by " + osobaId + " from RDF store.");
         System.out.println("[INFO] Using \"" + SPARQL_NAMED_GRAPH_URI + "\" named graph.");
-        String sparqlQuery = SparqlUtil.selectPotvrdniObrasciSaglasnostiOsobe(osobaId);
+        String sparqlQuery = SparqlUtil.selectPotvrdniObrasciSaglasnostiOsobe(osobaId, rdfService.getRdfdbConnectionProperties().getDataEndpoint());
         System.out.println(sparqlQuery);
-        QueryExecution query = QueryExecutionFactory.sparqlService("http://localhost:8080/fuseki/eUpravaDataset", sparqlQuery);
+        QueryExecution query = QueryExecutionFactory.sparqlService(rdfService.getRdfdbConnectionProperties().getQueryEndpoint(), sparqlQuery);
         ResultSet results = query.execSelect();
         //QuerySolution retVal = results.next();
         ResultSetFormatter.out(System.out, results);

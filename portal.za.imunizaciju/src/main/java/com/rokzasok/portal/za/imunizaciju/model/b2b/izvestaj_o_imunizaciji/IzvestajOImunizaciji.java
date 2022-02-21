@@ -198,6 +198,9 @@ public class IzvestajOImunizaciji implements Identifiable {
      * {@link DozeVakcina }
      */
     public DozeVakcina getDozeVakcina() {
+        if (dozeVakcina == null) {
+            this.setDozeVakcina(new DozeVakcina());
+        }
         return dozeVakcina;
     }
 
@@ -218,6 +221,9 @@ public class IzvestajOImunizaciji implements Identifiable {
      * {@link RaspodelaPoProizvodjacima }
      */
     public RaspodelaPoProizvodjacima getRaspodelaPoProizvodjacima() {
+        if (raspodelaPoProizvodjacima == null) {
+            setRaspodelaPoProizvodjacima(new RaspodelaPoProizvodjacima());
+        }
         return raspodelaPoProizvodjacima;
     }
 

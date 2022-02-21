@@ -6,7 +6,7 @@
                           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
                           xmlns:xs="http://www.w3.org/2001/XMLSchema#"
                           xsi:schemaLocation="http://www.rokzasok.rs/gradjanin/iskazivanje-interesovanja schema/iskazivanje_interesovanja.xsd">
-    <is:podaci_o_osobi vocab="http://www.rokzasok.rs/rdf/database/predicate" about="http://www.rokzasok.rs/rdf/database/osoba/1001999980035" idOsobe="1">
+    <is:podaci_o_osobi vocab="http://www.rokzasok.rs/rdf/database/predicate" about="http://www.rokzasok.rs/rdf/database/osoba/1" idOsobe="1">
         <is:drzavljanstvo>Državljanin Republike Srbije</is:drzavljanstvo>
         <ns1:JMBG>1001999980035</ns1:JMBG>
         <is:ime>Jovan</is:ime>
@@ -18,7 +18,7 @@
     <is:opsti_podaci
             vocab="http://www.rokzasok.rs/rdf/database/predicate"
             about="http://www.rokzasok.rs/rdf/database/iskazivanje-interesovanja/1"
-            rel="pred:kreiranOdStrane" href="http://www.rokzasok.rs/rdf/database/osoba/1001999980035">
+            rel="pred:kreiranOdStrane" href="http://www.rokzasok.rs/rdf/database/osoba/1">
         <is:lokacija_opstina>Novi Sad</is:lokacija_opstina>
         <is:tip_vakcine>Pfizer-BioNtech</is:tip_vakcine>
         <is:davalac_krvi>false</is:davalac_krvi>
