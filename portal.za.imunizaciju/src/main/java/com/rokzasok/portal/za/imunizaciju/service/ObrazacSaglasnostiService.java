@@ -9,12 +9,19 @@ import com.rokzasok.portal.za.imunizaciju.exception.XmlDatabaseException;
 import com.rokzasok.portal.za.imunizaciju.fuseki.util.SparqlUtil;
 import com.rokzasok.portal.za.imunizaciju.helper.UUIDHelper;
 import com.rokzasok.portal.za.imunizaciju.helper.XmlConversionAgent;
+import com.rokzasok.portal.za.imunizaciju.model.dokumenti.potvrda_vakcinacije.PotvrdaVakcinacije;
 import com.rokzasok.portal.za.imunizaciju.repository.AbstractXmlRepository;
+import com.rokzasok.portal.za.imunizaciju.transformation.XSLTransformer;
+import org.apache.commons.io.FileUtils;
 import org.apache.jena.query.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.xml.sax.SAXException;
 import org.xmldb.api.base.XMLDBException;
 import javax.xml.bind.JAXBException;
+import java.io.ByteArrayInputStream;
+import java.io.File;
+import java.io.IOException;
 import java.util.List;
 
 import static com.rokzasok.portal.za.imunizaciju.helper.XQueryExpressions.X_QUERY_FIND_ALL_OBRAZAC_SAGLASNOSTI_EXPRESSION;
@@ -238,6 +245,65 @@ public class ObrazacSaglasnostiService implements AbstractXmlService<ObrazacSagl
         ResultSetFormatter.out(System.out, results);
         query.close();
         //return retVal;
+        return null;
+    }
+
+    public ByteArrayInputStream generateHtml(Long dokumentId) throws IOException, SAXException {
+        String xslFile = "src/main/resources/data/xsl-transformations/obrazac_saglasnosti.xsl";
+        String outputHtmlFile = "src/main/resources/data/xsl-transformations/generated/output-html/obrazac.html";
+        String outputXmlFile = "src/main/resources/data/xsl-transformations/generated/output-xml/obrazac.xml";
+
+        XSLTransformer xslTransformer = new XSLTransformer();
+        xslTransformer.setXSLT_FILE(xslFile);
+        xslTransformer.setOUTPUT_FILE_HTML(outputHtmlFile);
+
+        ObrazacSaglasnosti obrazac = this.findById(dokumentId);
+
+        try {
+            this.obrazacSaglasnostiXmlConversionAgent.marshallToFile(
+                    obrazac,
+                    this.jaxbContextPath,
+                    outputXmlFile
+            );
+
+            xslTransformer.generateHTML(
+                    outputXmlFile
+            );
+            return new ByteArrayInputStream(FileUtils.readFileToByteArray(
+                    new File(outputHtmlFile)
+            ));
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return null;
+    }
+
+    public ByteArrayInputStream generatePDF(Long dokumentId) throws IOException, SAXException, JAXBException {
+        String xslFile = "src/main/resources/data/xsl-transformations/potvrda_vakcinacije_fo.xsl";
+        String outputHtmlFile = "src/main/resources/data/xsl-transformations/generated/output-html/obrazac.html";
+        String outputPdfFile = "src/main/resources/data/xsl-transformations/generated/output-pdf/potvrda.pdf";
+        String outputXmlFile = "src/main/resources/data/xsl-transformations/generated/output-xml-fo/potvrda.xml";
+
+        XSLTransformer xslTransformer = new XSLTransformer();
+        xslTransformer.setXSLT_FILE(xslFile);
+        xslTransformer.setOUTPUT_FILE_HTML(outputHtmlFile);
+        xslTransformer.setOUTPUT_FILE_PDF(outputPdfFile);
+
+        ObrazacSaglasnosti obrazacSaglasnosti = this.findById(dokumentId);
+        try {
+            this.obrazacSaglasnostiXmlConversionAgent.marshallToFile(
+                    obrazacSaglasnosti,
+                    this.jaxbContextPath,
+                    outputXmlFile
+            );
+            xslTransformer.generatePDF_HTML(outputXmlFile);
+            return new ByteArrayInputStream(FileUtils.readFileToByteArray(new File(outputPdfFile)));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
         return null;
     }
 

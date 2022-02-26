@@ -15,6 +15,10 @@ import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.sax.SAXResult;
 import javax.xml.transform.stream.StreamResult;
 import javax.xml.transform.stream.StreamSource;
+import com.itextpdf.text.Document;
+import com.itextpdf.text.DocumentException;
+import com.itextpdf.text.pdf.PdfWriter;
+import com.itextpdf.tool.xml.XMLWorkerHelper;
 import java.io.*;
 
 public class XSLTransformer {
@@ -73,6 +77,24 @@ public class XSLTransformer {
 
     public void setOUTPUT_FILE_HTML(String OUTPUT_FILE_HTML) {
         this.OUTPUT_FILE_HTML = OUTPUT_FILE_HTML;
+    }
+
+    public void generatePDF_HTML(String inputFilePath) throws IOException, DocumentException {
+        this.generateHTML(inputFilePath);
+        // Step 1
+        Document document = new Document();
+
+        // Step 2
+        PdfWriter writer = PdfWriter.getInstance(document, new FileOutputStream(OUTPUT_FILE_PDF));
+
+        // Step 3
+        document.open();
+
+        // Step 4
+        XMLWorkerHelper.getInstance().parseXHtml(writer, document, new FileInputStream(OUTPUT_FILE_HTML));
+
+        // Step 5
+        document.close();
     }
 
     public void generatePDF_FO(String inputFilePath) throws Exception {

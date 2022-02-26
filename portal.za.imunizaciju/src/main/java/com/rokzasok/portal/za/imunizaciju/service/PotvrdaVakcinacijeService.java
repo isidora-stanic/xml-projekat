@@ -17,6 +17,9 @@ import org.xml.sax.SAXException;
 import org.xmldb.api.base.XMLDBException;
 
 import javax.xml.bind.JAXBException;
+import java.io.ByteArrayInputStream;
+import java.io.File;
+import java.io.IOException;
 import java.util.List;
 import java.util.ListIterator;
 
