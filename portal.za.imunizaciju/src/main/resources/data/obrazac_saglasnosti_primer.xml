@@ -7,7 +7,7 @@
                         xsi:schemaLocation="http://www.rokzasok.rs/gradjanin/obrazac-saglasnosti schema/obrazac_saglasnosti.xsd"
                         xmlns:xs="http://www.w3.org/2001/XMLSchema#">
     <os:evidencija_pacijent>
-        <os:pacijent vocab="http://www.rokzasok.rs/rdf/database/predicate" about="http://www.rokzasok.rs/rdf/database/osoba/1234567890123">
+        <os:pacijent vocab="http://www.rokzasok.rs/rdf/database/predicate" about="http://www.rokzasok.rs/rdf/database/osoba/1234567890123" idPacijenta="1">
             <os:drzavljanstvo>
                 <os:srpsko>
                     <tp:JMBG>1234567890123</tp:JMBG>
