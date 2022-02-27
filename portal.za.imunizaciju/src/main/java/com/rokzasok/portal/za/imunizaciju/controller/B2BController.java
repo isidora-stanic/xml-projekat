@@ -58,7 +58,7 @@ public class B2BController {
     }
 
     // podaci za izvestaj // todo dovrsi metodu u servisu...
-    @GetMapping(value = "/izvestaj-o-imunizaciji/", produces = MediaType.APPLICATION_XML_VALUE)
+    @GetMapping(value = "/izvestaj-o-imunizaciji", produces = MediaType.APPLICATION_XML_VALUE)
     ResponseEntity<IzvestajOImunizaciji> getIzvestajOImunizaciji(@RequestParam("odKad") String odKad, @RequestParam("doKad") String doKad) {
         return new ResponseEntity<>(sparqlToDTOService.generateIzvestaj(odKad, doKad), HttpStatus.OK);
     }

@@ -17,6 +17,7 @@ import javax.xml.bind.annotation.XmlType;
  *   &lt;complexContent&gt;
  *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
  *       &lt;sequence&gt;
+ *         &lt;element name="Opstina" type="{http://www.w3.org/2001/XMLSchema}string"/&gt;
  *         &lt;element name="Mesto" type="{http://www.w3.org/2001/XMLSchema}string"/&gt;
  *         &lt;element name="Ulica" type="{http://www.w3.org/2001/XMLSchema}string"/&gt;
  *         &lt;element name="Broj" type="{http://www.w3.org/2001/XMLSchema}int"/&gt;
@@ -30,18 +31,45 @@ import javax.xml.bind.annotation.XmlType;
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "T_adresa", namespace = "http://www.rokzasok.rs/gradjanin/obrazac-saglasnosti", propOrder = {
+    "opstina",
     "mesto",
     "ulica",
     "broj"
 })
 public class TAdresa {
 
+    @XmlElement(name = "Opstina", namespace = "http://www.rokzasok.rs/gradjanin/obrazac-saglasnosti", required = true)
+    protected String opstina;
     @XmlElement(name = "Mesto", namespace = "http://www.rokzasok.rs/gradjanin/obrazac-saglasnosti", required = true)
     protected String mesto;
     @XmlElement(name = "Ulica", namespace = "http://www.rokzasok.rs/gradjanin/obrazac-saglasnosti", required = true)
     protected String ulica;
     @XmlElement(name = "Broj", namespace = "http://www.rokzasok.rs/gradjanin/obrazac-saglasnosti")
     protected int broj;
+
+    /**
+     * Gets the value of the opstina property.
+     * 
+     * @return
+     *     possible object is
+     *     {@link String }
+     *     
+     */
+    public String getOpstina() {
+        return opstina;
+    }
+
+    /**
+     * Sets the value of the opstina property.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link String }
+     *     
+     */
+    public void setOpstina(String value) {
+        this.opstina = value;
+    }
 
     /**
      * Gets the value of the mesto property.

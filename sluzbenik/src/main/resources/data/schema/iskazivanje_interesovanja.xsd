@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <?xml-stylesheet type="text/xsl" href="../grddl.xsl"?>
 <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified"
-           targetNamespace="http://www.rokzasok.rs/gradjanin/iskazivanje-interesovanja"
-           xmlns="http://www.rokzasok.rs/gradjanin/iskazivanje-interesovanja"
-           xmlns:ns1="http://www.rokzasok.rs/tipovi" xmlns:r="http://www.w3.org/ns/rdfa#"
-           xmlns:pred="http://www.rokzasok.rs/rdf/database/predicate/">
+    targetNamespace="http://www.rokzasok.rs/gradjanin/iskazivanje-interesovanja"
+    xmlns="http://www.rokzasok.rs/gradjanin/iskazivanje-interesovanja"
+    xmlns:ns1="http://www.rokzasok.rs/tipovi" xmlns:r="http://www.w3.org/ns/rdfa#"
+    xmlns:pred="http://www.rokzasok.rs/rdf/database/predicate/">
 
     <xs:import namespace="http://www.rokzasok.rs/tipovi" schemaLocation="tipovi.xsd"/>
     <xs:element name="obrazac_interesovanja">
         <xs:complexType>
             <xs:sequence>
                 <xs:element name="podaci_o_osobi"
-                            r:vocab="http://www.rokzasok.rs/rdf/database/predicate">
+                    r:vocab="http://www.rokzasok.rs/rdf/database/predicate">
                     <xs:complexType>
                         <xs:sequence>
                             <xs:element name="drzavljanstvo">
@@ -19,9 +19,9 @@
                                     <xs:simpleContent>
                                         <xs:extension base="T_drzavljanstvo">
                                             <xs:attribute default="xs:string" name="datatype"
-                                                          type="xs:string"/>
+                                                type="xs:string"/>
                                             <xs:attribute default="pred:drzavljanstvo"
-                                                          name="property" type="xs:string"/>
+                                                name="property" type="xs:string"/>
                                         </xs:extension>
                                     </xs:simpleContent>
                                 </xs:complexType>
@@ -34,9 +34,9 @@
                                     <xs:simpleContent>
                                         <xs:extension base="ns1:T_email">
                                             <xs:attribute default="pred:email" name="property"
-                                                          type="xs:string"/>
+                                                type="xs:string"/>
                                             <xs:attribute default="xs:string" name="datatype"
-                                                          type="xs:string"/>
+                                                type="xs:string"/>
                                         </xs:extension>
                                     </xs:simpleContent>
                                 </xs:complexType>
@@ -47,20 +47,21 @@
                                     <xs:simpleContent>
                                         <xs:extension base="ns1:T_fiksni">
                                             <xs:attribute default="pred:brojFiksnogTelefona"
-                                                          name="property" type="xs:string"/>
+                                                name="property" type="xs:string"/>
                                             <xs:attribute default="xs:string" name="datatype"
-                                                          type="xs:string"/>
+                                                type="xs:string"/>
                                         </xs:extension>
                                     </xs:simpleContent>
                                 </xs:complexType>
                             </xs:element>
                         </xs:sequence>
                         <xs:attribute name="vocab" type="xs:string"
-                                      fixed="http://www.rokzasok.rs/rdf/database/predicate"/>
+                            fixed="http://www.rokzasok.rs/rdf/database/predicate"/>
                         <xs:attribute name="about" type="xs:string" use="optional"/>
                     </xs:complexType>
                 </xs:element>
-                <xs:element name="opsti_podaci" r:vocab="http://www.rokzasok.rs/rdf/database/predicate">
+                <xs:element name="opsti_podaci"
+                    r:vocab="http://www.rokzasok.rs/rdf/database/predicate">
                     <xs:complexType>
                         <xs:sequence>
                             <xs:element name="lokacija_opstina">
@@ -68,9 +69,9 @@
                                     <xs:simpleContent>
                                         <xs:extension base="xs:string">
                                             <xs:attribute default="pred:lokacijaOpstina"
-                                                          name="property" type="xs:string"/>
+                                                name="property" type="xs:string"/>
                                             <xs:attribute default="xs:string" name="datatype"
-                                                          type="xs:string"/>
+                                                type="xs:string"/>
                                         </xs:extension>
                                     </xs:simpleContent>
                                 </xs:complexType>
@@ -81,9 +82,9 @@
                                         <xs:simpleContent>
                                             <xs:extension base="T_tip_vakcine">
                                                 <xs:attribute default="pred:tipVakcine"
-                                                              name="property" type="xs:string"/>
+                                                  name="property" type="xs:string"/>
                                                 <xs:attribute default="xs:string" name="datatype"
-                                                              type="xs:string"/>
+                                                  type="xs:string"/>
                                             </xs:extension>
                                         </xs:simpleContent>
                                     </xs:complexType>
@@ -94,9 +95,9 @@
                                     <xs:simpleContent>
                                         <xs:extension base="xs:boolean">
                                             <xs:attribute default="pred:davalacKrvi" name="property"
-                                                          type="xs:string"/>
+                                                type="xs:string"/>
                                             <xs:attribute default="xs:boolean" name="datatype"
-                                                          type="xs:string"/>
+                                                type="xs:string"/>
                                         </xs:extension>
                                     </xs:simpleContent>
                                 </xs:complexType>
@@ -106,19 +107,29 @@
                                     <xs:simpleContent>
                                         <xs:extension base="xs:date">
                                             <xs:attribute default="pred:datumPodnosenja"
-                                                          name="property" type="xs:string"/>
+                                                name="property" type="xs:string"/>
                                             <xs:attribute default="xs:date" name="datatype"
-                                                          type="xs:string"/>
+                                                type="xs:string"/>
+                                        </xs:extension>
+                                    </xs:simpleContent>
+                                </xs:complexType>
+                            </xs:element>
+                            <xs:element name="idPodnosioca">
+                                <xs:complexType>
+                                    <xs:simpleContent>
+                                        <xs:extension base="xs:long">
+                                            <xs:attribute default="pred:kreiranOdStrane"
+                                                name="property" type="xs:string"/>
+                                            <xs:attribute default="xs:long" name="datatype"
+                                                type="xs:string"/>
                                         </xs:extension>
                                     </xs:simpleContent>
                                 </xs:complexType>
                             </xs:element>
                         </xs:sequence>
                         <xs:attribute fixed="http://www.rokzasok.rs/rdf/database/predicate"
-                                      name="vocab" type="xs:string"/>
+                            name="vocab" type="xs:string"/>
                         <xs:attribute name="about" type="xs:string"/>
-                        <xs:attribute default="pred:kreiranOdStrane" name="rel" type="xs:string"/>
-                        <xs:attribute name="href" type="xs:string"/>
                     </xs:complexType>
                 </xs:element>
                 <xs:element name="dokument_id" type="xs:positiveInteger"/>

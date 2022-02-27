@@ -9,7 +9,7 @@
                          about="http://www.rokzasok.rs/rdf/database/digitalni-sertifikat/1" rel="pred:kreiranOdStrane"
                          xmlns:xs="http://www.w3.org/2001/XMLSchema#"
                          href="http://www.rokzasok.rs/rdf/database/osoba/1234567890231">
-    <ds:gradjanin about="http://www.rokzasok.rs/rdf/database/osoba/1234567890231" vocab="http://www.rokzasok.rs/rdf/database/predicate">
+    <ds:gradjanin>
         <ds:jmbg>1234567890231</ds:jmbg>
         <ds:ime>Isi</ds:ime>
         <ds:prezime>Prezimic</ds:prezime>
@@ -21,6 +21,7 @@
             <ds:Broj>3</ds:Broj>
         </ds:adresa>
         <ds:broj_pasosa>123456789</ds:broj_pasosa>
+        <ds:id>69420</ds:id>
     </ds:gradjanin>
     <ds:vakcinacija>
         <ds:doza vocab="http://www.rokzasok.rs/rdf/database/predicate" about="http://www.rokzasok.rs/rdf/database/doza/1">

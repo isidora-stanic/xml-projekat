@@ -10,7 +10,7 @@ import javax.xml.namespace.QName;
 /**
  * This object contains factory methods for each 
  * Java content interface and Java element interface 
- * generated in the com.rokzasok.sluzbenik.dokumenti.digitalni_sertifikat package. 
+ * generated in the com.rokzasok.sluzbenik.model.dokumenti.digitalni_sertifikat package. 
  * <p>An ObjectFactory allows you to programatically 
  * construct new instances of the Java representation 
  * for XML content. The Java representation of XML 
@@ -29,7 +29,7 @@ public class ObjectFactory {
     private final static QName _BrojPasosa_QNAME = new QName("http://www.rokzasok.rs/tipovi", "broj_pasosa");
 
     /**
-     * Create a new ObjectFactory that can be used to create new instances of schema derived classes for package: com.rokzasok.sluzbenik.dokumenti.digitalni_sertifikat
+     * Create a new ObjectFactory that can be used to create new instances of schema derived classes for package: com.rokzasok.sluzbenik.model.dokumenti.digitalni_sertifikat
      * 
      */
     public ObjectFactory() {
@@ -52,14 +52,6 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link TOsoba }
-     * 
-     */
-    public TOsoba createTOsoba() {
-        return new TOsoba();
-    }
-
-    /**
      * Create an instance of {@link DigitalniSertifikat.InfoOSertifikatu }
      * 
      */
@@ -76,11 +68,11 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link DigitalniSertifikat.Gradjanin }
+     * Create an instance of {@link TOsoba }
      * 
      */
-    public DigitalniSertifikat.Gradjanin createDigitalniSertifikatGradjanin() {
-        return new DigitalniSertifikat.Gradjanin();
+    public TOsoba createTOsoba() {
+        return new TOsoba();
     }
 
     /**
@@ -156,6 +148,30 @@ public class ObjectFactory {
     }
 
     /**
+     * Create an instance of {@link DigitalniSertifikat.InfoOSertifikatu.QrLink }
+     * 
+     */
+    public DigitalniSertifikat.InfoOSertifikatu.QrLink createDigitalniSertifikatInfoOSertifikatuQrLink() {
+        return new DigitalniSertifikat.InfoOSertifikatu.QrLink();
+    }
+
+    /**
+     * Create an instance of {@link DigitalniSertifikat.InfoOSertifikatu.Datum }
+     * 
+     */
+    public DigitalniSertifikat.InfoOSertifikatu.Datum createDigitalniSertifikatInfoOSertifikatuDatum() {
+        return new DigitalniSertifikat.InfoOSertifikatu.Datum();
+    }
+
+    /**
+     * Create an instance of {@link DigitalniSertifikat.Vakcinacija.Doza }
+     * 
+     */
+    public DigitalniSertifikat.Vakcinacija.Doza createDigitalniSertifikatVakcinacijaDoza() {
+        return new DigitalniSertifikat.Vakcinacija.Doza();
+    }
+
+    /**
      * Create an instance of {@link TOsoba.Pol }
      * 
      */
@@ -180,27 +196,11 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link DigitalniSertifikat.InfoOSertifikatu.QrLink }
+     * Create an instance of {@link TOsoba.Id }
      * 
      */
-    public DigitalniSertifikat.InfoOSertifikatu.QrLink createDigitalniSertifikatInfoOSertifikatuQrLink() {
-        return new DigitalniSertifikat.InfoOSertifikatu.QrLink();
-    }
-
-    /**
-     * Create an instance of {@link DigitalniSertifikat.InfoOSertifikatu.Datum }
-     * 
-     */
-    public DigitalniSertifikat.InfoOSertifikatu.Datum createDigitalniSertifikatInfoOSertifikatuDatum() {
-        return new DigitalniSertifikat.InfoOSertifikatu.Datum();
-    }
-
-    /**
-     * Create an instance of {@link DigitalniSertifikat.Vakcinacija.Doza }
-     * 
-     */
-    public DigitalniSertifikat.Vakcinacija.Doza createDigitalniSertifikatVakcinacijaDoza() {
-        return new DigitalniSertifikat.Vakcinacija.Doza();
+    public TOsoba.Id createTOsobaId() {
+        return new TOsoba.Id();
     }
 
     /**

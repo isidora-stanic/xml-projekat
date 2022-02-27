@@ -72,7 +72,7 @@ import javax.xml.datatype.XMLGregorianCalendar;
  *             &lt;/simpleContent&gt;
  *           &lt;/complexType&gt;
  *         &lt;/element&gt;
- *         &lt;element name="ustanova" type="{http://www.rokzasok.rs/gradjanin/obrazac-saglasnosti}T_ustanova"/&gt;
+ *         &lt;element name="nezeljene_reakcije" type="{http://www.w3.org/2001/XMLSchema}string"/&gt;
  *       &lt;/sequence&gt;
  *     &lt;/restriction&gt;
  *   &lt;/complexContent&gt;
@@ -88,7 +88,7 @@ import javax.xml.datatype.XMLGregorianCalendar;
     "datum",
     "brojSerije",
     "brojDoze",
-    "ustanova"
+    "nezeljeneReakcije"
 })
 @XmlSeeAlso({
     ObrazacSaglasnosti.EvidencijaVakcinacija.Tabela.Doza.class
@@ -105,8 +105,8 @@ public class TDoza {
     protected BrojSerije brojSerije;
     @XmlElement(name = "broj_doze", namespace = "http://www.rokzasok.rs/gradjanin/obrazac-saglasnosti", required = true)
     protected BrojDoze brojDoze;
-    @XmlElement(namespace = "http://www.rokzasok.rs/gradjanin/obrazac-saglasnosti", required = true)
-    protected TUstanova ustanova;
+    @XmlElement(name = "nezeljene_reakcije", namespace = "http://www.rokzasok.rs/gradjanin/obrazac-saglasnosti", required = true)
+    protected String nezeljeneReakcije;
 
     /**
      * Gets the value of the tip property.
@@ -229,27 +229,27 @@ public class TDoza {
     }
 
     /**
-     * Gets the value of the ustanova property.
+     * Gets the value of the nezeljeneReakcije property.
      * 
      * @return
      *     possible object is
-     *     {@link TUstanova }
+     *     {@link String }
      *     
      */
-    public TUstanova getUstanova() {
-        return ustanova;
+    public String getNezeljeneReakcije() {
+        return nezeljeneReakcije;
     }
 
     /**
-     * Sets the value of the ustanova property.
+     * Sets the value of the nezeljeneReakcije property.
      * 
      * @param value
      *     allowed object is
-     *     {@link TUstanova }
+     *     {@link String }
      *     
      */
-    public void setUstanova(TUstanova value) {
-        this.ustanova = value;
+    public void setNezeljeneReakcije(String value) {
+        this.nezeljeneReakcije = value;
     }
 
 

@@ -149,8 +149,6 @@ public class ZahtevZaSertifikatService implements AbstractXmlService<Zahtev> {
     private void handleMetadata(Zahtev zahtev) {
         zahtev.setVocab("http://www.rokzasok.rs/rdf/database/predicate");
         zahtev.setAbout("http://www.rokzasok.rs/rdf/database/zahtev-za-sertifikat/" + zahtev.getDokumentId());
-        zahtev.setRel("pred:kreiranOdStrane");
-        zahtev.setHref("http://www.rokzasok.rs/rdf/database/osoba/" + zahtev.getPacijent().getIdPacijenta());
 
         zahtev.getRazlogPodnosenja().setDatatype("xs:#string");
         zahtev.getRazlogPodnosenja().setProperty("pred:razlogPodnosenja");
@@ -161,8 +159,9 @@ public class ZahtevZaSertifikatService implements AbstractXmlService<Zahtev> {
         zahtev.getDatum().setDatatype("xs:#date");
         zahtev.getDatum().setProperty("pred:datumPodnosenja");
 
-        zahtev.getPacijent().setAbout("http://www.rokzasok.rs/rdf/database/osoba/" + zahtev.getPacijent().getIdPacijenta());
-        zahtev.getPacijent().setVocab("http://www.rokzasok.rs/rdf/database/predicate");
+        zahtev.getPacijent().getId().setDatatype("xs:#string");
+        zahtev.getPacijent().getId().setProperty("pred:kreiranOdStrane");
+
 
     }
 

@@ -33,37 +33,29 @@
                                     </xs:simpleContent>
                                 </xs:complexType>
                             </xs:element>
-                        </xs:sequence>
-                        <xs:attribute fixed="http://www.rokzasok.rs/rdf/database/predicate"
-                            name="vocab" type="xs:string"/>
-                        <xs:attribute name="about" type="xs:string"/>
-                        <xs:attribute name="idOsobe" use="required">
-                            <xs:simpleType>
-                                <xs:restriction base="xs:long"/>
-                            </xs:simpleType>
-                        </xs:attribute>
-                    </xs:complexType>
-                </xs:element>
-
-                <xs:element name="doze">
-                    <xs:complexType>
-                        <xs:sequence minOccurs="2" maxOccurs="unbounded">
-                            <xs:element name="doza">
+                            <xs:element name="id">
                                 <xs:complexType>
-                                    <xs:complexContent>
-                                        <xs:extension base="T_doza">
-                                            <xs:attribute
-                                                fixed="http://www.rokzasok.rs/rdf/database/predicate"
-                                                name="vocab" type="xs:string"/>
-                                            <xs:attribute default="xs:string" name="about"
+                                    <xs:simpleContent>
+                                        <xs:extension base="xs:long">
+                                            <xs:attribute default="pred:kreiranOdStrane"
+                                                name="property" type="xs:string"/>
+                                            <xs:attribute default="xs:long" name="datatype"
                                                 type="xs:string"/>
                                         </xs:extension>
-                                    </xs:complexContent>
+                                    </xs:simpleContent>
                                 </xs:complexType>
                             </xs:element>
                         </xs:sequence>
                     </xs:complexType>
                 </xs:element>
+                <xs:element name="doze">
+                    <xs:complexType>
+                        <xs:sequence minOccurs="2" maxOccurs="unbounded">
+                            <xs:element name="doza" type="T_doza"> </xs:element>
+                        </xs:sequence>
+                    </xs:complexType>
+                </xs:element>
+                <xs:element name="qr_link" type="xs:string"/>
                 <xs:element name="razlog_izdavanja">
                     <xs:complexType>
                         <xs:simpleContent>
@@ -91,7 +83,7 @@
             <xs:attribute fixed="http://www.rokzasok.rs/rdf/database/predicate" name="vocab"
                 type="xs:string"/>
             <xs:attribute name="about" type="xs:string"/>
-            <xs:attribute default="pred:kreiranOdStrane" name="rel" type="xs:string"/>
+            <xs:attribute default="pred:prethodniDokument" name="rel" type="xs:string"/>
             <xs:attribute default="xs:string" name="href" type="xs:string"/>
         </xs:complexType>
     </xs:element>

@@ -21,7 +21,6 @@ import javax.xml.datatype.XMLGregorianCalendar;
  *   &lt;complexContent&gt;
  *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
  *       &lt;sequence&gt;
- *         &lt;element name="jmbg" type="{http://www.rokzasok.rs/tipovi}T_JMBG"/&gt;
  *         &lt;element name="ime" type="{http://www.w3.org/2001/XMLSchema}string"/&gt;
  *         &lt;element name="prezime" type="{http://www.w3.org/2001/XMLSchema}string"/&gt;
  *         &lt;element name="pol"&gt;
@@ -55,7 +54,6 @@ import javax.xml.datatype.XMLGregorianCalendar;
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "T_osoba", namespace = "http://www.rokzasok.rs/gradjanin/obrazac-saglasnosti", propOrder = {
-    "jmbg",
     "ime",
     "prezime",
     "pol",
@@ -64,8 +62,6 @@ import javax.xml.datatype.XMLGregorianCalendar;
 })
 public class TOsoba {
 
-    @XmlElement(namespace = "http://www.rokzasok.rs/gradjanin/obrazac-saglasnosti", required = true)
-    protected String jmbg;
     @XmlElement(namespace = "http://www.rokzasok.rs/gradjanin/obrazac-saglasnosti", required = true)
     protected String ime;
     @XmlElement(namespace = "http://www.rokzasok.rs/gradjanin/obrazac-saglasnosti", required = true)
@@ -76,30 +72,6 @@ public class TOsoba {
     protected DatumRodjenja datumRodjenja;
     @XmlElement(namespace = "http://www.rokzasok.rs/gradjanin/obrazac-saglasnosti", required = true)
     protected TAdresa adresa;
-
-    /**
-     * Gets the value of the jmbg property.
-     * 
-     * @return
-     *     possible object is
-     *     {@link String }
-     *     
-     */
-    public String getJmbg() {
-        return jmbg;
-    }
-
-    /**
-     * Sets the value of the jmbg property.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link String }
-     *     
-     */
-    public void setJmbg(String value) {
-        this.jmbg = value;
-    }
 
     /**
      * Gets the value of the ime property.

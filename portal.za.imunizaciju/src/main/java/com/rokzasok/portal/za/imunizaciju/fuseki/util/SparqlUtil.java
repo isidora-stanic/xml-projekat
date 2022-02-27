@@ -84,7 +84,7 @@ public class SparqlUtil {
     public static String selectKreiranOdStrane(String osobaId, String dataEndpointString) {
         return "SELECT * FROM <" + dataEndpointString + "/sparql/metadata>\n" +
                 "WHERE {\n" +
-                "\t?dokument <http://www.rokzasok.rs/rdf/database/predicate/kreiranOdStrane> <http://www.rokzasok.rs/rdf/database/osoba/" + osobaId + "> .\n" +
+                "  ?dokument <http://www.rokzasok.rs/rdf/database/predicate/kreiranOdStrane> \"" + osobaId + "\" .\n" +
                 "}";
     }
 
@@ -103,7 +103,7 @@ public class SparqlUtil {
                 "\n" +
                 "SELECT ?dokument FROM <" + dataEndpointString + "/sparql/metadata>\n" +
                 "WHERE {\n" +
-                "  ?dokument <http://www.rokzasok.rs/rdf/database/predicate/kreiranOdStrane> <http://www.rokzasok.rs/rdf/database/osoba/" + osobaId + "> ;\n" +
+                "  ?dokument <http://www.rokzasok.rs/rdf/database/predicate/kreiranOdStrane> \"" + osobaId + "\" ;\n" +
                 "  <http://www.rokzasok.rs/rdf/database/predicate/datumPodnosenja> ?date .\n" +
                 "    FILTER (?date > \"" + pre7DanaDatum + "\"^^xsd:date) .\n" +
                 "}";
@@ -114,7 +114,7 @@ public class SparqlUtil {
                 "\n" +
                 "SELECT ?dokument ?izjava FROM <" + dataEndpointString + "/sparql/metadata>\n" +
                 "WHERE {\n" +
-                "  ?dokument <http://www.rokzasok.rs/rdf/database/predicate/kreiranOdStrane> <http://www.rokzasok.rs/rdf/database/osoba/" + osobaId + "> ;\n" +
+                "  ?dokument <http://www.rokzasok.rs/rdf/database/predicate/kreiranOdStrane> \"" + osobaId + "\" ;\n" +
                 "            <http://www.rokzasok.rs/rdf/database/predicate/izjava> ?izjava.\n" +
                 "  FILTER (?izjava = \"true\"^^xsd:boolean) .\n" +
                 "}";

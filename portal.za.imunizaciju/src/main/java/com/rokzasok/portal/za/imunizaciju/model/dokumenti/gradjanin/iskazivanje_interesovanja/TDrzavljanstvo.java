@@ -6,22 +6,6 @@ import javax.xml.bind.annotation.XmlEnumValue;
 import javax.xml.bind.annotation.XmlType;
 
 
-/**
- * <p>Java class for T_drzavljanstvo.
- * 
- * <p>The following schema fragment specifies the expected content contained within this class.
- * <p>
- * <pre>
- * &lt;simpleType name="T_drzavljanstvo"&gt;
- *   &lt;restriction base="{http://www.w3.org/2001/XMLSchema}string"&gt;
- *     &lt;enumeration value="Državljanin Republike Srbije"/&gt;
- *     &lt;enumeration value="Strani državljanin sa boravkom u RS"/&gt;
- *     &lt;enumeration value="Strani državljanin bez boravka u RS"/&gt;
- *   &lt;/restriction&gt;
- * &lt;/simpleType&gt;
- * </pre>
- * 
- */
 @XmlType(name = "T_drzavljanstvo", namespace = "http://www.rokzasok.rs/gradjanin/iskazivanje-interesovanja")
 @XmlEnum
 public enum TDrzavljanstvo {
@@ -43,7 +27,7 @@ public enum TDrzavljanstvo {
     }
 
     public static TDrzavljanstvo fromValue(String v) {
-        for (TDrzavljanstvo c: TDrzavljanstvo.values()) {
+        for (TDrzavljanstvo c : TDrzavljanstvo.values()) {
             if (c.value.equals(v)) {
                 return c;
             }

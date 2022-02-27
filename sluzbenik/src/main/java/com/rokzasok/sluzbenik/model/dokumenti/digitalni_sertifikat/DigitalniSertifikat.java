@@ -26,22 +26,7 @@ import javax.xml.datatype.XMLGregorianCalendar;
  *   &lt;complexContent&gt;
  *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
  *       &lt;sequence&gt;
- *         &lt;element name="gradjanin"&gt;
- *           &lt;complexType&gt;
- *             &lt;complexContent&gt;
- *               &lt;extension base="{http://www.rokzasok.rs/sluzbenik/digitalni-sertifikat}TOsoba"&gt;
- *                 &lt;attribute name="vocab" type="{http://www.w3.org/2001/XMLSchema}string" fixed="http://www.rokzasok.rs/rdf/database/predicate" /&gt;
- *                 &lt;attribute name="about" type="{http://www.w3.org/2001/XMLSchema}string" /&gt;
- *                 &lt;attribute name="idGradjanina" use="required"&gt;
- *                   &lt;simpleType&gt;
- *                     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}long"&gt;
- *                     &lt;/restriction&gt;
- *                   &lt;/simpleType&gt;
- *                 &lt;/attribute&gt;
- *               &lt;/extension&gt;
- *             &lt;/complexContent&gt;
- *           &lt;/complexType&gt;
- *         &lt;/element&gt;
+ *         &lt;element name="gradjanin" type="{http://www.rokzasok.rs/sluzbenik/digitalni-sertifikat}TOsoba"/&gt;
  *         &lt;element name="vakcinacija"&gt;
  *           &lt;complexType&gt;
  *             &lt;complexContent&gt;
@@ -129,7 +114,7 @@ import javax.xml.datatype.XMLGregorianCalendar;
 public class DigitalniSertifikat implements Identifiable {
 
     @XmlElement(namespace = "http://www.rokzasok.rs/sluzbenik/digitalni-sertifikat", required = true)
-    protected Gradjanin gradjanin;
+    protected TOsoba gradjanin;
     @XmlElement(namespace = "http://www.rokzasok.rs/sluzbenik/digitalni-sertifikat", required = true)
     protected Vakcinacija vakcinacija;
     @XmlElement(namespace = "http://www.rokzasok.rs/sluzbenik/digitalni-sertifikat", required = true)
@@ -153,10 +138,10 @@ public class DigitalniSertifikat implements Identifiable {
      * 
      * @return
      *     possible object is
-     *     {@link Gradjanin }
+     *     {@link TOsoba }
      *     
      */
-    public Gradjanin getGradjanin() {
+    public TOsoba getGradjanin() {
         return gradjanin;
     }
 
@@ -165,10 +150,10 @@ public class DigitalniSertifikat implements Identifiable {
      * 
      * @param value
      *     allowed object is
-     *     {@link Gradjanin }
+     *     {@link TOsoba }
      *     
      */
-    public void setGradjanin(Gradjanin value) {
+    public void setGradjanin(TOsoba value) {
         this.gradjanin = value;
     }
 
@@ -374,114 +359,6 @@ public class DigitalniSertifikat implements Identifiable {
      */
     public void setHref(String value) {
         this.href = value;
-    }
-
-
-    /**
-     * <p>Java class for anonymous complex type.
-     * 
-     * <p>The following schema fragment specifies the expected content contained within this class.
-     * 
-     * <pre>
-     * &lt;complexType&gt;
-     *   &lt;complexContent&gt;
-     *     &lt;extension base="{http://www.rokzasok.rs/sluzbenik/digitalni-sertifikat}TOsoba"&gt;
-     *       &lt;attribute name="vocab" type="{http://www.w3.org/2001/XMLSchema}string" fixed="http://www.rokzasok.rs/rdf/database/predicate" /&gt;
-     *       &lt;attribute name="about" type="{http://www.w3.org/2001/XMLSchema}string" /&gt;
-     *       &lt;attribute name="idGradjanina" use="required"&gt;
-     *         &lt;simpleType&gt;
-     *           &lt;restriction base="{http://www.w3.org/2001/XMLSchema}long"&gt;
-     *           &lt;/restriction&gt;
-     *         &lt;/simpleType&gt;
-     *       &lt;/attribute&gt;
-     *     &lt;/extension&gt;
-     *   &lt;/complexContent&gt;
-     * &lt;/complexType&gt;
-     * </pre>
-     * 
-     * 
-     */
-    @XmlAccessorType(XmlAccessType.FIELD)
-    @XmlType(name = "")
-    public static class Gradjanin
-        extends TOsoba
-    {
-
-        @XmlAttribute(name = "vocab")
-        protected String vocab;
-        @XmlAttribute(name = "about")
-        protected String about;
-        @XmlAttribute(name = "idGradjanina", required = true)
-        protected long idGradjanina;
-
-        /**
-         * Gets the value of the vocab property.
-         * 
-         * @return
-         *     possible object is
-         *     {@link String }
-         *     
-         */
-        public String getVocab() {
-            if (vocab == null) {
-                return "http://www.rokzasok.rs/rdf/database/predicate";
-            } else {
-                return vocab;
-            }
-        }
-
-        /**
-         * Sets the value of the vocab property.
-         * 
-         * @param value
-         *     allowed object is
-         *     {@link String }
-         *     
-         */
-        public void setVocab(String value) {
-            this.vocab = value;
-        }
-
-        /**
-         * Gets the value of the about property.
-         * 
-         * @return
-         *     possible object is
-         *     {@link String }
-         *     
-         */
-        public String getAbout() {
-            return about;
-        }
-
-        /**
-         * Sets the value of the about property.
-         * 
-         * @param value
-         *     allowed object is
-         *     {@link String }
-         *     
-         */
-        public void setAbout(String value) {
-            this.about = value;
-        }
-
-        /**
-         * Gets the value of the idGradjanina property.
-         * 
-         */
-        public long getIdGradjanina() {
-            return idGradjanina;
-        }
-
-        /**
-         * Sets the value of the idGradjanina property.
-         * 
-         */
-        public void setIdGradjanina(long value) {
-            this.idGradjanina = value;
-        }
-
     }
 
 

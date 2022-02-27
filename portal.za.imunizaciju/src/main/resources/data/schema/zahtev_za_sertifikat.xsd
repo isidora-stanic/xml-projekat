@@ -41,22 +41,7 @@
                         </xs:simpleContent>
                     </xs:complexType>
                 </xs:element>
-                <xs:element name="pacijent">
-                    <xs:complexType>
-                        <xs:complexContent>
-                            <xs:extension base="zh:T_osoba">
-                                <xs:attribute fixed="http://www.rokzasok.rs/rdf/database/predicate"
-                                    name="vocab" type="xs:string"/>
-                                <xs:attribute name="about" type="xs:string"/>
-                                <xs:attribute name="idPacijenta" use="required">
-                                    <xs:simpleType>
-                                        <xs:restriction base="xs:long"/>
-                                    </xs:simpleType>
-                                </xs:attribute>
-                            </xs:extension>
-                        </xs:complexContent>
-                    </xs:complexType>
-                </xs:element>
+                <xs:element name="pacijent" type="zh:T_osoba"> </xs:element>
                 <xs:element name="dokument_id" type="xs:positiveInteger"/>
                 <xs:element name="status" minOccurs="0">
                     <xs:complexType>
@@ -73,8 +58,6 @@
             <xs:attribute fixed="http://www.rokzasok.rs/rdf/database/predicate" name="vocab"
                 type="xs:string"/>
             <xs:attribute name="about" type="xs:string"/>
-            <xs:attribute default="pred:kreiranOdStrane" name="rel" type="xs:string"/>
-            <xs:attribute default="xs:string" name="href" type="xs:string"/>
         </xs:complexType>
     </xs:element>
     <xs:complexType name="T_osoba">
@@ -85,6 +68,17 @@
             <xs:element name="pol" type="tp:T_pol"/>
             <xs:element name="datum_rodjenja" type="xs:date"/>
             <xs:element name="broj_pasosa" type="tp:T_broj_pasosa"/>
+            <xs:element name="id">
+                <xs:complexType>
+                    <xs:simpleContent>
+                        <xs:extension base="xs:long">
+                            <xs:attribute default="pred:kreiranOdStrane" name="property"
+                                type="xs:string"/>
+                            <xs:attribute default="xs:long" name="datatype" type="xs:string"/>
+                        </xs:extension>
+                    </xs:simpleContent>
+                </xs:complexType>
+            </xs:element>
         </xs:sequence>
     </xs:complexType>
 </xs:schema>

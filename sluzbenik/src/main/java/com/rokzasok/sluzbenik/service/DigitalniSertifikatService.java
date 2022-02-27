@@ -153,15 +153,12 @@ public class DigitalniSertifikatService implements AbstractXmlService<DigitalniS
     private void handleMetadata(DigitalniSertifikat izvestaj) {
         izvestaj.setVocab("http://www.rokzasok.rs/rdf/database/predicate");
         izvestaj.setAbout("http://www.rokzasok.rs/rdf/database/digitalni-sertifikat/" + izvestaj.getDokumentId().toString());
-        izvestaj.setRel("pred:kreiranOdStrane");
-        izvestaj.setHref("http://www.rokzasok.rs/rdf/database/osoba/" + izvestaj.getGradjanin().getIdGradjanina());
+        izvestaj.setRel("pred:prethodniDokument");
+        izvestaj.setHref("http://www.rokzasok.rs/rdf/database/zahtev-za-sertifikat/url_prethodnog_dokumenta"); // todo: NE IDE ZAKUCANA VREDNOST
 
 
-        izvestaj.getGradjanin().setVocab("http://www.rokzasok.rs/rdf/database/predicate");
-        izvestaj.getGradjanin().setAbout("http://www.rokzasok.rs/rdf/database/osoba/" + izvestaj.getGradjanin().getIdGradjanina());
-
-        izvestaj.getInfoOSertifikatu().getQrLink().setProperty("pred:qrLink");
-        izvestaj.getInfoOSertifikatu().getQrLink().setDatatype("xs:#string");
+        izvestaj.getGradjanin().getId().setProperty("pred:kreiranOdStrane");
+        izvestaj.getGradjanin().getId().setDatatype("xs:#string");
 
         izvestaj.getInfoOSertifikatu().getDatum().setProperty("pred:datumIzdavanja");
         izvestaj.getInfoOSertifikatu().getDatum().setDatatype("xs:#string");

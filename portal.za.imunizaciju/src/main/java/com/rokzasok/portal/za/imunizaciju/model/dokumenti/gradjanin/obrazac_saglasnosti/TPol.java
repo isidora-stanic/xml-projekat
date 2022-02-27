@@ -25,7 +25,7 @@ import javax.xml.bind.annotation.XmlType;
 public enum TPol {
 
     M,
-    Z;
+    Ž;
 
     public String value() {
         return name();

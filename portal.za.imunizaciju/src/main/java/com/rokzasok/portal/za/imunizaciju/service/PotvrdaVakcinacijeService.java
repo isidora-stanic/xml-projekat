@@ -21,7 +21,6 @@ import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.IOException;
 import java.util.List;
-import java.util.ListIterator;
 
 import static com.rokzasok.portal.za.imunizaciju.helper.XQueryExpressions.X_QUERY_FIND_ALL_POTVRDE_O_VAKCINACIJI_EXPRESSION;
 import static com.rokzasok.portal.za.imunizaciju.helper.XQueryExpressions.X_UPDATE_REMOVE_POTVRDA_BY_ID_EXPRESSION;
@@ -165,28 +164,20 @@ public class PotvrdaVakcinacijeService implements AbstractXmlService<PotvrdaVakc
     }
 
     public void handleMetadata(PotvrdaVakcinacije potvrda) {
-        String idOsobe = Long.toString(potvrda.getOsoba().getIdOsobe());
-
         potvrda.setAbout(String.format("http://www.rokzasok.rs/rdf/database/potvrda-vakcinacije/%d", potvrda.getDokumentId()));
         potvrda.setVocab("http://www.rokzasok.rs/rdf/database/predicate");
-        potvrda.setRel("pred:kreiranOdStrane");
-        potvrda.setHref(String.format("http://www.rokzasok.rs/rdf/database/osoba/%s", idOsobe));
+        potvrda.setRel("pred:prethodniDokument");
+        potvrda.setHref(String.format("http://www.rokzasok.rs/rdf/database/obrazac-saglasnosti/%s", 123)); // todo: prosledi id obrasca umesto 123
 
-        potvrda.getOsoba().setAbout(String.format("http://www.rokzasok.rs/rdf/database/osoba/%s", idOsobe));
-        potvrda.getOsoba().setVocab("http://www.rokzasok.rs/rdf/database/predicate");
 
-        ListIterator<PotvrdaVakcinacije.Doze.Doza> dozaIterator = potvrda.getDoze().getDoza().listIterator();
-        while (dozaIterator.hasNext()) {
-            int index = dozaIterator.nextIndex();
-            PotvrdaVakcinacije.Doze.Doza doza = dozaIterator.next();
-            doza.setAbout(String.format("http://www.rokzasok.rs/rdf/database/doza/%d", index));
-            doza.setVocab("http://www.rokzasok.rs/rdf/database/predicate");
-        }
+        potvrda.getOsoba().getId().setProperty("pred:kreiranOdStrane");
+        potvrda.getOsoba().getId().setDatatype("xs:#string");
 
         potvrda.getRazlogIzdavanja().setDatatype("xs:#string");
         potvrda.getRazlogIzdavanja().setProperty("pred:razlogIzdavanja");
         potvrda.getDatumIzdavanja().setDatatype("xs:#date");
         potvrda.getDatumIzdavanja().setProperty("pred:datumIzdavanja");
+
     }
 
     public ByteArrayInputStream generateHtml(Long dokumentId) throws IOException, SAXException {
@@ -213,8 +204,7 @@ public class PotvrdaVakcinacijeService implements AbstractXmlService<PotvrdaVakc
             return new ByteArrayInputStream(FileUtils.readFileToByteArray(
                     new File(outputHtmlFile)
             ));
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
 

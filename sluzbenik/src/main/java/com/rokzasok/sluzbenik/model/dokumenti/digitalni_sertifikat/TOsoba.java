@@ -3,9 +3,9 @@ package com.rokzasok.sluzbenik.model.dokumenti.digitalni_sertifikat;
 
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlSchemaType;
-import javax.xml.bind.annotation.XmlSeeAlso;
 import javax.xml.bind.annotation.XmlType;
 import javax.xml.bind.annotation.XmlValue;
 import javax.xml.datatype.XMLGregorianCalendar;
@@ -49,6 +49,16 @@ import javax.xml.datatype.XMLGregorianCalendar;
  *             &lt;/simpleContent&gt;
  *           &lt;/complexType&gt;
  *         &lt;/element&gt;
+ *         &lt;element name="id"&gt;
+ *           &lt;complexType&gt;
+ *             &lt;simpleContent&gt;
+ *               &lt;extension base="&lt;http://www.w3.org/2001/XMLSchema&gt;long"&gt;
+ *                 &lt;attribute name="property" type="{http://www.w3.org/2001/XMLSchema}string" default="pred:kreiranOdStrane" /&gt;
+ *                 &lt;attribute name="datatype" type="{http://www.w3.org/2001/XMLSchema}string" default="xs:long" /&gt;
+ *               &lt;/extension&gt;
+ *             &lt;/simpleContent&gt;
+ *           &lt;/complexType&gt;
+ *         &lt;/element&gt;
  *       &lt;/sequence&gt;
  *     &lt;/restriction&gt;
  *   &lt;/complexContent&gt;
@@ -65,10 +75,8 @@ import javax.xml.datatype.XMLGregorianCalendar;
     "pol",
     "datumRodjenja",
     "adresa",
-    "brojPasosa"
-})
-@XmlSeeAlso({
-    DigitalniSertifikat.Gradjanin.class
+    "brojPasosa",
+    "id"
 })
 public class TOsoba {
 
@@ -86,6 +94,8 @@ public class TOsoba {
     protected TAdresa adresa;
     @XmlElement(name = "broj_pasosa", namespace = "http://www.rokzasok.rs/sluzbenik/digitalni-sertifikat", required = true)
     protected BrojPasosa brojPasosa;
+    @XmlElement(namespace = "http://www.rokzasok.rs/sluzbenik/digitalni-sertifikat", required = true)
+    protected Id id;
 
     /**
      * Gets the value of the jmbg property.
@@ -255,6 +265,30 @@ public class TOsoba {
         this.brojPasosa = value;
     }
 
+    /**
+     * Gets the value of the id property.
+     * 
+     * @return
+     *     possible object is
+     *     {@link Id }
+     *     
+     */
+    public Id getId() {
+        return id;
+    }
+
+    /**
+     * Sets the value of the id property.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link Id }
+     *     
+     */
+    public void setId(Id value) {
+        this.id = value;
+    }
+
 
     /**
      * <p>Java class for anonymous complex type.
@@ -356,6 +390,112 @@ public class TOsoba {
          */
         public void setValue(XMLGregorianCalendar value) {
             this.value = value;
+        }
+
+    }
+
+
+    /**
+     * <p>Java class for anonymous complex type.
+     * 
+     * <p>The following schema fragment specifies the expected content contained within this class.
+     * 
+     * <pre>
+     * &lt;complexType&gt;
+     *   &lt;simpleContent&gt;
+     *     &lt;extension base="&lt;http://www.w3.org/2001/XMLSchema&gt;long"&gt;
+     *       &lt;attribute name="property" type="{http://www.w3.org/2001/XMLSchema}string" default="pred:kreiranOdStrane" /&gt;
+     *       &lt;attribute name="datatype" type="{http://www.w3.org/2001/XMLSchema}string" default="xs:long" /&gt;
+     *     &lt;/extension&gt;
+     *   &lt;/simpleContent&gt;
+     * &lt;/complexType&gt;
+     * </pre>
+     * 
+     * 
+     */
+    @XmlAccessorType(XmlAccessType.FIELD)
+    @XmlType(name = "", propOrder = {
+        "value"
+    })
+    public static class Id {
+
+        @XmlValue
+        protected long value;
+        @XmlAttribute(name = "property")
+        protected String property;
+        @XmlAttribute(name = "datatype")
+        protected String datatype;
+
+        /**
+         * Gets the value of the value property.
+         * 
+         */
+        public long getValue() {
+            return value;
+        }
+
+        /**
+         * Sets the value of the value property.
+         * 
+         */
+        public void setValue(long value) {
+            this.value = value;
+        }
+
+        /**
+         * Gets the value of the property property.
+         * 
+         * @return
+         *     possible object is
+         *     {@link String }
+         *     
+         */
+        public String getProperty() {
+            if (property == null) {
+                return "pred:kreiranOdStrane";
+            } else {
+                return property;
+            }
+        }
+
+        /**
+         * Sets the value of the property property.
+         * 
+         * @param value
+         *     allowed object is
+         *     {@link String }
+         *     
+         */
+        public void setProperty(String value) {
+            this.property = value;
+        }
+
+        /**
+         * Gets the value of the datatype property.
+         * 
+         * @return
+         *     possible object is
+         *     {@link String }
+         *     
+         */
+        public String getDatatype() {
+            if (datatype == null) {
+                return "xs:long";
+            } else {
+                return datatype;
+            }
+        }
+
+        /**
+         * Sets the value of the datatype property.
+         * 
+         * @param value
+         *     allowed object is
+         *     {@link String }
+         *     
+         */
+        public void setDatatype(String value) {
+            this.datatype = value;
         }
 
     }

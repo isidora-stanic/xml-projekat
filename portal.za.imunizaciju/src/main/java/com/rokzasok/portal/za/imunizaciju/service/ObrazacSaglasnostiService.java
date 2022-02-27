@@ -14,6 +14,7 @@ import org.apache.jena.query.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.xmldb.api.base.XMLDBException;
+
 import javax.xml.bind.JAXBException;
 import java.util.List;
 
@@ -177,19 +178,16 @@ public class ObrazacSaglasnostiService implements AbstractXmlService<ObrazacSagl
     private void handleMetadata(ObrazacSaglasnosti izvestaj) {
         izvestaj.getEvidencijaPacijent().getPacijent().setVocab("http://www.rokzasok.rs/rdf/database/predicate");
         izvestaj.getEvidencijaPacijent().getPacijent().setAbout("http://www.rokzasok.rs/rdf/database/osoba/" +
-                izvestaj.getEvidencijaPacijent().getPacijent().getIdPacijenta());
+                izvestaj.getDokumentInfo().getIdPodnosioca().getValue());
 
         izvestaj.getEvidencijaPacijent().getPacijent().getPacijentInfo().getPol().setProperty("pred:pol");
-        izvestaj.getEvidencijaPacijent().getPacijent().getPacijentInfo().getPol().setDatatype("xs:string");
+        izvestaj.getEvidencijaPacijent().getPacijent().getPacijentInfo().getPol().setDatatype("xs:#string");
 
         izvestaj.getEvidencijaPacijent().getPacijent().getPacijentInfo().getDatumRodjenja().setProperty("pred:datumRodjenja");
-        izvestaj.getEvidencijaPacijent().getPacijent().getPacijentInfo().getDatumRodjenja().setDatatype("xs:date");
-
-        izvestaj.getEvidencijaPacijent().getPacijent().getKontakt().getTelFiksni().setProperty("pred:brojFiksnogTelefona");
-        izvestaj.getEvidencijaPacijent().getPacijent().getKontakt().getTelFiksni().setDatatype("xs:string");
+        izvestaj.getEvidencijaPacijent().getPacijent().getPacijentInfo().getDatumRodjenja().setDatatype("xs:#date");
 
         izvestaj.getEvidencijaPacijent().getPacijent().getKontakt().getEmail().setProperty("pred:email");
-        izvestaj.getEvidencijaPacijent().getPacijent().getKontakt().getEmail().setDatatype("xs:string");
+        izvestaj.getEvidencijaPacijent().getPacijent().getKontakt().getEmail().setDatatype("xs:#string");
 
         if (izvestaj.getEvidencijaVakcinacija() != null) {
             for (ObrazacSaglasnosti.EvidencijaVakcinacija.Tabela.Doza doza : izvestaj.getEvidencijaVakcinacija().getTabela().getDoza()) {
@@ -216,8 +214,9 @@ public class ObrazacSaglasnostiService implements AbstractXmlService<ObrazacSagl
 
         izvestaj.getDokumentInfo().setVocab("http://www.rokzasok.rs/rdf/database/predicate");
         izvestaj.getDokumentInfo().setAbout("http://www.rokzasok.rs/rdf/database/obrazac-saglasnosti/" + izvestaj.getDokumentId());
-        izvestaj.getDokumentInfo().setRel("pred:kreiranOdStrane");
-        izvestaj.getDokumentInfo().setHref("http://www.rokzasok.rs/rdf/database/osoba/" + izvestaj.getEvidencijaPacijent().getPacijent().getIdPacijenta());
+
+        izvestaj.getDokumentInfo().getIdPodnosioca().setProperty("pred:kreiranOdStrane");
+        izvestaj.getDokumentInfo().getIdPodnosioca().setDatatype("xs:#string");
 
         izvestaj.getDokumentInfo().getSaglasnost().getIzjava().setProperty("pred:izjava");
         izvestaj.getDokumentInfo().getSaglasnost().getIzjava().setDatatype("xs:#boolean");

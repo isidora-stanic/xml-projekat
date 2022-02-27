@@ -120,7 +120,7 @@ public class IskazivanjeInteresovanjaService implements AbstractXmlService<Obraz
         ObrazacInteresovanja obrazacInteresovanja = null;
         try {
             obrazacInteresovanja = this.obrazacInteresovanjaXmlConversionAgent.unmarshall(xmlEntity, this.jaxbContextPath);
-            if(!proveriDaLiMozeDaKreiraInteresovanje(obrazacInteresovanja.getPodaciOOsobi().getIdOsobe())){
+            if(!proveriDaLiMozeDaKreiraInteresovanje(obrazacInteresovanja.getOpstiPodaci().getIdPodnosioca().getValue())){
                 System.out.println("OBRAZAC INTERESOVANJA JE VEC NAPRAVLJEN I NIJE PROSLO 7 DANA, PA SE NE MOZE NAPRAVITI NOVI.");
                 throw new ObrazacInteresovanjaException("OBRAZAC INTERESOVANJA JE VEC NAPRAVLJEN I NIJE PROSLO 7 DANA, PA SE NE MOZE NAPRAVITI NOVI.");
             }
@@ -194,7 +194,7 @@ public class IskazivanjeInteresovanjaService implements AbstractXmlService<Obraz
 
     private void handleMetadata(ObrazacInteresovanja interesovanje){
         interesovanje.getPodaciOOsobi().setVocab("http://www.rokzasok.rs/rdf/database/predicate");
-        interesovanje.getPodaciOOsobi().setAbout("http://www.rokzasok.rs/rdf/database/osoba/" + interesovanje.getPodaciOOsobi().getIdOsobe());
+        interesovanje.getPodaciOOsobi().setAbout("http://www.rokzasok.rs/rdf/database/osoba/" + interesovanje.getOpstiPodaci().getIdPodnosioca().getValue());
 
         interesovanje.getPodaciOOsobi().getEmail().setDatatype("xs:#string");
         interesovanje.getPodaciOOsobi().getEmail().setProperty("pred:email");
@@ -204,8 +204,9 @@ public class IskazivanjeInteresovanjaService implements AbstractXmlService<Obraz
 
         interesovanje.getOpstiPodaci().setVocab("http://www.rokzasok.rs/rdf/database/predicate");
         interesovanje.getOpstiPodaci().setAbout("http://www.rokzasok.rs/rdf/database/iskazivanje-interesovanja/" + interesovanje.getDokumentId().toString());
-        interesovanje.getOpstiPodaci().setRel("pred:kreiranOdStrane");
-        interesovanje.getOpstiPodaci().setHref("http://www.rokzasok.rs/rdf/database/osoba/" + interesovanje.getPodaciOOsobi().getIdOsobe());
+
+        interesovanje.getOpstiPodaci().getIdPodnosioca().setDatatype("xs:#string");
+        interesovanje.getOpstiPodaci().getIdPodnosioca().setProperty("pred:kreiranOdStrane");
 
         interesovanje.getOpstiPodaci().getLokacijaOpstina().setDatatype("xs:#string");
         interesovanje.getOpstiPodaci().getLokacijaOpstina().setProperty("pred:lokacijaOpstina");
