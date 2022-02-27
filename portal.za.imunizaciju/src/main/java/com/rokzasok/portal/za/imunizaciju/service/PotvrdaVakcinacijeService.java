@@ -7,7 +7,11 @@ import com.rokzasok.portal.za.imunizaciju.exception.XmlDatabaseException;
 import com.rokzasok.portal.za.imunizaciju.helper.UUIDHelper;
 import com.rokzasok.portal.za.imunizaciju.helper.XmlConversionAgent;
 import com.rokzasok.portal.za.imunizaciju.model.dokumenti.gradjanin.iskazivanje_interesovanja.ObrazacInteresovanja;
+import com.rokzasok.portal.za.imunizaciju.model.dokumenti.gradjanin.obrazac_saglasnosti.ObrazacSaglasnosti;
+import com.rokzasok.portal.za.imunizaciju.model.dokumenti.gradjanin.obrazac_saglasnosti.TOsoba;
 import com.rokzasok.portal.za.imunizaciju.model.dokumenti.potvrda_vakcinacije.PotvrdaVakcinacije;
+import com.rokzasok.portal.za.imunizaciju.model.dokumenti.potvrda_vakcinacije.TDoza;
+import com.rokzasok.portal.za.imunizaciju.model.dokumenti.potvrda_vakcinacije.TPol;
 import com.rokzasok.portal.za.imunizaciju.repository.AbstractXmlRepository;
 import com.rokzasok.portal.za.imunizaciju.transformation.XSLTransformer;
 import org.apache.commons.io.FileUtils;
@@ -20,6 +24,8 @@ import javax.xml.bind.JAXBException;
 import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.IOException;
+import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 import static com.rokzasok.portal.za.imunizaciju.helper.XQueryExpressions.X_QUERY_FIND_ALL_POTVRDE_O_VAKCINACIJI_EXPRESSION;
@@ -47,6 +53,9 @@ public class PotvrdaVakcinacijeService implements AbstractXmlService<PotvrdaVakc
 
     @Autowired
     private RDFService rdfService;
+
+    @Autowired
+    private ObrazacSaglasnostiService obrazacSaglasnostiService;
 
     //@PostConstruct
     public void injectRepositoryProperties() {
@@ -88,7 +97,7 @@ public class PotvrdaVakcinacijeService implements AbstractXmlService<PotvrdaVakc
     }
 
     @Override
-    public PotvrdaVakcinacije create(String entityXml) {
+    public PotvrdaVakcinacije create(String entityXml) { // todo: verovatno nepotrebna metoda
         injectRepositoryProperties();
 
         PotvrdaVakcinacije potvrdaVakcinacije;
@@ -96,7 +105,7 @@ public class PotvrdaVakcinacijeService implements AbstractXmlService<PotvrdaVakc
         try {
             potvrdaVakcinacije = this.potvrdaVakcinacijeXmlConversionAgent.unmarshall(entityXml, this.jaxbContextPath);
             potvrdaVakcinacije.setDokumentId(this.uuidHelper.getUUID());
-            this.handleMetadata(potvrdaVakcinacije);
+            this.handleMetadata(potvrdaVakcinacije, 1L);
         } catch (JAXBException e) {
             e.printStackTrace();
             throw new InvalidXmlException(ObrazacInteresovanja.class, e.getMessage());
@@ -126,6 +135,77 @@ public class PotvrdaVakcinacijeService implements AbstractXmlService<PotvrdaVakc
 
         //izvestajClient.sendIzvestaj(izvestaj);
         return potvrdaVakcinacije;
+    }
+
+    public PotvrdaVakcinacije generateForObrazacSaglasnosti(Long idObrascaSaglasnosti) {
+        PotvrdaVakcinacije potvrda = genPotvrdaVakcinacije(idObrascaSaglasnosti);
+
+        this.handleMetadata(potvrda, idObrascaSaglasnosti);
+
+        try {
+            potvrdaVakcinacijeRepository.createEntity(potvrda);
+        } catch (XMLDBException | JAXBException e) {
+            e.printStackTrace();
+        }
+
+
+        try {
+            String entityXml = this.potvrdaVakcinacijeXmlConversionAgent.marshall(potvrda, this.jaxbContextPath);
+            if (!rdfService.save(entityXml, SPARQL_NAMED_GRAPH_URI)) {
+                System.out.println("[ERROR] Neuspesno cuvanje metapodataka zahteva u RDF DB.");
+            }
+        } catch (JAXBException e) {
+            e.printStackTrace();
+        }
+
+
+        return potvrda;
+    }
+
+    private PotvrdaVakcinacije genPotvrdaVakcinacije(Long idObrascaSaglasnosti) {
+        ObrazacSaglasnosti obrazac = obrazacSaglasnostiService.findById(idObrascaSaglasnosti);
+        PotvrdaVakcinacije potvrda = new PotvrdaVakcinacije();
+
+        ObrazacSaglasnosti.EvidencijaPacijent.Pacijent pacijent = obrazac.getEvidencijaPacijent().getPacijent();
+        TOsoba pacijentInfo = pacijent.getPacijentInfo();
+
+        // gadno pol parsiranje
+        PotvrdaVakcinacije.Osoba.Pol pol = new PotvrdaVakcinacije.Osoba.Pol();
+        pol.setValue(TPol.valueOf(pacijentInfo.getPol().getValue().value()));
+
+        // gadno datum parsiranje
+        TOsoba.DatumRodjenja datumRodjenjaObrazac = pacijentInfo.getDatumRodjenja();
+        PotvrdaVakcinacije.Osoba.DatumRodjenja datumRodjenja = new PotvrdaVakcinacije.Osoba.DatumRodjenja();
+        datumRodjenja.setValue(datumRodjenjaObrazac.getValue());
+
+
+        // todo: proveri da li je jmbg null (nije srpski drzavljanin)
+        PotvrdaVakcinacije.Osoba osoba = new PotvrdaVakcinacije.Osoba(pacijent.getJMBG(), pacijentInfo.getIme(), pacijentInfo.getPrezime(), pol, datumRodjenja, obrazac.getDokumentInfo().getIdPodnosioca().getValue());
+        potvrda.setOsoba(osoba);
+
+        List<ObrazacSaglasnosti.EvidencijaVakcinacija.Tabela.Doza> spisakDoza = obrazac.getEvidencijaVakcinacija().getTabela().getDoza();
+        List<TDoza> spisakDozaZaPotvrdu = new ArrayList<>();
+
+        for (ObrazacSaglasnosti.EvidencijaVakcinacija.Tabela.Doza doza : spisakDoza) {
+            TDoza novaDoza = new TDoza(
+                    doza.getTip().getValue().value(),
+                    doza.getProizvodjac().getValue().value(),
+                    doza.getDatum().getValue(),
+                    doza.getBrojSerije().getValue(),
+                    doza.getBrojDoze().getValue(),
+                    obrazac.getEvidencijaVakcinacija().getUstanova().getNaziv(),
+                    obrazac.getEvidencijaVakcinacija().getUstanova().getPunkt());
+            spisakDozaZaPotvrdu.add(novaDoza);
+        }
+        potvrda.setDoze(new PotvrdaVakcinacije.Doze(spisakDozaZaPotvrdu));
+
+        potvrda.setQrLink("nekilink.com"); // todo: generisanje qr koda
+        potvrda.setRazlogIzdavanja("smrtxmlu"); // TODO: FALI SLEDEĆI TERMIN (U ŠEMI), NE TREBA RAZLOG IZDAVANJA
+
+        potvrda.setDatumIzdavanja(LocalDate.now());
+
+        potvrda.setDokumentId(uuidHelper.getUUID());
+        return potvrda;
     }
 
     @Override
@@ -163,11 +243,11 @@ public class PotvrdaVakcinacijeService implements AbstractXmlService<PotvrdaVakc
         }
     }
 
-    public void handleMetadata(PotvrdaVakcinacije potvrda) {
+    public void handleMetadata(PotvrdaVakcinacije potvrda, Long idObrascaSaglasnosti) {
         potvrda.setAbout(String.format("http://www.rokzasok.rs/rdf/database/potvrda-vakcinacije/%d", potvrda.getDokumentId()));
         potvrda.setVocab("http://www.rokzasok.rs/rdf/database/predicate");
         potvrda.setRel("pred:prethodniDokument");
-        potvrda.setHref(String.format("http://www.rokzasok.rs/rdf/database/obrazac-saglasnosti/%s", 123)); // todo: prosledi id obrasca umesto 123
+        potvrda.setHref(String.format("http://www.rokzasok.rs/rdf/database/obrazac-saglasnosti/%s", idObrascaSaglasnosti));
 
 
         potvrda.getOsoba().getId().setProperty("pred:kreiranOdStrane");

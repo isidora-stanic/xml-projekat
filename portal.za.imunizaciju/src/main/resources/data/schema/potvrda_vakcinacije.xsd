@@ -50,7 +50,7 @@
                 </xs:element>
                 <xs:element name="doze">
                     <xs:complexType>
-                        <xs:sequence minOccurs="2" maxOccurs="unbounded">
+                        <xs:sequence minOccurs="1" maxOccurs="unbounded">
                             <xs:element name="doza" type="T_doza"> </xs:element>
                         </xs:sequence>
                     </xs:complexType>

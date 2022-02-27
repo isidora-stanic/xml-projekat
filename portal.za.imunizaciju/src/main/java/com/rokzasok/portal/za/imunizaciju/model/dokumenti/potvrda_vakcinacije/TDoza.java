@@ -8,9 +8,9 @@ import java.math.BigInteger;
 
 /**
  * <p>Java class for T_doza complex type.
- * 
+ *
  * <p>The following schema fragment specifies the expected content contained within this class.
- * 
+ *
  * <pre>
  * &lt;complexType name="T_doza"&gt;
  *   &lt;complexContent&gt;
@@ -46,17 +46,15 @@ import java.math.BigInteger;
  *   &lt;/complexContent&gt;
  * &lt;/complexType&gt;
  * </pre>
- * 
- * 
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "T_doza", namespace = "http://www.rokzasok.rs/zdravstveni-radnik/potvrda-vakcinacije", propOrder = {
-    "tip",
-    "proizvodjac",
-    "datum",
-    "brojSerije",
-    "brojDoze",
-    "ustanova"
+        "tip",
+        "proizvodjac",
+        "datum",
+        "brojSerije",
+        "brojDoze",
+        "ustanova"
 })
 public class TDoza {
 
@@ -75,13 +73,23 @@ public class TDoza {
     @XmlElement(namespace = "http://www.rokzasok.rs/zdravstveni-radnik/potvrda-vakcinacije", required = true)
     protected TUstanova ustanova;
 
+    public TDoza() {
+    }
+
+    public TDoza(String tip, String proizvodjac, XMLGregorianCalendar datum, String brojSerije, BigInteger brojDoze, String mesto, String naziv) {
+        this.tip = tip;
+        this.proizvodjac = proizvodjac;
+        this.datum = datum;
+        this.brojSerije = brojSerije;
+        this.brojDoze = brojDoze;
+        this.ustanova = new TUstanova(mesto, naziv);
+    }
+
     /**
      * Gets the value of the tip property.
-     * 
-     * @return
-     *     possible object is
-     *     {@link String }
-     *     
+     *
+     * @return possible object is
+     * {@link String }
      */
     public String getTip() {
         return tip;
@@ -89,11 +97,9 @@ public class TDoza {
 
     /**
      * Sets the value of the tip property.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link String }
-     *     
+     *
+     * @param value allowed object is
+     *              {@link String }
      */
     public void setTip(String value) {
         this.tip = value;
@@ -101,11 +107,9 @@ public class TDoza {
 
     /**
      * Gets the value of the proizvodjac property.
-     * 
-     * @return
-     *     possible object is
-     *     {@link String }
-     *     
+     *
+     * @return possible object is
+     * {@link String }
      */
     public String getProizvodjac() {
         return proizvodjac;
@@ -113,11 +117,9 @@ public class TDoza {
 
     /**
      * Sets the value of the proizvodjac property.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link String }
-     *     
+     *
+     * @param value allowed object is
+     *              {@link String }
      */
     public void setProizvodjac(String value) {
         this.proizvodjac = value;
@@ -125,11 +127,9 @@ public class TDoza {
 
     /**
      * Gets the value of the datum property.
-     * 
-     * @return
-     *     possible object is
-     *     {@link XMLGregorianCalendar }
-     *     
+     *
+     * @return possible object is
+     * {@link XMLGregorianCalendar }
      */
     public XMLGregorianCalendar getDatum() {
         return datum;
@@ -137,11 +137,9 @@ public class TDoza {
 
     /**
      * Sets the value of the datum property.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link XMLGregorianCalendar }
-     *     
+     *
+     * @param value allowed object is
+     *              {@link XMLGregorianCalendar }
      */
     public void setDatum(XMLGregorianCalendar value) {
         this.datum = value;
@@ -149,11 +147,9 @@ public class TDoza {
 
     /**
      * Gets the value of the brojSerije property.
-     * 
-     * @return
-     *     possible object is
-     *     {@link String }
-     *     
+     *
+     * @return possible object is
+     * {@link String }
      */
     public String getBrojSerije() {
         return brojSerije;
@@ -161,11 +157,9 @@ public class TDoza {
 
     /**
      * Sets the value of the brojSerije property.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link String }
-     *     
+     *
+     * @param value allowed object is
+     *              {@link String }
      */
     public void setBrojSerije(String value) {
         this.brojSerije = value;
@@ -173,11 +167,9 @@ public class TDoza {
 
     /**
      * Gets the value of the brojDoze property.
-     * 
-     * @return
-     *     possible object is
-     *     {@link BigInteger }
-     *     
+     *
+     * @return possible object is
+     * {@link BigInteger }
      */
     public BigInteger getBrojDoze() {
         return brojDoze;
@@ -185,11 +177,9 @@ public class TDoza {
 
     /**
      * Sets the value of the brojDoze property.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link BigInteger }
-     *     
+     *
+     * @param value allowed object is
+     *              {@link BigInteger }
      */
     public void setBrojDoze(BigInteger value) {
         this.brojDoze = value;
@@ -197,11 +187,9 @@ public class TDoza {
 
     /**
      * Gets the value of the ustanova property.
-     * 
-     * @return
-     *     possible object is
-     *     {@link TUstanova }
-     *     
+     *
+     * @return possible object is
+     * {@link TUstanova }
      */
     public TUstanova getUstanova() {
         return ustanova;
@@ -209,11 +197,9 @@ public class TDoza {
 
     /**
      * Sets the value of the ustanova property.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link TUstanova }
-     *     
+     *
+     * @param value allowed object is
+     *              {@link TUstanova }
      */
     public void setUstanova(TUstanova value) {
         this.ustanova = value;

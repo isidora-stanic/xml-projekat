@@ -394,6 +394,26 @@ public class ObrazacSaglasnosti implements Identifiable {
             @XmlAttribute(name = "about")
             protected String about;
 
+            public String getJMBG() {
+                String jmbg;
+                try {
+                    jmbg = this.getDrzavljanstvo().getSrpsko().getJMBG();
+                } catch (Exception e) {
+                    return null;
+                }
+                return jmbg;
+            }
+
+            public String getBrojPasosa() {
+                String brojPasosa;
+                try {
+                    brojPasosa = this.getDrzavljanstvo().getStrano().getBrojPasosa();
+                } catch (Exception e) {
+                    return null;
+                }
+                return brojPasosa;
+            }
+
 
             public TDrzavljanstvo getDrzavljanstvo() {
                 return drzavljanstvo;

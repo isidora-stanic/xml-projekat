@@ -1,115 +1,18 @@
-
 package com.rokzasok.portal.za.imunizaciju.model.dokumenti.potvrda_vakcinacije;
 
 import com.rokzasok.portal.za.imunizaciju.interfaces.Identifiable;
 
 import javax.xml.bind.annotation.*;
+import javax.xml.datatype.DatatypeConfigurationException;
+import javax.xml.datatype.DatatypeFactory;
 import javax.xml.datatype.XMLGregorianCalendar;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
 
-/**
- * <p>Java class for anonymous complex type.
- *
- * <p>The following schema fragment specifies the expected content contained within this class.
- *
- * <pre>
- * &lt;complexType&gt;
- *   &lt;complexContent&gt;
- *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
- *       &lt;sequence&gt;
- *         &lt;element name="osoba"&gt;
- *           &lt;complexType&gt;
- *             &lt;complexContent&gt;
- *               &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
- *                 &lt;sequence&gt;
- *                   &lt;element name="jmbg" type="{http://www.rokzasok.rs/tipovi}T_JMBG"/&gt;
- *                   &lt;element name="ime" type="{http://www.w3.org/2001/XMLSchema}string"/&gt;
- *                   &lt;element name="prezime" type="{http://www.w3.org/2001/XMLSchema}string"/&gt;
- *                   &lt;element name="pol"&gt;
- *                     &lt;complexType&gt;
- *                       &lt;simpleContent&gt;
- *                         &lt;extension base="&lt;http://www.rokzasok.rs/tipovi&gt;T_pol"&gt;
- *                         &lt;/extension&gt;
- *                       &lt;/simpleContent&gt;
- *                     &lt;/complexType&gt;
- *                   &lt;/element&gt;
- *                   &lt;element name="datum_rodjenja"&gt;
- *                     &lt;complexType&gt;
- *                       &lt;simpleContent&gt;
- *                         &lt;extension base="&lt;http://www.w3.org/2001/XMLSchema&gt;date"&gt;
- *                         &lt;/extension&gt;
- *                       &lt;/simpleContent&gt;
- *                     &lt;/complexType&gt;
- *                   &lt;/element&gt;
- *                   &lt;element name="id"&gt;
- *                     &lt;complexType&gt;
- *                       &lt;simpleContent&gt;
- *                         &lt;extension base="&lt;http://www.w3.org/2001/XMLSchema&gt;long"&gt;
- *                           &lt;attribute name="property" type="{http://www.w3.org/2001/XMLSchema}string" default="pred:kreiranOdStrane" /&gt;
- *                           &lt;attribute name="datatype" type="{http://www.w3.org/2001/XMLSchema}string" default="xs:long" /&gt;
- *                         &lt;/extension&gt;
- *                       &lt;/simpleContent&gt;
- *                     &lt;/complexType&gt;
- *                   &lt;/element&gt;
- *                 &lt;/sequence&gt;
- *               &lt;/restriction&gt;
- *             &lt;/complexContent&gt;
- *           &lt;/complexType&gt;
- *         &lt;/element&gt;
- *         &lt;element name="doze"&gt;
- *           &lt;complexType&gt;
- *             &lt;complexContent&gt;
- *               &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
- *                 &lt;sequence maxOccurs="unbounded" minOccurs="2"&gt;
- *                   &lt;element name="doza" type="{http://www.rokzasok.rs/zdravstveni-radnik/potvrda-vakcinacije}T_doza"/&gt;
- *                 &lt;/sequence&gt;
- *               &lt;/restriction&gt;
- *             &lt;/complexContent&gt;
- *           &lt;/complexType&gt;
- *         &lt;/element&gt;
- *         &lt;element name="qr_link" type="{http://www.w3.org/2001/XMLSchema}string"/&gt;
- *         &lt;element name="razlog_izdavanja"&gt;
- *           &lt;complexType&gt;
- *             &lt;simpleContent&gt;
- *               &lt;extension base="&lt;http://www.w3.org/2001/XMLSchema&gt;string"&gt;
- *                 &lt;attribute name="property" type="{http://www.w3.org/2001/XMLSchema}string" default="pred:razlogIzdavanja" /&gt;
- *                 &lt;attribute name="datatype" type="{http://www.w3.org/2001/XMLSchema}string" default="xs:string" /&gt;
- *               &lt;/extension&gt;
- *             &lt;/simpleContent&gt;
- *           &lt;/complexType&gt;
- *         &lt;/element&gt;
- *         &lt;element name="datum_izdavanja"&gt;
- *           &lt;complexType&gt;
- *             &lt;simpleContent&gt;
- *               &lt;extension base="&lt;http://www.w3.org/2001/XMLSchema&gt;date"&gt;
- *                 &lt;attribute name="property" type="{http://www.w3.org/2001/XMLSchema}string" default="pred:datumIzdavanja" /&gt;
- *                 &lt;attribute name="datatype" type="{http://www.w3.org/2001/XMLSchema}string" default="xs:date" /&gt;
- *               &lt;/extension&gt;
- *             &lt;/simpleContent&gt;
- *           &lt;/complexType&gt;
- *         &lt;/element&gt;
- *         &lt;element name="dokument_id" type="{http://www.w3.org/2001/XMLSchema}positiveInteger"/&gt;
- *       &lt;/sequence&gt;
- *       &lt;attribute name="vocab" type="{http://www.w3.org/2001/XMLSchema}string" fixed="http://www.rokzasok.rs/rdf/database/predicate" /&gt;
- *       &lt;attribute name="about" type="{http://www.w3.org/2001/XMLSchema}string" /&gt;
- *       &lt;attribute name="rel" type="{http://www.w3.org/2001/XMLSchema}string" default="pred:prethodniDokument" /&gt;
- *       &lt;attribute name="href" type="{http://www.w3.org/2001/XMLSchema}string" default="xs:string" /&gt;
- *     &lt;/restriction&gt;
- *   &lt;/complexContent&gt;
- * &lt;/complexType&gt;
- * </pre>
- */
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "", propOrder = {
-        "osoba",
-        "doze",
-        "qrLink",
-        "razlogIzdavanja",
-        "datumIzdavanja",
-        "dokumentId"
-})
+@XmlType(name = "", propOrder = {"osoba", "doze", "qrLink", "razlogIzdavanja", "datumIzdavanja", "dokumentId"})
 @XmlRootElement(name = "potvrda-vakcinacije", namespace = "http://www.rokzasok.rs/zdravstveni-radnik/potvrda-vakcinacije")
 public class PotvrdaVakcinacije implements Identifiable {
 
@@ -135,132 +38,82 @@ public class PotvrdaVakcinacije implements Identifiable {
     @XmlAttribute(name = "href")
     protected String href;
 
-    /**
-     * Gets the value of the osoba property.
-     *
-     * @return possible object is
-     * {@link Osoba }
-     */
+    public PotvrdaVakcinacije() {
+        this.osoba = new Osoba();
+        this.doze = new Doze();
+        this.razlogIzdavanja = new RazlogIzdavanja();
+        this.datumIzdavanja = new DatumIzdavanja();
+    }
+
     public Osoba getOsoba() {
         return osoba;
     }
 
-    /**
-     * Sets the value of the osoba property.
-     *
-     * @param value allowed object is
-     *              {@link Osoba }
-     */
+
     public void setOsoba(Osoba value) {
         this.osoba = value;
     }
 
-    /**
-     * Gets the value of the doze property.
-     *
-     * @return possible object is
-     * {@link Doze }
-     */
+
     public Doze getDoze() {
         return doze;
     }
 
-    /**
-     * Sets the value of the doze property.
-     *
-     * @param value allowed object is
-     *              {@link Doze }
-     */
+
     public void setDoze(Doze value) {
         this.doze = value;
     }
 
-    /**
-     * Gets the value of the qrLink property.
-     *
-     * @return possible object is
-     * {@link String }
-     */
+
     public String getQrLink() {
         return qrLink;
     }
 
-    /**
-     * Sets the value of the qrLink property.
-     *
-     * @param value allowed object is
-     *              {@link String }
-     */
+
     public void setQrLink(String value) {
         this.qrLink = value;
     }
 
-    /**
-     * Gets the value of the razlogIzdavanja property.
-     *
-     * @return possible object is
-     * {@link RazlogIzdavanja }
-     */
+
     public RazlogIzdavanja getRazlogIzdavanja() {
         return razlogIzdavanja;
     }
 
-    /**
-     * Sets the value of the razlogIzdavanja property.
-     *
-     * @param value allowed object is
-     *              {@link RazlogIzdavanja }
-     */
+
     public void setRazlogIzdavanja(RazlogIzdavanja value) {
         this.razlogIzdavanja = value;
     }
 
-    /**
-     * Gets the value of the datumIzdavanja property.
-     *
-     * @return possible object is
-     * {@link DatumIzdavanja }
-     */
+    public void setRazlogIzdavanja(String razlogIzdavanja) {
+        this.razlogIzdavanja = new RazlogIzdavanja(razlogIzdavanja);
+    }
+
+
     public DatumIzdavanja getDatumIzdavanja() {
         return datumIzdavanja;
     }
 
-    /**
-     * Sets the value of the datumIzdavanja property.
-     *
-     * @param value allowed object is
-     *              {@link DatumIzdavanja }
-     */
+
+    public void setDatumIzdavanja(LocalDate datum) {
+        this.datumIzdavanja = new DatumIzdavanja();
+        this.datumIzdavanja.setValue(datum);
+    }
+
     public void setDatumIzdavanja(DatumIzdavanja value) {
         this.datumIzdavanja = value;
     }
 
-    /**
-     * Gets the value of the dokumentId property.
-     *
-     * @return possible object is
-     * {@link Long }
-     */
+
     public Long getDokumentId() {
         return dokumentId;
     }
 
-    /**
-     * Sets the value of the dokumentId property.
-     *
-     * @param value allowed object is
-     *              {@link Long }
-     */
+
     public void setDokumentId(Long value) {
         this.dokumentId = value;
     }
 
-    /**
-     * Gets the value of the vocab property.
-     *
-     * @return possible object is
-     * {@link String }
-     */
+
     public String getVocab() {
         if (vocab == null) {
             return "http://www.rokzasok.rs/rdf/database/predicate";
@@ -269,42 +122,22 @@ public class PotvrdaVakcinacije implements Identifiable {
         }
     }
 
-    /**
-     * Sets the value of the vocab property.
-     *
-     * @param value allowed object is
-     *              {@link String }
-     */
+
     public void setVocab(String value) {
         this.vocab = value;
     }
 
-    /**
-     * Gets the value of the about property.
-     *
-     * @return possible object is
-     * {@link String }
-     */
+
     public String getAbout() {
         return about;
     }
 
-    /**
-     * Sets the value of the about property.
-     *
-     * @param value allowed object is
-     *              {@link String }
-     */
+
     public void setAbout(String value) {
         this.about = value;
     }
 
-    /**
-     * Gets the value of the rel property.
-     *
-     * @return possible object is
-     * {@link String }
-     */
+
     public String getRel() {
         if (rel == null) {
             return "pred:prethodniDokument";
@@ -313,22 +146,12 @@ public class PotvrdaVakcinacije implements Identifiable {
         }
     }
 
-    /**
-     * Sets the value of the rel property.
-     *
-     * @param value allowed object is
-     *              {@link String }
-     */
+
     public void setRel(String value) {
         this.rel = value;
     }
 
-    /**
-     * Gets the value of the href property.
-     *
-     * @return possible object is
-     * {@link String }
-     */
+
     public String getHref() {
         if (href == null) {
             return "xs:string";
@@ -337,37 +160,14 @@ public class PotvrdaVakcinacije implements Identifiable {
         }
     }
 
-    /**
-     * Sets the value of the href property.
-     *
-     * @param value allowed object is
-     *              {@link String }
-     */
+
     public void setHref(String value) {
         this.href = value;
     }
 
 
-    /**
-     * <p>Java class for anonymous complex type.
-     *
-     * <p>The following schema fragment specifies the expected content contained within this class.
-     *
-     * <pre>
-     * &lt;complexType&gt;
-     *   &lt;simpleContent&gt;
-     *     &lt;extension base="&lt;http://www.w3.org/2001/XMLSchema&gt;date"&gt;
-     *       &lt;attribute name="property" type="{http://www.w3.org/2001/XMLSchema}string" default="pred:datumIzdavanja" /&gt;
-     *       &lt;attribute name="datatype" type="{http://www.w3.org/2001/XMLSchema}string" default="xs:date" /&gt;
-     *     &lt;/extension&gt;
-     *   &lt;/simpleContent&gt;
-     * &lt;/complexType&gt;
-     * </pre>
-     */
     @XmlAccessorType(XmlAccessType.FIELD)
-    @XmlType(name = "", propOrder = {
-            "value"
-    })
+    @XmlType(name = "", propOrder = {"value"})
     public static class DatumIzdavanja {
 
         @XmlValue
@@ -378,32 +178,25 @@ public class PotvrdaVakcinacije implements Identifiable {
         @XmlAttribute(name = "datatype")
         protected String datatype;
 
-        /**
-         * Gets the value of the value property.
-         *
-         * @return possible object is
-         * {@link XMLGregorianCalendar }
-         */
+        public void setValue(LocalDate date) {
+            try {
+                this.value = DatatypeFactory.newInstance().newXMLGregorianCalendar(date.toString());
+            } catch (DatatypeConfigurationException e) {
+                e.printStackTrace();
+            }
+        }
+
+
         public XMLGregorianCalendar getValue() {
             return value;
         }
 
-        /**
-         * Sets the value of the value property.
-         *
-         * @param value allowed object is
-         *              {@link XMLGregorianCalendar }
-         */
+
         public void setValue(XMLGregorianCalendar value) {
             this.value = value;
         }
 
-        /**
-         * Gets the value of the property property.
-         *
-         * @return possible object is
-         * {@link String }
-         */
+
         public String getProperty() {
             if (property == null) {
                 return "pred:datumIzdavanja";
@@ -412,22 +205,12 @@ public class PotvrdaVakcinacije implements Identifiable {
             }
         }
 
-        /**
-         * Sets the value of the property property.
-         *
-         * @param value allowed object is
-         *              {@link String }
-         */
+
         public void setProperty(String value) {
             this.property = value;
         }
 
-        /**
-         * Gets the value of the datatype property.
-         *
-         * @return possible object is
-         * {@link String }
-         */
+
         public String getDatatype() {
             if (datatype == null) {
                 return "xs:date";
@@ -436,12 +219,7 @@ public class PotvrdaVakcinacije implements Identifiable {
             }
         }
 
-        /**
-         * Sets the value of the datatype property.
-         *
-         * @param value allowed object is
-         *              {@link String }
-         */
+
         public void setDatatype(String value) {
             this.datatype = value;
         }
@@ -449,52 +227,20 @@ public class PotvrdaVakcinacije implements Identifiable {
     }
 
 
-    /**
-     * <p>Java class for anonymous complex type.
-     *
-     * <p>The following schema fragment specifies the expected content contained within this class.
-     *
-     * <pre>
-     * &lt;complexType&gt;
-     *   &lt;complexContent&gt;
-     *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
-     *       &lt;sequence maxOccurs="unbounded" minOccurs="2"&gt;
-     *         &lt;element name="doza" type="{http://www.rokzasok.rs/zdravstveni-radnik/potvrda-vakcinacije}T_doza"/&gt;
-     *       &lt;/sequence&gt;
-     *     &lt;/restriction&gt;
-     *   &lt;/complexContent&gt;
-     * &lt;/complexType&gt;
-     * </pre>
-     */
     @XmlAccessorType(XmlAccessType.FIELD)
-    @XmlType(name = "", propOrder = {
-            "doza"
-    })
+    @XmlType(name = "", propOrder = {"doza"})
     public static class Doze {
 
         @XmlElement(namespace = "http://www.rokzasok.rs/zdravstveni-radnik/potvrda-vakcinacije", required = true)
         protected List<TDoza> doza;
 
-        /**
-         * Gets the value of the doza property.
-         *
-         * <p>
-         * This accessor method returns a reference to the live list,
-         * not a snapshot. Therefore any modification you make to the
-         * returned list will be present inside the JAXB object.
-         * This is why there is not a <CODE>set</CODE> method for the doza property.
-         *
-         * <p>
-         * For example, to add a new item, do as follows:
-         * <pre>
-         *    getDoza().add(newItem);
-         * </pre>
-         *
-         *
-         * <p>
-         * Objects of the following type(s) are allowed in the list
-         * {@link TDoza }
-         */
+        public Doze() {
+        }
+
+        public Doze(List<TDoza> doza) {
+            this.doza = doza;
+        }
+
         public List<TDoza> getDoza() {
             if (doza == null) {
                 doza = new ArrayList<TDoza>();
@@ -505,60 +251,8 @@ public class PotvrdaVakcinacije implements Identifiable {
     }
 
 
-    /**
-     * <p>Java class for anonymous complex type.
-     *
-     * <p>The following schema fragment specifies the expected content contained within this class.
-     *
-     * <pre>
-     * &lt;complexType&gt;
-     *   &lt;complexContent&gt;
-     *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
-     *       &lt;sequence&gt;
-     *         &lt;element name="jmbg" type="{http://www.rokzasok.rs/tipovi}T_JMBG"/&gt;
-     *         &lt;element name="ime" type="{http://www.w3.org/2001/XMLSchema}string"/&gt;
-     *         &lt;element name="prezime" type="{http://www.w3.org/2001/XMLSchema}string"/&gt;
-     *         &lt;element name="pol"&gt;
-     *           &lt;complexType&gt;
-     *             &lt;simpleContent&gt;
-     *               &lt;extension base="&lt;http://www.rokzasok.rs/tipovi&gt;T_pol"&gt;
-     *               &lt;/extension&gt;
-     *             &lt;/simpleContent&gt;
-     *           &lt;/complexType&gt;
-     *         &lt;/element&gt;
-     *         &lt;element name="datum_rodjenja"&gt;
-     *           &lt;complexType&gt;
-     *             &lt;simpleContent&gt;
-     *               &lt;extension base="&lt;http://www.w3.org/2001/XMLSchema&gt;date"&gt;
-     *               &lt;/extension&gt;
-     *             &lt;/simpleContent&gt;
-     *           &lt;/complexType&gt;
-     *         &lt;/element&gt;
-     *         &lt;element name="id"&gt;
-     *           &lt;complexType&gt;
-     *             &lt;simpleContent&gt;
-     *               &lt;extension base="&lt;http://www.w3.org/2001/XMLSchema&gt;long"&gt;
-     *                 &lt;attribute name="property" type="{http://www.w3.org/2001/XMLSchema}string" default="pred:kreiranOdStrane" /&gt;
-     *                 &lt;attribute name="datatype" type="{http://www.w3.org/2001/XMLSchema}string" default="xs:long" /&gt;
-     *               &lt;/extension&gt;
-     *             &lt;/simpleContent&gt;
-     *           &lt;/complexType&gt;
-     *         &lt;/element&gt;
-     *       &lt;/sequence&gt;
-     *     &lt;/restriction&gt;
-     *   &lt;/complexContent&gt;
-     * &lt;/complexType&gt;
-     * </pre>
-     */
     @XmlAccessorType(XmlAccessType.FIELD)
-    @XmlType(name = "", propOrder = {
-            "jmbg",
-            "ime",
-            "prezime",
-            "pol",
-            "datumRodjenja",
-            "id"
-    })
+    @XmlType(name = "", propOrder = {"jmbg", "ime", "prezime", "pol", "datumRodjenja", "id"})
     public static class Osoba {
 
         @XmlElement(namespace = "http://www.rokzasok.rs/zdravstveni-radnik/potvrda-vakcinacije", required = true)
@@ -574,167 +268,93 @@ public class PotvrdaVakcinacije implements Identifiable {
         @XmlElement(namespace = "http://www.rokzasok.rs/zdravstveni-radnik/potvrda-vakcinacije", required = true)
         protected Id id;
 
-        /**
-         * Gets the value of the jmbg property.
-         *
-         * @return possible object is
-         * {@link String }
-         */
+        public Osoba() {
+            this.id = new Id();
+        }
+
+        public Osoba(String jmbg, String ime, String prezime, Pol pol, DatumRodjenja datumRodjenja, Long id) {
+            this.jmbg = jmbg;
+            this.ime = ime;
+            this.prezime = prezime;
+            this.pol = pol;
+            this.datumRodjenja = datumRodjenja;
+            this.id = new Id(id);
+        }
+
         public String getJmbg() {
             return jmbg;
         }
 
-        /**
-         * Sets the value of the jmbg property.
-         *
-         * @param value allowed object is
-         *              {@link String }
-         */
+
         public void setJmbg(String value) {
             this.jmbg = value;
         }
 
-        /**
-         * Gets the value of the ime property.
-         *
-         * @return possible object is
-         * {@link String }
-         */
+
         public String getIme() {
             return ime;
         }
 
-        /**
-         * Sets the value of the ime property.
-         *
-         * @param value allowed object is
-         *              {@link String }
-         */
+
         public void setIme(String value) {
             this.ime = value;
         }
 
-        /**
-         * Gets the value of the prezime property.
-         *
-         * @return possible object is
-         * {@link String }
-         */
+
         public String getPrezime() {
             return prezime;
         }
 
-        /**
-         * Sets the value of the prezime property.
-         *
-         * @param value allowed object is
-         *              {@link String }
-         */
+
         public void setPrezime(String value) {
             this.prezime = value;
         }
 
-        /**
-         * Gets the value of the pol property.
-         *
-         * @return possible object is
-         * {@link Pol }
-         */
+
         public Pol getPol() {
             return pol;
         }
 
-        /**
-         * Sets the value of the pol property.
-         *
-         * @param value allowed object is
-         *              {@link Pol }
-         */
+
         public void setPol(Pol value) {
             this.pol = value;
         }
 
-        /**
-         * Gets the value of the datumRodjenja property.
-         *
-         * @return possible object is
-         * {@link DatumRodjenja }
-         */
+
         public DatumRodjenja getDatumRodjenja() {
             return datumRodjenja;
         }
 
-        /**
-         * Sets the value of the datumRodjenja property.
-         *
-         * @param value allowed object is
-         *              {@link DatumRodjenja }
-         */
+
         public void setDatumRodjenja(DatumRodjenja value) {
             this.datumRodjenja = value;
         }
 
-        /**
-         * Gets the value of the id property.
-         *
-         * @return possible object is
-         * {@link Id }
-         */
+
         public Id getId() {
             return id;
         }
 
-        /**
-         * Sets the value of the id property.
-         *
-         * @param value allowed object is
-         *              {@link Id }
-         */
+
         public void setId(Id value) {
             this.id = value;
         }
 
 
-        /**
-         * <p>Java class for anonymous complex type.
-         *
-         * <p>The following schema fragment specifies the expected content contained within this class.
-         *
-         * <pre>
-         * &lt;complexType&gt;
-         *   &lt;simpleContent&gt;
-         *     &lt;extension base="&lt;http://www.w3.org/2001/XMLSchema&gt;date"&gt;
-         *     &lt;/extension&gt;
-         *   &lt;/simpleContent&gt;
-         * &lt;/complexType&gt;
-         * </pre>
-         */
         @XmlAccessorType(XmlAccessType.FIELD)
-        @XmlType(name = "", propOrder = {
-                "value"
-        })
+        @XmlType(name = "", propOrder = {"value"})
         public static class DatumRodjenja {
 
             @XmlValue
             @XmlSchemaType(name = "date")
             protected XMLGregorianCalendar value;
 
-            /**
-             * Gets the value of the value property.
-             *
-             * @return possible object is
-             * {@link XMLGregorianCalendar }
-             */
+
             public XMLGregorianCalendar getValue() {
                 return value;
             }
 
-            /**
-             * Sets the value of the value property.
-             *
-             * @param value allowed object is
-             *              {@link XMLGregorianCalendar }
-             */
+
             public void setValue(XMLGregorianCalendar value) {
                 this.value = value;
             }
@@ -742,26 +362,8 @@ public class PotvrdaVakcinacije implements Identifiable {
         }
 
 
-        /**
-         * <p>Java class for anonymous complex type.
-         *
-         * <p>The following schema fragment specifies the expected content contained within this class.
-         *
-         * <pre>
-         * &lt;complexType&gt;
-         *   &lt;simpleContent&gt;
-         *     &lt;extension base="&lt;http://www.w3.org/2001/XMLSchema&gt;long"&gt;
-         *       &lt;attribute name="property" type="{http://www.w3.org/2001/XMLSchema}string" default="pred:kreiranOdStrane" /&gt;
-         *       &lt;attribute name="datatype" type="{http://www.w3.org/2001/XMLSchema}string" default="xs:long" /&gt;
-         *     &lt;/extension&gt;
-         *   &lt;/simpleContent&gt;
-         * &lt;/complexType&gt;
-         * </pre>
-         */
         @XmlAccessorType(XmlAccessType.FIELD)
-        @XmlType(name = "", propOrder = {
-                "value"
-        })
+        @XmlType(name = "", propOrder = {"value"})
         public static class Id {
 
             @XmlValue
@@ -771,26 +373,23 @@ public class PotvrdaVakcinacije implements Identifiable {
             @XmlAttribute(name = "datatype")
             protected String datatype;
 
-            /**
-             * Gets the value of the value property.
-             */
+            public Id() {
+            }
+
+            public Id(long value) {
+                this.value = value;
+            }
+
             public long getValue() {
                 return value;
             }
 
-            /**
-             * Sets the value of the value property.
-             */
+
             public void setValue(long value) {
                 this.value = value;
             }
 
-            /**
-             * Gets the value of the property property.
-             *
-             * @return possible object is
-             * {@link String }
-             */
+
             public String getProperty() {
                 if (property == null) {
                     return "pred:kreiranOdStrane";
@@ -799,22 +398,12 @@ public class PotvrdaVakcinacije implements Identifiable {
                 }
             }
 
-            /**
-             * Sets the value of the property property.
-             *
-             * @param value allowed object is
-             *              {@link String }
-             */
+
             public void setProperty(String value) {
                 this.property = value;
             }
 
-            /**
-             * Gets the value of the datatype property.
-             *
-             * @return possible object is
-             * {@link String }
-             */
+
             public String getDatatype() {
                 if (datatype == null) {
                     return "xs:long";
@@ -823,12 +412,7 @@ public class PotvrdaVakcinacije implements Identifiable {
                 }
             }
 
-            /**
-             * Sets the value of the datatype property.
-             *
-             * @param value allowed object is
-             *              {@link String }
-             */
+
             public void setDatatype(String value) {
                 this.datatype = value;
             }
@@ -836,45 +420,19 @@ public class PotvrdaVakcinacije implements Identifiable {
         }
 
 
-        /**
-         * <p>Java class for anonymous complex type.
-         *
-         * <p>The following schema fragment specifies the expected content contained within this class.
-         *
-         * <pre>
-         * &lt;complexType&gt;
-         *   &lt;simpleContent&gt;
-         *     &lt;extension base="&lt;http://www.rokzasok.rs/tipovi&gt;T_pol"&gt;
-         *     &lt;/extension&gt;
-         *   &lt;/simpleContent&gt;
-         * &lt;/complexType&gt;
-         * </pre>
-         */
         @XmlAccessorType(XmlAccessType.FIELD)
-        @XmlType(name = "", propOrder = {
-                "value"
-        })
+        @XmlType(name = "", propOrder = {"value"})
         public static class Pol {
 
             @XmlValue
             protected TPol value;
 
-            /**
-             * Gets the value of the value property.
-             *
-             * @return possible object is
-             * {@link TPol }
-             */
+
             public TPol getValue() {
                 return value;
             }
 
-            /**
-             * Sets the value of the value property.
-             *
-             * @param value allowed object is
-             *              {@link TPol }
-             */
+
             public void setValue(TPol value) {
                 this.value = value;
             }
@@ -884,26 +442,8 @@ public class PotvrdaVakcinacije implements Identifiable {
     }
 
 
-    /**
-     * <p>Java class for anonymous complex type.
-     *
-     * <p>The following schema fragment specifies the expected content contained within this class.
-     *
-     * <pre>
-     * &lt;complexType&gt;
-     *   &lt;simpleContent&gt;
-     *     &lt;extension base="&lt;http://www.w3.org/2001/XMLSchema&gt;string"&gt;
-     *       &lt;attribute name="property" type="{http://www.w3.org/2001/XMLSchema}string" default="pred:razlogIzdavanja" /&gt;
-     *       &lt;attribute name="datatype" type="{http://www.w3.org/2001/XMLSchema}string" default="xs:string" /&gt;
-     *     &lt;/extension&gt;
-     *   &lt;/simpleContent&gt;
-     * &lt;/complexType&gt;
-     * </pre>
-     */
     @XmlAccessorType(XmlAccessType.FIELD)
-    @XmlType(name = "", propOrder = {
-            "value"
-    })
+    @XmlType(name = "", propOrder = {"value"})
     public static class RazlogIzdavanja {
 
         @XmlValue
@@ -913,32 +453,23 @@ public class PotvrdaVakcinacije implements Identifiable {
         @XmlAttribute(name = "datatype")
         protected String datatype;
 
-        /**
-         * Gets the value of the value property.
-         *
-         * @return possible object is
-         * {@link String }
-         */
+        public RazlogIzdavanja() {
+        }
+
+        public RazlogIzdavanja(String value) {
+            this.value = value;
+        }
+
         public String getValue() {
             return value;
         }
 
-        /**
-         * Sets the value of the value property.
-         *
-         * @param value allowed object is
-         *              {@link String }
-         */
+
         public void setValue(String value) {
             this.value = value;
         }
 
-        /**
-         * Gets the value of the property property.
-         *
-         * @return possible object is
-         * {@link String }
-         */
+
         public String getProperty() {
             if (property == null) {
                 return "pred:razlogIzdavanja";
@@ -947,22 +478,12 @@ public class PotvrdaVakcinacije implements Identifiable {
             }
         }
 
-        /**
-         * Sets the value of the property property.
-         *
-         * @param value allowed object is
-         *              {@link String }
-         */
+
         public void setProperty(String value) {
             this.property = value;
         }
 
-        /**
-         * Gets the value of the datatype property.
-         *
-         * @return possible object is
-         * {@link String }
-         */
+
         public String getDatatype() {
             if (datatype == null) {
                 return "xs:string";
@@ -971,12 +492,7 @@ public class PotvrdaVakcinacije implements Identifiable {
             }
         }
 
-        /**
-         * Sets the value of the datatype property.
-         *
-         * @param value allowed object is
-         *              {@link String }
-         */
+
         public void setDatatype(String value) {
             this.datatype = value;
         }

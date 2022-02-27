@@ -84,4 +84,9 @@ public class PotvrdaVakcinacijeController {
 
         return new ResponseEntity<>(new InputStreamResource(is), headers, HttpStatus.OK);
     }
+
+    @GetMapping(value="/gen/{idObrascaSaglasnosti}", produces = MediaType.APPLICATION_XML_VALUE)
+    ResponseEntity<PotvrdaVakcinacije> kreirajPotvrduZaObrazac(@PathVariable Long idObrascaSaglasnosti){
+        return new ResponseEntity<>(this.potvrdaVakcinacijeService.generateForObrazacSaglasnosti(idObrascaSaglasnosti), HttpStatus.OK);
+    }
 }

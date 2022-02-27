@@ -39,6 +39,14 @@ public class TUstanova {
     @XmlElement(namespace = "http://www.rokzasok.rs/zdravstveni-radnik/potvrda-vakcinacije", required = true)
     protected String mesto;
 
+    public TUstanova() {
+    }
+
+    public TUstanova(String mesto, String naziv) {
+        this.naziv = naziv;
+        this.mesto = mesto;
+    }
+
     /**
      * Gets the value of the naziv property.
      * 
