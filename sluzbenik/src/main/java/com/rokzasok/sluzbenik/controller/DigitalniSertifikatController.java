@@ -9,6 +9,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+import javax.xml.ws.Response;
+
 @Controller
 @RequestMapping(value = "/api/digitalni-sertifikat")
 public class DigitalniSertifikatController {
@@ -35,5 +37,10 @@ public class DigitalniSertifikatController {
     ResponseEntity<Void> delete(@PathVariable("id") Long id) {
         this.digitalniSertifikatService.deleteById(id);
         return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+    @GetMapping(value="/gen/{idZahteva}")
+    ResponseEntity<DigitalniSertifikat> generisiSertifikatZaZahtev(@PathVariable Long idZahteva){
+        return new ResponseEntity<>(this.digitalniSertifikatService.generateForZahtev(idZahteva), HttpStatus.OK);
     }
 }

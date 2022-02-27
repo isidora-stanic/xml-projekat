@@ -22,11 +22,19 @@ public class SparqlToDTOService {
     @Autowired
     private SparqlService sparqlService;
 
+    public Long getIdPoslednjePotvrde(Long idOsobe) {
+        List<SparqlService.SparqlQueryResult> sparqlBrDigitalnih = sparqlService.getPoslednjaPotvrdaVakcinacije(idOsobe);
+
+        String val = sparqlBrDigitalnih.get(0).getVarValue().asNode().getLiteralValue().toString().split("potvrda-vakcinacije/")[1].replace(">", "");
+
+        return Long.valueOf(val);
+    }
+
     public Long getBrojDigitalnihSertifikata(String odDatum, String doDatum) {
         try {
-            List<SparqlService.SparqlQueryResult> sparqlBrDIgitalnih = sparqlService.getBrojDigitalnihSertifikataUVremenskomPeriodu(odDatum, doDatum);
+            List<SparqlService.SparqlQueryResult> sparqlBrDigitalnih = sparqlService.getBrojDigitalnihSertifikataUVremenskomPeriodu(odDatum, doDatum);
 
-            return Long.valueOf(sparqlBrDIgitalnih.get(0).getVarValue().asNode().getLiteralValue().toString());
+            return Long.valueOf(sparqlBrDigitalnih.get(0).getVarValue().asNode().getLiteralValue().toString());
 
         } catch (IOException e) {
             e.printStackTrace();

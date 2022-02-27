@@ -86,4 +86,17 @@ public class SparqlUtil {
                 "  FILTER regex(str(?dokument), \".digitalni-sertifikat.\") .\n" +
                 "}";
     }
+
+    public static String selectPoslednjaPotvrdaVakcinacije(String idOsobe, String dataEndpointString) {
+        return "PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>\n" +
+                "\n" +
+                "SELECT ?dokument FROM <" + dataEndpointString + "/sparql/metadata>\n" +
+                "WHERE {\n" +
+                "  ?dokument <http://www.rokzasok.rs/rdf/database/predicate/kreiranOdStrane> \"" + idOsobe + "\" ;\n" +
+                "<http://www.rokzasok.rs/rdf/database/predicate/datumIzdavanja> ?date .\n" +
+                "  FILTER regex(str(?dokument), \".potvrda-vakcinacije.\") .\n" +
+                "}" +
+                "ORDER BY DESC (?date) \n" +
+                "LIMIT 1";
+    }
 }

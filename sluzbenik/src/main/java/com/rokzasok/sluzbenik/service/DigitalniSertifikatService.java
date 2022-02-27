@@ -1,5 +1,6 @@
 package com.rokzasok.sluzbenik.service;
 
+import com.rokzasok.sluzbenik.model.b2b.gradjanin.zahtev_za_sertifikat.*;
 import com.rokzasok.sluzbenik.model.dokumenti.digitalni_sertifikat.DigitalniSertifikat;
 import com.rokzasok.sluzbenik.exception.EntityNotFoundException;
 import com.rokzasok.sluzbenik.exception.InvalidXmlDatabaseException;
@@ -7,6 +8,8 @@ import com.rokzasok.sluzbenik.exception.InvalidXmlException;
 import com.rokzasok.sluzbenik.exception.XmlDatabaseException;
 import com.rokzasok.sluzbenik.helper.UUIDHelper;
 import com.rokzasok.sluzbenik.helper.XmlConversionAgent;
+import com.rokzasok.sluzbenik.model.dokumenti.digitalni_sertifikat.TOsoba;
+import com.rokzasok.sluzbenik.model.dokumenti.digitalni_sertifikat.TPol;
 import com.rokzasok.sluzbenik.repository.AbstractXmlRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -36,6 +39,9 @@ public class DigitalniSertifikatService implements AbstractXmlService<DigitalniS
 
     @Autowired
     private UUIDHelper uuidHelper;
+
+    @Autowired
+    private B2BService b2BService;
 
     public void injectRepositoryProperties() {
         this.digitalniSertifikatAbstractXmlRepository.injectRepositoryProperties(
@@ -161,6 +167,29 @@ public class DigitalniSertifikatService implements AbstractXmlService<DigitalniS
         izvestaj.getGradjanin().getId().setDatatype("xs:#string");
 
         izvestaj.getInfoOSertifikatu().getDatum().setProperty("pred:datumIzdavanja");
-        izvestaj.getInfoOSertifikatu().getDatum().setDatatype("xs:#string");
+        izvestaj.getInfoOSertifikatu().getDatum().setDatatype("xs:#date");
+    }
+
+    public DigitalniSertifikat generateForZahtev(Long idZahteva) {
+        Zahtev zahtev = b2BService.getZahtevZaSertifikat(idZahteva.toString());
+        DigitalniSertifikat sertifikat = new DigitalniSertifikat();
+
+        com.rokzasok.sluzbenik.model.b2b.gradjanin.zahtev_za_sertifikat.TOsoba pacijent = zahtev.getPacijent();
+
+        TOsoba noviGradjanin = new TOsoba(
+                pacijent.getJmbg(),
+                pacijent.getIme(),
+                pacijent.getPrezime(),
+                TPol.fromValue(pacijent.getPol().value()),
+                pacijent.getDatumRodjenja(),
+                pacijent.getBrojPasosa(),
+                pacijent.getId().getValue()
+        );
+        sertifikat.setGradjanin(noviGradjanin);
+
+        // todo: ovde nabavi poslednju potvrdu o vakcinaciji, pa onda iteriraj kroz doze
+
+        return null;
+
     }
 }

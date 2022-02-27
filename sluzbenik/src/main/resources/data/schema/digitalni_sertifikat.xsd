@@ -109,7 +109,6 @@
                     </xs:simpleContent>
                 </xs:complexType>
             </xs:element>
-            <xs:element name="adresa" type="ds:TAdresa"/>
             <xs:element name="broj_pasosa">
                 <xs:complexType>
                     <xs:simpleContent>
@@ -168,13 +167,6 @@
                 </xs:complexType>
             </xs:element>
             <xs:element name="ustanova" type="ds:TUstanova"/>
-        </xs:sequence>
-    </xs:complexType>
-    <xs:complexType name="TAdresa">
-        <xs:sequence>
-            <xs:element name="Mesto" type="xs:string"/>
-            <xs:element name="Ulica" type="xs:string"/>
-            <xs:element name="Broj" type="xs:int"/>
         </xs:sequence>
     </xs:complexType>
     <xs:complexType name="TUstanova">
