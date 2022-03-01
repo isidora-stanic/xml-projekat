@@ -203,8 +203,7 @@ public class DigitalniSertifikatService implements AbstractXmlService<DigitalniS
         );
         sertifikat.setGradjanin(noviGradjanin);
 
-        Long idPotvrde = sparqlToDTOService.getIdPoslednjePotvrde(pacijent.getId().getValue());
-        PotvrdaVakcinacije poslednjaPotvrdaVakcinacije = b2BService.getPotvrdaVakcinacije(String.valueOf(idPotvrde));
+        PotvrdaVakcinacije poslednjaPotvrdaVakcinacije = b2BService.getPoslednjaPotvrdaVakcinacije(pacijent.getId().getValue());
 
         List<DigitalniSertifikat.Vakcinacija.Doza> sertifikatDoze = new ArrayList<>();
 

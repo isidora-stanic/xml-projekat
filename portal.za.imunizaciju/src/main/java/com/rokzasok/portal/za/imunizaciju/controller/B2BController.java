@@ -47,7 +47,7 @@ public class B2BController {
         return new ResponseEntity<>(obrazacSaglasnostiService.findById(id), HttpStatus.OK);
     }
 
-    @GetMapping(value = "/potvra-vakcinacije/{id}", produces = MediaType.APPLICATION_XML_VALUE)
+    @GetMapping(value = "/potvrda-vakcinacije/{id}", produces = MediaType.APPLICATION_XML_VALUE)
     ResponseEntity<PotvrdaVakcinacije> getPotvrdaVakcinacije(@PathVariable("id") Long id) {
         return new ResponseEntity<>(potvrdaVakcinacijeService.findById(id), HttpStatus.OK);
     }
@@ -63,6 +63,11 @@ public class B2BController {
         return new ResponseEntity<>(sparqlToDTOService.generateIzvestaj(odKad, doKad), HttpStatus.OK);
     }
 
+    @GetMapping(value = "/poslednja-potvrda-vakcinacije/{idPacijenta}", produces = MediaType.APPLICATION_XML_VALUE)
+    ResponseEntity<PotvrdaVakcinacije> getPoslednjaPotvrdaVakcinacijePacijenta(@PathVariable Long idPacijenta) {
+        Long idPotvrde = sparqlToDTOService.getIdPoslednjePotvrde(idPacijenta);
+        return new ResponseEntity<>(potvrdaVakcinacijeService.findById(idPotvrde), HttpStatus.OK);
+    }
 
 
 }

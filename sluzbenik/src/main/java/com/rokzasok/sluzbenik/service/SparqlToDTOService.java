@@ -22,14 +22,6 @@ public class SparqlToDTOService {
     @Autowired
     private SparqlService sparqlService;
 
-    // todo: prebaci u portal
-    public Long getIdPoslednjePotvrde(Long idOsobe) {
-        List<SparqlService.SparqlQueryResult> sparqlBrDigitalnih = sparqlService.getPoslednjaPotvrdaVakcinacije(idOsobe);
-
-        String val = sparqlBrDigitalnih.get(0).getVarValue().toString().split("potvrda-vakcinacije/")[1];
-
-        return Long.valueOf(val);
-    }
 
     public Long getBrojDigitalnihSertifikata(String odDatum, String doDatum) {
         try {

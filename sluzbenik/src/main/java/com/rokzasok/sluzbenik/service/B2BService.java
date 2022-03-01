@@ -63,7 +63,7 @@ public class B2BService {
         WebClient client = WebClient.create(BASE_URI);
 
         PotvrdaVakcinacije dokument = client.get()
-                .uri("/b2b/potvra-vakcinacije/" + id)
+                .uri("/b2b/potvrda-vakcinacije/" + id)
                 .header(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_XML_VALUE)
                 .retrieve()
                 .bodyToMono(PotvrdaVakcinacije.class)
@@ -101,6 +101,19 @@ public class B2BService {
                 .log()
                 .block();
 
+        return dokument;
+    }
+
+    public PotvrdaVakcinacije getPoslednjaPotvrdaVakcinacije(long idPacijenta) {
+        WebClient client = WebClient.create(BASE_URI);
+
+        PotvrdaVakcinacije dokument = client.get()
+                .uri("/b2b/poslednja-potvrda-vakcinacije/" + idPacijenta)
+                .header(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_XML_VALUE)
+                .retrieve()
+                .bodyToMono(PotvrdaVakcinacije.class)
+                .log()
+                .block();
         return dokument;
     }
 }

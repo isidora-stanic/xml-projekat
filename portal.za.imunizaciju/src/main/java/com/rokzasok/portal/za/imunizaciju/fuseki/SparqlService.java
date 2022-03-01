@@ -21,6 +21,7 @@ public class SparqlService {
     @Autowired
     private RDFDBConnectionProperties rdfdbConnectionProperties;
 
+
     public List<SparqlQueryResult> getAllKreiranOdStrane(String osobaId) throws IOException {
         System.out.println("[INFO] Retrieving dokument kreiranOdStrane " + osobaId + " from RDF store.");
         System.out.println("[INFO] Using \"" + SPARQL_NAMED_GRAPH_URI + "\" named graph.");
@@ -121,6 +122,15 @@ public class SparqlService {
         }
         query.close();
         return retval;
+    }
+
+
+    public List<SparqlQueryResult> getPoslednjaPotvrdaVakcinacije(Long idOsobe) throws IOException {
+        System.out.println("[INFO] Retrieving poslednja potvrda vakcinacije za osobu " + idOsobe + " from RDF store.");
+        System.out.println("[INFO] Using \"" + SPARQL_NAMED_GRAPH_URI + "\" named graph.");
+        String sparqlQuery = SparqlUtil.selectPoslednjaPotvrdaVakcinacije(idOsobe.toString(), rdfdbConnectionProperties.getDataEndpoint());
+        System.out.println(sparqlQuery);
+        return getResults(sparqlQuery);
     }
 
     public static class SparqlQueryResult {
