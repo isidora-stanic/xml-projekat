@@ -87,6 +87,7 @@ public class SparqlUtil {
                 "}";
     }
 
+    // todo: prebaci u portal
     public static String selectPoslednjaPotvrdaVakcinacije(String idOsobe, String dataEndpointString) {
         return "PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>\n" +
                 "\n" +

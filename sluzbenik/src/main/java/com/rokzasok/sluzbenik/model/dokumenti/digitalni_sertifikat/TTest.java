@@ -63,6 +63,20 @@ public class TTest {
     @XmlElement(namespace = "http://www.rokzasok.rs/sluzbenik/digitalni-sertifikat", required = true, defaultValue = "N/A")
     protected String laboratorija;
 
+    public TTest() {
+    }
+
+    public TTest(String naziv, String opis) {
+        this.naziv = naziv;
+        this.opis = opis;
+        this.vrstaUzorka = "N/A";
+        this.proizvodjac = "N/A";
+        this.datumIVremeUzorkovanja = "N/A";
+        this.datumIVremeRezultata = "N/A";
+        this.rezultat = "N/A";
+        this.laboratorija = "N/A";
+    }
+
     /**
      * Gets the value of the naziv property.
      * 

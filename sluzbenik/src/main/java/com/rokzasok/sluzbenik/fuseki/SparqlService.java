@@ -41,6 +41,7 @@ public class SparqlService {
         return getResults(sparqlQuery);
     }
 
+    // todo: prebaci u portal
     public List<SparqlQueryResult> getPoslednjaPotvrdaVakcinacije(Long idOsobe) {
         System.out.println("[INFO] Retrieving poslednja potvrda vakcinacije za osobu " + idOsobe + " from RDF store.");
         System.out.println("[INFO] Using \"" + SPARQL_NAMED_GRAPH_URI + "\" named graph.");
