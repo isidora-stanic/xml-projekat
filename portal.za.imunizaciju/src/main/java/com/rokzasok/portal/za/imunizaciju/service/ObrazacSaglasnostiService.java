@@ -29,7 +29,7 @@ import static com.rokzasok.portal.za.imunizaciju.helper.XQueryExpressions.X_UPDA
 
 @Service
 public class ObrazacSaglasnostiService implements AbstractXmlService<ObrazacSaglasnosti> {
-    private final String jaxbContextPath = "com.rokzasok.portal.za.imunizaciju.dokumenti.gradjanin.obrazac_saglasnosti";
+    private final String jaxbContextPath = "com.rokzasok.portal.za.imunizaciju.model.dokumenti.gradjanin.obrazac_saglasnosti";
 
     private static final String SPARQL_NAMED_GRAPH_URI = "/sparql/metadata";
 

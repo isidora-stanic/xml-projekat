@@ -27,7 +27,7 @@ import static com.rokzasok.portal.za.imunizaciju.helper.XQueryExpressions.X_UPDA
 
 @Service
 public class ZahtevZaSertifikatService implements AbstractXmlService<Zahtev> {
-    private final String jaxbContextPath = "com.rokzasok.portal.za.imunizaciju.dokumenti.gradjanin.zahtev_za_sertifikat";
+    private final String jaxbContextPath = "com.rokzasok.portal.za.imunizaciju.model.dokumenti.gradjanin.zahtev_za_sertifikat";
 
     private static final String SPARQL_NAMED_GRAPH_URI = "/sparql/metadata";
 

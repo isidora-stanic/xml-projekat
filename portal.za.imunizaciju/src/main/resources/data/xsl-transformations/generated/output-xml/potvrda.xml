@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <potvrda-vakcinacije xmlns:pred="http://www.rokzasok.rs/rdf/database/predicate/" xmlns:tp="http://www.rokzasok.rs/tipovi" xmlns:r="http://www.w3.org/ns/rdfa#" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="http://www.rokzasok.rs/zdravstveni-radnik/potvrda-vakcinacije" vocab="http://www.rokzasok.rs/rdf/database/predicate" about="http://www.rokzasok.rs/rdf/database/potvrda-vakcinacije/1" rel="pred:kreatorDokumenta" href="http://www.rokzasok.rs/rdf/database/osoba/1234567890123">
-    <osoba vocab="http://www.rokzasok.rs/rdf/database/predicate" about="http://www.rokzasok.rs/rdf/database/osoba/1234567890123" idOsobe="2">
-        <jmbg>1234567890123</jmbg>
-        <ime>Zdravko</ime>
-        <prezime>Krivokapic</prezime>
+    <osoba vocab="http://www.rokzasok.rs/rdf/database/predicate" about="http://www.rokzasok.rs/rdf/database/osoba/1234567890123" idOsobe="1">
+        <jmbg>3210987654321</jmbg>
+        <ime>Benko</ime>
+        <prezime>Sljokica</prezime>
         <pol>M</pol>
         <datum_rodjenja>1976-10-26</datum_rodjenja>
     </osoba>
@@ -33,5 +33,5 @@
     </doze>
     <razlog_izdavanja property="pred:razlogIzdavanja" datatype="xs:string">razlog_izdavanja0</razlog_izdavanja>
     <datum_izdavanja property="pred:datumIzdavanja" datatype="xs:date">2006-05-04</datum_izdavanja>
-    <dokument_id>7047580149810042843</dokument_id>
+    <dokument_id>8898942637874316988</dokument_id>
 </potvrda-vakcinacije>

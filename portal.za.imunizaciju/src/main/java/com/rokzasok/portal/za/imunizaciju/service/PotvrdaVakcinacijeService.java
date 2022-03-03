@@ -27,7 +27,7 @@ import static com.rokzasok.portal.za.imunizaciju.helper.XQueryExpressions.*;
 
 @Service
 public class PotvrdaVakcinacijeService implements AbstractXmlService<PotvrdaVakcinacije> {
-    private final String jaxbContextPath = "com.rokzasok.portal.za.imunizaciju.dokumenti.potvrda_vakcinacije";
+    private final String jaxbContextPath = "com.rokzasok.portal.za.imunizaciju.model.dokumenti.potvrda_vakcinacije";
 
     private static final String SPARQL_NAMED_GRAPH_URI = "/sparql/metadata";
 
