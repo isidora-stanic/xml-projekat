@@ -1,11 +1,10 @@
 package com.rokzasok.portal.za.imunizaciju.service;
 
-import com.rokzasok.portal.za.imunizaciju.model.dokumenti.gradjanin.iskazivanje_interesovanja.ObrazacInteresovanja;
 import com.rokzasok.portal.za.imunizaciju.exception.*;
 import com.rokzasok.portal.za.imunizaciju.fuseki.util.SparqlUtil;
 import com.rokzasok.portal.za.imunizaciju.helper.UUIDHelper;
 import com.rokzasok.portal.za.imunizaciju.helper.XmlConversionAgent;
-import com.rokzasok.portal.za.imunizaciju.model.dokumenti.potvrda_vakcinacije.PotvrdaVakcinacije;
+import com.rokzasok.portal.za.imunizaciju.model.dokumenti.gradjanin.iskazivanje_interesovanja.ObrazacInteresovanja;
 import com.rokzasok.portal.za.imunizaciju.repository.AbstractXmlRepository;
 import com.rokzasok.portal.za.imunizaciju.transformation.XSLTransformer;
 import org.apache.commons.io.FileUtils;
@@ -18,9 +17,6 @@ import org.springframework.stereotype.Service;
 import org.xml.sax.SAXException;
 import org.xmldb.api.base.XMLDBException;
 
-import static com.rokzasok.portal.za.imunizaciju.helper.XQueryExpressions.X_QUERY_FIND_ALL_IZVESTAJI_EXPRESSION;
-import static com.rokzasok.portal.za.imunizaciju.helper.XQueryExpressions.X_UPDATE_REMOVE_IZVESTAJ_BY_ID_EXPRESSION;
-
 import javax.xml.bind.JAXBException;
 import java.io.ByteArrayInputStream;
 import java.io.File;
@@ -28,6 +24,9 @@ import java.io.IOException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
+
+import static com.rokzasok.portal.za.imunizaciju.helper.XQueryExpressions.X_QUERY_FIND_ALL_IZVESTAJI_EXPRESSION;
+import static com.rokzasok.portal.za.imunizaciju.helper.XQueryExpressions.X_UPDATE_REMOVE_IZVESTAJ_BY_ID_EXPRESSION;
 
 @Service
 public class IskazivanjeInteresovanjaService implements AbstractXmlService<ObrazacInteresovanja> {
@@ -206,7 +205,7 @@ public class IskazivanjeInteresovanjaService implements AbstractXmlService<Obraz
         interesovanje.getOpstiPodaci().setVocab("http://www.rokzasok.rs/rdf/database/predicate");
         interesovanje.getOpstiPodaci().setAbout("http://www.rokzasok.rs/rdf/database/iskazivanje-interesovanja/" + interesovanje.getDokumentId().toString());
         interesovanje.getOpstiPodaci().setRel("pred:kreiranOdStrane");
-        interesovanje.getOpstiPodaci().setHref("http://www.rokzasok.rs/rdf/database/osoba/" + interesovanje.getPodaciOOsobi().getJMBG());
+        interesovanje.getOpstiPodaci().setHref("http://www.rokzasok.rs/rdf/database/osoba/" + interesovanje.getPodaciOOsobi().getIdOsobe());
 
         interesovanje.getOpstiPodaci().getLokacijaOpstina().setDatatype("xs:#string");
         interesovanje.getOpstiPodaci().getLokacijaOpstina().setProperty("pred:lokacijaOpstina");
@@ -227,9 +226,9 @@ public class IskazivanjeInteresovanjaService implements AbstractXmlService<Obraz
         System.out.println("[INFO] Using \"" + SPARQL_NAMED_GRAPH_URI + "\" named graph.");
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
         String pre7Dana = LocalDate.now().minusDays(7).format(formatter);
-        String sparqlQuery = SparqlUtil.selectObrasciInteresovanjaByOsobaPre7Dana(Long.toString(osobaId), pre7Dana);
+        String sparqlQuery = SparqlUtil.selectObrasciInteresovanjaByOsobaPre7Dana(Long.toString(osobaId), pre7Dana, rdfService.getRdfdbConnectionProperties().getDataEndpoint());
         System.out.println(sparqlQuery);
-        QueryExecution query = QueryExecutionFactory.sparqlService("http://localhost:8080/fuseki/eUpravaDataset", sparqlQuery);
+        QueryExecution query = QueryExecutionFactory.sparqlService(rdfService.getRdfdbConnectionProperties().getQueryEndpoint(), sparqlQuery);
         ResultSet results = query.execSelect();
         boolean retVal = !results.hasNext();
         ResultSetFormatter.out(System.out, results);

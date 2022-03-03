@@ -1,13 +1,13 @@
 package com.rokzasok.portal.za.imunizaciju.service;
 
-import com.rokzasok.portal.za.imunizaciju.model.dokumenti.gradjanin.iskazivanje_interesovanja.ObrazacInteresovanja;
-import com.rokzasok.portal.za.imunizaciju.model.dokumenti.potvrda_vakcinacije.PotvrdaVakcinacije;
 import com.rokzasok.portal.za.imunizaciju.exception.EntityNotFoundException;
 import com.rokzasok.portal.za.imunizaciju.exception.InvalidXmlDatabaseException;
 import com.rokzasok.portal.za.imunizaciju.exception.InvalidXmlException;
 import com.rokzasok.portal.za.imunizaciju.exception.XmlDatabaseException;
 import com.rokzasok.portal.za.imunizaciju.helper.UUIDHelper;
 import com.rokzasok.portal.za.imunizaciju.helper.XmlConversionAgent;
+import com.rokzasok.portal.za.imunizaciju.model.dokumenti.gradjanin.iskazivanje_interesovanja.ObrazacInteresovanja;
+import com.rokzasok.portal.za.imunizaciju.model.dokumenti.potvrda_vakcinacije.PotvrdaVakcinacije;
 import com.rokzasok.portal.za.imunizaciju.repository.AbstractXmlRepository;
 import com.rokzasok.portal.za.imunizaciju.transformation.XSLTransformer;
 import org.apache.commons.io.FileUtils;
@@ -23,11 +23,12 @@ import java.io.IOException;
 import java.util.List;
 import java.util.ListIterator;
 
-import static com.rokzasok.portal.za.imunizaciju.helper.XQueryExpressions.*;
+import static com.rokzasok.portal.za.imunizaciju.helper.XQueryExpressions.X_QUERY_FIND_ALL_POTVRDE_O_VAKCINACIJI_EXPRESSION;
+import static com.rokzasok.portal.za.imunizaciju.helper.XQueryExpressions.X_UPDATE_REMOVE_POTVRDA_BY_ID_EXPRESSION;
 
 @Service
 public class PotvrdaVakcinacijeService implements AbstractXmlService<PotvrdaVakcinacije> {
-    private final String jaxbContextPath = "com.rokzasok.portal.za.imunizaciju.dokumenti.potvrda_vakcinacije";
+    private final String jaxbContextPath = "com.rokzasok.portal.za.imunizaciju.model.dokumenti.potvrda_vakcinacije";
 
     private static final String SPARQL_NAMED_GRAPH_URI = "/sparql/metadata";
 
