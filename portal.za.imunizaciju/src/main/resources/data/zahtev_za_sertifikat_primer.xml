@@ -7,13 +7,13 @@
            xsi:schemaLocation="www.rokzasok.rs/gradjanin/zahtev-za-sertifikat schema/zahtev_za_sertifikat.xsd"
            vocab="http://www.rokzasok.rs/rdf/database/predicate"
            about="http://www.rokzasok.rs/rdf/database/zahtev-za-sertifikat/1" rel="pred:kreiranOdStrane"
-           xmlns:xs="http://www.w3.org/2001/XMLSchema#"
+           xmlns:xs="http://www.w3.org/2001/XMLSchema"
            href="http://www.rokzasok.rs/rdf/database/osoba/1702998158969"
 >
     <zh:razlog_podnosenja datatype="xs:string" property="pred:razlogPodnosenja">Odlazak u kafic</zh:razlog_podnosenja>
     <zh:mesto property="pred:mestoPodnosenja" datatype="xs:string">Novi Sad</zh:mesto>
     <zh:datum datatype="xs:date" property="pred:datumPodnosenja">2021-10-10</zh:datum>
-    <zh:pacijent about="http://www.rokzasok.rs/rdf/database/osoba/1702998158969" vocab="http://www.rokzasok.rs/rdf/database/predicate">
+    <zh:pacijent idPacijenta="1" about="http://www.rokzasok.rs/rdf/database/osoba/1702998158969" vocab="http://www.rokzasok.rs/rdf/database/predicate">
         <zh:jmbg>1702998158969</zh:jmbg>
         <zh:ime>Nikola</zh:ime>
         <zh:prezime>Anic</zh:prezime>
