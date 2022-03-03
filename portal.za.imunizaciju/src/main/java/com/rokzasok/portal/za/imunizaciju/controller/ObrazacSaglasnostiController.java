@@ -75,8 +75,8 @@ public class ObrazacSaglasnostiController {
         return new ResponseEntity<>(new InputStreamResource(is), headers, HttpStatus.OK);
     }
 
-    @GetMapping(value = "/pdf-fo/{dokumentId}")
-    ResponseEntity<InputStreamResource> getPdfFo(@PathVariable Long dokumentId) {
+    @GetMapping(value = "/pdf/{dokumentId}")
+    ResponseEntity<InputStreamResource> getPdf(@PathVariable Long dokumentId) {
         ByteArrayInputStream is;
         try {
             is = this.obrazacSaglasnostiService.generatePDF(dokumentId);

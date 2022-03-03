@@ -1,5 +1,6 @@
 package com.rokzasok.portal.za.imunizaciju.service;
 
+import com.rokzasok.portal.za.imunizaciju.model.dokumenti.gradjanin.obrazac_saglasnosti.ObrazacSaglasnosti;
 import com.rokzasok.portal.za.imunizaciju.model.dokumenti.gradjanin.zahtev_za_sertifikat.Zahtev;
 import com.rokzasok.portal.za.imunizaciju.exception.EntityNotFoundException;
 import com.rokzasok.portal.za.imunizaciju.exception.InvalidXmlDatabaseException;
@@ -8,11 +9,17 @@ import com.rokzasok.portal.za.imunizaciju.exception.XmlDatabaseException;
 import com.rokzasok.portal.za.imunizaciju.helper.UUIDHelper;
 import com.rokzasok.portal.za.imunizaciju.helper.XmlConversionAgent;
 import com.rokzasok.portal.za.imunizaciju.repository.AbstractXmlRepository;
+import com.rokzasok.portal.za.imunizaciju.transformation.XSLTransformer;
+import org.apache.commons.io.FileUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.xml.sax.SAXException;
 import org.xmldb.api.base.XMLDBException;
 
 import javax.xml.bind.JAXBException;
+import java.io.ByteArrayInputStream;
+import java.io.File;
+import java.io.IOException;
 import java.util.List;
 
 import static com.rokzasok.portal.za.imunizaciju.helper.XQueryExpressions.X_QUERY_FIND_ALL_ZAHTEV_ZA_SERTIFIKAT_EXPRESSION;
@@ -164,6 +171,65 @@ public class ZahtevZaSertifikatService implements AbstractXmlService<Zahtev> {
         zahtev.getPacijent().setAbout("http://www.rokzasok.rs/rdf/database/osoba/" + zahtev.getPacijent().getIdPacijenta());
         zahtev.getPacijent().setVocab("http://www.rokzasok.rs/rdf/database/predicate");
 
+    }
+
+    public ByteArrayInputStream generateHtml(Long dokumentId) throws IOException, SAXException {
+        String xslFile = "src/main/resources/data/xsl-transformations/zahtev_za_sertifikat.xsl";
+        String outputHtmlFile = "src/main/resources/data/xsl-transformations/generated/output-html/zahtev.html";
+        String outputXmlFile = "src/main/resources/data/xsl-transformations/generated/output-xml/zahtev.xml";
+
+        XSLTransformer xslTransformer = new XSLTransformer();
+        xslTransformer.setXSLT_FILE(xslFile);
+        xslTransformer.setOUTPUT_FILE_HTML(outputHtmlFile);
+
+        Zahtev zahtev = this.findById(dokumentId);
+
+        try {
+            this.zahtevZaSertifikatConverionAgent.marshallToFile(
+                    zahtev,
+                    this.jaxbContextPath,
+                    outputXmlFile
+            );
+
+            xslTransformer.generateHTML(
+                    outputXmlFile
+            );
+            return new ByteArrayInputStream(FileUtils.readFileToByteArray(
+                    new File(outputHtmlFile)
+            ));
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return null;
+    }
+
+    public ByteArrayInputStream generatePDF(Long dokumentId) throws IOException, SAXException, JAXBException {
+        String xslFile = "src/main/resources/data/xsl-transformations/zahtev_za_sertifikat.xsl";
+        String outputHtmlFile = "src/main/resources/data/xsl-transformations/generated/output-html/zahtev.html";
+        String outputPdfFile = "src/main/resources/data/xsl-transformations/generated/output-pdf/zahtev.pdf";
+        String outputXmlFile = "src/main/resources/data/xsl-transformations/generated/output-xml-fo/zahtev.xml";
+
+        XSLTransformer xslTransformer = new XSLTransformer();
+        xslTransformer.setXSLT_FILE(xslFile);
+        xslTransformer.setOUTPUT_FILE_HTML(outputHtmlFile);
+        xslTransformer.setOUTPUT_FILE_PDF(outputPdfFile);
+
+        Zahtev zahtev = this.findById(dokumentId);
+        try {
+            this.zahtevZaSertifikatConverionAgent.marshallToFile(
+                    zahtev,
+                    this.jaxbContextPath,
+                    outputXmlFile
+            );
+            xslTransformer.generatePDF_HTML(outputXmlFile);
+            return new ByteArrayInputStream(FileUtils.readFileToByteArray(new File(outputPdfFile)));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return null;
     }
 
 }

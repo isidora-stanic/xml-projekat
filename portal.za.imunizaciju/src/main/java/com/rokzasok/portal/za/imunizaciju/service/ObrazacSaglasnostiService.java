@@ -281,10 +281,10 @@ public class ObrazacSaglasnostiService implements AbstractXmlService<ObrazacSagl
     }
 
     public ByteArrayInputStream generatePDF(Long dokumentId) throws IOException, SAXException, JAXBException {
-        String xslFile = "src/main/resources/data/xsl-transformations/potvrda_vakcinacije_fo.xsl";
+        String xslFile = "src/main/resources/data/xsl-transformations/obrazac_saglasnosti.xsl";
         String outputHtmlFile = "src/main/resources/data/xsl-transformations/generated/output-html/obrazac.html";
-        String outputPdfFile = "src/main/resources/data/xsl-transformations/generated/output-pdf/potvrda.pdf";
-        String outputXmlFile = "src/main/resources/data/xsl-transformations/generated/output-xml-fo/potvrda.xml";
+        String outputPdfFile = "src/main/resources/data/xsl-transformations/generated/output-pdf/obrazac.pdf";
+        String outputXmlFile = "src/main/resources/data/xsl-transformations/generated/output-xml-fo/obrazac.xml";
 
         XSLTransformer xslTransformer = new XSLTransformer();
         xslTransformer.setXSLT_FILE(xslFile);
