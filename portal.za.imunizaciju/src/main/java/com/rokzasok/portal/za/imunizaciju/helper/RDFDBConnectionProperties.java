@@ -1,7 +1,9 @@
 package com.rokzasok.portal.za.imunizaciju.helper;
 
 import org.springframework.boot.context.properties.ConfigurationProperties;
+import org.springframework.stereotype.Component;
 
+@Component
 @ConfigurationProperties(prefix = "rdfdb.conn")
 public class RDFDBConnectionProperties {
 

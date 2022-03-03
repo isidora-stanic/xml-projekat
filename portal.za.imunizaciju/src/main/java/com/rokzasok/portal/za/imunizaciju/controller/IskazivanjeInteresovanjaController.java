@@ -16,6 +16,7 @@ import org.xml.sax.SAXException;
 
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
+import java.util.List;
 
 @Controller
 @RequestMapping(value = "api/iskazivanje-interesovanja")
@@ -73,34 +74,5 @@ public class IskazivanjeInteresovanjaController {
     ResponseEntity<Void> delete(@PathVariable("id") Long id) {
         this.zahtjevZaImunizacijuService.deleteById(id);
         return new ResponseEntity<>(HttpStatus.OK);
-    }
-
-    // todo premestiti u neki kontroler za ovo - u servisu nekom treba pozvati findById za sva dokumenta koja se nadju
-    @GetMapping(value = "kreirao/{osobaId}")
-    void getKreiranOdStrane(@PathVariable("osobaId") String osobaId) {
-        ResultSet dokumenti = this.sparqlService.getAllKreiranOdStrane(osobaId);
-    }
-
-    // todo premestiti u neki kontroler za ovo - u servisu nekom treba pozvati findById za sva dokumenta koja se nadju
-    @GetMapping(value = "od/{d1}/do/{d2}")
-    void getKreiranOdStrane(@PathVariable("d1") String d1, @PathVariable("d2") String d2) {
-        ResultSet dokumenti = this.sparqlService.getAllOdDo(d1, d2);
-    }
-
-    @GetMapping(value = "/html/{dokumentId}")
-    ResponseEntity<InputStreamResource> getHtml(@PathVariable Long dokumentId) {
-        ByteArrayInputStream is;
-        try {
-            is = this.zahtjevZaImunizacijuService.generateHtml(dokumentId);
-        }
-        catch (IOException | SAXException e) {
-            e.printStackTrace();
-            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
-        }
-
-        HttpHeaders headers = new HttpHeaders();
-        headers.add("Content-Disposition", "inline: filename=potvrda.html");
-
-        return new ResponseEntity<>(new InputStreamResource(is), headers, HttpStatus.OK);
     }
 }
