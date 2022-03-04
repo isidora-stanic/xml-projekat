@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ds:digitalni_sertifikat xmlns:ds="http://www.rokzasok.rs/sluzbenik/digitalni-sertifikat"
+ xmlns:tp="http://www.rokzasok.rs/tipovi"
+ xmlns:r="http://www.w3.org/ns/rdfa#"
+ xmlns:pred="http://www.rokzasok.rs/rdf/database/predicate/"
+ xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+ xsi:schemaLocation="http://www.rokzasok.rs/sluzbenik/digitalni-sertifikat file:/Users/jovandjordjic/Documents/fakultet/xml/projekat-git/portal.za.imunizaciju/src/main/resources/data/schema/digitalni_sertifikat.xsd">
+    <ds:gradjanin>
+        <ds:jmbg>1234567891011</ds:jmbg>
+        <ds:ime>Marko</ds:ime>
+        <ds:prezime>Marković</ds:prezime>
+        <ds:pol>M</ds:pol>
+        <ds:datum_rodjenja>1952-10-07</ds:datum_rodjenja>
+        <ds:broj_pasosa>1234567890</ds:broj_pasosa>
+        <ds:id>1</ds:id>
+    </ds:gradjanin>
+    <ds:vakcinacija>
+    </ds:vakcinacija>
+    <ds:testovi>
+        <ds:test>
+            <ds:naziv>SARS-COV-2 RT</ds:naziv>
+            <ds:opis>Real-time PCR</ds:opis>
+            <ds:vrsta_uzorka>N/A</ds:vrsta_uzorka>
+            <ds:proizvodjac>N/A</ds:proizvodjac>
+            <ds:datum_i_vreme_uzorkovanja>N/A</ds:datum_i_vreme_uzorkovanja>
+            <ds:datum_i_vreme_rezultata>N/A</ds:datum_i_vreme_rezultata>
+            <ds:rezultat>N/A</ds:rezultat>
+            <ds:laboratorija>N/A</ds:laboratorija>
+        </ds:test>
+        <ds:test>
+            <ds:naziv>SARS-COV-2 Ag-RDT</ds:naziv>
+            <ds:opis>(Antigen Rapid Detection test)</ds:opis>
+            <ds:vrsta_uzorka>N/A</ds:vrsta_uzorka>
+            <ds:proizvodjac>N/A</ds:proizvodjac>
+            <ds:datum_i_vreme_uzorkovanja>N/A</ds:datum_i_vreme_uzorkovanja>
+            <ds:datum_i_vreme_rezultata>N/A</ds:datum_i_vreme_rezultata>
+            <ds:rezultat>N/A</ds:rezultat>
+            <ds:laboratorija>N/A</ds:laboratorija>
+        </ds:test>
+        <ds:test>
+            <ds:naziv>SARS-COV-2 RBD S-Protein</ds:naziv>
+            <ds:opis>Immunoglobulin G (IgG) test</ds:opis>
+            <ds:vrsta_uzorka>N/A</ds:vrsta_uzorka>
+            <ds:proizvodjac>N/A</ds:proizvodjac>
+            <ds:datum_i_vreme_uzorkovanja>N/A</ds:datum_i_vreme_uzorkovanja>
+            <ds:datum_i_vreme_rezultata>N/A</ds:datum_i_vreme_rezultata>
+            <ds:rezultat>N/A</ds:rezultat>
+            <ds:laboratorija>N/A</ds:laboratorija>
+        </ds:test>
+
+    </ds:testovi>
+    <ds:info_o_sertifikatu>
+        <ds:qr_link>sertifikat.com</ds:qr_link>
+        <ds:datum>2022-02-27T18:13:51.0</ds:datum>
+    </ds:info_o_sertifikatu>
+    <ds:dokument_id>1</ds:dokument_id>
+</ds:digitalni_sertifikat>

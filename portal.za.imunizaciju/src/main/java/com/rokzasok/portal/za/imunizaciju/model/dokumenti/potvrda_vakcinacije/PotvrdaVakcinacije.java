@@ -12,18 +12,16 @@ import java.util.List;
 
 
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "", propOrder = {"osoba", "doze", "qrLink", "razlogIzdavanja", "datumIzdavanja", "dokumentId"})
+@XmlType(name = "", propOrder = {"osoba", "doze", "qrLink", "datumIzdavanja", "dokumentId"})
 @XmlRootElement(name = "potvrda-vakcinacije", namespace = "http://www.rokzasok.rs/zdravstveni-radnik/potvrda-vakcinacije")
 public class PotvrdaVakcinacije implements Identifiable {
 
     @XmlElement(namespace = "http://www.rokzasok.rs/zdravstveni-radnik/potvrda-vakcinacije", required = true)
-    protected Osoba osoba;
+    protected TOsoba osoba;
     @XmlElement(namespace = "http://www.rokzasok.rs/zdravstveni-radnik/potvrda-vakcinacije", required = true)
     protected Doze doze;
     @XmlElement(name = "qr_link", namespace = "http://www.rokzasok.rs/zdravstveni-radnik/potvrda-vakcinacije", required = true)
     protected String qrLink;
-    @XmlElement(name = "razlog_izdavanja", namespace = "http://www.rokzasok.rs/zdravstveni-radnik/potvrda-vakcinacije", required = true)
-    protected RazlogIzdavanja razlogIzdavanja;
     @XmlElement(name = "datum_izdavanja", namespace = "http://www.rokzasok.rs/zdravstveni-radnik/potvrda-vakcinacije", required = true)
     protected DatumIzdavanja datumIzdavanja;
     @XmlElement(name = "dokument_id", namespace = "http://www.rokzasok.rs/zdravstveni-radnik/potvrda-vakcinacije", required = true)
@@ -39,18 +37,17 @@ public class PotvrdaVakcinacije implements Identifiable {
     protected String href;
 
     public PotvrdaVakcinacije() {
-        this.osoba = new Osoba();
+        this.osoba = new TOsoba();
         this.doze = new Doze();
-        this.razlogIzdavanja = new RazlogIzdavanja();
         this.datumIzdavanja = new DatumIzdavanja();
     }
 
-    public Osoba getOsoba() {
+    public TOsoba getOsoba() {
         return osoba;
     }
 
 
-    public void setOsoba(Osoba value) {
+    public void setOsoba(TOsoba value) {
         this.osoba = value;
     }
 
@@ -72,20 +69,6 @@ public class PotvrdaVakcinacije implements Identifiable {
 
     public void setQrLink(String value) {
         this.qrLink = value;
-    }
-
-
-    public RazlogIzdavanja getRazlogIzdavanja() {
-        return razlogIzdavanja;
-    }
-
-
-    public void setRazlogIzdavanja(RazlogIzdavanja value) {
-        this.razlogIzdavanja = value;
-    }
-
-    public void setRazlogIzdavanja(String razlogIzdavanja) {
-        this.razlogIzdavanja = new RazlogIzdavanja(razlogIzdavanja);
     }
 
 
@@ -186,7 +169,6 @@ public class PotvrdaVakcinacije implements Identifiable {
             }
         }
 
-
         public XMLGregorianCalendar getValue() {
             return value;
         }
@@ -199,7 +181,7 @@ public class PotvrdaVakcinacije implements Identifiable {
 
         public String getProperty() {
             if (property == null) {
-                return "pred:datumIzdavanja";
+                return "pred:datumKreiranja";
             } else {
                 return property;
             }
@@ -246,255 +228,6 @@ public class PotvrdaVakcinacije implements Identifiable {
                 doza = new ArrayList<TDoza>();
             }
             return this.doza;
-        }
-
-    }
-
-
-    @XmlAccessorType(XmlAccessType.FIELD)
-    @XmlType(name = "", propOrder = {"jmbg", "ime", "prezime", "pol", "datumRodjenja", "id"})
-    public static class Osoba {
-
-        @XmlElement(namespace = "http://www.rokzasok.rs/zdravstveni-radnik/potvrda-vakcinacije", required = true)
-        protected String jmbg;
-        @XmlElement(namespace = "http://www.rokzasok.rs/zdravstveni-radnik/potvrda-vakcinacije", required = true)
-        protected String ime;
-        @XmlElement(namespace = "http://www.rokzasok.rs/zdravstveni-radnik/potvrda-vakcinacije", required = true)
-        protected String prezime;
-        @XmlElement(namespace = "http://www.rokzasok.rs/zdravstveni-radnik/potvrda-vakcinacije", required = true)
-        protected Pol pol;
-        @XmlElement(name = "datum_rodjenja", namespace = "http://www.rokzasok.rs/zdravstveni-radnik/potvrda-vakcinacije", required = true)
-        protected DatumRodjenja datumRodjenja;
-        @XmlElement(namespace = "http://www.rokzasok.rs/zdravstveni-radnik/potvrda-vakcinacije", required = true)
-        protected Id id;
-
-        public Osoba() {
-            this.id = new Id();
-        }
-
-        public Osoba(String jmbg, String ime, String prezime, Pol pol, DatumRodjenja datumRodjenja, Long id) {
-            this.jmbg = jmbg;
-            this.ime = ime;
-            this.prezime = prezime;
-            this.pol = pol;
-            this.datumRodjenja = datumRodjenja;
-            this.id = new Id(id);
-        }
-
-        public String getJmbg() {
-            return jmbg;
-        }
-
-
-        public void setJmbg(String value) {
-            this.jmbg = value;
-        }
-
-
-        public String getIme() {
-            return ime;
-        }
-
-
-        public void setIme(String value) {
-            this.ime = value;
-        }
-
-
-        public String getPrezime() {
-            return prezime;
-        }
-
-
-        public void setPrezime(String value) {
-            this.prezime = value;
-        }
-
-
-        public Pol getPol() {
-            return pol;
-        }
-
-
-        public void setPol(Pol value) {
-            this.pol = value;
-        }
-
-
-        public DatumRodjenja getDatumRodjenja() {
-            return datumRodjenja;
-        }
-
-
-        public void setDatumRodjenja(DatumRodjenja value) {
-            this.datumRodjenja = value;
-        }
-
-
-        public Id getId() {
-            return id;
-        }
-
-
-        public void setId(Id value) {
-            this.id = value;
-        }
-
-
-        @XmlAccessorType(XmlAccessType.FIELD)
-        @XmlType(name = "", propOrder = {"value"})
-        public static class DatumRodjenja {
-
-            @XmlValue
-            @XmlSchemaType(name = "date")
-            protected XMLGregorianCalendar value;
-
-
-            public XMLGregorianCalendar getValue() {
-                return value;
-            }
-
-
-            public void setValue(XMLGregorianCalendar value) {
-                this.value = value;
-            }
-
-        }
-
-
-        @XmlAccessorType(XmlAccessType.FIELD)
-        @XmlType(name = "", propOrder = {"value"})
-        public static class Id {
-
-            @XmlValue
-            protected long value;
-            @XmlAttribute(name = "property")
-            protected String property;
-            @XmlAttribute(name = "datatype")
-            protected String datatype;
-
-            public Id() {
-            }
-
-            public Id(long value) {
-                this.value = value;
-            }
-
-            public long getValue() {
-                return value;
-            }
-
-
-            public void setValue(long value) {
-                this.value = value;
-            }
-
-
-            public String getProperty() {
-                if (property == null) {
-                    return "pred:kreiranOdStrane";
-                } else {
-                    return property;
-                }
-            }
-
-
-            public void setProperty(String value) {
-                this.property = value;
-            }
-
-
-            public String getDatatype() {
-                if (datatype == null) {
-                    return "xs:long";
-                } else {
-                    return datatype;
-                }
-            }
-
-
-            public void setDatatype(String value) {
-                this.datatype = value;
-            }
-
-        }
-
-
-        @XmlAccessorType(XmlAccessType.FIELD)
-        @XmlType(name = "", propOrder = {"value"})
-        public static class Pol {
-
-            @XmlValue
-            protected TPol value;
-
-
-            public TPol getValue() {
-                return value;
-            }
-
-
-            public void setValue(TPol value) {
-                this.value = value;
-            }
-
-        }
-
-    }
-
-
-    @XmlAccessorType(XmlAccessType.FIELD)
-    @XmlType(name = "", propOrder = {"value"})
-    public static class RazlogIzdavanja {
-
-        @XmlValue
-        protected String value;
-        @XmlAttribute(name = "property")
-        protected String property;
-        @XmlAttribute(name = "datatype")
-        protected String datatype;
-
-        public RazlogIzdavanja() {
-        }
-
-        public RazlogIzdavanja(String value) {
-            this.value = value;
-        }
-
-        public String getValue() {
-            return value;
-        }
-
-
-        public void setValue(String value) {
-            this.value = value;
-        }
-
-
-        public String getProperty() {
-            if (property == null) {
-                return "pred:razlogIzdavanja";
-            } else {
-                return property;
-            }
-        }
-
-
-        public void setProperty(String value) {
-            this.property = value;
-        }
-
-
-        public String getDatatype() {
-            if (datatype == null) {
-                return "xs:string";
-            } else {
-                return datatype;
-            }
-        }
-
-
-        public void setDatatype(String value) {
-            this.datatype = value;
         }
 
     }

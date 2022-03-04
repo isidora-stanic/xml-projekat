@@ -1,4 +1,3 @@
-
 package com.rokzasok.sluzbenik.model.dokumenti.digitalni_sertifikat;
 
 import javax.xml.bind.annotation.XmlAccessType;
@@ -12,15 +11,7 @@ import javax.xml.datatype.XMLGregorianCalendar;
 
 
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "TOsoba", namespace = "http://www.rokzasok.rs/sluzbenik/digitalni-sertifikat", propOrder = {
-        "jmbg",
-        "ime",
-        "prezime",
-        "pol",
-        "datumRodjenja",
-        "brojPasosa",
-        "id"
-})
+@XmlType(name = "TOsoba", namespace = "http://www.rokzasok.rs/sluzbenik/digitalni-sertifikat", propOrder = {"jmbg", "ime", "prezime", "pol", "datumRodjenja", "brojPasosa", "id"})
 public class TOsoba {
 
     @XmlElement(namespace = "http://www.rokzasok.rs/sluzbenik/digitalni-sertifikat", required = true)
@@ -102,8 +93,6 @@ public class TOsoba {
     }
 
 
-
-
     public BrojPasosa getBrojPasosa() {
         return brojPasosa;
     }
@@ -125,11 +114,8 @@ public class TOsoba {
 
 
     @XmlAccessorType(XmlAccessType.FIELD)
-    @XmlType(name = "", propOrder = {
-            "value"
-    })
+    @XmlType(name = "", propOrder = {"value"})
     public static class BrojPasosa {
-
         public BrojPasosa() {
         }
 
@@ -154,9 +140,7 @@ public class TOsoba {
 
 
     @XmlAccessorType(XmlAccessType.FIELD)
-    @XmlType(name = "", propOrder = {
-            "value"
-    })
+    @XmlType(name = "", propOrder = {"value"})
     public static class DatumRodjenja {
 
         @XmlValue
@@ -183,9 +167,7 @@ public class TOsoba {
 
 
     @XmlAccessorType(XmlAccessType.FIELD)
-    @XmlType(name = "", propOrder = {
-            "value"
-    })
+    @XmlType(name = "", propOrder = {"value"})
     public static class Id {
 
         @XmlValue
@@ -243,9 +225,7 @@ public class TOsoba {
 
 
     @XmlAccessorType(XmlAccessType.FIELD)
-    @XmlType(name = "", propOrder = {
-            "value"
-    })
+    @XmlType(name = "", propOrder = {"value"})
     public static class Pol {
 
         @XmlValue

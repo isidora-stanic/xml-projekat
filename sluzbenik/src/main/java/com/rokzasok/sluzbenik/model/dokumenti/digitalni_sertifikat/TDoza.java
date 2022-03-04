@@ -1,4 +1,3 @@
-
 package com.rokzasok.sluzbenik.model.dokumenti.digitalni_sertifikat;
 
 import java.math.BigInteger;
@@ -13,19 +12,9 @@ import javax.xml.datatype.XMLGregorianCalendar;
 
 
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "TDoza", namespace = "http://www.rokzasok.rs/sluzbenik/digitalni-sertifikat", propOrder = {
-        "tip",
-        "proizvodjac",
-        "datum",
-        "brojSerije",
-        "brojDoze",
-        "ustanova"
-})
-@XmlSeeAlso({
-        DigitalniSertifikat.Vakcinacija.Doza.class
-})
+@XmlType(name = "TDoza", namespace = "http://www.rokzasok.rs/sluzbenik/digitalni-sertifikat", propOrder = {"tip", "proizvodjac", "datum", "brojSerije", "brojDoze", "ustanova"})
+@XmlSeeAlso({DigitalniSertifikat.Vakcinacija.Doza.class})
 public class TDoza {
-
     public TDoza() {
     }
 
@@ -113,11 +102,8 @@ public class TDoza {
 
 
     @XmlAccessorType(XmlAccessType.FIELD)
-    @XmlType(name = "", propOrder = {
-            "value"
-    })
+    @XmlType(name = "", propOrder = {"value"})
     public static class BrojDoze {
-
         public BrojDoze() {
         }
 
@@ -143,9 +129,7 @@ public class TDoza {
 
 
     @XmlAccessorType(XmlAccessType.FIELD)
-    @XmlType(name = "", propOrder = {
-            "value"
-    })
+    @XmlType(name = "", propOrder = {"value"})
     public static class BrojSerije {
 
         public BrojSerije() {
@@ -172,11 +156,8 @@ public class TDoza {
 
 
     @XmlAccessorType(XmlAccessType.FIELD)
-    @XmlType(name = "", propOrder = {
-            "value"
-    })
+    @XmlType(name = "", propOrder = {"value"})
     public static class Datum {
-
         public Datum() {
         }
 
@@ -202,11 +183,8 @@ public class TDoza {
 
 
     @XmlAccessorType(XmlAccessType.FIELD)
-    @XmlType(name = "", propOrder = {
-            "value"
-    })
+    @XmlType(name = "", propOrder = {"value"})
     public static class Proizvodjac {
-
         public Proizvodjac(String value) {
             this.value = TProizvodjacVakcine.fromValue(value);
         }
@@ -231,11 +209,8 @@ public class TDoza {
 
 
     @XmlAccessorType(XmlAccessType.FIELD)
-    @XmlType(name = "", propOrder = {
-            "value"
-    })
+    @XmlType(name = "", propOrder = {"value"})
     public static class Tip {
-
         public Tip() {
         }
 

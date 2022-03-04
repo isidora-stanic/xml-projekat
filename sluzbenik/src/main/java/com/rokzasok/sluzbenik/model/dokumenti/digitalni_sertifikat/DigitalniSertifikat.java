@@ -3,7 +3,7 @@ package com.rokzasok.sluzbenik.model.dokumenti.digitalni_sertifikat;
 import com.rokzasok.sluzbenik.interfaces.Identifiable;
 
 import java.math.BigInteger;
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import javax.xml.bind.annotation.XmlAccessType;
@@ -48,6 +48,7 @@ public class DigitalniSertifikat implements Identifiable {
         this.testovi = new Testovi();
     }
 
+
     public TOsoba getGradjanin() {
         return gradjanin;
     }
@@ -62,14 +63,13 @@ public class DigitalniSertifikat implements Identifiable {
         return vakcinacija;
     }
 
-    public void setVakcinacija(Vakcinacija vakcinacija) {
-        this.vakcinacija = vakcinacija;
+    public void setVakcinacija(Vakcinacija value) {
+        this.vakcinacija = value;
     }
 
     public void setVakcinacija(List<Vakcinacija.Doza> value) {
         this.vakcinacija = new Vakcinacija(value);
     }
-
 
     public Testovi getTestovi() {
         return testovi;
@@ -90,8 +90,8 @@ public class DigitalniSertifikat implements Identifiable {
         this.infoOSertifikatu = value;
     }
 
-    public void setInfoOSertifikatu(Long brojSertifikata) {
-        this.infoOSertifikatu = new InfoOSertifikatu(brojSertifikata);
+    public void setInfoOSertifikatu(Long dokumentId) {
+        this.infoOSertifikatu = new InfoOSertifikatu(dokumentId);
     }
 
 
@@ -131,7 +131,7 @@ public class DigitalniSertifikat implements Identifiable {
 
     public String getRel() {
         if (rel == null) {
-            return "pred:kreiranOdStrane";
+            return "pred:prethodniDokument";
         } else {
             return rel;
         }
@@ -158,33 +158,29 @@ public class DigitalniSertifikat implements Identifiable {
 
 
     @XmlAccessorType(XmlAccessType.FIELD)
-    @XmlType(name = "", propOrder = {"qrLink", "datum", "brojSertifikata"})
+    @XmlType(name = "", propOrder = {"qrLink", "datum"})
     public static class InfoOSertifikatu {
 
         public InfoOSertifikatu() {
         }
 
-        public InfoOSertifikatu(Long brojSertifikata) {
-            this.qrLink = new QrLink("http:IMPLEMENTIRAJ" + brojSertifikata); // todo: zapravo pravi link
+        public InfoOSertifikatu(Long dokumentId) {
+            this.qrLink = "http:IMPLEMENTIRAJ/" + dokumentId; // todo: zapravo pravi link
             this.datum = new Datum();
-            this.brojSertifikata = brojSertifikata;
         }
 
         @XmlElement(name = "qr_link", namespace = "http://www.rokzasok.rs/sluzbenik/digitalni-sertifikat", required = true)
-        protected QrLink qrLink;
+        protected String qrLink;
         @XmlElement(namespace = "http://www.rokzasok.rs/sluzbenik/digitalni-sertifikat", required = true)
         protected Datum datum;
-        @XmlElement(name = "broj_sertifikata", namespace = "http://www.rokzasok.rs/sluzbenik/digitalni-sertifikat", required = true)
-        @XmlSchemaType(name = "positiveInteger")
-        protected Long brojSertifikata;
 
 
-        public QrLink getQrLink() {
+        public String getQrLink() {
             return qrLink;
         }
 
 
-        public void setQrLink(QrLink value) {
+        public void setQrLink(String value) {
             this.qrLink = value;
         }
 
@@ -199,30 +195,19 @@ public class DigitalniSertifikat implements Identifiable {
         }
 
 
-        public Long getBrojSertifikata() {
-            return brojSertifikata;
-        }
-
-
-        public void setBrojSertifikata(Long value) {
-            this.brojSertifikata = value;
-        }
-
-
         @XmlAccessorType(XmlAccessType.FIELD)
         @XmlType(name = "", propOrder = {"value"})
         public static class Datum {
-
             public Datum() {
                 try {
-                    this.value = DatatypeFactory.newInstance().newXMLGregorianCalendar(LocalDate.now().toString());
+                    this.value = DatatypeFactory.newInstance().newXMLGregorianCalendar(LocalDateTime.now().toString());
                 } catch (DatatypeConfigurationException e) {
                     e.printStackTrace();
                 }
             }
 
             @XmlValue
-            @XmlSchemaType(name = "date")
+            @XmlSchemaType(name = "dateTime")
             protected XMLGregorianCalendar value;
             @XmlAttribute(name = "property")
             protected String property;
@@ -242,7 +227,7 @@ public class DigitalniSertifikat implements Identifiable {
 
             public String getProperty() {
                 if (property == null) {
-                    return "pred:datumIzdavanja";
+                    return "pred:datumKreiranja";
                 } else {
                     return property;
                 }
@@ -256,66 +241,7 @@ public class DigitalniSertifikat implements Identifiable {
 
             public String getDatatype() {
                 if (datatype == null) {
-                    return "xs:string";
-                } else {
-                    return datatype;
-                }
-            }
-
-
-            public void setDatatype(String value) {
-                this.datatype = value;
-            }
-
-        }
-
-
-        @XmlAccessorType(XmlAccessType.FIELD)
-        @XmlType(name = "", propOrder = {"value"})
-        public static class QrLink {
-
-            public QrLink() {
-            }
-
-            public QrLink(String value) {
-                this.value = value;
-            }
-
-            @XmlValue
-            protected String value;
-            @XmlAttribute(name = "property")
-            protected String property;
-            @XmlAttribute(name = "datatype")
-            protected String datatype;
-
-
-            public String getValue() {
-                return value;
-            }
-
-
-            public void setValue(String value) {
-                this.value = value;
-            }
-
-
-            public String getProperty() {
-                if (property == null) {
-                    return "pred:qrLink";
-                } else {
-                    return property;
-                }
-            }
-
-
-            public void setProperty(String value) {
-                this.property = value;
-            }
-
-
-            public String getDatatype() {
-                if (datatype == null) {
-                    return "xs:string";
+                    return "xs:dateTime";
                 } else {
                     return datatype;
                 }
@@ -362,7 +288,6 @@ public class DigitalniSertifikat implements Identifiable {
     @XmlAccessorType(XmlAccessType.FIELD)
     @XmlType(name = "", propOrder = {"doza"})
     public static class Vakcinacija {
-
         public Vakcinacija() {
         }
 
@@ -385,7 +310,6 @@ public class DigitalniSertifikat implements Identifiable {
         @XmlAccessorType(XmlAccessType.FIELD)
         @XmlType(name = "")
         public static class Doza extends TDoza {
-
             public Doza() {
             }
 

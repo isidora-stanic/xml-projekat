@@ -21,6 +21,7 @@ import org.xml.sax.SAXException;
 import org.xmldb.api.base.XMLDBException;
 
 import javax.xml.bind.JAXBException;
+import javax.xml.datatype.XMLGregorianCalendar;
 import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.IOException;
@@ -169,18 +170,25 @@ public class PotvrdaVakcinacijeService implements AbstractXmlService<PotvrdaVakc
         ObrazacSaglasnosti.EvidencijaPacijent.Pacijent pacijent = obrazac.getEvidencijaPacijent().getPacijent();
         TOsoba pacijentInfo = pacijent.getPacijentInfo();
 
-        // gadno pol parsiranje
-        PotvrdaVakcinacije.Osoba.Pol pol = new PotvrdaVakcinacije.Osoba.Pol();
-        pol.setValue(TPol.valueOf(pacijentInfo.getPol().getValue().value()));
+        TPol pol = TPol.valueOf(pacijentInfo.getPol().getValue().value());
 
         // gadno datum parsiranje
         TOsoba.DatumRodjenja datumRodjenjaObrazac = pacijentInfo.getDatumRodjenja();
-        PotvrdaVakcinacije.Osoba.DatumRodjenja datumRodjenja = new PotvrdaVakcinacije.Osoba.DatumRodjenja();
-        datumRodjenja.setValue(datumRodjenjaObrazac.getValue());
+
+        XMLGregorianCalendar datumRodjenja = datumRodjenjaObrazac.getValue();
+
+        com.rokzasok.portal.za.imunizaciju.model.dokumenti.potvrda_vakcinacije.TOsoba osoba1 = potvrda.getOsoba();
 
 
         // todo: proveri da li je jmbg null (nije srpski drzavljanin)
-        PotvrdaVakcinacije.Osoba osoba = new PotvrdaVakcinacije.Osoba(pacijent.getJMBG(), pacijentInfo.getIme(), pacijentInfo.getPrezime(), pol, datumRodjenja, obrazac.getDokumentInfo().getIdPodnosioca().getValue());
+        com.rokzasok.portal.za.imunizaciju.model.dokumenti.potvrda_vakcinacije.TOsoba osoba =
+                new com.rokzasok.portal.za.imunizaciju.model.dokumenti.potvrda_vakcinacije.TOsoba(
+                        pacijent.getJMBG(),
+                        pacijentInfo.getIme(),
+                        pacijentInfo.getPrezime(),
+                        pol, datumRodjenja,
+                        obrazac.getDokumentInfo().getIdPodnosioca().getValue());
+
         potvrda.setOsoba(osoba);
 
         List<ObrazacSaglasnosti.EvidencijaVakcinacija.Tabela.Doza> spisakDoza = obrazac.getEvidencijaVakcinacija().getTabela().getDoza();

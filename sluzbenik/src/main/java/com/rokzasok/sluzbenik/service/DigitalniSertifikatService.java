@@ -2,6 +2,7 @@ package com.rokzasok.sluzbenik.service;
 
 import com.rokzasok.sluzbenik.model.b2b.gradjanin.zahtev_za_sertifikat.*;
 import com.rokzasok.sluzbenik.model.b2b.potvrda_vakcinacije.PotvrdaVakcinacije;
+import com.rokzasok.sluzbenik.model.b2b.potvrda_vakcinacije.TDoza;
 import com.rokzasok.sluzbenik.model.dokumenti.digitalni_sertifikat.DigitalniSertifikat;
 import com.rokzasok.sluzbenik.exception.EntityNotFoundException;
 import com.rokzasok.sluzbenik.exception.InvalidXmlDatabaseException;
@@ -173,13 +174,13 @@ public class DigitalniSertifikatService implements AbstractXmlService<DigitalniS
         izvestaj.setVocab("http://www.rokzasok.rs/rdf/database/predicate");
         izvestaj.setAbout("http://www.rokzasok.rs/rdf/database/digitalni-sertifikat/" + izvestaj.getDokumentId().toString());
         izvestaj.setRel("pred:prethodniDokument");
-        izvestaj.setHref("http://www.rokzasok.rs/rdf/database/zahtev-za-sertifikat/" + idZahtevaZaSertifikat); // todo: NE IDE ZAKUCANA VREDNOST
+        izvestaj.setHref("http://www.rokzasok.rs/rdf/database/zahtev-za-sertifikat/" + idZahtevaZaSertifikat);
 
 
         izvestaj.getGradjanin().getId().setProperty("pred:kreiranOdStrane");
         izvestaj.getGradjanin().getId().setDatatype("xs:#string");
 
-        izvestaj.getInfoOSertifikatu().getDatum().setProperty("pred:datumIzdavanja");
+        izvestaj.getInfoOSertifikatu().getDatum().setProperty("pred:datumKreiranja");
         izvestaj.getInfoOSertifikatu().getDatum().setDatatype("xs:#date");
     }
 
@@ -207,7 +208,7 @@ public class DigitalniSertifikatService implements AbstractXmlService<DigitalniS
 
         List<DigitalniSertifikat.Vakcinacija.Doza> sertifikatDoze = new ArrayList<>();
 
-        for (PotvrdaVakcinacije.Doze.Doza doza : poslednjaPotvrdaVakcinacije.getDoze().getDoza()) {
+        for ( TDoza doza : poslednjaPotvrdaVakcinacije.getDoze().getDoza()) {
             sertifikatDoze.add(new DigitalniSertifikat.Vakcinacija.Doza(
                     doza.getTip(),
                     doza.getProizvodjac(),
