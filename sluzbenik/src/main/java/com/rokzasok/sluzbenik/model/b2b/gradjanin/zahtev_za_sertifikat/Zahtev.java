@@ -7,7 +7,6 @@ import javax.xml.bind.annotation.*;
 import javax.xml.datatype.XMLGregorianCalendar;
 
 
-
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "", propOrder = {
 
@@ -118,7 +117,6 @@ public class Zahtev implements Identifiable {
     }
 
 
-
     @XmlAccessorType(XmlAccessType.FIELD)
     @XmlType(name = "", propOrder = {
             "value"
@@ -172,7 +170,6 @@ public class Zahtev implements Identifiable {
         }
 
     }
-
 
 
     @XmlAccessorType(XmlAccessType.FIELD)
@@ -229,7 +226,6 @@ public class Zahtev implements Identifiable {
     }
 
 
-
     @XmlAccessorType(XmlAccessType.FIELD)
     @XmlType(name = "", propOrder = {
             "value"
@@ -282,7 +278,6 @@ public class Zahtev implements Identifiable {
         }
 
     }
-
 
 
     @XmlAccessorType(XmlAccessType.FIELD)
