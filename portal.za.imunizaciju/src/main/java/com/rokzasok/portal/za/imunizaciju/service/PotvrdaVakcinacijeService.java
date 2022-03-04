@@ -208,7 +208,7 @@ public class PotvrdaVakcinacijeService implements AbstractXmlService<PotvrdaVakc
         potvrda.setDoze(new PotvrdaVakcinacije.Doze(spisakDozaZaPotvrdu));
 
         potvrda.setQrLink("nekilink.com"); // todo: generisanje qr koda
-        potvrda.setRazlogIzdavanja("smrtxmlu"); // TODO: FALI SLEDEĆI TERMIN (U ŠEMI), NE TREBA RAZLOG IZDAVANJA
+        // TODO: FALI SLEDEĆI TERMIN (U ŠEMI), NE TREBA RAZLOG IZDAVANJA
 
         potvrda.setDatumIzdavanja(LocalDate.now());
 
@@ -261,8 +261,6 @@ public class PotvrdaVakcinacijeService implements AbstractXmlService<PotvrdaVakc
         potvrda.getOsoba().getId().setProperty("pred:kreiranOdStrane");
         potvrda.getOsoba().getId().setDatatype("xs:#string");
 
-        potvrda.getRazlogIzdavanja().setDatatype("xs:#string");
-        potvrda.getRazlogIzdavanja().setProperty("pred:razlogIzdavanja");
         potvrda.getDatumIzdavanja().setDatatype("xs:#date");
         potvrda.getDatumIzdavanja().setProperty("pred:datumIzdavanja");
 

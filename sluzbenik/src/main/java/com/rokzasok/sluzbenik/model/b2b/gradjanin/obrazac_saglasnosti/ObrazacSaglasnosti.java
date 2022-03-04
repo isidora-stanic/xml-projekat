@@ -1,7 +1,7 @@
 
 package com.rokzasok.sluzbenik.model.b2b.gradjanin.obrazac_saglasnosti;
 
-import com.rokzasok.portal.za.imunizaciju.interfaces.Identifiable;
+import com.rokzasok.sluzbenik.interfaces.Identifiable;
 
 import javax.xml.bind.annotation.*;
 import javax.xml.datatype.XMLGregorianCalendar;

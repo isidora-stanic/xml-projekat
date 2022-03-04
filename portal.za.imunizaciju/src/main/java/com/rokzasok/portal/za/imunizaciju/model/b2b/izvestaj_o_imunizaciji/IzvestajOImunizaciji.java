@@ -1,7 +1,7 @@
 
 package com.rokzasok.portal.za.imunizaciju.model.b2b.izvestaj_o_imunizaciji;
 
-import com.rokzasok.sluzbenik.interfaces.Identifiable;
+import com.rokzasok.portal.za.imunizaciju.interfaces.Identifiable;
 
 import javax.xml.bind.annotation.*;
 import javax.xml.datatype.XMLGregorianCalendar;

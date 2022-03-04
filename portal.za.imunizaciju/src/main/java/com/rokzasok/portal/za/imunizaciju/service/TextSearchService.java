@@ -2,6 +2,7 @@ package com.rokzasok.portal.za.imunizaciju.service;
 
 import com.rokzasok.portal.za.imunizaciju.model.dokumenti.gradjanin.iskazivanje_interesovanja.ObrazacInteresovanja;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 import org.w3c.dom.Document;
 import org.w3c.dom.NodeList;
 
@@ -16,12 +17,18 @@ import javax.xml.xpath.XPathConstants;
 import javax.xml.xpath.XPathExpressionException;
 import javax.xml.xpath.XPathFactory;
 
+@Service
 public class TextSearchService {
+
+    @Autowired
     private static IskazivanjeInteresovanjaService iskazivanjeInteresovanjaService;
 
     public static void main() throws JAXBException, ParserConfigurationException, XPathExpressionException {
+    }
+
+    public boolean searchIskazivanjeInteresovanja(String searchQuery, Long id) throws JAXBException, ParserConfigurationException, XPathExpressionException {
         // todo trazicemo "BioNtech"
-        ObrazacInteresovanja interesovanje = iskazivanjeInteresovanjaService.findById(1L); // TODO STAVI NEKI PRAVI ID
+        ObrazacInteresovanja interesovanje = iskazivanjeInteresovanjaService.findById(id); // TODO STAVI NEKI PRAVI ID
 
         // podesava parser
         JAXBContext ctx = JAXBContext.newInstance(ObrazacInteresovanja.class); // TODO OVO KORISTI SVUDA, BOLJE NEGO ONAJ STRING STO STALNO MORAMO DA MENJAMO
@@ -37,10 +44,12 @@ public class TextSearchService {
         XPathFactory factory = XPathFactory.newInstance();
         XPath xpath = factory.newXPath();
 
+        String formattedQuery = String.format("\"%s\"", searchQuery);
+
         NodeList list = (NodeList) xpath.evaluate(
                 "//*[contains(translate(//*[text()], 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'," +
                         "'abcdefghijklmnopqrstuvwxyz'), " +
-                        "translate(\"BioNtech\", 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'," +
+                        "translate(" + formattedQuery + ", 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'," +
                         "'abcdefghijklmnopqrstuvwxyz'))]",
                 // todo PROVERI DA LI OVO GORE RADI
                 //  - translate je umesto lower-case
@@ -51,5 +60,7 @@ public class TextSearchService {
                 doc, XPathConstants.NODESET);
         for (int i = 0; i < list.getLength(); i++)  // print list of results...
             System.out.println(list.item(i).getTextContent());
+
+        return true;
     }
 }
