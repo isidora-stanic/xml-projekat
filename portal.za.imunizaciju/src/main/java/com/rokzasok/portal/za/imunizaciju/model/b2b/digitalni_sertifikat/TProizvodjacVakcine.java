@@ -6,23 +6,6 @@ import javax.xml.bind.annotation.XmlEnumValue;
 import javax.xml.bind.annotation.XmlType;
 
 
-/**
- * <p>Java class for T_proizvodjac_vakcine.
- * 
- * <p>The following schema fragment specifies the expected content contained within this class.
- * <p>
- * <pre>
- * &lt;simpleType name="T_proizvodjac_vakcine"&gt;
- *   &lt;restriction base="{http://www.w3.org/2001/XMLSchema}string"&gt;
- *     &lt;enumeration value="BioNTech Manufacturing GMBH"/&gt;
- *     &lt;enumeration value="Sinopharm"/&gt;
- *     &lt;enumeration value="Gamaleya Institute"/&gt;
- *     &lt;enumeration value="Oxford"/&gt;
- *   &lt;/restriction&gt;
- * &lt;/simpleType&gt;
- * </pre>
- * 
- */
 @XmlType(name = "T_proizvodjac_vakcine", namespace = "http://www.rokzasok.rs/sluzbenik/digitalni-sertifikat")
 @XmlEnum
 public enum TProizvodjacVakcine {
@@ -46,7 +29,7 @@ public enum TProizvodjacVakcine {
     }
 
     public static TProizvodjacVakcine fromValue(String v) {
-        for (TProizvodjacVakcine c: TProizvodjacVakcine.values()) {
+        for (TProizvodjacVakcine c : TProizvodjacVakcine.values()) {
             if (c.value.equals(v)) {
                 return c;
             }

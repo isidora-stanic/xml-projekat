@@ -1,7 +1,5 @@
 package com.rokzasok.sluzbenik.fuseki.util;
 
-import org.springframework.beans.factory.annotation.Value;
-
 public class SparqlUtil {
 
 
@@ -81,9 +79,11 @@ public class SparqlUtil {
                 "\n" +
                 "SELECT (count(?dokument) as ?brDokumenata) FROM <" + dataEndpointString + "/sparql/metadata>\n" +
                 "WHERE {\n" +
-                "  ?dokument <http://www.rokzasok.rs/rdf/database/predicate/datumPodnosenja> ?date .\n" +
+                "  ?dokument <http://www.rokzasok.rs/rdf/database/predicate/datumKreiranja> ?date .\n" +
                 "  FILTER (?date >= \"" + d1 + "\"^^xsd:date && ?date <= \"" + d2 + "\"^^xsd:date) .\n" +
                 "  FILTER regex(str(?dokument), \".digitalni-sertifikat.\") .\n" +
                 "}";
     }
+
+
 }

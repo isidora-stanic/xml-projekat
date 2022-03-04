@@ -16,6 +16,8 @@ import javax.xml.bind.JAXBException;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 
+import javax.xml.ws.Response;
+
 @Controller
 @RequestMapping(value = "/api/digitalni-sertifikat")
 public class DigitalniSertifikatController {
@@ -43,7 +45,12 @@ public class DigitalniSertifikatController {
         this.digitalniSertifikatService.deleteById(id);
         return new ResponseEntity<>(HttpStatus.OK);
     }
-
+  
+    @GetMapping(value="/gen/{idZahteva}")
+    ResponseEntity<DigitalniSertifikat> generisiSertifikatZaZahtev(@PathVariable Long idZahteva){
+        return new ResponseEntity<>(this.digitalniSertifikatService.generateForZahtev(idZahteva), HttpStatus.OK);
+    }
+  
     @GetMapping(value = "/html/{dokumentId}")
     ResponseEntity<InputStreamResource> getHtml(@PathVariable Long dokumentId) {
         ByteArrayInputStream is;

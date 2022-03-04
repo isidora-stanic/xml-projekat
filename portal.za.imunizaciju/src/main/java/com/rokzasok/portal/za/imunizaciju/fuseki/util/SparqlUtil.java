@@ -84,7 +84,7 @@ public class SparqlUtil {
     public static String selectKreiranOdStrane(String osobaId, String dataEndpointString) {
         return "SELECT * FROM <" + dataEndpointString + "/sparql/metadata>\n" +
                 "WHERE {\n" +
-                "\t?dokument <http://www.rokzasok.rs/rdf/database/predicate/kreiranOdStrane> <http://www.rokzasok.rs/rdf/database/osoba/" + osobaId + "> .\n" +
+                "  ?dokument <http://www.rokzasok.rs/rdf/database/predicate/kreiranOdStrane> \"" + osobaId + "\" .\n" +
                 "}";
     }
 
@@ -103,7 +103,7 @@ public class SparqlUtil {
                 "\n" +
                 "SELECT ?dokument FROM <" + dataEndpointString + "/sparql/metadata>\n" +
                 "WHERE {\n" +
-                "  ?dokument <http://www.rokzasok.rs/rdf/database/predicate/kreiranOdStrane> <http://www.rokzasok.rs/rdf/database/osoba/" + osobaId + "> ;\n" +
+                "  ?dokument <http://www.rokzasok.rs/rdf/database/predicate/kreiranOdStrane> \"" + osobaId + "\" ;\n" +
                 "  <http://www.rokzasok.rs/rdf/database/predicate/datumPodnosenja> ?date .\n" +
                 "    FILTER (?date > \"" + pre7DanaDatum + "\"^^xsd:date) .\n" +
                 "}";
@@ -114,7 +114,7 @@ public class SparqlUtil {
                 "\n" +
                 "SELECT ?dokument ?izjava FROM <" + dataEndpointString + "/sparql/metadata>\n" +
                 "WHERE {\n" +
-                "  ?dokument <http://www.rokzasok.rs/rdf/database/predicate/kreiranOdStrane> <http://www.rokzasok.rs/rdf/database/osoba/" + osobaId + "> ;\n" +
+                "  ?dokument <http://www.rokzasok.rs/rdf/database/predicate/kreiranOdStrane> \"" + osobaId + "\" ;\n" +
                 "            <http://www.rokzasok.rs/rdf/database/predicate/izjava> ?izjava.\n" +
                 "  FILTER (?izjava = \"true\"^^xsd:boolean) .\n" +
                 "}";
@@ -175,5 +175,19 @@ public class SparqlUtil {
                 "  FILTER (?date >= \"" + d1 + "\"^^xsd:date && ?date <= \"" + d2 + "\"^^xsd:date) .\n" +
                 "  FILTER (?proizvodjac = \"" + proizvodjac + "\"^^<http://www.w3.org/1999/02/22-rdf-syntax-ns#XMLLiteral>) .\n" +
                 "}";
+    }
+
+    // todo: prebaci u portal
+    public static String selectPoslednjaPotvrdaVakcinacije(String idOsobe, String dataEndpointString) {
+        return "PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>\n" +
+                "\n" +
+                "SELECT ?dokument FROM <" + dataEndpointString + "/sparql/metadata>\n" +
+                "WHERE {\n" +
+                "  ?dokument <http://www.rokzasok.rs/rdf/database/predicate/kreiranOdStrane> \"" + idOsobe + "\" ;\n" +
+                "<http://www.rokzasok.rs/rdf/database/predicate/datumIzdavanja> ?date .\n" +
+                "  FILTER regex(str(?dokument), \".potvrda-vakcinacije.\") .\n" +
+                "}" +
+                "ORDER BY DESC (?date) \n" +
+                "LIMIT 1";
     }
 }

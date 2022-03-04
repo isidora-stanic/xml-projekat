@@ -1,5 +1,8 @@
 package com.rokzasok.sluzbenik.service;
 
+import com.rokzasok.sluzbenik.model.b2b.gradjanin.zahtev_za_sertifikat.*;
+import com.rokzasok.sluzbenik.model.b2b.potvrda_vakcinacije.PotvrdaVakcinacije;
+import com.rokzasok.sluzbenik.model.b2b.potvrda_vakcinacije.TDoza;
 import com.rokzasok.sluzbenik.model.dokumenti.digitalni_sertifikat.DigitalniSertifikat;
 import com.rokzasok.sluzbenik.exception.EntityNotFoundException;
 import com.rokzasok.sluzbenik.exception.InvalidXmlDatabaseException;
@@ -7,6 +10,8 @@ import com.rokzasok.sluzbenik.exception.InvalidXmlException;
 import com.rokzasok.sluzbenik.exception.XmlDatabaseException;
 import com.rokzasok.sluzbenik.helper.UUIDHelper;
 import com.rokzasok.sluzbenik.helper.XmlConversionAgent;
+import com.rokzasok.sluzbenik.model.dokumenti.digitalni_sertifikat.TOsoba;
+import com.rokzasok.sluzbenik.model.dokumenti.digitalni_sertifikat.TPol;
 import com.rokzasok.sluzbenik.repository.AbstractXmlRepository;
 import com.rokzasok.sluzbenik.transformation.XSLTransformer;
 import org.apache.commons.io.FileUtils;
@@ -16,6 +21,7 @@ import org.xml.sax.SAXException;
 import org.xmldb.api.base.XMLDBException;
 
 import javax.xml.bind.JAXBException;
+import java.util.ArrayList;
 import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.IOException;
@@ -42,6 +48,12 @@ public class DigitalniSertifikatService implements AbstractXmlService<DigitalniS
 
     @Autowired
     private UUIDHelper uuidHelper;
+
+    @Autowired
+    private B2BService b2BService;
+
+    @Autowired
+    private SparqlToDTOService sparqlToDTOService;
 
     public void injectRepositoryProperties() {
         this.digitalniSertifikatAbstractXmlRepository.injectRepositoryProperties(
@@ -85,17 +97,28 @@ public class DigitalniSertifikatService implements AbstractXmlService<DigitalniS
     public DigitalniSertifikat create(String xmlEntity) {
         injectRepositoryProperties();
 
-        DigitalniSertifikat izvestaj;
+        DigitalniSertifikat sertifikat;
         try {
-            izvestaj = this.digitalniSertifikatXmlConversionAgent.unmarshall(xmlEntity, this.jaxbContextPath);
-            izvestaj.setDokumentId(this.uuidHelper.getUUID());
-            this.handleMetadata(izvestaj);
+            sertifikat = this.digitalniSertifikatXmlConversionAgent.unmarshall(xmlEntity, this.jaxbContextPath);
+            sertifikat.setDokumentId(this.uuidHelper.getUUID());
+            this.handleMetadata(sertifikat, 1L);
         } catch (JAXBException e) {
             throw new InvalidXmlException(DigitalniSertifikat.class, e.getMessage());
         }
 
+        sertifikat = saveDigitalniSertifikat(sertifikat);
+
+        //izvestajClient.sendIzvestaj(izvestaj);
+
+        return sertifikat;
+    }
+
+    private DigitalniSertifikat saveDigitalniSertifikat(DigitalniSertifikat sertifikat) {
+        injectRepositoryProperties();
+
+        String xmlEntity;
         try {
-            izvestaj = digitalniSertifikatAbstractXmlRepository.createEntity(izvestaj);
+            sertifikat = digitalniSertifikatAbstractXmlRepository.createEntity(sertifikat);
         } catch (XMLDBException e) {
             throw new XmlDatabaseException(e.getMessage());
         } catch (JAXBException e) {
@@ -107,7 +130,7 @@ public class DigitalniSertifikatService implements AbstractXmlService<DigitalniS
             We marshall because we need RDFa (which was set by handleMetadata)
          */
         try {
-            xmlEntity = this.digitalniSertifikatXmlConversionAgent.marshall(izvestaj, this.jaxbContextPath);
+            xmlEntity = this.digitalniSertifikatXmlConversionAgent.marshall(sertifikat, this.jaxbContextPath);
             System.out.println(xmlEntity);
             if (!rdfService.save(xmlEntity, SPARQL_NAMED_GRAPH_URI)) {
                 System.out.println("[ERROR] Neuspesno cuvanje metapodataka zahteva u RDF DB.");
@@ -115,10 +138,7 @@ public class DigitalniSertifikatService implements AbstractXmlService<DigitalniS
         } catch (JAXBException e) {
             e.printStackTrace();
         }
-
-        //izvestajClient.sendIzvestaj(izvestaj);
-
-        return izvestaj;
+        return sertifikat;
     }
 
     @Override
@@ -156,21 +176,69 @@ public class DigitalniSertifikatService implements AbstractXmlService<DigitalniS
         }
     }
 
-    private void handleMetadata(DigitalniSertifikat izvestaj) {
+    private void handleMetadata(DigitalniSertifikat izvestaj, Long idZahtevaZaSertifikat) {
         izvestaj.setVocab("http://www.rokzasok.rs/rdf/database/predicate");
         izvestaj.setAbout("http://www.rokzasok.rs/rdf/database/digitalni-sertifikat/" + izvestaj.getDokumentId().toString());
-        izvestaj.setRel("pred:kreiranOdStrane");
-        izvestaj.setHref("http://www.rokzasok.rs/rdf/database/osoba/" + izvestaj.getGradjanin().getIdGradjanina());
+        izvestaj.setRel("pred:prethodniDokument");
+        izvestaj.setHref("http://www.rokzasok.rs/rdf/database/zahtev-za-sertifikat/" + idZahtevaZaSertifikat);
 
 
-        izvestaj.getGradjanin().setVocab("http://www.rokzasok.rs/rdf/database/predicate");
-        izvestaj.getGradjanin().setAbout("http://www.rokzasok.rs/rdf/database/osoba/" + izvestaj.getGradjanin().getIdGradjanina());
+        izvestaj.getGradjanin().getId().setProperty("pred:kreiranOdStrane");
+        izvestaj.getGradjanin().getId().setDatatype("xs:#string");
 
-        izvestaj.getInfoOSertifikatu().getQrLink().setProperty("pred:qrLink");
-        izvestaj.getInfoOSertifikatu().getQrLink().setDatatype("xs:#string");
+        izvestaj.getInfoOSertifikatu().getDatum().setProperty("pred:datumKreiranja");
+        izvestaj.getInfoOSertifikatu().getDatum().setDatatype("xs:#date");
+    }
 
-        izvestaj.getInfoOSertifikatu().getDatum().setProperty("pred:datumIzdavanja");
-        izvestaj.getInfoOSertifikatu().getDatum().setDatatype("xs:#string");
+    // ako ovde iz nekog razloga puca kod, to je zbog praznog konstruktora kod sertifikata
+    public DigitalniSertifikat generateForZahtev(Long idZahteva) {
+        injectRepositoryProperties();
+
+        Zahtev zahtev = b2BService.getZahtevZaSertifikat(idZahteva.toString());
+        DigitalniSertifikat sertifikat = new DigitalniSertifikat();
+
+        com.rokzasok.sluzbenik.model.b2b.gradjanin.zahtev_za_sertifikat.TOsoba pacijent = zahtev.getPacijent();
+
+        TOsoba noviGradjanin = new TOsoba(
+                pacijent.getJmbg(),
+                pacijent.getIme(),
+                pacijent.getPrezime(),
+                TPol.fromValue(pacijent.getPol().value()),
+                pacijent.getDatumRodjenja(),
+                pacijent.getBrojPasosa(),
+                pacijent.getId().getValue()
+        );
+        sertifikat.setGradjanin(noviGradjanin);
+
+        PotvrdaVakcinacije poslednjaPotvrdaVakcinacije = b2BService.getPoslednjaPotvrdaVakcinacije(pacijent.getId().getValue());
+
+        List<DigitalniSertifikat.Vakcinacija.Doza> sertifikatDoze = new ArrayList<>();
+
+        for ( TDoza doza : poslednjaPotvrdaVakcinacije.getDoze().getDoza()) {
+            sertifikatDoze.add(new DigitalniSertifikat.Vakcinacija.Doza(
+                    doza.getTip(),
+                    doza.getProizvodjac(),
+                    doza.getDatum(),
+                    doza.getBrojSerije(),
+                    doza.getBrojDoze(),
+                    doza.getUstanova().getNaziv(),
+                    doza.getUstanova().getMesto())
+            );
+        }
+
+        Long idSertifikata = uuidHelper.getUUID();
+
+        sertifikat.setVakcinacija(sertifikatDoze);
+        sertifikat.setInfoOSertifikatu(idSertifikata);
+
+        // todo: zasto imamo i dokument id i brojSertifikata u infoOSertifikatu??
+        sertifikat.setDokumentId(idSertifikata);
+
+        handleMetadata(sertifikat, idZahteva);
+        saveDigitalniSertifikat(sertifikat);
+
+        return sertifikat;
+
     }
 
     public ByteArrayInputStream generateHtml(Long dokumentId) throws IOException, SAXException {

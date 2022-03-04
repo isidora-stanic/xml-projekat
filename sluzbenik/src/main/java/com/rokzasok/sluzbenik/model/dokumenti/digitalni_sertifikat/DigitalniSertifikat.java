@@ -1,8 +1,9 @@
-
 package com.rokzasok.sluzbenik.model.dokumenti.digitalni_sertifikat;
 
 import com.rokzasok.sluzbenik.interfaces.Identifiable;
 
+import java.math.BigInteger;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import javax.xml.bind.annotation.XmlAccessType;
@@ -13,123 +14,18 @@ import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlSchemaType;
 import javax.xml.bind.annotation.XmlType;
 import javax.xml.bind.annotation.XmlValue;
+import javax.xml.datatype.DatatypeConfigurationException;
+import javax.xml.datatype.DatatypeFactory;
 import javax.xml.datatype.XMLGregorianCalendar;
 
 
-/**
- * <p>Java class for anonymous complex type.
- * 
- * <p>The following schema fragment specifies the expected content contained within this class.
- * 
- * <pre>
- * &lt;complexType&gt;
- *   &lt;complexContent&gt;
- *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
- *       &lt;sequence&gt;
- *         &lt;element name="gradjanin"&gt;
- *           &lt;complexType&gt;
- *             &lt;complexContent&gt;
- *               &lt;extension base="{http://www.rokzasok.rs/sluzbenik/digitalni-sertifikat}TOsoba"&gt;
- *                 &lt;attribute name="vocab" type="{http://www.w3.org/2001/XMLSchema}string" fixed="http://www.rokzasok.rs/rdf/database/predicate" /&gt;
- *                 &lt;attribute name="about" type="{http://www.w3.org/2001/XMLSchema}string" /&gt;
- *                 &lt;attribute name="idGradjanina" use="required"&gt;
- *                   &lt;simpleType&gt;
- *                     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}long"&gt;
- *                     &lt;/restriction&gt;
- *                   &lt;/simpleType&gt;
- *                 &lt;/attribute&gt;
- *               &lt;/extension&gt;
- *             &lt;/complexContent&gt;
- *           &lt;/complexType&gt;
- *         &lt;/element&gt;
- *         &lt;element name="vakcinacija"&gt;
- *           &lt;complexType&gt;
- *             &lt;complexContent&gt;
- *               &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
- *                 &lt;sequence&gt;
- *                   &lt;element name="doza" maxOccurs="unbounded" minOccurs="0"&gt;
- *                     &lt;complexType&gt;
- *                       &lt;complexContent&gt;
- *                         &lt;extension base="{http://www.rokzasok.rs/sluzbenik/digitalni-sertifikat}TDoza"&gt;
- *                           &lt;attribute name="vocab" type="{http://www.w3.org/2001/XMLSchema}string" fixed="http://www.rokzasok.rs/rdf/database/predicate" /&gt;
- *                           &lt;attribute name="about" type="{http://www.w3.org/2001/XMLSchema}string" /&gt;
- *                         &lt;/extension&gt;
- *                       &lt;/complexContent&gt;
- *                     &lt;/complexType&gt;
- *                   &lt;/element&gt;
- *                 &lt;/sequence&gt;
- *               &lt;/restriction&gt;
- *             &lt;/complexContent&gt;
- *           &lt;/complexType&gt;
- *         &lt;/element&gt;
- *         &lt;element name="testovi"&gt;
- *           &lt;complexType&gt;
- *             &lt;complexContent&gt;
- *               &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
- *                 &lt;sequence&gt;
- *                   &lt;element name="test" type="{http://www.rokzasok.rs/sluzbenik/digitalni-sertifikat}TTest" maxOccurs="3" minOccurs="3"/&gt;
- *                 &lt;/sequence&gt;
- *               &lt;/restriction&gt;
- *             &lt;/complexContent&gt;
- *           &lt;/complexType&gt;
- *         &lt;/element&gt;
- *         &lt;element name="info_o_sertifikatu"&gt;
- *           &lt;complexType&gt;
- *             &lt;complexContent&gt;
- *               &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
- *                 &lt;sequence&gt;
- *                   &lt;element name="qr_link"&gt;
- *                     &lt;complexType&gt;
- *                       &lt;simpleContent&gt;
- *                         &lt;extension base="&lt;http://www.w3.org/2001/XMLSchema&gt;string"&gt;
- *                           &lt;attribute name="property" type="{http://www.w3.org/2001/XMLSchema}string" default="pred:qrLink" /&gt;
- *                           &lt;attribute name="datatype" type="{http://www.w3.org/2001/XMLSchema}string" default="xs:string" /&gt;
- *                         &lt;/extension&gt;
- *                       &lt;/simpleContent&gt;
- *                     &lt;/complexType&gt;
- *                   &lt;/element&gt;
- *                   &lt;element name="datum"&gt;
- *                     &lt;complexType&gt;
- *                       &lt;simpleContent&gt;
- *                         &lt;extension base="&lt;http://www.w3.org/2001/XMLSchema&gt;date"&gt;
- *                           &lt;attribute name="property" type="{http://www.w3.org/2001/XMLSchema}string" default="pred:datumIzdavanja" /&gt;
- *                           &lt;attribute name="datatype" type="{http://www.w3.org/2001/XMLSchema}string" default="xs:string" /&gt;
- *                         &lt;/extension&gt;
- *                       &lt;/simpleContent&gt;
- *                     &lt;/complexType&gt;
- *                   &lt;/element&gt;
- *                   &lt;element name="broj_sertifikata" type="{http://www.w3.org/2001/XMLSchema}positiveInteger"/&gt;
- *                 &lt;/sequence&gt;
- *               &lt;/restriction&gt;
- *             &lt;/complexContent&gt;
- *           &lt;/complexType&gt;
- *         &lt;/element&gt;
- *         &lt;element name="dokument_id" type="{http://www.w3.org/2001/XMLSchema}positiveInteger"/&gt;
- *       &lt;/sequence&gt;
- *       &lt;attribute name="vocab" type="{http://www.w3.org/2001/XMLSchema}string" fixed="http://www.rokzasok.rs/rdf/database/predicate" /&gt;
- *       &lt;attribute name="about" type="{http://www.w3.org/2001/XMLSchema}string" /&gt;
- *       &lt;attribute name="rel" type="{http://www.w3.org/2001/XMLSchema}string" default="pred:kreiranOdStrane" /&gt;
- *       &lt;attribute name="href" type="{http://www.w3.org/2001/XMLSchema}string" default="xs:string" /&gt;
- *     &lt;/restriction&gt;
- *   &lt;/complexContent&gt;
- * &lt;/complexType&gt;
- * </pre>
- * 
- * 
- */
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "", propOrder = {
-    "gradjanin",
-    "vakcinacija",
-    "testovi",
-    "infoOSertifikatu",
-    "dokumentId"
-})
+@XmlType(name = "", propOrder = {"gradjanin", "vakcinacija", "testovi", "infoOSertifikatu", "dokumentId"})
 @XmlRootElement(name = "digitalni_sertifikat", namespace = "http://www.rokzasok.rs/sluzbenik/digitalni-sertifikat")
 public class DigitalniSertifikat implements Identifiable {
 
     @XmlElement(namespace = "http://www.rokzasok.rs/sluzbenik/digitalni-sertifikat", required = true)
-    protected Gradjanin gradjanin;
+    protected TOsoba gradjanin;
     @XmlElement(namespace = "http://www.rokzasok.rs/sluzbenik/digitalni-sertifikat", required = true)
     protected Vakcinacija vakcinacija;
     @XmlElement(namespace = "http://www.rokzasok.rs/sluzbenik/digitalni-sertifikat", required = true)
@@ -148,134 +44,67 @@ public class DigitalniSertifikat implements Identifiable {
     @XmlAttribute(name = "href")
     protected String href;
 
-    /**
-     * Gets the value of the gradjanin property.
-     * 
-     * @return
-     *     possible object is
-     *     {@link Gradjanin }
-     *     
-     */
-    public Gradjanin getGradjanin() {
+    public DigitalniSertifikat() {
+        this.testovi = new Testovi();
+    }
+
+
+    public TOsoba getGradjanin() {
         return gradjanin;
     }
 
-    /**
-     * Sets the value of the gradjanin property.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link Gradjanin }
-     *     
-     */
-    public void setGradjanin(Gradjanin value) {
+
+    public void setGradjanin(TOsoba value) {
         this.gradjanin = value;
     }
 
-    /**
-     * Gets the value of the vakcinacija property.
-     * 
-     * @return
-     *     possible object is
-     *     {@link Vakcinacija }
-     *     
-     */
+
     public Vakcinacija getVakcinacija() {
         return vakcinacija;
     }
 
-    /**
-     * Sets the value of the vakcinacija property.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link Vakcinacija }
-     *     
-     */
     public void setVakcinacija(Vakcinacija value) {
         this.vakcinacija = value;
     }
 
-    /**
-     * Gets the value of the testovi property.
-     * 
-     * @return
-     *     possible object is
-     *     {@link Testovi }
-     *     
-     */
+    public void setVakcinacija(List<Vakcinacija.Doza> value) {
+        this.vakcinacija = new Vakcinacija(value);
+    }
+
     public Testovi getTestovi() {
         return testovi;
     }
 
-    /**
-     * Sets the value of the testovi property.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link Testovi }
-     *     
-     */
+
     public void setTestovi(Testovi value) {
         this.testovi = value;
     }
 
-    /**
-     * Gets the value of the infoOSertifikatu property.
-     * 
-     * @return
-     *     possible object is
-     *     {@link InfoOSertifikatu }
-     *     
-     */
+
     public InfoOSertifikatu getInfoOSertifikatu() {
         return infoOSertifikatu;
     }
 
-    /**
-     * Sets the value of the infoOSertifikatu property.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link InfoOSertifikatu }
-     *     
-     */
+
     public void setInfoOSertifikatu(InfoOSertifikatu value) {
         this.infoOSertifikatu = value;
     }
 
-    /**
-     * Gets the value of the dokumentId property.
-     * 
-     * @return
-     *     possible object is
-     *     {@link Long }
-     *     
-     */
+    public void setInfoOSertifikatu(Long dokumentId) {
+        this.infoOSertifikatu = new InfoOSertifikatu(dokumentId);
+    }
+
+
     public Long getDokumentId() {
         return dokumentId;
     }
 
-    /**
-     * Sets the value of the dokumentId property.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link Long }
-     *     
-     */
+
     public void setDokumentId(Long value) {
         this.dokumentId = value;
     }
 
-    /**
-     * Gets the value of the vocab property.
-     * 
-     * @return
-     *     possible object is
-     *     {@link String }
-     *     
-     */
+
     public String getVocab() {
         if (vocab == null) {
             return "http://www.rokzasok.rs/rdf/database/predicate";
@@ -284,78 +113,36 @@ public class DigitalniSertifikat implements Identifiable {
         }
     }
 
-    /**
-     * Sets the value of the vocab property.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link String }
-     *     
-     */
+
     public void setVocab(String value) {
         this.vocab = value;
     }
 
-    /**
-     * Gets the value of the about property.
-     * 
-     * @return
-     *     possible object is
-     *     {@link String }
-     *     
-     */
+
     public String getAbout() {
         return about;
     }
 
-    /**
-     * Sets the value of the about property.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link String }
-     *     
-     */
+
     public void setAbout(String value) {
         this.about = value;
     }
 
-    /**
-     * Gets the value of the rel property.
-     * 
-     * @return
-     *     possible object is
-     *     {@link String }
-     *     
-     */
+
     public String getRel() {
         if (rel == null) {
-            return "pred:kreiranOdStrane";
+            return "pred:prethodniDokument";
         } else {
             return rel;
         }
     }
 
-    /**
-     * Sets the value of the rel property.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link String }
-     *     
-     */
+
     public void setRel(String value) {
         this.rel = value;
     }
 
-    /**
-     * Gets the value of the href property.
-     * 
-     * @return
-     *     possible object is
-     *     {@link String }
-     *     
-     */
+
     public String getHref() {
         if (href == null) {
             return "xs:string";
@@ -364,477 +151,103 @@ public class DigitalniSertifikat implements Identifiable {
         }
     }
 
-    /**
-     * Sets the value of the href property.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link String }
-     *     
-     */
+
     public void setHref(String value) {
         this.href = value;
     }
 
 
-    /**
-     * <p>Java class for anonymous complex type.
-     * 
-     * <p>The following schema fragment specifies the expected content contained within this class.
-     * 
-     * <pre>
-     * &lt;complexType&gt;
-     *   &lt;complexContent&gt;
-     *     &lt;extension base="{http://www.rokzasok.rs/sluzbenik/digitalni-sertifikat}TOsoba"&gt;
-     *       &lt;attribute name="vocab" type="{http://www.w3.org/2001/XMLSchema}string" fixed="http://www.rokzasok.rs/rdf/database/predicate" /&gt;
-     *       &lt;attribute name="about" type="{http://www.w3.org/2001/XMLSchema}string" /&gt;
-     *       &lt;attribute name="idGradjanina" use="required"&gt;
-     *         &lt;simpleType&gt;
-     *           &lt;restriction base="{http://www.w3.org/2001/XMLSchema}long"&gt;
-     *           &lt;/restriction&gt;
-     *         &lt;/simpleType&gt;
-     *       &lt;/attribute&gt;
-     *     &lt;/extension&gt;
-     *   &lt;/complexContent&gt;
-     * &lt;/complexType&gt;
-     * </pre>
-     * 
-     * 
-     */
     @XmlAccessorType(XmlAccessType.FIELD)
-    @XmlType(name = "")
-    public static class Gradjanin
-        extends TOsoba
-    {
-
-        @XmlAttribute(name = "vocab")
-        protected String vocab;
-        @XmlAttribute(name = "about")
-        protected String about;
-        @XmlAttribute(name = "idGradjanina", required = true)
-        protected long idGradjanina;
-
-        /**
-         * Gets the value of the vocab property.
-         * 
-         * @return
-         *     possible object is
-         *     {@link String }
-         *     
-         */
-        public String getVocab() {
-            if (vocab == null) {
-                return "http://www.rokzasok.rs/rdf/database/predicate";
-            } else {
-                return vocab;
-            }
-        }
-
-        /**
-         * Sets the value of the vocab property.
-         * 
-         * @param value
-         *     allowed object is
-         *     {@link String }
-         *     
-         */
-        public void setVocab(String value) {
-            this.vocab = value;
-        }
-
-        /**
-         * Gets the value of the about property.
-         * 
-         * @return
-         *     possible object is
-         *     {@link String }
-         *     
-         */
-        public String getAbout() {
-            return about;
-        }
-
-        /**
-         * Sets the value of the about property.
-         * 
-         * @param value
-         *     allowed object is
-         *     {@link String }
-         *     
-         */
-        public void setAbout(String value) {
-            this.about = value;
-        }
-
-        /**
-         * Gets the value of the idGradjanina property.
-         * 
-         */
-        public long getIdGradjanina() {
-            return idGradjanina;
-        }
-
-        /**
-         * Sets the value of the idGradjanina property.
-         * 
-         */
-        public void setIdGradjanina(long value) {
-            this.idGradjanina = value;
-        }
-
-    }
-
-
-    /**
-     * <p>Java class for anonymous complex type.
-     * 
-     * <p>The following schema fragment specifies the expected content contained within this class.
-     * 
-     * <pre>
-     * &lt;complexType&gt;
-     *   &lt;complexContent&gt;
-     *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
-     *       &lt;sequence&gt;
-     *         &lt;element name="qr_link"&gt;
-     *           &lt;complexType&gt;
-     *             &lt;simpleContent&gt;
-     *               &lt;extension base="&lt;http://www.w3.org/2001/XMLSchema&gt;string"&gt;
-     *                 &lt;attribute name="property" type="{http://www.w3.org/2001/XMLSchema}string" default="pred:qrLink" /&gt;
-     *                 &lt;attribute name="datatype" type="{http://www.w3.org/2001/XMLSchema}string" default="xs:string" /&gt;
-     *               &lt;/extension&gt;
-     *             &lt;/simpleContent&gt;
-     *           &lt;/complexType&gt;
-     *         &lt;/element&gt;
-     *         &lt;element name="datum"&gt;
-     *           &lt;complexType&gt;
-     *             &lt;simpleContent&gt;
-     *               &lt;extension base="&lt;http://www.w3.org/2001/XMLSchema&gt;date"&gt;
-     *                 &lt;attribute name="property" type="{http://www.w3.org/2001/XMLSchema}string" default="pred:datumIzdavanja" /&gt;
-     *                 &lt;attribute name="datatype" type="{http://www.w3.org/2001/XMLSchema}string" default="xs:string" /&gt;
-     *               &lt;/extension&gt;
-     *             &lt;/simpleContent&gt;
-     *           &lt;/complexType&gt;
-     *         &lt;/element&gt;
-     *         &lt;element name="broj_sertifikata" type="{http://www.w3.org/2001/XMLSchema}positiveInteger"/&gt;
-     *       &lt;/sequence&gt;
-     *     &lt;/restriction&gt;
-     *   &lt;/complexContent&gt;
-     * &lt;/complexType&gt;
-     * </pre>
-     * 
-     * 
-     */
-    @XmlAccessorType(XmlAccessType.FIELD)
-    @XmlType(name = "", propOrder = {
-        "qrLink",
-        "datum",
-        "brojSertifikata"
-    })
+    @XmlType(name = "", propOrder = {"qrLink", "datum"})
     public static class InfoOSertifikatu {
 
+        public InfoOSertifikatu() {
+        }
+
+        public InfoOSertifikatu(Long dokumentId) {
+            this.qrLink = "http:IMPLEMENTIRAJ/" + dokumentId; // todo: zapravo pravi link
+            this.datum = new Datum();
+        }
+
         @XmlElement(name = "qr_link", namespace = "http://www.rokzasok.rs/sluzbenik/digitalni-sertifikat", required = true)
-        protected QrLink qrLink;
+        protected String qrLink;
         @XmlElement(namespace = "http://www.rokzasok.rs/sluzbenik/digitalni-sertifikat", required = true)
         protected Datum datum;
-        @XmlElement(name = "broj_sertifikata", namespace = "http://www.rokzasok.rs/sluzbenik/digitalni-sertifikat", required = true)
-        @XmlSchemaType(name = "positiveInteger")
-        protected Long brojSertifikata;
 
-        /**
-         * Gets the value of the qrLink property.
-         * 
-         * @return
-         *     possible object is
-         *     {@link QrLink }
-         *     
-         */
-        public QrLink getQrLink() {
+
+        public String getQrLink() {
             return qrLink;
         }
 
-        /**
-         * Sets the value of the qrLink property.
-         * 
-         * @param value
-         *     allowed object is
-         *     {@link QrLink }
-         *     
-         */
-        public void setQrLink(QrLink value) {
+
+        public void setQrLink(String value) {
             this.qrLink = value;
         }
 
-        /**
-         * Gets the value of the datum property.
-         * 
-         * @return
-         *     possible object is
-         *     {@link Datum }
-         *     
-         */
+
         public Datum getDatum() {
             return datum;
         }
 
-        /**
-         * Sets the value of the datum property.
-         * 
-         * @param value
-         *     allowed object is
-         *     {@link Datum }
-         *     
-         */
+
         public void setDatum(Datum value) {
             this.datum = value;
         }
 
-        /**
-         * Gets the value of the brojSertifikata property.
-         * 
-         * @return
-         *     possible object is
-         *     {@link Long }
-         *     
-         */
-        public Long getBrojSertifikata() {
-            return brojSertifikata;
-        }
 
-        /**
-         * Sets the value of the brojSertifikata property.
-         * 
-         * @param value
-         *     allowed object is
-         *     {@link Long }
-         *     
-         */
-        public void setBrojSertifikata(Long value) {
-            this.brojSertifikata = value;
-        }
-
-
-        /**
-         * <p>Java class for anonymous complex type.
-         * 
-         * <p>The following schema fragment specifies the expected content contained within this class.
-         * 
-         * <pre>
-         * &lt;complexType&gt;
-         *   &lt;simpleContent&gt;
-         *     &lt;extension base="&lt;http://www.w3.org/2001/XMLSchema&gt;date"&gt;
-         *       &lt;attribute name="property" type="{http://www.w3.org/2001/XMLSchema}string" default="pred:datumIzdavanja" /&gt;
-         *       &lt;attribute name="datatype" type="{http://www.w3.org/2001/XMLSchema}string" default="xs:string" /&gt;
-         *     &lt;/extension&gt;
-         *   &lt;/simpleContent&gt;
-         * &lt;/complexType&gt;
-         * </pre>
-         * 
-         * 
-         */
         @XmlAccessorType(XmlAccessType.FIELD)
-        @XmlType(name = "", propOrder = {
-            "value"
-        })
+        @XmlType(name = "", propOrder = {"value"})
         public static class Datum {
+            public Datum() {
+                try {
+                    this.value = DatatypeFactory.newInstance().newXMLGregorianCalendar(LocalDateTime.now().toString());
+                } catch (DatatypeConfigurationException e) {
+                    e.printStackTrace();
+                }
+            }
 
             @XmlValue
-            @XmlSchemaType(name = "date")
+            @XmlSchemaType(name = "dateTime")
             protected XMLGregorianCalendar value;
             @XmlAttribute(name = "property")
             protected String property;
             @XmlAttribute(name = "datatype")
             protected String datatype;
 
-            /**
-             * Gets the value of the value property.
-             * 
-             * @return
-             *     possible object is
-             *     {@link XMLGregorianCalendar }
-             *     
-             */
+
             public XMLGregorianCalendar getValue() {
                 return value;
             }
 
-            /**
-             * Sets the value of the value property.
-             * 
-             * @param value
-             *     allowed object is
-             *     {@link XMLGregorianCalendar }
-             *     
-             */
+
             public void setValue(XMLGregorianCalendar value) {
                 this.value = value;
             }
 
-            /**
-             * Gets the value of the property property.
-             * 
-             * @return
-             *     possible object is
-             *     {@link String }
-             *     
-             */
+
             public String getProperty() {
                 if (property == null) {
-                    return "pred:datumIzdavanja";
+                    return "pred:datumKreiranja";
                 } else {
                     return property;
                 }
             }
 
-            /**
-             * Sets the value of the property property.
-             * 
-             * @param value
-             *     allowed object is
-             *     {@link String }
-             *     
-             */
+
             public void setProperty(String value) {
                 this.property = value;
             }
 
-            /**
-             * Gets the value of the datatype property.
-             * 
-             * @return
-             *     possible object is
-             *     {@link String }
-             *     
-             */
+
             public String getDatatype() {
                 if (datatype == null) {
-                    return "xs:string";
+                    return "xs:dateTime";
                 } else {
                     return datatype;
                 }
             }
 
-            /**
-             * Sets the value of the datatype property.
-             * 
-             * @param value
-             *     allowed object is
-             *     {@link String }
-             *     
-             */
-            public void setDatatype(String value) {
-                this.datatype = value;
-            }
 
-        }
-
-
-        /**
-         * <p>Java class for anonymous complex type.
-         * 
-         * <p>The following schema fragment specifies the expected content contained within this class.
-         * 
-         * <pre>
-         * &lt;complexType&gt;
-         *   &lt;simpleContent&gt;
-         *     &lt;extension base="&lt;http://www.w3.org/2001/XMLSchema&gt;string"&gt;
-         *       &lt;attribute name="property" type="{http://www.w3.org/2001/XMLSchema}string" default="pred:qrLink" /&gt;
-         *       &lt;attribute name="datatype" type="{http://www.w3.org/2001/XMLSchema}string" default="xs:string" /&gt;
-         *     &lt;/extension&gt;
-         *   &lt;/simpleContent&gt;
-         * &lt;/complexType&gt;
-         * </pre>
-         * 
-         * 
-         */
-        @XmlAccessorType(XmlAccessType.FIELD)
-        @XmlType(name = "", propOrder = {
-            "value"
-        })
-        public static class QrLink {
-
-            @XmlValue
-            protected String value;
-            @XmlAttribute(name = "property")
-            protected String property;
-            @XmlAttribute(name = "datatype")
-            protected String datatype;
-
-            /**
-             * Gets the value of the value property.
-             * 
-             * @return
-             *     possible object is
-             *     {@link String }
-             *     
-             */
-            public String getValue() {
-                return value;
-            }
-
-            /**
-             * Sets the value of the value property.
-             * 
-             * @param value
-             *     allowed object is
-             *     {@link String }
-             *     
-             */
-            public void setValue(String value) {
-                this.value = value;
-            }
-
-            /**
-             * Gets the value of the property property.
-             * 
-             * @return
-             *     possible object is
-             *     {@link String }
-             *     
-             */
-            public String getProperty() {
-                if (property == null) {
-                    return "pred:qrLink";
-                } else {
-                    return property;
-                }
-            }
-
-            /**
-             * Sets the value of the property property.
-             * 
-             * @param value
-             *     allowed object is
-             *     {@link String }
-             *     
-             */
-            public void setProperty(String value) {
-                this.property = value;
-            }
-
-            /**
-             * Gets the value of the datatype property.
-             * 
-             * @return
-             *     possible object is
-             *     {@link String }
-             *     
-             */
-            public String getDatatype() {
-                if (datatype == null) {
-                    return "xs:string";
-                } else {
-                    return datatype;
-                }
-            }
-
-            /**
-             * Sets the value of the datatype property.
-             * 
-             * @param value
-             *     allowed object is
-             *     {@link String }
-             *     
-             */
             public void setDatatype(String value) {
                 this.datatype = value;
             }
@@ -844,56 +257,24 @@ public class DigitalniSertifikat implements Identifiable {
     }
 
 
-    /**
-     * <p>Java class for anonymous complex type.
-     * 
-     * <p>The following schema fragment specifies the expected content contained within this class.
-     * 
-     * <pre>
-     * &lt;complexType&gt;
-     *   &lt;complexContent&gt;
-     *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
-     *       &lt;sequence&gt;
-     *         &lt;element name="test" type="{http://www.rokzasok.rs/sluzbenik/digitalni-sertifikat}TTest" maxOccurs="3" minOccurs="3"/&gt;
-     *       &lt;/sequence&gt;
-     *     &lt;/restriction&gt;
-     *   &lt;/complexContent&gt;
-     * &lt;/complexType&gt;
-     * </pre>
-     * 
-     * 
-     */
     @XmlAccessorType(XmlAccessType.FIELD)
-    @XmlType(name = "", propOrder = {
-        "test"
-    })
+    @XmlType(name = "", propOrder = {"test"})
     public static class Testovi {
+
+        public Testovi() {
+            TTest test1 = new TTest("SARS-COV-2 RT", "Real-time PCR");
+            TTest test2 = new TTest("SARS-COV-2 Ag-RDT", "(Antigen Rapid Detection test)");
+            TTest test3 = new TTest("SARS-COV-2 RBD S-Protein", "Immunoglobulin G (IgG) test");
+            this.test = new ArrayList<>();
+            this.test.add(test1);
+            this.test.add(test2);
+            this.test.add(test3);
+        }
 
         @XmlElement(namespace = "http://www.rokzasok.rs/sluzbenik/digitalni-sertifikat", required = true)
         protected List<TTest> test;
 
-        /**
-         * Gets the value of the test property.
-         * 
-         * <p>
-         * This accessor method returns a reference to the live list,
-         * not a snapshot. Therefore any modification you make to the
-         * returned list will be present inside the JAXB object.
-         * This is why there is not a <CODE>set</CODE> method for the test property.
-         * 
-         * <p>
-         * For example, to add a new item, do as follows:
-         * <pre>
-         *    getTest().add(newItem);
-         * </pre>
-         * 
-         * 
-         * <p>
-         * Objects of the following type(s) are allowed in the list
-         * {@link TTest }
-         * 
-         * 
-         */
+
         public List<TTest> getTest() {
             if (test == null) {
                 test = new ArrayList<TTest>();
@@ -904,65 +285,20 @@ public class DigitalniSertifikat implements Identifiable {
     }
 
 
-    /**
-     * <p>Java class for anonymous complex type.
-     * 
-     * <p>The following schema fragment specifies the expected content contained within this class.
-     * 
-     * <pre>
-     * &lt;complexType&gt;
-     *   &lt;complexContent&gt;
-     *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
-     *       &lt;sequence&gt;
-     *         &lt;element name="doza" maxOccurs="unbounded" minOccurs="0"&gt;
-     *           &lt;complexType&gt;
-     *             &lt;complexContent&gt;
-     *               &lt;extension base="{http://www.rokzasok.rs/sluzbenik/digitalni-sertifikat}TDoza"&gt;
-     *                 &lt;attribute name="vocab" type="{http://www.w3.org/2001/XMLSchema}string" fixed="http://www.rokzasok.rs/rdf/database/predicate" /&gt;
-     *                 &lt;attribute name="about" type="{http://www.w3.org/2001/XMLSchema}string" /&gt;
-     *               &lt;/extension&gt;
-     *             &lt;/complexContent&gt;
-     *           &lt;/complexType&gt;
-     *         &lt;/element&gt;
-     *       &lt;/sequence&gt;
-     *     &lt;/restriction&gt;
-     *   &lt;/complexContent&gt;
-     * &lt;/complexType&gt;
-     * </pre>
-     * 
-     * 
-     */
     @XmlAccessorType(XmlAccessType.FIELD)
-    @XmlType(name = "", propOrder = {
-        "doza"
-    })
+    @XmlType(name = "", propOrder = {"doza"})
     public static class Vakcinacija {
+        public Vakcinacija() {
+        }
+
+        public Vakcinacija(List<Doza> doza) {
+            this.doza = doza;
+        }
 
         @XmlElement(namespace = "http://www.rokzasok.rs/sluzbenik/digitalni-sertifikat")
         protected List<Doza> doza;
 
-        /**
-         * Gets the value of the doza property.
-         * 
-         * <p>
-         * This accessor method returns a reference to the live list,
-         * not a snapshot. Therefore any modification you make to the
-         * returned list will be present inside the JAXB object.
-         * This is why there is not a <CODE>set</CODE> method for the doza property.
-         * 
-         * <p>
-         * For example, to add a new item, do as follows:
-         * <pre>
-         *    getDoza().add(newItem);
-         * </pre>
-         * 
-         * 
-         * <p>
-         * Objects of the following type(s) are allowed in the list
-         * {@link Doza }
-         * 
-         * 
-         */
+
         public List<Doza> getDoza() {
             if (doza == null) {
                 doza = new ArrayList<Doza>();
@@ -971,43 +307,22 @@ public class DigitalniSertifikat implements Identifiable {
         }
 
 
-        /**
-         * <p>Java class for anonymous complex type.
-         * 
-         * <p>The following schema fragment specifies the expected content contained within this class.
-         * 
-         * <pre>
-         * &lt;complexType&gt;
-         *   &lt;complexContent&gt;
-         *     &lt;extension base="{http://www.rokzasok.rs/sluzbenik/digitalni-sertifikat}TDoza"&gt;
-         *       &lt;attribute name="vocab" type="{http://www.w3.org/2001/XMLSchema}string" fixed="http://www.rokzasok.rs/rdf/database/predicate" /&gt;
-         *       &lt;attribute name="about" type="{http://www.w3.org/2001/XMLSchema}string" /&gt;
-         *     &lt;/extension&gt;
-         *   &lt;/complexContent&gt;
-         * &lt;/complexType&gt;
-         * </pre>
-         * 
-         * 
-         */
         @XmlAccessorType(XmlAccessType.FIELD)
         @XmlType(name = "")
-        public static class Doza
-            extends TDoza
-        {
+        public static class Doza extends TDoza {
+            public Doza() {
+            }
+
+            public Doza(String tip, String proizvodjac, XMLGregorianCalendar datum, String brojSerije, BigInteger brojDoze, String nazivUstanove, String mestoUstanove) {
+                super(tip, proizvodjac, datum, brojSerije, brojDoze, nazivUstanove, mestoUstanove);
+            }
 
             @XmlAttribute(name = "vocab")
             protected String vocab;
             @XmlAttribute(name = "about")
             protected String about;
 
-            /**
-             * Gets the value of the vocab property.
-             * 
-             * @return
-             *     possible object is
-             *     {@link String }
-             *     
-             */
+
             public String getVocab() {
                 if (vocab == null) {
                     return "http://www.rokzasok.rs/rdf/database/predicate";
@@ -1016,38 +331,17 @@ public class DigitalniSertifikat implements Identifiable {
                 }
             }
 
-            /**
-             * Sets the value of the vocab property.
-             * 
-             * @param value
-             *     allowed object is
-             *     {@link String }
-             *     
-             */
+
             public void setVocab(String value) {
                 this.vocab = value;
             }
 
-            /**
-             * Gets the value of the about property.
-             * 
-             * @return
-             *     possible object is
-             *     {@link String }
-             *     
-             */
+
             public String getAbout() {
                 return about;
             }
 
-            /**
-             * Sets the value of the about property.
-             * 
-             * @param value
-             *     allowed object is
-             *     {@link String }
-             *     
-             */
+
             public void setAbout(String value) {
                 this.about = value;
             }

@@ -58,11 +58,6 @@
                         <xs:attribute name="vocab" type="xs:string"
                             fixed="http://www.rokzasok.rs/rdf/database/predicate"/>
                         <xs:attribute name="about" type="xs:string" use="optional"/>
-                        <xs:attribute name="idOsobe" use="required">
-                            <xs:simpleType>
-                                <xs:restriction base="xs:long"/>
-                            </xs:simpleType>
-                        </xs:attribute>
                     </xs:complexType>
                 </xs:element>
                 <xs:element name="opsti_podaci"
@@ -119,12 +114,22 @@
                                     </xs:simpleContent>
                                 </xs:complexType>
                             </xs:element>
+                            <xs:element name="idPodnosioca">
+                                <xs:complexType>
+                                    <xs:simpleContent>
+                                        <xs:extension base="xs:long">
+                                            <xs:attribute default="pred:kreiranOdStrane"
+                                                name="property" type="xs:string"/>
+                                            <xs:attribute default="xs:long" name="datatype"
+                                                type="xs:string"/>
+                                        </xs:extension>
+                                    </xs:simpleContent>
+                                </xs:complexType>
+                            </xs:element>
                         </xs:sequence>
                         <xs:attribute fixed="http://www.rokzasok.rs/rdf/database/predicate"
                             name="vocab" type="xs:string"/>
                         <xs:attribute name="about" type="xs:string"/>
-                        <xs:attribute default="pred:kreiranOdStrane" name="rel" type="xs:string"/>
-                        <xs:attribute name="href" type="xs:string"/>
                     </xs:complexType>
                 </xs:element>
                 <xs:element name="dokument_id" type="xs:positiveInteger"/>

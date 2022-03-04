@@ -41,6 +41,7 @@ public class SparqlService {
         return getResults(sparqlQuery);
     }
 
+
     // parsiranje rezultata
     public List<SparqlQueryResult> getResults(String queryString) {
 

@@ -1,25 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified"
-           targetNamespace="http://www.rokzasok.rs/sluzbenik/digitalni-sertifikat"
-           xmlns:ds="http://www.rokzasok.rs/sluzbenik/digitalni-sertifikat"
-           xmlns:tp="http://www.rokzasok.rs/tipovi" xmlns:r="http://www.w3.org/ns/rdfa#" xmlns:pred="http://www.rokzasok.rs/rdf/database/predicate/">
+    targetNamespace="http://www.rokzasok.rs/sluzbenik/digitalni-sertifikat"
+    xmlns:ds="http://www.rokzasok.rs/sluzbenik/digitalni-sertifikat"
+    xmlns:tp="http://www.rokzasok.rs/tipovi" xmlns:r="http://www.w3.org/ns/rdfa#"
+    xmlns:pred="http://www.rokzasok.rs/rdf/database/predicate/">
 
     <xs:import namespace="http://www.rokzasok.rs/tipovi" schemaLocation="tipovi.xsd"/>
 
     <xs:element name="digitalni_sertifikat">
         <xs:complexType>
             <xs:sequence>
-                <xs:element name="gradjanin">
-                    <xs:complexType>
-                        <xs:complexContent>
-                            <xs:extension base="ds:TOsoba">
-                                <xs:attribute fixed="http://www.rokzasok.rs/rdf/database/predicate"
-                                              name="vocab" type="xs:string"/>
-                                <xs:attribute name="about" type="xs:string"/>
-                            </xs:extension>
-                        </xs:complexContent>
-                    </xs:complexType>
-                </xs:element>
+                <xs:element name="gradjanin" type="ds:TOsoba"/>
                 <xs:element name="vakcinacija">
                     <xs:complexType>
                         <xs:sequence>
@@ -28,8 +19,8 @@
                                     <xs:complexContent>
                                         <xs:extension base="ds:TDoza">
                                             <xs:attribute
-                                                    fixed="http://www.rokzasok.rs/rdf/database/predicate"
-                                                    name="vocab" type="xs:string"/>
+                                                fixed="http://www.rokzasok.rs/rdf/database/predicate"
+                                                name="vocab" type="xs:string"/>
                                             <xs:attribute name="about" type="xs:string"/>
                                         </xs:extension>
                                     </xs:complexContent>
@@ -48,40 +39,28 @@
                 <xs:element name="info_o_sertifikatu">
                     <xs:complexType>
                         <xs:sequence>
-                            <xs:element name="qr_link">
-                                <xs:complexType>
-                                    <xs:simpleContent>
-                                        <xs:extension base="xs:string">
-                                            <xs:attribute default="pred:qrLink" name="property"
-                                                          type="xs:string"/>
-                                            <xs:attribute default="xs:string" name="datatype"
-                                                          type="xs:string"/>
-                                        </xs:extension>
-                                    </xs:simpleContent>
-                                </xs:complexType>
-                            </xs:element>
+                            <xs:element name="qr_link" type="xs:string"> </xs:element>
                             <xs:element name="datum">
                                 <xs:complexType>
                                     <xs:simpleContent>
-                                        <xs:extension base="xs:date">
-                                            <xs:attribute default="pred:datumIzdavanja"
-                                                          name="property" type="xs:string"/>
-                                            <xs:attribute default="xs:string" name="datatype"
-                                                          type="xs:string"/>
+                                        <xs:extension base="xs:dateTime">
+                                            <xs:attribute default="pred:datumKreiranja"
+                                                name="property" type="xs:string"/>
+                                            <xs:attribute default="xs:dateTime" name="datatype"
+                                                type="xs:string"/>
                                         </xs:extension>
                                     </xs:simpleContent>
                                 </xs:complexType>
                             </xs:element>
-                            <xs:element name="broj_sertifikata" type="xs:positiveInteger"/>
                         </xs:sequence>
                     </xs:complexType>
                 </xs:element>
                 <xs:element name="dokument_id" type="xs:positiveInteger"/>
             </xs:sequence>
             <xs:attribute fixed="http://www.rokzasok.rs/rdf/database/predicate" name="vocab"
-                          type="xs:string"/>
+                type="xs:string"/>
             <xs:attribute name="about" type="xs:string"/>
-            <xs:attribute default="pred:kreiranOdStrane" name="rel" type="xs:string"/>
+            <xs:attribute default="pred:prethodniDokument" name="rel" type="xs:string"/>
             <xs:attribute default="xs:string" name="href" type="xs:string"/>
         </xs:complexType>
     </xs:element>
@@ -107,22 +86,32 @@
             <xs:element name="pol">
                 <xs:complexType>
                     <xs:simpleContent>
-                        <xs:extension base="tp:T_pol"> </xs:extension>
+                        <xs:extension base="tp:T_pol"/>
                     </xs:simpleContent>
                 </xs:complexType>
             </xs:element>
             <xs:element name="datum_rodjenja">
                 <xs:complexType>
                     <xs:simpleContent>
-                        <xs:extension base="xs:date"> </xs:extension>
+                        <xs:extension base="xs:date"/>
                     </xs:simpleContent>
                 </xs:complexType>
             </xs:element>
-            <xs:element name="adresa" type="ds:TAdresa"/>
             <xs:element name="broj_pasosa">
                 <xs:complexType>
                     <xs:simpleContent>
-                        <xs:extension base="tp:T_broj_pasosa"> </xs:extension>
+                        <xs:extension base="tp:T_broj_pasosa"/>
+                    </xs:simpleContent>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="id">
+                <xs:complexType>
+                    <xs:simpleContent>
+                        <xs:extension base="xs:long">
+                            <xs:attribute default="pred:kreiranOdStrane" name="property"
+                                type="xs:string"/>
+                            <xs:attribute default="xs:long" name="datatype" type="xs:string"/>
+                        </xs:extension>
                     </xs:simpleContent>
                 </xs:complexType>
             </xs:element>
@@ -133,7 +122,7 @@
             <xs:element name="tip">
                 <xs:complexType>
                     <xs:simpleContent>
-                        <xs:extension base="ds:T_tip_vakcine"> </xs:extension>
+                        <xs:extension base="ds:T_tip_vakcine"/>
                     </xs:simpleContent>
                 </xs:complexType>
             </xs:element>

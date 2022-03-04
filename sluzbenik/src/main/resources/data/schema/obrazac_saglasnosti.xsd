@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified"
-           targetNamespace="http://www.rokzasok.rs/gradjanin/obrazac-saglasnosti"
-           xmlns:os="http://www.rokzasok.rs/gradjanin/obrazac-saglasnosti"
-           xmlns:tp="http://www.rokzasok.rs/tipovi" xmlns:r="http://www.w3.org/ns/rdfa#"
-           xmlns:pred="http://www.rokzasok.rs/rdf/database/predicate/">
+    targetNamespace="http://www.rokzasok.rs/gradjanin/obrazac-saglasnosti"
+    xmlns:os="http://www.rokzasok.rs/gradjanin/obrazac-saglasnosti"
+    xmlns:tp="http://www.rokzasok.rs/tipovi" xmlns:r="http://www.w3.org/ns/rdfa#"
+    xmlns:pred="http://www.rokzasok.rs/rdf/database/predicate/">
     <xs:import namespace="http://www.rokzasok.rs/tipovi" schemaLocation="tipovi.xsd"/>
     <xs:element name="obrazac_saglasnosti">
         <xs:complexType>
@@ -19,71 +19,71 @@
                                         <xs:element name="kontakt">
                                             <xs:complexType>
                                                 <xs:sequence>
-                                                    <xs:element name="tel_fiksni">
-                                                        <xs:complexType>
-                                                            <xs:simpleContent>
-                                                                <xs:extension base="tp:T_fiksni">
-                                                                    <xs:attribute default="pred:brojFiksnogTelefona"
-                                                                                  name="property" type="xs:string"/>
-                                                                    <xs:attribute default="xs:string" name="datatype"
-                                                                                  type="xs:string"/>
-                                                                </xs:extension>
-                                                            </xs:simpleContent>
-                                                        </xs:complexType>
-                                                    </xs:element>
-                                                    <xs:element name="tel_mobilni" type="tp:T_mobilni"/>
-                                                    <xs:element name="email">
-                                                        <xs:complexType>
-                                                            <xs:simpleContent>
-                                                                <xs:extension base="tp:T_email">
-                                                                    <xs:attribute default="pred:email" name="property"
-                                                                                  type="xs:string"/>
-                                                                    <xs:attribute default="xs:string" name="datatype"
-                                                                                  type="xs:string"/>
-                                                                </xs:extension>
-                                                            </xs:simpleContent>
-                                                        </xs:complexType>
-                                                    </xs:element>
+                                                  <xs:element name="tel_fiksni">
+                                                  <xs:complexType>
+                                                  <xs:simpleContent>
+                                                  <xs:extension base="tp:T_fiksni">
+                                                  <xs:attribute default="pred:brojFiksnogTelefona"
+                                                  name="property" type="xs:string"/>
+                                                  <xs:attribute default="xs:string" name="datatype"
+                                                  type="xs:string"/>
+                                                  </xs:extension>
+                                                  </xs:simpleContent>
+                                                  </xs:complexType>
+                                                  </xs:element>
+                                                  <xs:element name="tel_mobilni" type="tp:T_mobilni"/>
+                                                  <xs:element name="email">
+                                                  <xs:complexType>
+                                                  <xs:simpleContent>
+                                                  <xs:extension base="tp:T_email">
+                                                  <xs:attribute default="pred:email" name="property"
+                                                  type="xs:string"/>
+                                                  <xs:attribute default="xs:string" name="datatype"
+                                                  type="xs:string"/>
+                                                  </xs:extension>
+                                                  </xs:simpleContent>
+                                                  </xs:complexType>
+                                                  </xs:element>
                                                 </xs:sequence>
                                             </xs:complexType>
                                         </xs:element>
                                         <xs:element name="radni_status">
                                             <xs:simpleType>
                                                 <xs:restriction base="xs:string">
-                                                    <xs:enumeration value="zaposlen"/>
-                                                    <xs:enumeration value="nezaposlen"/>
-                                                    <xs:enumeration value="penzioner"/>
-                                                    <xs:enumeration value="ucenik"/>
-                                                    <xs:enumeration value="student"/>
-                                                    <xs:enumeration value="dete"/>
+                                                  <xs:enumeration value="zaposlen"/>
+                                                  <xs:enumeration value="nezaposlen"/>
+                                                  <xs:enumeration value="penzioner"/>
+                                                  <xs:enumeration value="ucenik"/>
+                                                  <xs:enumeration value="student"/>
+                                                  <xs:enumeration value="dete"/>
                                                 </xs:restriction>
                                             </xs:simpleType>
                                         </xs:element>
                                         <xs:element name="zanimanje">
                                             <xs:simpleType>
                                                 <xs:restriction base="xs:string">
-                                                    <xs:enumeration value="zdravstvena zastita"/>
-                                                    <xs:enumeration value="socijalna zastita"/>
-                                                    <xs:enumeration value="prosveta"/>
-                                                    <xs:enumeration value="mup"/>
-                                                    <xs:enumeration value="vojska rs"/>
-                                                    <xs:enumeration value="drugo"/>
-                                                    <xs:enumeration value="nista"/>
+                                                  <xs:enumeration value="zdravstvena zastita"/>
+                                                  <xs:enumeration value="socijalna zastita"/>
+                                                  <xs:enumeration value="prosveta"/>
+                                                  <xs:enumeration value="mup"/>
+                                                  <xs:enumeration value="vojska rs"/>
+                                                  <xs:enumeration value="drugo"/>
+                                                  <xs:enumeration value="nista"/>
                                                 </xs:restriction>
                                             </xs:simpleType>
                                         </xs:element>
                                         <xs:element name="socijalna_zastita">
                                             <xs:complexType>
                                                 <xs:sequence>
-                                                    <xs:element name="korisnik" type="xs:boolean"/>
-                                                    <xs:element minOccurs="1" name="sediste">
-                                                        <xs:complexType>
-                                                            <xs:sequence>
-                                                                <xs:element name="naziv" type="xs:string"/>
-                                                                <xs:element name="opstina" type="xs:string"/>
-                                                            </xs:sequence>
-                                                        </xs:complexType>
-                                                    </xs:element>
+                                                  <xs:element name="korisnik" type="xs:boolean"/>
+                                                  <xs:element minOccurs="1" name="sediste">
+                                                  <xs:complexType>
+                                                  <xs:sequence>
+                                                  <xs:element name="naziv" type="xs:string"/>
+                                                  <xs:element name="opstina" type="xs:string"/>
+                                                  </xs:sequence>
+                                                  </xs:complexType>
+                                                  </xs:element>
                                                 </xs:sequence>
                                             </xs:complexType>
                                         </xs:element>
@@ -91,17 +91,9 @@
                                         <xs:element name="mesto_rodjenja" type="xs:string"/>
                                     </xs:sequence>
                                     <xs:attribute
-                                            fixed="http://www.rokzasok.rs/rdf/database/predicate"
-                                            name="vocab" type="xs:string"/>
+                                        fixed="http://www.rokzasok.rs/rdf/database/predicate"
+                                        name="vocab" type="xs:string"/>
                                     <xs:attribute name="about" type="xs:string"/>
-                                </xs:complexType>
-                            </xs:element>
-                            <xs:element name="saglasnost">
-                                <xs:complexType>
-                                    <xs:sequence>
-                                        <xs:element name="izjava" type="xs:boolean"/>
-                                        <xs:element name="naziv_leka" type="xs:string"/>
-                                    </xs:sequence>
                                 </xs:complexType>
                             </xs:element>
                         </xs:sequence>
@@ -121,10 +113,10 @@
                             <xs:element name="lekar">
                                 <xs:complexType>
                                     <xs:sequence>
-                                        <xs:element name="fax" type="tp:T_fiksni"/>
+                                        <xs:element name="fax" type="xs:string"/>
                                         <xs:element name="ime" type="xs:string"/>
                                         <xs:element name="prezime" type="xs:string"/>
-                                        <xs:element name="telefon" type="xs:string"/>
+                                        <xs:element name="telefon" type="tp:T_fiksni"/>
                                     </xs:sequence>
                                 </xs:complexType>
                             </xs:element>
@@ -134,23 +126,23 @@
                                         <xs:element maxOccurs="unbounded" minOccurs="1" name="doza">
                                             <xs:complexType>
                                                 <xs:complexContent>
-                                                    <xs:extension base="os:T_doza">
-                                                        <xs:attribute
-                                                                fixed="http://www.rokzasok.rs/rdf/database/predicate"
-                                                                name="vocab" type="xs:string"/>
-                                                        <xs:attribute name="about" type="xs:string"/>
-                                                        <xs:attribute default="pred:saglasnost" name="rel"
-                                                                      type="xs:string"/>
-                                                        <xs:attribute name="href" type="xs:string"/>
-                                                    </xs:extension>
+                                                  <xs:extension base="os:T_doza">
+                                                  <xs:attribute
+                                                  fixed="http://www.rokzasok.rs/rdf/database/predicate"
+                                                  name="vocab" type="xs:string"/>
+                                                  <xs:attribute name="about" type="xs:string"/>
+                                                  <xs:attribute default="pred:saglasnost" name="rel"
+                                                  type="xs:string"/>
+                                                  <xs:attribute name="href" type="xs:string"/>
+                                                  </xs:extension>
                                                 </xs:complexContent>
                                             </xs:complexType>
                                         </xs:element>
                                         <xs:element name="privremene_kontraindikacije">
                                             <xs:complexType>
                                                 <xs:sequence>
-                                                    <xs:element name="datum" type="xs:date"/>
-                                                    <xs:element name="dijagnoza" type="xs:string"/>
+                                                  <xs:element name="datum" type="xs:date"/>
+                                                  <xs:element name="dijagnoza" type="xs:string"/>
                                                 </xs:sequence>
                                             </xs:complexType>
                                         </xs:element>
@@ -165,12 +157,52 @@
                     <xs:complexType>
                         <xs:sequence>
                             <xs:element name="dokument_id" type="xs:positiveInteger"/>
+                            <xs:element name="saglasnost">
+                                <xs:complexType>
+                                    <xs:sequence>
+                                        <xs:element name="izjava">
+                                            <xs:complexType>
+                                                <xs:simpleContent>
+                                                  <xs:extension base="xs:boolean">
+                                                  <xs:attribute default="xs:boolean" name="datatype"
+                                                  type="xs:string"/>
+                                                  <xs:attribute default="pred:izjava"
+                                                  name="property" type="xs:string"/>
+                                                  </xs:extension>
+                                                </xs:simpleContent>
+                                            </xs:complexType>
+                                        </xs:element>
+                                        <xs:element name="naziv_leka">
+                                            <xs:complexType>
+                                                <xs:simpleContent>
+                                                  <xs:extension base="xs:string">
+                                                  <xs:attribute default="xs:string" name="datatype"
+                                                  type="xs:string"/>
+                                                  <xs:attribute default="pred:nazivLeka"
+                                                  name="property" type="xs:string"/>
+                                                  </xs:extension>
+                                                </xs:simpleContent>
+                                            </xs:complexType>
+                                        </xs:element>
+                                    </xs:sequence>
+                                </xs:complexType>
+                            </xs:element>
+                            <xs:element name="idPodnosioca">
+                                <xs:complexType>
+                                    <xs:simpleContent>
+                                        <xs:extension base="xs:long">
+                                            <xs:attribute default="pred:kreiranOdStrane"
+                                                name="property" type="xs:string"/>
+                                            <xs:attribute default="xs:long" name="datatype"
+                                                type="xs:string"/>
+                                        </xs:extension>
+                                    </xs:simpleContent>
+                                </xs:complexType>
+                            </xs:element>
                         </xs:sequence>
                         <xs:attribute fixed="http://www.rokzasok.rs/rdf/database/predicate"
-                                      name="vocab" type="xs:string"/>
+                            name="vocab" type="xs:string"/>
                         <xs:attribute name="about" type="xs:string"/>
-                        <xs:attribute default="pred:kreiranOdStrane" name="rel" type="xs:string"/>
-                        <xs:attribute default="xs:string" name="href" type="xs:string"/>
                     </xs:complexType>
                 </xs:element>
             </xs:sequence>
@@ -197,7 +229,6 @@
     </xs:complexType>
     <xs:complexType name="T_osoba">
         <xs:sequence>
-            <xs:element name="jmbg" type="tp:T_JMBG"/>
             <xs:element name="ime" type="xs:string"/>
             <xs:element name="prezime" type="xs:string"/>
             <xs:element name="pol">
@@ -215,7 +246,7 @@
                     <xs:simpleContent>
                         <xs:extension base="xs:date">
                             <xs:attribute default="pred:datumRodjenja" name="property"
-                                          type="xs:string"/>
+                                type="xs:string"/>
                             <xs:attribute default="xs:date" name="datatype" type="xs:string"/>
                         </xs:extension>
                     </xs:simpleContent>
@@ -241,7 +272,7 @@
                     <xs:simpleContent>
                         <xs:extension base="os:T_proizvodjac_vakcine">
                             <xs:attribute default="pred:proizvodjacVakcine" name="property"
-                                          type="xs:string"/>
+                                type="xs:string"/>
                         </xs:extension>
                     </xs:simpleContent>
                 </xs:complexType>
@@ -251,7 +282,7 @@
                     <xs:simpleContent>
                         <xs:extension base="xs:date">
                             <xs:attribute default="pred:datumPrimanja" name="property"
-                                          type="xs:string"/>
+                                type="xs:string"/>
                             <xs:attribute default="xs:date" name="datatype" type="xs:string"/>
                         </xs:extension>
                     </xs:simpleContent>
@@ -273,25 +304,20 @@
                         <xs:extension base="xs:positiveInteger">
                             <xs:attribute default="pred:brojDoze" name="property" type="xs:string"/>
                             <xs:attribute default="xs:positiveInteger" name="datatype"
-                                          type="xs:string"/>
+                                type="xs:string"/>
                         </xs:extension>
                     </xs:simpleContent>
                 </xs:complexType>
             </xs:element>
-            <xs:element name="ustanova" type="os:T_ustanova"/>
+            <xs:element name="nezeljene_reakcije" type="xs:string"/>
         </xs:sequence>
     </xs:complexType>
     <xs:complexType name="T_adresa">
         <xs:sequence>
+            <xs:element name="Opstina" type="xs:string"/>
             <xs:element name="Mesto" type="xs:string"/>
             <xs:element name="Ulica" type="xs:string"/>
             <xs:element name="Broj" type="xs:int"/>
-        </xs:sequence>
-    </xs:complexType>
-    <xs:complexType name="T_ustanova">
-        <xs:sequence>
-            <xs:element name="naziv" type="xs:string"/>
-            <xs:element name="mesto" type="xs:string"/>
         </xs:sequence>
     </xs:complexType>
     <xs:simpleType name="T_tip_vakcine">

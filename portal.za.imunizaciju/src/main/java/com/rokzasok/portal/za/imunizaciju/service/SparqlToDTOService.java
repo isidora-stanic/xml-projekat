@@ -127,4 +127,18 @@ public class SparqlToDTOService {
         period.setDo(xmlGregCal2);
         izvestaj.setPeriodIzvestaja(period);
     }
+
+    public Long getIdPoslednjePotvrde(Long idOsobe) {
+        List<SparqlService.SparqlQueryResult> sparqlBrDigitalnih = null;
+        try {
+            sparqlBrDigitalnih = sparqlService.getPoslednjaPotvrdaVakcinacije(idOsobe);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        String val = sparqlBrDigitalnih.get(0).getVarValue().toString().split("potvrda-vakcinacije/")[1];
+
+        return Long.valueOf(val);
+    }
+
 }
