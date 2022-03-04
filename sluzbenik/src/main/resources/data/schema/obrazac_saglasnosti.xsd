@@ -229,7 +229,6 @@
     </xs:complexType>
     <xs:complexType name="T_osoba">
         <xs:sequence>
-            <xs:element name="jmbg" type="tp:T_JMBG"/>
             <xs:element name="ime" type="xs:string"/>
             <xs:element name="prezime" type="xs:string"/>
             <xs:element name="pol">

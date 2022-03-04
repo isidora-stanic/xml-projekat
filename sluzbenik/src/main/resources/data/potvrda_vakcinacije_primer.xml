@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <po:potvrda-vakcinacije xmlns:tp="http://www.rokzasok.rs/tipovi"
- xmlns:r="http://www.w3.org/ns/rdfa#"
- xmlns:pred="http://www.rokzasok.rs/rdf/database/predicate/"
- xmlns:po="http://www.rokzasok.rs/zdravstveni-radnik/potvrda-vakcinacije"
- xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
- xsi:schemaLocation="http://www.rokzasok.rs/zdravstveni-radnik/potvrda-vakcinacije potvrda_vakcinacije.xsd">
+                        xmlns:r="http://www.w3.org/ns/rdfa#"
+                        xmlns:pred="http://www.rokzasok.rs/rdf/database/predicate/"
+                        xmlns:po="http://www.rokzasok.rs/zdravstveni-radnik/potvrda-vakcinacije"
+                        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                        xsi:schemaLocation="http://www.rokzasok.rs/zdravstveni-radnik/potvrda-vakcinacije schema/potvrda_vakcinacije.xsd">
     <po:osoba>
         <po:jmbg>1234567891011</po:jmbg>
         <po:ime>Marko</po:ime>

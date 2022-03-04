@@ -1,45 +1,25 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ds:digitalni_sertifikat xmlns:ds="http://www.rokzasok.rs/sluzbenik/digitalni-sertifikat"
                          xmlns:tp="http://www.rokzasok.rs/tipovi"
-                         xmlns="http://www.w3.org/ns/rdfa#"
+                         xmlns:r="http://www.w3.org/ns/rdfa#"
                          xmlns:pred="http://www.rokzasok.rs/rdf/database/predicate/"
                          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-                         xsi:schemaLocation="http://www.rokzasok.rs/sluzbenik/digitalni-sertifikat schema/digitalni_sertifikat.xsd"
-                         vocab="http://www.rokzasok.rs/rdf/database/predicate"
-                         about="http://www.rokzasok.rs/rdf/database/digitalni-sertifikat/1" rel="pred:kreiranOdStrane"
-                         xmlns:xs="http://www.w3.org/2001/XMLSchema#"
-                         href="http://www.rokzasok.rs/rdf/database/osoba/1234567890231">
+                         xsi:schemaLocation="http://www.rokzasok.rs/sluzbenik/digitalni-sertifikat schema/digitalni_sertifikat.xsd">
     <ds:gradjanin>
-        <ds:jmbg>1234567890231</ds:jmbg>
-        <ds:ime>Isi</ds:ime>
-        <ds:prezime>Prezimic</ds:prezime>
-        <ds:pol>Z</ds:pol>
-        <ds:datum_rodjenja>1999-12-10</ds:datum_rodjenja>
-        <ds:adresa>
-            <ds:Mesto>Novi Sad</ds:Mesto>
-            <ds:Ulica>Ulica</ds:Ulica>
-            <ds:Broj>3</ds:Broj>
-        </ds:adresa>
-        <ds:broj_pasosa>123456789</ds:broj_pasosa>
-        <ds:id>69420</ds:id>
+        <ds:jmbg>1234567891011</ds:jmbg>
+        <ds:ime>Marko</ds:ime>
+        <ds:prezime>Marković</ds:prezime>
+        <ds:pol>M</ds:pol>
+        <ds:datum_rodjenja>1952-10-07</ds:datum_rodjenja>
+        <ds:broj_pasosa>1234567890</ds:broj_pasosa>
+        <ds:id>1</ds:id>
     </ds:gradjanin>
     <ds:vakcinacija>
-        <ds:doza vocab="http://www.rokzasok.rs/rdf/database/predicate" about="http://www.rokzasok.rs/rdf/database/doza/1">
-            <ds:tip>Pfizer-BioNtech</ds:tip>
-            <ds:proizvodjac>BioNTech Manufacturing GMBH</ds:proizvodjac>
-            <ds:datum>2021-03-05</ds:datum>
-            <ds:broj_serije>2345</ds:broj_serije>
-            <ds:broj_doze>1</ds:broj_doze>
-            <ds:ustanova>
-                <ds:naziv>VMA</ds:naziv>
-                <ds:mesto>BG</ds:mesto>
-            </ds:ustanova>
-        </ds:doza>
     </ds:vakcinacija>
     <ds:testovi>
         <ds:test>
-            <ds:naziv>Test1</ds:naziv>
-            <ds:opis>opis0</ds:opis>
+            <ds:naziv>SARS-COV-2 RT</ds:naziv>
+            <ds:opis>Real-time PCR</ds:opis>
             <ds:vrsta_uzorka>N/A</ds:vrsta_uzorka>
             <ds:proizvodjac>N/A</ds:proizvodjac>
             <ds:datum_i_vreme_uzorkovanja>N/A</ds:datum_i_vreme_uzorkovanja>
@@ -48,8 +28,8 @@
             <ds:laboratorija>N/A</ds:laboratorija>
         </ds:test>
         <ds:test>
-            <ds:naziv>N/A</ds:naziv>
-            <ds:opis>N/A</ds:opis>
+            <ds:naziv>SARS-COV-2 Ag-RDT</ds:naziv>
+            <ds:opis>(Antigen Rapid Detection test)</ds:opis>
             <ds:vrsta_uzorka>N/A</ds:vrsta_uzorka>
             <ds:proizvodjac>N/A</ds:proizvodjac>
             <ds:datum_i_vreme_uzorkovanja>N/A</ds:datum_i_vreme_uzorkovanja>
@@ -58,20 +38,20 @@
             <ds:laboratorija>N/A</ds:laboratorija>
         </ds:test>
         <ds:test>
-            <ds:naziv>naziv2</ds:naziv>
-            <ds:opis>opis2</ds:opis>
+            <ds:naziv>SARS-COV-2 RBD S-Protein</ds:naziv>
+            <ds:opis>Immunoglobulin G (IgG) test</ds:opis>
             <ds:vrsta_uzorka>N/A</ds:vrsta_uzorka>
             <ds:proizvodjac>N/A</ds:proizvodjac>
-            <ds:datum_i_vreme_uzorkovanja>datum_i_vreme_uzorkovanja2</ds:datum_i_vreme_uzorkovanja>
-            <ds:datum_i_vreme_rezultata>datum_i_vreme_rezultata2</ds:datum_i_vreme_rezultata>
+            <ds:datum_i_vreme_uzorkovanja>N/A</ds:datum_i_vreme_uzorkovanja>
+            <ds:datum_i_vreme_rezultata>N/A</ds:datum_i_vreme_rezultata>
             <ds:rezultat>N/A</ds:rezultat>
             <ds:laboratorija>N/A</ds:laboratorija>
         </ds:test>
+
     </ds:testovi>
     <ds:info_o_sertifikatu>
-        <ds:qr_link property="pred:qrLink" datatype="xs:string">qr_link0</ds:qr_link>
-        <ds:datum datatype="xs:string" property="pred:datumIzdavanja">2006-05-04</ds:datum>
-        <ds:broj_sertifikata>1</ds:broj_sertifikata>
+        <ds:qr_link>sertifikat.com</ds:qr_link>
+        <ds:datum>2022-02-27T18:13:51.0</ds:datum>
     </ds:info_o_sertifikatu>
     <ds:dokument_id>1</ds:dokument_id>
 </ds:digitalni_sertifikat>

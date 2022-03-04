@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ds:digitalni_sertifikat xmlns:ds="http://www.rokzasok.rs/sluzbenik/digitalni-sertifikat"
- xmlns:tp="http://www.rokzasok.rs/tipovi"
- xmlns:r="http://www.w3.org/ns/rdfa#"
- xmlns:pred="http://www.rokzasok.rs/rdf/database/predicate/"
- xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
- xsi:schemaLocation="http://www.rokzasok.rs/sluzbenik/digitalni-sertifikat file:/Users/jovandjordjic/Documents/fakultet/xml/projekat-git/portal.za.imunizaciju/src/main/resources/data/schema/digitalni_sertifikat.xsd">
+                         xmlns:tp="http://www.rokzasok.rs/tipovi"
+                         xmlns:r="http://www.w3.org/ns/rdfa#"
+                         xmlns:pred="http://www.rokzasok.rs/rdf/database/predicate/"
+                         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                         xsi:schemaLocation="http://www.rokzasok.rs/sluzbenik/digitalni-sertifikat schema/digitalni_sertifikat.xsd">
     <ds:gradjanin>
         <ds:jmbg>1234567891011</ds:jmbg>
         <ds:ime>Marko</ds:ime>
