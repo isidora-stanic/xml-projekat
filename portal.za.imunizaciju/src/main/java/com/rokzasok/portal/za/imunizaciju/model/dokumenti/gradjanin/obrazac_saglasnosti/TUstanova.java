@@ -1,4 +1,3 @@
-
 package com.rokzasok.portal.za.imunizaciju.model.dokumenti.gradjanin.obrazac_saglasnosti;
 
 import javax.xml.bind.annotation.XmlAccessType;
@@ -8,10 +7,7 @@ import javax.xml.bind.annotation.XmlType;
 
 
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "T_ustanova", namespace = "http://www.rokzasok.rs/gradjanin/obrazac-saglasnosti", propOrder = {
-        "naziv",
-        "mesto"
-})
+@XmlType(name = "T_ustanova", namespace = "http://www.rokzasok.rs/gradjanin/obrazac-saglasnosti", propOrder = {"naziv", "mesto"})
 public class TUstanova {
 
     @XmlElement(namespace = "http://www.rokzasok.rs/gradjanin/obrazac-saglasnosti", required = true)

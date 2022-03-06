@@ -1,4 +1,3 @@
-
 package com.rokzasok.portal.za.imunizaciju.model.dokumenti.gradjanin.obrazac_saglasnosti;
 
 import javax.xml.bind.annotation.XmlAccessType;
@@ -8,10 +7,7 @@ import javax.xml.bind.annotation.XmlType;
 
 
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "TDrzavljanstvo", namespace = "http://www.rokzasok.rs/gradjanin/obrazac-saglasnosti", propOrder = {
-        "strano",
-        "srpsko"
-})
+@XmlType(name = "TDrzavljanstvo", namespace = "http://www.rokzasok.rs/gradjanin/obrazac-saglasnosti", propOrder = {"strano", "srpsko"})
 public class TDrzavljanstvo {
 
     @XmlElement(namespace = "http://www.rokzasok.rs/gradjanin/obrazac-saglasnosti")
@@ -41,9 +37,7 @@ public class TDrzavljanstvo {
 
 
     @XmlAccessorType(XmlAccessType.FIELD)
-    @XmlType(name = "", propOrder = {
-            "jmbg"
-    })
+    @XmlType(name = "", propOrder = {"jmbg"})
     public static class Srpsko {
 
         @XmlElement(name = "JMBG", namespace = "http://www.rokzasok.rs/tipovi", required = true)
@@ -63,10 +57,7 @@ public class TDrzavljanstvo {
 
 
     @XmlAccessorType(XmlAccessType.FIELD)
-    @XmlType(name = "", propOrder = {
-            "drzava",
-            "brojPasosa"
-    })
+    @XmlType(name = "", propOrder = {"drzava", "brojPasosa"})
     public static class Strano {
 
         @XmlElement(namespace = "http://www.rokzasok.rs/gradjanin/obrazac-saglasnosti", required = true)

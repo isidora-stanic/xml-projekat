@@ -1,11 +1,9 @@
-
 package com.rokzasok.portal.za.imunizaciju.model.dokumenti.gradjanin.zahtev_za_sertifikat;
 
 import com.rokzasok.portal.za.imunizaciju.interfaces.Identifiable;
 
 import javax.xml.bind.annotation.*;
 import javax.xml.datatype.XMLGregorianCalendar;
-
 
 
 @XmlAccessorType(XmlAccessType.FIELD)
@@ -83,6 +81,16 @@ public class Zahtev implements Identifiable {
         this.dokumentId = value;
     }
 
+    @Override
+    public XMLGregorianCalendar getDatumKreiranja() {
+        return this.datum.value;
+    }
+
+    @Override
+    public String getTipDokumenta() {
+        return "Zahtev za sertifikat";
+    }
+
 
     public Status getStatus() {
         return status;
@@ -118,11 +126,8 @@ public class Zahtev implements Identifiable {
     }
 
 
-
     @XmlAccessorType(XmlAccessType.FIELD)
-    @XmlType(name = "", propOrder = {
-            "value"
-    })
+    @XmlType(name = "", propOrder = {"value"})
     public static class Datum {
 
         @XmlValue
@@ -174,11 +179,8 @@ public class Zahtev implements Identifiable {
     }
 
 
-
     @XmlAccessorType(XmlAccessType.FIELD)
-    @XmlType(name = "", propOrder = {
-            "value"
-    })
+    @XmlType(name = "", propOrder = {"value"})
     public static class Mesto {
 
         @XmlValue
@@ -229,11 +231,8 @@ public class Zahtev implements Identifiable {
     }
 
 
-
     @XmlAccessorType(XmlAccessType.FIELD)
-    @XmlType(name = "", propOrder = {
-            "value"
-    })
+    @XmlType(name = "", propOrder = {"value"})
     public static class RazlogPodnosenja {
 
         @XmlValue
@@ -284,11 +283,8 @@ public class Zahtev implements Identifiable {
     }
 
 
-
     @XmlAccessorType(XmlAccessType.FIELD)
-    @XmlType(name = "", propOrder = {
-            "value"
-    })
+    @XmlType(name = "", propOrder = {"value"})
     public static class Status {
 
         @XmlValue

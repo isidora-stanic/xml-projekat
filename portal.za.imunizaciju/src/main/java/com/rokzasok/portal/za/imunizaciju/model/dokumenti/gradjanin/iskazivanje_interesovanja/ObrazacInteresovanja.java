@@ -56,6 +56,16 @@ public class ObrazacInteresovanja implements Identifiable {
         this.dokumentId = value;
     }
 
+    @Override
+    public XMLGregorianCalendar getDatumKreiranja() {
+        return this.opstiPodaci.datumPodnosenja.value;
+    }
+
+    @Override
+    public String getTipDokumenta() {
+        return "Iskazivanje interesovanja";
+    }
+
 
     @XmlAccessorType(XmlAccessType.FIELD)
     @XmlType(name = "", propOrder = {"lokacijaOpstina", "tipVakcine", "davalacKrvi", "datumPodnosenja", "idPodnosioca"})

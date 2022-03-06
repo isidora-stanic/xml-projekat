@@ -125,6 +125,16 @@ public class IzvestajOImunizaciji implements Identifiable {
         this.dokumentId = value;
     }
 
+    @Override
+    public XMLGregorianCalendar getDatumKreiranja() {
+        return this.datumIzdavanja;
+    }
+
+    @Override
+    public String getTipDokumenta() {
+        return "Izveštaj o imunizaciji";
+    }
+
 
     @XmlAccessorType(XmlAccessType.FIELD)
     @XmlType(name = "", propOrder = {

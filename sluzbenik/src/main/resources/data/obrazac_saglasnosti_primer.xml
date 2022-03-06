@@ -84,5 +84,6 @@
             <os:naziv_leka>Ivermectin</os:naziv_leka>
         </os:saglasnost>
         <os:idPodnosioca>1</os:idPodnosioca>
+        <os:datum_kreiranja>2022-02-06</os:datum_kreiranja>
     </os:dokument_info>
 </os:obrazac_saglasnosti>

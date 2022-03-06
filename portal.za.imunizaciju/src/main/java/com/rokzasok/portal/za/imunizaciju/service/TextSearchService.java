@@ -43,18 +43,20 @@ public class TextSearchService {
         DokumentiIzPretrageDTO dokumentiDTO = new DokumentiIzPretrageDTO();
         dokumentiDTO.setListaDokumenata(new ArrayList<>());
 
-        convertAndAddToDTO(dokumentiDTO, interesovanja, "iskazivanje-interesovanja");
-        convertAndAddToDTO(dokumentiDTO, saglasnosti, "obrazac-saglasnosti");
-        convertAndAddToDTO(dokumentiDTO, potvrde, "potvrda-vakcinacije");
-        convertAndAddToDTO(dokumentiDTO, zahtevi, "zahtev-za-sertifikat");
+        convertAndAddToDTO(dokumentiDTO, interesovanja);
+        convertAndAddToDTO(dokumentiDTO, saglasnosti);
+        convertAndAddToDTO(dokumentiDTO, potvrde);
+        convertAndAddToDTO(dokumentiDTO, zahtevi);
 
         return dokumentiDTO;
     }
 
-    public void convertAndAddToDTO(DokumentiIzPretrageDTO dokumentiDTO, List<Identifiable> dokumenti, String tipDokumenta) {
+    public void convertAndAddToDTO(DokumentiIzPretrageDTO dokumentiDTO, List<Identifiable> dokumenti) {
         for (Identifiable dokument : dokumenti) {
             // todo: pravljenje linka(uria) za front???
-            dokumentiDTO.getListaDokumenata().add(new DokumentiKorisnikaDTO.DokumentDTO(tipDokumenta+"/"+dokument.getDokumentId(), tipDokumenta, null));
+
+            String dokumentURI = dokument.getTipDokumenta().toLowerCase().replaceAll(" ", "-").replaceAll("š", "s") + "/" + dokument.getDokumentId();
+            dokumentiDTO.getListaDokumenata().add(new DokumentiKorisnikaDTO.DokumentDTO(dokumentURI, dokument.getTipDokumenta(), dokument.getDatumKreiranja()));
         }
     }
 
@@ -117,7 +119,7 @@ public class TextSearchService {
         String expression = "//text()[\n" +
                 "  contains(\n" +
                 "    translate(., 'ABCDEFGHIJKLMNOPQRSTUVWXYZ', 'abcdefghijklmnopqrstuvwxyz'),\n" +
-                "    "+formattedQuery.toLowerCase()+"\n" +
+                "    " + formattedQuery.toLowerCase() + "\n" +
                 "  )\n" +
                 "]";
         System.out.println(expression);
@@ -128,6 +130,10 @@ public class TextSearchService {
             e.printStackTrace();
         }
 
+        if (list == null) {
+            return false;
+        }
+
         for (int i = 0; i < list.getLength(); i++)  // print list of results...
             System.out.println(list.item(i).getTextContent());
 
@@ -135,5 +141,7 @@ public class TextSearchService {
     }
 
     //todo implementiraj u novom servisu
-    public List<Identifiable> searchMetadata(MetadataQueryDTO metadata){return null;};
+    public List<Identifiable> searchMetadata(MetadataQueryDTO metadata) {
+        return null;
+    }
 }

@@ -48,6 +48,17 @@ public class DigitalniSertifikat implements Identifiable {
         this.testovi = new Testovi();
     }
 
+    @Override
+    public XMLGregorianCalendar getDatumKreiranja() {
+        return this.infoOSertifikatu.datum.value;
+    }
+
+    @Override
+    public String getTipDokumenta() {
+        return "Digitalni sertifikat";
+    }
+
+
 
     public TOsoba getGradjanin() {
         return gradjanin;

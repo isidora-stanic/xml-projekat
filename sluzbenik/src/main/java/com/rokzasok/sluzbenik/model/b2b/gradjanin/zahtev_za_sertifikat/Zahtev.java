@@ -82,6 +82,16 @@ public class Zahtev implements Identifiable {
         this.dokumentId = value;
     }
 
+    @Override
+    public XMLGregorianCalendar getDatumKreiranja() {
+        return this.datum.value;
+    }
+
+    @Override
+    public String getTipDokumenta() {
+        return "Zahtev za sertifikat";
+    }
+
 
     public Status getStatus() {
         return status;

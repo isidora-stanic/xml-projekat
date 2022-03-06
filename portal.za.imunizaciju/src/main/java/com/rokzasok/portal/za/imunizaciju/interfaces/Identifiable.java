@@ -1,8 +1,14 @@
 package com.rokzasok.portal.za.imunizaciju.interfaces;
 
+import javax.xml.datatype.XMLGregorianCalendar;
+
 public interface Identifiable {
 
-    public Long getDokumentId();
+    Long getDokumentId();
 
-    public void setDokumentId(Long id);
+    void setDokumentId(Long id);
+
+    XMLGregorianCalendar getDatumKreiranja();
+
+    String getTipDokumenta();
 }

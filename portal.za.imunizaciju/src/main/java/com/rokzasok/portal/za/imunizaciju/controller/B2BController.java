@@ -1,11 +1,14 @@
 package com.rokzasok.portal.za.imunizaciju.controller;
 
+import com.rokzasok.portal.za.imunizaciju.interfaces.Identifiable;
 import com.rokzasok.portal.za.imunizaciju.model.b2b.izvestaj_o_imunizaciji.IzvestajOImunizaciji;
 import com.rokzasok.portal.za.imunizaciju.model.dokumenti.gradjanin.iskazivanje_interesovanja.ObrazacInteresovanja;
 import com.rokzasok.portal.za.imunizaciju.model.dokumenti.gradjanin.obrazac_saglasnosti.ObrazacSaglasnosti;
 import com.rokzasok.portal.za.imunizaciju.model.dokumenti.gradjanin.zahtev_za_sertifikat.Zahtev;
 import com.rokzasok.portal.za.imunizaciju.model.dokumenti.potvrda_vakcinacije.PotvrdaVakcinacije;
+import com.rokzasok.portal.za.imunizaciju.model.dto.DokumentiIzPretrageDTO;
 import com.rokzasok.portal.za.imunizaciju.model.dto.DokumentiKorisnikaDTO;
+import com.rokzasok.portal.za.imunizaciju.model.dto.MetadataQueryDTO;
 import com.rokzasok.portal.za.imunizaciju.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -13,6 +16,11 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
+
+import javax.xml.bind.JAXBException;
+import javax.xml.parsers.ParserConfigurationException;
+import javax.xml.xpath.XPathExpressionException;
+import java.util.List;
 
 @Controller
 @RequestMapping(value = "b2b/")
@@ -29,6 +37,9 @@ public class B2BController {
     private PotvrdaVakcinacijeService potvrdaVakcinacijeService;
     @Autowired
     private ZahtevZaSertifikatService zahtevZaSertifikatService;
+
+    @Autowired
+    private TextSearchService textSearchService;
 
     // korisnici
     @GetMapping(value = "/dokumenti-po-korisniku/{idKorisnika}", produces = MediaType.APPLICATION_XML_VALUE)
@@ -67,6 +78,17 @@ public class B2BController {
     ResponseEntity<PotvrdaVakcinacije> getPoslednjaPotvrdaVakcinacijePacijenta(@PathVariable Long idPacijenta) {
         Long idPotvrde = sparqlToDTOService.getIdPoslednjePotvrde(idPacijenta);
         return new ResponseEntity<>(potvrdaVakcinacijeService.findById(idPotvrde), HttpStatus.OK);
+    }
+
+    @GetMapping(value = "/search", produces = MediaType.APPLICATION_XML_VALUE)
+    ResponseEntity<DokumentiIzPretrageDTO> searchText(@RequestParam String query) throws XPathExpressionException, JAXBException, ParserConfigurationException {
+        return new ResponseEntity<>(textSearchService.searchAll(query), HttpStatus.OK);
+    }
+
+    // todo mora u neki dto da se pretvori, ovo nece moci da se posalje u xml formatu...
+    @GetMapping(value = "/search-metadata", produces = MediaType.APPLICATION_XML_VALUE)
+    ResponseEntity<List<Identifiable>> searchMetadata(@RequestBody MetadataQueryDTO metadata) throws XPathExpressionException, JAXBException, ParserConfigurationException {
+        return new ResponseEntity<>(textSearchService.searchMetadata(metadata), HttpStatus.OK);
     }
 
 

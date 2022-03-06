@@ -1,4 +1,3 @@
-
 package com.rokzasok.sluzbenik.model.b2b.gradjanin.obrazac_saglasnosti;
 
 import javax.xml.bind.annotation.XmlAccessType;
@@ -8,12 +7,7 @@ import javax.xml.bind.annotation.XmlType;
 
 
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "T_adresa", namespace = "http://www.rokzasok.rs/gradjanin/obrazac-saglasnosti", propOrder = {
-        "opstina",
-        "mesto",
-        "ulica",
-        "broj"
-})
+@XmlType(name = "T_adresa", namespace = "http://www.rokzasok.rs/gradjanin/obrazac-saglasnosti", propOrder = {"opstina", "mesto", "ulica", "broj"})
 public class TAdresa {
 
     @XmlElement(name = "Opstina", namespace = "http://www.rokzasok.rs/gradjanin/obrazac-saglasnosti", required = true)

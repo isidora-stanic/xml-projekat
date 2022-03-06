@@ -97,6 +97,16 @@ public class DigitalniSertifikat implements Identifiable {
         this.dokumentId = value;
     }
 
+    @Override
+    public XMLGregorianCalendar getDatumKreiranja() {
+        return this.infoOSertifikatu.datum.value;
+    }
+
+    @Override
+    public String getTipDokumenta() {
+        return "Digitalni sertifikat";
+    }
+
 
     public String getVocab() {
         if (vocab == null) {

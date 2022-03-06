@@ -96,6 +96,16 @@ public class PotvrdaVakcinacije implements Identifiable {
         this.dokumentId = value;
     }
 
+    @Override
+    public XMLGregorianCalendar getDatumKreiranja() {
+        return this.datumIzdavanja.value;
+    }
+
+    @Override
+    public String getTipDokumenta() {
+        return "Potvrda vakcinacije";
+    }
+
 
     public String getVocab() {
         if (vocab == null) {

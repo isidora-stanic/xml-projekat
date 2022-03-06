@@ -1,4 +1,3 @@
-
 package com.rokzasok.portal.za.imunizaciju.model.dokumenti.gradjanin.obrazac_saglasnosti;
 
 import com.rokzasok.portal.za.imunizaciju.interfaces.Identifiable;
@@ -10,11 +9,7 @@ import java.util.List;
 
 
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "", propOrder = {
-        "evidencijaPacijent",
-        "evidencijaVakcinacija",
-        "dokumentInfo"
-})
+@XmlType(name = "", propOrder = {"evidencijaPacijent", "evidencijaVakcinacija", "dokumentInfo"})
 @XmlRootElement(name = "obrazac_saglasnosti", namespace = "http://www.rokzasok.rs/gradjanin/obrazac-saglasnosti")
 public class ObrazacSaglasnosti implements Identifiable {
 
@@ -55,6 +50,7 @@ public class ObrazacSaglasnosti implements Identifiable {
         this.dokumentInfo = value;
     }
 
+
     @Override
     public Long getDokumentId() {
         return this.dokumentInfo.dokumentId;
@@ -65,13 +61,18 @@ public class ObrazacSaglasnosti implements Identifiable {
         this.dokumentInfo.dokumentId = id;
     }
 
+    @Override
+    public XMLGregorianCalendar getDatumKreiranja() {
+        return this.dokumentInfo.datumKreiranja.value;
+    }
+
+    @Override
+    public String getTipDokumenta() {
+        return "Obrazac saglasnosti";
+    }
 
     @XmlAccessorType(XmlAccessType.FIELD)
-    @XmlType(name = "", propOrder = {
-            "dokumentId",
-            "saglasnost",
-            "idPodnosioca"
-    })
+    @XmlType(name = "", propOrder = {"dokumentId", "saglasnost", "idPodnosioca", "datumKreiranja"})
     public static class DokumentInfo {
 
         @XmlElement(name = "dokument_id", namespace = "http://www.rokzasok.rs/gradjanin/obrazac-saglasnosti", required = true)
@@ -81,6 +82,8 @@ public class ObrazacSaglasnosti implements Identifiable {
         protected Saglasnost saglasnost;
         @XmlElement(namespace = "http://www.rokzasok.rs/gradjanin/obrazac-saglasnosti", required = true)
         protected IdPodnosioca idPodnosioca;
+        @XmlElement(name = "datum_kreiranja", namespace = "http://www.rokzasok.rs/gradjanin/obrazac-saglasnosti", required = true)
+        protected DatumKreiranja datumKreiranja;
         @XmlAttribute(name = "vocab")
         protected String vocab;
         @XmlAttribute(name = "about")
@@ -117,6 +120,16 @@ public class ObrazacSaglasnosti implements Identifiable {
         }
 
 
+        public DatumKreiranja getDatumKreiranja() {
+            return datumKreiranja;
+        }
+
+
+        public void setDatumKreiranja(DatumKreiranja value) {
+            this.datumKreiranja = value;
+        }
+
+
         public String getVocab() {
             if (vocab == null) {
                 return "http://www.rokzasok.rs/rdf/database/predicate";
@@ -142,9 +155,60 @@ public class ObrazacSaglasnosti implements Identifiable {
 
 
         @XmlAccessorType(XmlAccessType.FIELD)
-        @XmlType(name = "", propOrder = {
-                "value"
-        })
+        @XmlType(name = "", propOrder = {"value"})
+        public static class DatumKreiranja {
+
+            @XmlValue
+            @XmlSchemaType(name = "date")
+            protected XMLGregorianCalendar value;
+            @XmlAttribute(name = "property")
+            protected String property;
+            @XmlAttribute(name = "datatype")
+            protected String datatype;
+
+
+            public XMLGregorianCalendar getValue() {
+                return value;
+            }
+
+
+            public void setValue(XMLGregorianCalendar value) {
+                this.value = value;
+            }
+
+
+            public String getProperty() {
+                if (property == null) {
+                    return "pred:datumKreiranja";
+                } else {
+                    return property;
+                }
+            }
+
+
+            public void setProperty(String value) {
+                this.property = value;
+            }
+
+
+            public String getDatatype() {
+                if (datatype == null) {
+                    return "xs:date";
+                } else {
+                    return datatype;
+                }
+            }
+
+
+            public void setDatatype(String value) {
+                this.datatype = value;
+            }
+
+        }
+
+
+        @XmlAccessorType(XmlAccessType.FIELD)
+        @XmlType(name = "", propOrder = {"value"})
         public static class IdPodnosioca {
 
             @XmlValue
@@ -196,10 +260,7 @@ public class ObrazacSaglasnosti implements Identifiable {
 
 
         @XmlAccessorType(XmlAccessType.FIELD)
-        @XmlType(name = "", propOrder = {
-                "izjava",
-                "nazivLeka"
-        })
+        @XmlType(name = "", propOrder = {"izjava", "nazivLeka"})
         public static class Saglasnost {
 
             @XmlElement(namespace = "http://www.rokzasok.rs/gradjanin/obrazac-saglasnosti", required = true)
@@ -229,9 +290,7 @@ public class ObrazacSaglasnosti implements Identifiable {
 
 
             @XmlAccessorType(XmlAccessType.FIELD)
-            @XmlType(name = "", propOrder = {
-                    "value"
-            })
+            @XmlType(name = "", propOrder = {"value"})
             public static class Izjava {
 
                 @XmlValue
@@ -283,9 +342,7 @@ public class ObrazacSaglasnosti implements Identifiable {
 
 
             @XmlAccessorType(XmlAccessType.FIELD)
-            @XmlType(name = "", propOrder = {
-                    "value"
-            })
+            @XmlType(name = "", propOrder = {"value"})
             public static class NazivLeka {
 
                 @XmlValue
@@ -341,9 +398,7 @@ public class ObrazacSaglasnosti implements Identifiable {
 
 
     @XmlAccessorType(XmlAccessType.FIELD)
-    @XmlType(name = "", propOrder = {
-            "pacijent"
-    })
+    @XmlType(name = "", propOrder = {"pacijent"})
     public static class EvidencijaPacijent {
 
         @XmlElement(namespace = "http://www.rokzasok.rs/gradjanin/obrazac-saglasnosti", required = true)
@@ -361,16 +416,7 @@ public class ObrazacSaglasnosti implements Identifiable {
 
 
         @XmlAccessorType(XmlAccessType.FIELD)
-        @XmlType(name = "", propOrder = {
-                "drzavljanstvo",
-                "pacijentInfo",
-                "kontakt",
-                "radniStatus",
-                "zanimanje",
-                "socijalnaZastita",
-                "imeRoditelja",
-                "mestoRodjenja"
-        })
+        @XmlType(name = "", propOrder = {"drzavljanstvo", "pacijentInfo", "kontakt", "radniStatus", "zanimanje", "socijalnaZastita", "imeRoditelja", "mestoRodjenja"})
         public static class Pacijent {
 
             @XmlElement(namespace = "http://www.rokzasok.rs/gradjanin/obrazac-saglasnosti", required = true)
@@ -413,7 +459,6 @@ public class ObrazacSaglasnosti implements Identifiable {
                 }
                 return brojPasosa;
             }
-
 
             public TDrzavljanstvo getDrzavljanstvo() {
                 return drzavljanstvo;
@@ -520,11 +565,7 @@ public class ObrazacSaglasnosti implements Identifiable {
 
 
             @XmlAccessorType(XmlAccessType.FIELD)
-            @XmlType(name = "", propOrder = {
-                    "telFiksni",
-                    "telMobilni",
-                    "email"
-            })
+            @XmlType(name = "", propOrder = {"telFiksni", "telMobilni", "email"})
             public static class Kontakt {
 
                 @XmlElement(name = "tel_fiksni", namespace = "http://www.rokzasok.rs/gradjanin/obrazac-saglasnosti", required = true)
@@ -566,9 +607,7 @@ public class ObrazacSaglasnosti implements Identifiable {
 
 
                 @XmlAccessorType(XmlAccessType.FIELD)
-                @XmlType(name = "", propOrder = {
-                        "value"
-                })
+                @XmlType(name = "", propOrder = {"value"})
                 public static class Email {
 
                     @XmlValue
@@ -620,9 +659,7 @@ public class ObrazacSaglasnosti implements Identifiable {
 
 
                 @XmlAccessorType(XmlAccessType.FIELD)
-                @XmlType(name = "", propOrder = {
-                        "value"
-                })
+                @XmlType(name = "", propOrder = {"value"})
                 public static class TelFiksni {
 
                     @XmlValue
@@ -676,10 +713,7 @@ public class ObrazacSaglasnosti implements Identifiable {
 
 
             @XmlAccessorType(XmlAccessType.FIELD)
-            @XmlType(name = "", propOrder = {
-                    "korisnik",
-                    "sediste"
-            })
+            @XmlType(name = "", propOrder = {"korisnik", "sediste"})
             public static class SocijalnaZastita {
 
                 @XmlElement(namespace = "http://www.rokzasok.rs/gradjanin/obrazac-saglasnosti")
@@ -709,10 +743,7 @@ public class ObrazacSaglasnosti implements Identifiable {
 
 
                 @XmlAccessorType(XmlAccessType.FIELD)
-                @XmlType(name = "", propOrder = {
-                        "naziv",
-                        "opstina"
-                })
+                @XmlType(name = "", propOrder = {"naziv", "opstina"})
                 public static class Sediste {
 
                     @XmlElement(namespace = "http://www.rokzasok.rs/gradjanin/obrazac-saglasnosti", required = true)
@@ -750,11 +781,7 @@ public class ObrazacSaglasnosti implements Identifiable {
 
 
     @XmlAccessorType(XmlAccessType.FIELD)
-    @XmlType(name = "", propOrder = {
-            "ustanova",
-            "lekar",
-            "tabela"
-    })
+    @XmlType(name = "", propOrder = {"ustanova", "lekar", "tabela"})
     public static class EvidencijaVakcinacija {
 
         @XmlElement(namespace = "http://www.rokzasok.rs/gradjanin/obrazac-saglasnosti", required = true)
@@ -796,12 +823,7 @@ public class ObrazacSaglasnosti implements Identifiable {
 
 
         @XmlAccessorType(XmlAccessType.FIELD)
-        @XmlType(name = "", propOrder = {
-                "fax",
-                "ime",
-                "prezime",
-                "telefon"
-        })
+        @XmlType(name = "", propOrder = {"fax", "ime", "prezime", "telefon"})
         public static class Lekar {
 
             @XmlElement(namespace = "http://www.rokzasok.rs/gradjanin/obrazac-saglasnosti", required = true)
@@ -857,11 +879,7 @@ public class ObrazacSaglasnosti implements Identifiable {
 
 
         @XmlAccessorType(XmlAccessType.FIELD)
-        @XmlType(name = "", propOrder = {
-                "doza",
-                "privremeneKontraindikacije",
-                "odlukaKomisije"
-        })
+        @XmlType(name = "", propOrder = {"doza", "privremeneKontraindikacije", "odlukaKomisije"})
         public static class Tabela {
 
             @XmlElement(namespace = "http://www.rokzasok.rs/gradjanin/obrazac-saglasnosti", required = true)
@@ -902,8 +920,7 @@ public class ObrazacSaglasnosti implements Identifiable {
 
             @XmlAccessorType(XmlAccessType.FIELD)
             @XmlType(name = "")
-            public static class Doza
-                    extends TDoza {
+            public static class Doza extends TDoza {
 
                 @XmlAttribute(name = "vocab")
                 protected String vocab;
@@ -966,10 +983,7 @@ public class ObrazacSaglasnosti implements Identifiable {
 
 
             @XmlAccessorType(XmlAccessType.FIELD)
-            @XmlType(name = "", propOrder = {
-                    "datum",
-                    "dijagnoza"
-            })
+            @XmlType(name = "", propOrder = {"datum", "dijagnoza"})
             public static class PrivremeneKontraindikacije {
 
                 @XmlElement(namespace = "http://www.rokzasok.rs/gradjanin/obrazac-saglasnosti", required = true)
@@ -1004,10 +1018,7 @@ public class ObrazacSaglasnosti implements Identifiable {
 
 
         @XmlAccessorType(XmlAccessType.FIELD)
-        @XmlType(name = "", propOrder = {
-                "naziv",
-                "punkt"
-        })
+        @XmlType(name = "", propOrder = {"naziv", "punkt"})
         public static class Ustanova {
 
             @XmlElement(namespace = "http://www.rokzasok.rs/gradjanin/obrazac-saglasnosti", required = true)

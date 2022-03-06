@@ -1,4 +1,3 @@
-
 package com.rokzasok.portal.za.imunizaciju.model.dokumenti.gradjanin.obrazac_saglasnosti;
 
 import javax.xml.bind.annotation.XmlAccessType;
@@ -12,13 +11,7 @@ import javax.xml.datatype.XMLGregorianCalendar;
 
 
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "T_osoba", namespace = "http://www.rokzasok.rs/gradjanin/obrazac-saglasnosti", propOrder = {
-        "ime",
-        "prezime",
-        "pol",
-        "datumRodjenja",
-        "adresa"
-})
+@XmlType(name = "T_osoba", namespace = "http://www.rokzasok.rs/gradjanin/obrazac-saglasnosti", propOrder = {"ime", "prezime", "pol", "datumRodjenja", "adresa"})
 public class TOsoba {
 
     @XmlElement(namespace = "http://www.rokzasok.rs/gradjanin/obrazac-saglasnosti", required = true)
@@ -84,9 +77,7 @@ public class TOsoba {
 
 
     @XmlAccessorType(XmlAccessType.FIELD)
-    @XmlType(name = "", propOrder = {
-            "value"
-    })
+    @XmlType(name = "", propOrder = {"value"})
     public static class DatumRodjenja {
 
         @XmlValue
@@ -139,9 +130,7 @@ public class TOsoba {
 
 
     @XmlAccessorType(XmlAccessType.FIELD)
-    @XmlType(name = "", propOrder = {
-            "value"
-    })
+    @XmlType(name = "", propOrder = {"value"})
     public static class Pol {
 
         @XmlValue
