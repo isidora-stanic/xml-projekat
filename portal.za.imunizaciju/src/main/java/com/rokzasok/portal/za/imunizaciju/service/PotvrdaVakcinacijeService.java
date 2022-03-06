@@ -99,7 +99,6 @@ public class PotvrdaVakcinacijeService implements AbstractXmlService<PotvrdaVakc
         }
     }
 
-    // todo treba
     public Document getDocument(Long entityId) {
         injectRepositoryProperties();
 
@@ -201,10 +200,12 @@ public class PotvrdaVakcinacijeService implements AbstractXmlService<PotvrdaVakc
 
         XMLGregorianCalendar datumRodjenja = datumRodjenjaObrazac.getValue();
 
-        com.rokzasok.portal.za.imunizaciju.model.dokumenti.potvrda_vakcinacije.TOsoba osoba1 = potvrda.getOsoba();
+        // todo: ako ima broj pasosa, nije srpski drzavljanin i ne moze da dobije potvrdu
+        //  potencijalno treba izmeniti sta se desava u tom slucaju (throw bad request?)
+        if (pacijent.getBrojPasosa() != null && pacijent.getBrojPasosa().length() > 0){
+            return null;
+        }
 
-
-        // todo: proveri da li je jmbg null (nije srpski drzavljanin)
         com.rokzasok.portal.za.imunizaciju.model.dokumenti.potvrda_vakcinacije.TOsoba osoba =
                 new com.rokzasok.portal.za.imunizaciju.model.dokumenti.potvrda_vakcinacije.TOsoba(
                         pacijent.getJMBG(),
@@ -232,7 +233,6 @@ public class PotvrdaVakcinacijeService implements AbstractXmlService<PotvrdaVakc
         potvrda.setDoze(new PotvrdaVakcinacije.Doze(spisakDozaZaPotvrdu));
 
         potvrda.setQrLink("nekilink.com"); // todo: generisanje qr koda
-        // TODO: FALI SLEDEĆI TERMIN (U ŠEMI), NE TREBA RAZLOG IZDAVANJA
 
         potvrda.setDatumIzdavanja(LocalDate.now());
 

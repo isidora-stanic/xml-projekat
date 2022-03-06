@@ -121,7 +121,7 @@ public class IskazivanjeInteresovanjaService implements AbstractXmlService<Obraz
         }
     }
 
-    // todo treba
+
     public Document getDocument(Long entityId) {
         injectRepositoryProperties();
 

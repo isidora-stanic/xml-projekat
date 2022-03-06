@@ -200,24 +200,22 @@ public class SpisakTerminaService implements AbstractXmlService<SpisakTermina> {
             Dan dan = null;
             try {
                 dan = checkDan(zeljeniDatum.plusDays(i), dani, tipVakcine);
-            } catch (DatatypeConfigurationException e) {
-                e.printStackTrace(); // todo exception za neuspesno konvertovanje datuma u xml gregorian calendar
             } catch (Exception e) {
-                System.out.println(e.getMessage());
-                e.printStackTrace(); // todo excepiton za neuspesno smanjivanje kolicine doze
+                e.printStackTrace();
             }
+
             if (dan != null) {
 
                 try {
                     update(spisakTerminaXmlConversionAgent.marshall(spisakTermina, jaxbContextPath));
                 } catch (JAXBException e) {
-                    e.printStackTrace(); // todo exception za neuspesno konvertovanje u xml(ne bi trebalo da baci al aj kao)
+                    e.printStackTrace();
                 }
 
                 return dan;
             }
         }
-        return null; // ili throw kao "Ne moze se zakazati toliko unapred, nema termina..."
+        return null; // todo: ili throw kao "Ne moze se zakazati toliko unapred, nema termina..."
     }
 
     private Termini addMesto(String mesto, SpisakTermina spisak) {

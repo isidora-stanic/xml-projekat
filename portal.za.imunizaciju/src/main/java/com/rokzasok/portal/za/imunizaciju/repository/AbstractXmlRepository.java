@@ -71,7 +71,7 @@ public class AbstractXmlRepository<T extends Identifiable> {
         return xmlResource.getContentAsDOM();
     }
 
-    // todo treba
+
     public Document getDOMDoc(long eid) throws XMLDBException, ParserConfigurationException, IOException, SAXException, JAXBException {
         Collection collection = this.dbConnection.getCollection(this.collectionId);
 

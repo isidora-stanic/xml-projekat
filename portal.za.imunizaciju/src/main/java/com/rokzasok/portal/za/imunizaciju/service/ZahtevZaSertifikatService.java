@@ -87,7 +87,6 @@ public class ZahtevZaSertifikatService implements AbstractXmlService<Zahtev> {
             throw new InvalidXmlDatabaseException(Zahtev.class, e.getMessage());
         }
     }
-    // todo treba
     public Document getDocument(Long entityId) {
         injectRepositoryProperties();
 

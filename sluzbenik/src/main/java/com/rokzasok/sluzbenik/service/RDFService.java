@@ -64,17 +64,8 @@ public class RDFService {
                     xmlrdf);
             FileOutputStream xmlrdfOut = new FileOutputStream(new File(tmpFilename));
             xmlrdfOut.write(xmlrdf.toByteArray());
-        } catch (FileNotFoundException e1) {
+        } catch (IOException | SAXException | TransformerException e1) {
             e1.printStackTrace();
-            return false;
-        } catch (IOException e) {
-            e.printStackTrace();
-            return false;
-        } catch (SAXException e) {
-            e.printStackTrace();
-            return false;
-        } catch (TransformerException e) {
-            e.printStackTrace();
             return false;
         }
 
@@ -109,42 +100,6 @@ public class RDFService {
 
         return true;
     }
-
-    // TODO - run query filter
-    /*public List<SparqlQueryResult> run(String queryString) throws IOException {
-
-        // Create a QueryExecution that will access a SPARQL service over HTTP
-        QueryExecution query = QueryExecutionFactory.sparqlService(this.rdfdbConnectionProperties.getQueryEndpoint(), queryString);
-        // Query the SPARQL endpoint, iterate over the result set...
-        ResultSet results = query.execSelect();
-
-        String varName;
-        RDFNode varValue;
-        List<SparqlQueryResult> retval = new ArrayList<>();
-
-        while(results.hasNext()) {
-
-            // A single answer from a SELECT query
-            QuerySolution querySolution = results.next() ;
-            Iterator<String> variableBindings = querySolution.varNames();
-
-            // Retrieve variable bindings
-            while (variableBindings.hasNext()) {
-
-                varName = variableBindings.next();
-                varValue = querySolution.get(varName);
-
-                System.out.println(varName + ": " + varValue);
-
-                SparqlQueryResult sparqlQueryResult = new SparqlQueryResult();
-                sparqlQueryResult.setVarName(varName);
-                sparqlQueryResult.setVarValue(varValue);
-                retval.add(sparqlQueryResult);
-            }
-        }
-        query.close();
-        return retval;
-    }*/
 
     public RDFDBConnectionProperties getRdfdbConnectionProperties() {
         return rdfdbConnectionProperties;

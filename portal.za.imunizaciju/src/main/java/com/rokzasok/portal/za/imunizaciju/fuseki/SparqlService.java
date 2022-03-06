@@ -31,7 +31,6 @@ public class SparqlService {
         return getResults(sparqlQuery);
     }
 
-    // todo sredi da vrati nesto pametno
     public List<SparqlQueryResult> getAllOdDo(String d1, String d2) throws IOException {
         System.out.println("[INFO] Retrieving dokument od " + d1 + " do " + d2 + " from RDF store.");
         System.out.println("[INFO] Using \"" + SPARQL_NAMED_GRAPH_URI + "\" named graph.");

@@ -53,7 +53,7 @@ public class TextSearchService {
 
     public void convertAndAddToDTO(DokumentiIzPretrageDTO dokumentiDTO, List<Identifiable> dokumenti) {
         for (Identifiable dokument : dokumenti) {
-            // todo: pravljenje linka(uria) za front???
+            // todo: trenutno vracamo samo polu-URI (npr: iskazivanje-interesovanja/123456), ispravi?
 
             String dokumentURI = dokument.getTipDokumenta().toLowerCase().replaceAll(" ", "-").replaceAll("š", "s") + "/" + dokument.getDokumentId();
             dokumentiDTO.getListaDokumenata().add(new DokumentiKorisnikaDTO.DokumentDTO(dokumentURI, dokument.getTipDokumenta(), dokument.getDatumKreiranja()));

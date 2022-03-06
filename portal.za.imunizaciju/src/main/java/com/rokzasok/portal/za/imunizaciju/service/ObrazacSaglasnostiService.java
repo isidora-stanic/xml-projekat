@@ -4,7 +4,6 @@ import com.rokzasok.portal.za.imunizaciju.exception.EntityNotFoundException;
 import com.rokzasok.portal.za.imunizaciju.exception.InvalidXmlDatabaseException;
 import com.rokzasok.portal.za.imunizaciju.exception.InvalidXmlException;
 import com.rokzasok.portal.za.imunizaciju.exception.XmlDatabaseException;
-import com.rokzasok.portal.za.imunizaciju.fuseki.util.SparqlUtil;
 import com.rokzasok.portal.za.imunizaciju.helper.UUIDHelper;
 import com.rokzasok.portal.za.imunizaciju.helper.XmlConversionAgent;
 import com.rokzasok.portal.za.imunizaciju.model.dokumenti.gradjanin.iskazivanje_interesovanja.ObrazacInteresovanja;
@@ -12,10 +11,6 @@ import com.rokzasok.portal.za.imunizaciju.model.dokumenti.gradjanin.obrazac_sagl
 import com.rokzasok.portal.za.imunizaciju.repository.AbstractXmlRepository;
 import com.rokzasok.portal.za.imunizaciju.transformation.XSLTransformer;
 import org.apache.commons.io.FileUtils;
-import org.apache.jena.query.QueryExecution;
-import org.apache.jena.query.QueryExecutionFactory;
-import org.apache.jena.query.ResultSet;
-import org.apache.jena.query.ResultSetFormatter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.w3c.dom.Document;
@@ -94,7 +89,7 @@ public class ObrazacSaglasnostiService implements AbstractXmlService<ObrazacSagl
         }
     }
 
-    // todo treba
+
     public Document getDocument(Long entityId) {
         injectRepositoryProperties();
 
@@ -103,16 +98,10 @@ public class ObrazacSaglasnostiService implements AbstractXmlService<ObrazacSagl
             if (obrazac == null)
                 throw new EntityNotFoundException(entityId, ObrazacInteresovanja.class);
             return obrazacSaglasnostiRepository.getDOMDoc(entityId);
-        } catch (XMLDBException e) {
+        } catch (XMLDBException | ParserConfigurationException | IOException | SAXException e) {
             throw new XmlDatabaseException(e.getMessage());
         } catch (JAXBException e) {
             throw new InvalidXmlDatabaseException(ObrazacInteresovanja.class, e.getMessage());
-        } catch (ParserConfigurationException e) {
-            throw new XmlDatabaseException(e.getMessage());
-        } catch (IOException e) {
-            throw new XmlDatabaseException(e.getMessage());
-        } catch (SAXException e) {
-            throw new XmlDatabaseException(e.getMessage());
         }
     }
 
@@ -262,20 +251,20 @@ public class ObrazacSaglasnostiService implements AbstractXmlService<ObrazacSagl
         izvestaj.getDokumentInfo().getSaglasnost().getNazivLeka().setDatatype("xs:#string");
     }
 
-    // todo return something usable
-    public List<ObrazacSaglasnosti> getSaglasnostByOsoba(String osobaId) {
-        System.out.println("[INFO] Retrieving obrasci saglasnosti  by " + osobaId + " from RDF store.");
-        System.out.println("[INFO] Using \"" + SPARQL_NAMED_GRAPH_URI + "\" named graph.");
-        String sparqlQuery = SparqlUtil.selectPotvrdniObrasciSaglasnostiOsobe(osobaId, rdfService.getRdfdbConnectionProperties().getDataEndpoint());
-        System.out.println(sparqlQuery);
-        QueryExecution query = QueryExecutionFactory.sparqlService(rdfService.getRdfdbConnectionProperties().getQueryEndpoint(), sparqlQuery);
-        ResultSet results = query.execSelect();
-        //QuerySolution retVal = results.next();
-        ResultSetFormatter.out(System.out, results);
-        query.close();
-        //return retVal;
-        return null;
-    }
+//    // todo delete?
+//    public List<ObrazacSaglasnosti> getSaglasnostByOsoba(String osobaId) {
+//        System.out.println("[INFO] Retrieving obrasci saglasnosti  by " + osobaId + " from RDF store.");
+//        System.out.println("[INFO] Using \"" + SPARQL_NAMED_GRAPH_URI + "\" named graph.");
+//        String sparqlQuery = SparqlUtil.selectPotvrdniObrasciSaglasnostiOsobe(osobaId, rdfService.getRdfdbConnectionProperties().getDataEndpoint());
+//        System.out.println(sparqlQuery);
+//        QueryExecution query = QueryExecutionFactory.sparqlService(rdfService.getRdfdbConnectionProperties().getQueryEndpoint(), sparqlQuery);
+//        ResultSet results = query.execSelect();
+//        //QuerySolution retVal = results.next();
+//        ResultSetFormatter.out(System.out, results);
+//        query.close();
+//        //return retVal;
+//        return null;
+//    }
 
     public ByteArrayInputStream generateHtml(Long dokumentId) throws IOException, SAXException {
         String xslFile = "src/main/resources/data/xsl-transformations/obrazac_saglasnosti.xsl";

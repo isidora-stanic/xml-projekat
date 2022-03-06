@@ -87,7 +87,7 @@ public class SparqlUtil {
                 "}";
     }
 
-    public static String selectAllDatumKreiranja(String d1, String d2, String dataEndpointString) { // todo: da li da se vrati samo dokument????
+    public static String selectAllDatumKreiranja(String d1, String d2, String dataEndpointString) {
         return "PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>\n" +
                 "\n" +
                 "SELECT ?dokument ?date FROM <" + dataEndpointString + "/sparql/metadata>\n" +

@@ -249,7 +249,6 @@ public class DigitalniSertifikatService implements AbstractXmlService<DigitalniS
         sertifikat.setVakcinacija(sertifikatDoze);
         sertifikat.setInfoOSertifikatu(idSertifikata);
 
-        // todo: zasto imamo i dokument id i brojSertifikata u infoOSertifikatu??
         sertifikat.setDokumentId(idSertifikata);
 
         handleMetadata(sertifikat, idZahteva);

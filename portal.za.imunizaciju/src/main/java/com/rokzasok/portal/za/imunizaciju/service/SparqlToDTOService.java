@@ -69,9 +69,6 @@ public class SparqlToDTOService {
 
     public IzvestajOImunizaciji generateIzvestaj(String odDatum, String doDatum) {
         try {
-            // todo: treba izracunati: 3) broj izdatih digitalnih sertifikata (to mora sa strane sluzbenika da se popuni, ovde moze sa tipa 0 ili -1)
-            //                         4)- broj potvrda vakcinacije ---> do we really need this??
-
             List<SparqlService.SparqlQueryResult> sparqlBrInteresovanja = sparqlService.selectBrojIskazaInteresovanjaUVremenskomPeriodu(odDatum, doDatum);
             List<SparqlService.SparqlQueryResult> sparqlBrZahteva = sparqlService.selectBrojZahtevaZaSertifikatUVremenskomPeriodu(odDatum, doDatum);
 
@@ -83,7 +80,7 @@ public class SparqlToDTOService {
             IzvestajOImunizaciji izvestaj = new IzvestajOImunizaciji();
 
             izvestaj.setBrInteresovanja(Long.valueOf(sparqlBrInteresovanja.get(0).getVarValue().asNode().getLiteralValue().toString()));
-            izvestaj.setBrIzdatihZahtevaZaSertifikat(0L); // todo: ovo popunjava sluzbenik!!!
+            izvestaj.setBrIzdatihZahtevaZaSertifikat(0L);
             izvestaj.setBrPrimljenihZahtevaZaSertifikat(Long.valueOf(sparqlBrZahteva.get(0).getVarValue().asNode().getLiteralValue().toString()));
 
             // redni br doze
