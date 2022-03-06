@@ -1,15 +1,13 @@
 package com.rokzasok.portal.za.imunizaciju.service;
 
-import com.rokzasok.portal.za.imunizaciju.model.dokumenti.gradjanin.iskazivanje_interesovanja.ObrazacInteresovanja;
-import com.rokzasok.portal.za.imunizaciju.model.dokumenti.gradjanin.obrazac_saglasnosti.ObrazacSaglasnosti;
-import com.rokzasok.portal.za.imunizaciju.model.dokumenti.gradjanin.zahtev_za_sertifikat.Zahtev;
 import com.rokzasok.portal.za.imunizaciju.exception.EntityNotFoundException;
 import com.rokzasok.portal.za.imunizaciju.exception.InvalidXmlDatabaseException;
 import com.rokzasok.portal.za.imunizaciju.exception.InvalidXmlException;
 import com.rokzasok.portal.za.imunizaciju.exception.XmlDatabaseException;
 import com.rokzasok.portal.za.imunizaciju.helper.UUIDHelper;
 import com.rokzasok.portal.za.imunizaciju.helper.XmlConversionAgent;
-import com.rokzasok.portal.za.imunizaciju.model.dokumenti.potvrda_vakcinacije.PotvrdaVakcinacije;
+import com.rokzasok.portal.za.imunizaciju.model.dokumenti.gradjanin.iskazivanje_interesovanja.ObrazacInteresovanja;
+import com.rokzasok.portal.za.imunizaciju.model.dokumenti.gradjanin.zahtev_za_sertifikat.Zahtev;
 import com.rokzasok.portal.za.imunizaciju.repository.AbstractXmlRepository;
 import com.rokzasok.portal.za.imunizaciju.transformation.XSLTransformer;
 import org.apache.commons.io.FileUtils;
@@ -190,7 +188,7 @@ public class ZahtevZaSertifikatService implements AbstractXmlService<Zahtev> {
         zahtev.getMesto().setProperty("pred:mestoPodnosenja");
 
         zahtev.getDatum().setDatatype("xs:#date");
-        zahtev.getDatum().setProperty("pred:datumPodnosenja");
+        zahtev.getDatum().setProperty("pred:datumKreiranja");
 
         zahtev.getPacijent().getId().setDatatype("xs:#string");
         zahtev.getPacijent().getId().setProperty("pred:kreiranOdStrane");

@@ -205,7 +205,7 @@ public class DigitalniSertifikatService implements AbstractXmlService<DigitalniS
         izvestaj.getGradjanin().getId().setDatatype("xs:#string");
 
         izvestaj.getInfoOSertifikatu().getDatum().setProperty("pred:datumKreiranja");
-        izvestaj.getInfoOSertifikatu().getDatum().setDatatype("xs:#date");
+        izvestaj.getInfoOSertifikatu().getDatum().setDatatype("xs:#dateTime");
     }
 
     // ako ovde iz nekog razloga puca kod, to je zbog praznog konstruktora kod sertifikata

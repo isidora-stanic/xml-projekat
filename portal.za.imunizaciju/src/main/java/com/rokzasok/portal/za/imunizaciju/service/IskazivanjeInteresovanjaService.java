@@ -241,7 +241,7 @@ public class IskazivanjeInteresovanjaService implements AbstractXmlService<Obraz
         interesovanje.getOpstiPodaci().getDavalacKrvi().setDatatype("xs:#boolean");
         interesovanje.getOpstiPodaci().getDavalacKrvi().setProperty("pred:davalacKrvi");
 
-        interesovanje.getOpstiPodaci().getDatumPodnosenja().setProperty("pred:datumPodnosenja");
+        interesovanje.getOpstiPodaci().getDatumPodnosenja().setProperty("pred:datumKreiranja");
         interesovanje.getOpstiPodaci().getDatumPodnosenja().setDatatype("xs:#date");
 
     }

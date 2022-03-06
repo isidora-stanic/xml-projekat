@@ -286,7 +286,7 @@ public class PotvrdaVakcinacijeService implements AbstractXmlService<PotvrdaVakc
         potvrda.getOsoba().getId().setDatatype("xs:#string");
 
         potvrda.getDatumIzdavanja().setDatatype("xs:#date");
-        potvrda.getDatumIzdavanja().setProperty("pred:datumIzdavanja");
+        potvrda.getDatumIzdavanja().setProperty("pred:datumKreiranja");
 
     }
 
