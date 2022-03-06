@@ -1,7 +1,7 @@
 
 package com.rokzasok.portal.za.imunizaciju.model.b2b.izvestaj_o_imunizaciji;
 
-import com.rokzasok.sluzbenik.interfaces.Identifiable;
+import com.rokzasok.portal.za.imunizaciju.interfaces.Identifiable;
 
 import javax.xml.bind.annotation.*;
 import javax.xml.datatype.XMLGregorianCalendar;
@@ -123,6 +123,16 @@ public class IzvestajOImunizaciji implements Identifiable {
 
     public void setDokumentId(Long value) {
         this.dokumentId = value;
+    }
+
+    @Override
+    public XMLGregorianCalendar getDatumKreiranja() {
+        return this.datumIzdavanja;
+    }
+
+    @Override
+    public String getTipDokumenta() {
+        return "Izveštaj o imunizaciji";
     }
 
 

@@ -199,6 +199,18 @@
                                     </xs:simpleContent>
                                 </xs:complexType>
                             </xs:element>
+                            <xs:element name="datum_kreiranja">
+                                <xs:complexType>
+                                    <xs:simpleContent>
+                                        <xs:extension base="xs:date">
+                                            <xs:attribute default="pred:datumKreiranja"
+                                                name="property" type="xs:string"/>
+                                            <xs:attribute default="xs:date" name="datatype"
+                                                type="xs:string"/>
+                                        </xs:extension>
+                                    </xs:simpleContent>
+                                </xs:complexType>
+                            </xs:element>
                         </xs:sequence>
                         <xs:attribute fixed="http://www.rokzasok.rs/rdf/database/predicate"
                             name="vocab" type="xs:string"/>

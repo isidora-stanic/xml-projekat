@@ -1,5 +1,7 @@
 package com.rokzasok.portal.za.imunizaciju.service;
 
+import org.w3c.dom.Document;
+
 import java.util.List;
 
 public interface AbstractXmlService<T> {
@@ -11,6 +13,8 @@ public interface AbstractXmlService<T> {
     T create(String entityXml);
 
     T update(String entityXml);
+
+    //Document getDocument(Long entityId);
 
     boolean deleteById(Long entityId);
 }

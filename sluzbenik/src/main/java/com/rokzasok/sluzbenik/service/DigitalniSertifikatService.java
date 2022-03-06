@@ -1,5 +1,6 @@
 package com.rokzasok.sluzbenik.service;
 
+import com.rokzasok.sluzbenik.model.b2b.gradjanin.iskazivanje_interesovanja.ObrazacInteresovanja;
 import com.rokzasok.sluzbenik.model.b2b.gradjanin.zahtev_za_sertifikat.*;
 import com.rokzasok.sluzbenik.model.b2b.potvrda_vakcinacije.PotvrdaVakcinacije;
 import com.rokzasok.sluzbenik.model.b2b.potvrda_vakcinacije.TDoza;
@@ -17,10 +18,12 @@ import com.rokzasok.sluzbenik.transformation.XSLTransformer;
 import org.apache.commons.io.FileUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.w3c.dom.Document;
 import org.xml.sax.SAXException;
 import org.xmldb.api.base.XMLDBException;
 
 import javax.xml.bind.JAXBException;
+import javax.xml.parsers.ParserConfigurationException;
 import java.util.ArrayList;
 import java.io.ByteArrayInputStream;
 import java.io.File;
@@ -90,6 +93,21 @@ public class DigitalniSertifikatService implements AbstractXmlService<DigitalniS
             throw new XmlDatabaseException(e.getMessage());
         } catch (JAXBException e) {
             throw new InvalidXmlDatabaseException(DigitalniSertifikat.class, e.getMessage());
+        }
+    }
+
+    public Document getDocument(Long entityId) {
+        injectRepositoryProperties();
+
+        try {
+            DigitalniSertifikat digitalniSertifikat = this.digitalniSertifikatAbstractXmlRepository.getEntity(entityId);
+            if (digitalniSertifikat == null)
+                throw new EntityNotFoundException(entityId, ObrazacInteresovanja.class);
+            return digitalniSertifikatAbstractXmlRepository.getDOMDoc(entityId);
+        } catch (XMLDBException | ParserConfigurationException | IOException | SAXException e) {
+            throw new XmlDatabaseException(e.getMessage());
+        } catch (JAXBException e) {
+            throw new InvalidXmlDatabaseException(ObrazacInteresovanja.class, e.getMessage());
         }
     }
 
@@ -187,7 +205,7 @@ public class DigitalniSertifikatService implements AbstractXmlService<DigitalniS
         izvestaj.getGradjanin().getId().setDatatype("xs:#string");
 
         izvestaj.getInfoOSertifikatu().getDatum().setProperty("pred:datumKreiranja");
-        izvestaj.getInfoOSertifikatu().getDatum().setDatatype("xs:#date");
+        izvestaj.getInfoOSertifikatu().getDatum().setDatatype("xs:#dateTime");
     }
 
     // ako ovde iz nekog razloga puca kod, to je zbog praznog konstruktora kod sertifikata
@@ -231,7 +249,6 @@ public class DigitalniSertifikatService implements AbstractXmlService<DigitalniS
         sertifikat.setVakcinacija(sertifikatDoze);
         sertifikat.setInfoOSertifikatu(idSertifikata);
 
-        // todo: zasto imamo i dokument id i brojSertifikata u infoOSertifikatu??
         sertifikat.setDokumentId(idSertifikata);
 
         handleMetadata(sertifikat, idZahteva);

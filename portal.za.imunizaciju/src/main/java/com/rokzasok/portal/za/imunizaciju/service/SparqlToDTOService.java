@@ -3,6 +3,7 @@ package com.rokzasok.portal.za.imunizaciju.service;
 import com.rokzasok.portal.za.imunizaciju.fuseki.SparqlService;
 import com.rokzasok.portal.za.imunizaciju.model.b2b.izvestaj_o_imunizaciji.IzvestajOImunizaciji;
 import com.rokzasok.portal.za.imunizaciju.model.dto.DokumentiKorisnikaDTO;
+import org.apache.jena.datatypes.xsd.XSDDateTime;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -31,13 +32,35 @@ public class SparqlToDTOService {
             DokumentiKorisnikaDTO dokumentiKorisnikaDTO = new DokumentiKorisnikaDTO();
             dokumentiKorisnikaDTO.setListaDokumenata(new ArrayList<>());
 
-            for (SparqlService.SparqlQueryResult sparqlQueryResult : sparqlDokumentLinkovi) {
-                dokumentiKorisnikaDTO.getListaDokumenata().add(new DokumentiKorisnikaDTO.DokumentDTO(sparqlQueryResult.getVarValue().toString(), "tipDokumenta", null));
+            dokumentiKorisnikaDTO.setIdKorisnika(idKorisnika);
+
+            int i = 0;
+
+            while (i < sparqlDokumentLinkovi.size()) {
+                SparqlService.SparqlQueryResult result = sparqlDokumentLinkovi.get(i);
+                String dokumentURI = result.getVarValue().toString();
+
+                String tipDokumentaWithId = dokumentURI.split("database/")[1];
+
+                String[] split = tipDokumentaWithId.split("/");
+
+                String tipDokumenta = split[0].replaceAll("-", " ");
+                tipDokumenta = tipDokumenta.substring(0, 1).toUpperCase() + tipDokumenta.substring(1);
+
+                result = sparqlDokumentLinkovi.get(i + 1);
+                XSDDateTime xsdDatum = (XSDDateTime) result.getVarValue().asNode().getLiteralValue();
+
+                XMLGregorianCalendar xmlDatum = DatatypeFactory.newInstance().newXMLGregorianCalendar(xsdDatum.toString());
+
+
+                dokumentiKorisnikaDTO.getListaDokumenata().add(new DokumentiKorisnikaDTO.DokumentDTO(dokumentURI, tipDokumenta, xmlDatum));
+
+                i += 2;
             }
 
             return dokumentiKorisnikaDTO;
 
-        } catch (IOException e) {
+        } catch (IOException | DatatypeConfigurationException e) {
             e.printStackTrace();
         }
 
@@ -46,9 +69,6 @@ public class SparqlToDTOService {
 
     public IzvestajOImunizaciji generateIzvestaj(String odDatum, String doDatum) {
         try {
-            // todo: treba izracunati: 3) broj izdatih digitalnih sertifikata (to mora sa strane sluzbenika da se popuni, ovde moze sa tipa 0 ili -1)
-            //                         4)- broj potvrda vakcinacije ---> do we really need this??
-
             List<SparqlService.SparqlQueryResult> sparqlBrInteresovanja = sparqlService.selectBrojIskazaInteresovanjaUVremenskomPeriodu(odDatum, doDatum);
             List<SparqlService.SparqlQueryResult> sparqlBrZahteva = sparqlService.selectBrojZahtevaZaSertifikatUVremenskomPeriodu(odDatum, doDatum);
 
@@ -60,7 +80,7 @@ public class SparqlToDTOService {
             IzvestajOImunizaciji izvestaj = new IzvestajOImunizaciji();
 
             izvestaj.setBrInteresovanja(Long.valueOf(sparqlBrInteresovanja.get(0).getVarValue().asNode().getLiteralValue().toString()));
-            izvestaj.setBrIzdatihZahtevaZaSertifikat(0L); // todo: ovo popunjava sluzbenik!!!
+            izvestaj.setBrIzdatihZahtevaZaSertifikat(0L);
             izvestaj.setBrPrimljenihZahtevaZaSertifikat(Long.valueOf(sparqlBrZahteva.get(0).getVarValue().asNode().getLiteralValue().toString()));
 
             // redni br doze
@@ -120,8 +140,8 @@ public class SparqlToDTOService {
         GregorianCalendar cal2 = new GregorianCalendar();
         cal2.setTime(date2);
 
-        XMLGregorianCalendar xmlGregCal1 =  DatatypeFactory.newInstance().newXMLGregorianCalendar(cal1);
-        XMLGregorianCalendar xmlGregCal2 =  DatatypeFactory.newInstance().newXMLGregorianCalendar(cal2);
+        XMLGregorianCalendar xmlGregCal1 = DatatypeFactory.newInstance().newXMLGregorianCalendar(cal1);
+        XMLGregorianCalendar xmlGregCal2 = DatatypeFactory.newInstance().newXMLGregorianCalendar(cal2);
 
         period.setOd(xmlGregCal1);
         period.setDo(xmlGregCal2);

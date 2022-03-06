@@ -5,6 +5,7 @@ import com.rokzasok.portal.za.imunizaciju.fuseki.util.SparqlUtil;
 import com.rokzasok.portal.za.imunizaciju.helper.UUIDHelper;
 import com.rokzasok.portal.za.imunizaciju.helper.XmlConversionAgent;
 import com.rokzasok.portal.za.imunizaciju.model.dokumenti.gradjanin.iskazivanje_interesovanja.ObrazacInteresovanja;
+import com.rokzasok.portal.za.imunizaciju.model.dokumenti.gradjanin.obrazac_saglasnosti.ObrazacSaglasnosti;
 import com.rokzasok.portal.za.imunizaciju.repository.AbstractXmlRepository;
 import com.rokzasok.portal.za.imunizaciju.transformation.XSLTransformer;
 import org.apache.commons.io.FileUtils;
@@ -14,10 +15,12 @@ import org.apache.jena.query.ResultSet;
 import org.apache.jena.query.ResultSetFormatter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.w3c.dom.Document;
 import org.xml.sax.SAXException;
 import org.xmldb.api.base.XMLDBException;
 
 import javax.xml.bind.JAXBException;
+import javax.xml.parsers.ParserConfigurationException;
 import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.IOException;
@@ -93,8 +96,13 @@ public class IskazivanjeInteresovanjaService implements AbstractXmlService<Obraz
     @Override
     public List<ObrazacInteresovanja> findAll() {
         injectRepositoryProperties();
-
-        return null;
+        try {
+            return this.obrazacInteresovanjaAbstractXmlRepository.getAllEntities();
+        } catch (XMLDBException e) {
+            throw new XmlDatabaseException(e.getMessage());
+        } catch (JAXBException e) {
+            throw new InvalidXmlDatabaseException(ObrazacSaglasnosti.class, e.getMessage());
+        }
     }
 
     @Override
@@ -107,6 +115,22 @@ public class IskazivanjeInteresovanjaService implements AbstractXmlService<Obraz
                 throw new EntityNotFoundException(entityId, ObrazacInteresovanja.class);
             return obrazacInteresovanja;
         } catch (XMLDBException e) {
+            throw new XmlDatabaseException(e.getMessage());
+        } catch (JAXBException e) {
+            throw new InvalidXmlDatabaseException(ObrazacInteresovanja.class, e.getMessage());
+        }
+    }
+
+
+    public Document getDocument(Long entityId) {
+        injectRepositoryProperties();
+
+        try {
+            ObrazacInteresovanja obrazacInteresovanja = this.obrazacInteresovanjaAbstractXmlRepository.getEntity(entityId);
+            if (obrazacInteresovanja == null)
+                throw new EntityNotFoundException(entityId, ObrazacInteresovanja.class);
+            return obrazacInteresovanjaAbstractXmlRepository.getDOMDoc(entityId);
+        } catch (XMLDBException | ParserConfigurationException | IOException | SAXException e) {
             throw new XmlDatabaseException(e.getMessage());
         } catch (JAXBException e) {
             throw new InvalidXmlDatabaseException(ObrazacInteresovanja.class, e.getMessage());
@@ -217,10 +241,12 @@ public class IskazivanjeInteresovanjaService implements AbstractXmlService<Obraz
         interesovanje.getOpstiPodaci().getDavalacKrvi().setDatatype("xs:#boolean");
         interesovanje.getOpstiPodaci().getDavalacKrvi().setProperty("pred:davalacKrvi");
 
-        interesovanje.getOpstiPodaci().getDatumPodnosenja().setProperty("pred:datumPodnosenja");
+        interesovanje.getOpstiPodaci().getDatumPodnosenja().setProperty("pred:datumKreiranja");
         interesovanje.getOpstiPodaci().getDatumPodnosenja().setDatatype("xs:#date");
 
     }
+
+
 
     public boolean proveriDaLiMozeDaKreiraInteresovanje(Long osobaId){
         System.out.println("[INFO] Retrieving obrasci interesovanja  by " + osobaId + " from RDF store.");

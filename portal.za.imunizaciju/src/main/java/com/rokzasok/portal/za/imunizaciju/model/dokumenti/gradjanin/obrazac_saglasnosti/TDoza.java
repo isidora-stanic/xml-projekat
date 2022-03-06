@@ -1,31 +1,13 @@
-
 package com.rokzasok.portal.za.imunizaciju.model.dokumenti.gradjanin.obrazac_saglasnosti;
 
-import java.math.BigInteger;
-import javax.xml.bind.annotation.XmlAccessType;
-import javax.xml.bind.annotation.XmlAccessorType;
-import javax.xml.bind.annotation.XmlAttribute;
-import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlSchemaType;
-import javax.xml.bind.annotation.XmlSeeAlso;
-import javax.xml.bind.annotation.XmlType;
-import javax.xml.bind.annotation.XmlValue;
+import javax.xml.bind.annotation.*;
 import javax.xml.datatype.XMLGregorianCalendar;
-
+import java.math.BigInteger;
 
 
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "T_doza", namespace = "http://www.rokzasok.rs/gradjanin/obrazac-saglasnosti", propOrder = {
-        "tip",
-        "proizvodjac",
-        "datum",
-        "brojSerije",
-        "brojDoze",
-        "nezeljeneReakcije"
-})
-@XmlSeeAlso({
-        ObrazacSaglasnosti.EvidencijaVakcinacija.Tabela.Doza.class
-})
+@XmlType(name = "T_doza", namespace = "http://www.rokzasok.rs/gradjanin/obrazac-saglasnosti", propOrder = {"tip", "proizvodjac", "datum", "brojSerije", "brojDoze", "nezeljeneReakcije"})
+@XmlSeeAlso({ObrazacSaglasnosti.EvidencijaVakcinacija.Tabela.Doza.class})
 public class TDoza {
 
     @XmlElement(namespace = "http://www.rokzasok.rs/gradjanin/obrazac-saglasnosti", required = true)
@@ -102,11 +84,8 @@ public class TDoza {
     }
 
 
-
     @XmlAccessorType(XmlAccessType.FIELD)
-    @XmlType(name = "", propOrder = {
-            "value"
-    })
+    @XmlType(name = "", propOrder = {"value"})
     public static class BrojDoze {
 
         @XmlValue
@@ -158,11 +137,8 @@ public class TDoza {
     }
 
 
-
     @XmlAccessorType(XmlAccessType.FIELD)
-    @XmlType(name = "", propOrder = {
-            "value"
-    })
+    @XmlType(name = "", propOrder = {"value"})
     public static class BrojSerije {
 
         @XmlValue
@@ -213,11 +189,8 @@ public class TDoza {
     }
 
 
-
     @XmlAccessorType(XmlAccessType.FIELD)
-    @XmlType(name = "", propOrder = {
-            "value"
-    })
+    @XmlType(name = "", propOrder = {"value"})
     public static class Datum {
 
         @XmlValue
@@ -269,11 +242,8 @@ public class TDoza {
     }
 
 
-
     @XmlAccessorType(XmlAccessType.FIELD)
-    @XmlType(name = "", propOrder = {
-            "value"
-    })
+    @XmlType(name = "", propOrder = {"value"})
     public static class Proizvodjac {
 
         @XmlValue
@@ -308,11 +278,8 @@ public class TDoza {
     }
 
 
-
     @XmlAccessorType(XmlAccessType.FIELD)
-    @XmlType(name = "", propOrder = {
-            "value"
-    })
+    @XmlType(name = "", propOrder = {"value"})
     public static class Tip {
 
         @XmlValue
