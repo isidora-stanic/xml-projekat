@@ -17,7 +17,6 @@ import javax.xml.bind.JAXBException;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
-import java.io.File;
 import java.io.IOException;
 import java.io.StringReader;
 import java.util.ArrayList;
@@ -75,8 +74,8 @@ public class AbstractXmlRepository<T extends Identifiable> {
     // todo treba
     public Document getDOMDoc(long eid) throws XMLDBException, ParserConfigurationException, IOException, SAXException, JAXBException {
         Collection collection = this.dbConnection.getCollection(this.collectionId);
-        Long id = new Long(eid);
-        XMLResource xmlResource = (XMLResource) collection.getResource(id.toString() + ".xml");
+
+        XMLResource xmlResource = (XMLResource) collection.getResource(eid + ".xml");
         if (xmlResource == null) {
             return null;
         }

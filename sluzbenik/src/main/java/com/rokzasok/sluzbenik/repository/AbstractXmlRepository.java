@@ -5,10 +5,19 @@ import com.rokzasok.sluzbenik.helper.XmlConversionAgent;
 import com.rokzasok.sluzbenik.interfaces.Identifiable;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
+import org.w3c.dom.Document;
+import org.xml.sax.InputSource;
+import org.xml.sax.SAXException;
 import org.xmldb.api.base.*;
 import org.xmldb.api.modules.XMLResource;
 import org.xmldb.api.modules.XQueryService;
+
 import javax.xml.bind.JAXBException;
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.ParserConfigurationException;
+import java.io.IOException;
+import java.io.StringReader;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -130,5 +139,22 @@ public class AbstractXmlRepository<T extends Identifiable> {
         this.jaxbContextPath = jaxbContextPath;
         this.X_QUERY_FIND_ALL_ENTITIES = X_QUERY_FIND_ALL_ENTITIES;
         this.X_UPDATE_REMOVE_ENTITY_BY_ID_EXPRESSION = X_UPDATE_REMOVE_ENTITY_BY_ID_EXPRESSION;
+    }
+
+    public Document getDOMDoc(long entityId) throws XMLDBException, ParserConfigurationException, JAXBException, IOException, SAXException {
+        Collection collection = this.dbConnection.getCollection(this.collectionId);
+
+        XMLResource xmlResource = (XMLResource) collection.getResource(entityId + ".xml");
+        if (xmlResource == null) {
+            return null;
+        }
+        DocumentBuilder db = DocumentBuilderFactory.newInstance().newDocumentBuilder();
+        InputSource is = new InputSource();
+
+        T unmarshall = this.xmlConversionAgent.unmarshall(xmlResource.getContentAsDOM(), this.jaxbContextPath);
+        String marshall = xmlConversionAgent.marshall(unmarshall, jaxbContextPath);
+        is.setCharacterStream(new StringReader(marshall));
+
+        return db.parse(is);
     }
 }

@@ -5,6 +5,7 @@ import com.rokzasok.sluzbenik.model.b2b.gradjanin.obrazac_saglasnosti.ObrazacSag
 import com.rokzasok.sluzbenik.model.b2b.gradjanin.zahtev_za_sertifikat.Zahtev;
 import com.rokzasok.sluzbenik.model.b2b.potvrda_vakcinacije.PotvrdaVakcinacije;
 import com.rokzasok.sluzbenik.model.dokumenti.izvestaj_o_imunizaciji.IzvestajOImunizaciji;
+import com.rokzasok.sluzbenik.model.dto.DokumentiIzPretrageDTO;
 import com.rokzasok.sluzbenik.model.dto.DokumentiKorisnikaDTO;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
@@ -27,6 +28,20 @@ public class B2BService {
                 .header(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_XML_VALUE)
                 .retrieve()
                 .bodyToMono(DokumentiKorisnikaDTO.class)
+                .log()
+                .block();
+        return dokumenti;
+    }
+
+    // pretraga dokumenata
+    public DokumentiIzPretrageDTO pretraziDokumenteSaPortala(String query) {
+        WebClient client = WebClient.create(BASE_URI);
+
+        DokumentiIzPretrageDTO dokumenti = client.get()
+                .uri(Builder -> Builder.path("/b2b/search").queryParam("query", query).build())
+                .header(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_XML_VALUE)
+                .retrieve()
+                .bodyToMono(DokumentiIzPretrageDTO.class)
                 .log()
                 .block();
         return dokumenti;

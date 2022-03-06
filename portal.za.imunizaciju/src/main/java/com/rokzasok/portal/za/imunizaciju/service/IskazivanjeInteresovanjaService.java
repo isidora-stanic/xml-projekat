@@ -16,7 +16,6 @@ import org.apache.jena.query.ResultSetFormatter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.w3c.dom.Document;
-import org.w3c.dom.Node;
 import org.xml.sax.SAXException;
 import org.xmldb.api.base.XMLDBException;
 
@@ -131,16 +130,10 @@ public class IskazivanjeInteresovanjaService implements AbstractXmlService<Obraz
             if (obrazacInteresovanja == null)
                 throw new EntityNotFoundException(entityId, ObrazacInteresovanja.class);
             return obrazacInteresovanjaAbstractXmlRepository.getDOMDoc(entityId);
-        } catch (XMLDBException e) {
+        } catch (XMLDBException | ParserConfigurationException | IOException | SAXException e) {
             throw new XmlDatabaseException(e.getMessage());
         } catch (JAXBException e) {
             throw new InvalidXmlDatabaseException(ObrazacInteresovanja.class, e.getMessage());
-        } catch (ParserConfigurationException e) {
-            throw new XmlDatabaseException(e.getMessage());
-        } catch (IOException e) {
-            throw new XmlDatabaseException(e.getMessage());
-        } catch (SAXException e) {
-            throw new XmlDatabaseException(e.getMessage());
         }
     }
 
