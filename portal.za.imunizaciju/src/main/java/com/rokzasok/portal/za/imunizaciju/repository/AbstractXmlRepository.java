@@ -5,11 +5,21 @@ import com.rokzasok.portal.za.imunizaciju.helper.XmlConversionAgent;
 import com.rokzasok.portal.za.imunizaciju.interfaces.Identifiable;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
+import org.w3c.dom.Document;
+import org.w3c.dom.Node;
+import org.xml.sax.InputSource;
+import org.xml.sax.SAXException;
 import org.xmldb.api.base.*;
 import org.xmldb.api.modules.XMLResource;
 import org.xmldb.api.modules.XQueryService;
 
 import javax.xml.bind.JAXBException;
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.ParserConfigurationException;
+import java.io.File;
+import java.io.IOException;
+import java.io.StringReader;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -50,6 +60,34 @@ public class AbstractXmlRepository<T extends Identifiable> {
         }
 
         return this.xmlConversionAgent.unmarshall(xmlResource.getContentAsDOM(), this.jaxbContextPath);
+    }
+
+    public Node getDOM(long eid) throws XMLDBException {
+        Collection collection = this.dbConnection.getCollection(this.collectionId);
+        Long id = new Long(eid);
+        XMLResource xmlResource = (XMLResource) collection.getResource(id.toString() + ".xml");
+        if (xmlResource == null) {
+            return null;
+        }
+        return xmlResource.getContentAsDOM();
+    }
+
+    // todo treba
+    public Document getDOMDoc(long eid) throws XMLDBException, ParserConfigurationException, IOException, SAXException, JAXBException {
+        Collection collection = this.dbConnection.getCollection(this.collectionId);
+        Long id = new Long(eid);
+        XMLResource xmlResource = (XMLResource) collection.getResource(id.toString() + ".xml");
+        if (xmlResource == null) {
+            return null;
+        }
+        DocumentBuilder db = DocumentBuilderFactory.newInstance().newDocumentBuilder();
+        InputSource is = new InputSource();
+
+        T unmarshall = this.xmlConversionAgent.unmarshall(xmlResource.getContentAsDOM(), this.jaxbContextPath);
+        String marshall = xmlConversionAgent.marshall(unmarshall, jaxbContextPath);
+        is.setCharacterStream(new StringReader(marshall));
+
+        return db.parse(is);
     }
 
     public T findEntity(String query, String param) throws XMLDBException, JAXBException {

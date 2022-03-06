@@ -17,11 +17,13 @@ import com.rokzasok.portal.za.imunizaciju.transformation.XSLTransformer;
 import org.apache.commons.io.FileUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.w3c.dom.Document;
 import org.xml.sax.SAXException;
 import org.xmldb.api.base.XMLDBException;
 
 import javax.xml.bind.JAXBException;
 import javax.xml.datatype.XMLGregorianCalendar;
+import javax.xml.parsers.ParserConfigurationException;
 import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.IOException;
@@ -94,6 +96,28 @@ public class PotvrdaVakcinacijeService implements AbstractXmlService<PotvrdaVakc
             throw new XmlDatabaseException(e.getMessage());
         } catch (JAXBException e) {
             throw new InvalidXmlDatabaseException(PotvrdaVakcinacije.class, e.getMessage());
+        }
+    }
+
+    // todo treba
+    public Document getDocument(Long entityId) {
+        injectRepositoryProperties();
+
+        try {
+            PotvrdaVakcinacije potvrdaVakcinacije = this.potvrdaVakcinacijeRepository.getEntity(entityId);
+            if (potvrdaVakcinacije == null)
+                throw new EntityNotFoundException(entityId, ObrazacInteresovanja.class);
+            return potvrdaVakcinacijeRepository.getDOMDoc(entityId);
+        } catch (XMLDBException e) {
+            throw new XmlDatabaseException(e.getMessage());
+        } catch (JAXBException e) {
+            throw new InvalidXmlDatabaseException(ObrazacInteresovanja.class, e.getMessage());
+        } catch (ParserConfigurationException e) {
+            throw new XmlDatabaseException(e.getMessage());
+        } catch (IOException e) {
+            throw new XmlDatabaseException(e.getMessage());
+        } catch (SAXException e) {
+            throw new XmlDatabaseException(e.getMessage());
         }
     }
 

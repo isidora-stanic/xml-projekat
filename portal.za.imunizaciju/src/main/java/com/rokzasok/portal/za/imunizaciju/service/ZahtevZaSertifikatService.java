@@ -1,5 +1,6 @@
 package com.rokzasok.portal.za.imunizaciju.service;
 
+import com.rokzasok.portal.za.imunizaciju.model.dokumenti.gradjanin.iskazivanje_interesovanja.ObrazacInteresovanja;
 import com.rokzasok.portal.za.imunizaciju.model.dokumenti.gradjanin.obrazac_saglasnosti.ObrazacSaglasnosti;
 import com.rokzasok.portal.za.imunizaciju.model.dokumenti.gradjanin.zahtev_za_sertifikat.Zahtev;
 import com.rokzasok.portal.za.imunizaciju.exception.EntityNotFoundException;
@@ -8,15 +9,18 @@ import com.rokzasok.portal.za.imunizaciju.exception.InvalidXmlException;
 import com.rokzasok.portal.za.imunizaciju.exception.XmlDatabaseException;
 import com.rokzasok.portal.za.imunizaciju.helper.UUIDHelper;
 import com.rokzasok.portal.za.imunizaciju.helper.XmlConversionAgent;
+import com.rokzasok.portal.za.imunizaciju.model.dokumenti.potvrda_vakcinacije.PotvrdaVakcinacije;
 import com.rokzasok.portal.za.imunizaciju.repository.AbstractXmlRepository;
 import com.rokzasok.portal.za.imunizaciju.transformation.XSLTransformer;
 import org.apache.commons.io.FileUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.w3c.dom.Document;
 import org.xml.sax.SAXException;
 import org.xmldb.api.base.XMLDBException;
 
 import javax.xml.bind.JAXBException;
+import javax.xml.parsers.ParserConfigurationException;
 import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.IOException;
@@ -85,6 +89,28 @@ public class ZahtevZaSertifikatService implements AbstractXmlService<Zahtev> {
             throw new InvalidXmlDatabaseException(Zahtev.class, e.getMessage());
         }
     }
+    // todo treba
+    public Document getDocument(Long entityId) {
+        injectRepositoryProperties();
+
+        try {
+            Zahtev zahtev = this.zahtevZaSertifikatRepository.getEntity(entityId);
+            if (zahtev == null)
+                throw new EntityNotFoundException(entityId, ObrazacInteresovanja.class);
+            return zahtevZaSertifikatRepository.getDOMDoc(entityId);
+        } catch (XMLDBException e) {
+            throw new XmlDatabaseException(e.getMessage());
+        } catch (JAXBException e) {
+            throw new InvalidXmlDatabaseException(ObrazacInteresovanja.class, e.getMessage());
+        } catch (ParserConfigurationException e) {
+            throw new XmlDatabaseException(e.getMessage());
+        } catch (IOException e) {
+            throw new XmlDatabaseException(e.getMessage());
+        } catch (SAXException e) {
+            throw new XmlDatabaseException(e.getMessage());
+        }
+    }
+
 
     @Override
     public Zahtev create(String entityXml) {
