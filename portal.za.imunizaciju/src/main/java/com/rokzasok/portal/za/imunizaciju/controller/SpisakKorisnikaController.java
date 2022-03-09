@@ -61,5 +61,7 @@ public class SpisakKorisnikaController {
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
+    //todo: implementiraj logIn metodu
+
 
 }
