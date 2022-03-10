@@ -4,6 +4,7 @@ import com.rokzasok.portal.za.imunizaciju.exception.EntityNotFoundException;
 import com.rokzasok.portal.za.imunizaciju.exception.InvalidXmlDatabaseException;
 import com.rokzasok.portal.za.imunizaciju.exception.InvalidXmlException;
 import com.rokzasok.portal.za.imunizaciju.exception.XmlDatabaseException;
+import com.rokzasok.portal.za.imunizaciju.helper.UUIDHelper;
 import com.rokzasok.portal.za.imunizaciju.helper.XmlConversionAgent;
 import com.rokzasok.portal.za.imunizaciju.model.dto.ZakazivanjeTerminaDTO;
 import com.rokzasok.portal.za.imunizaciju.model.ostalo.spisak_termina.Dan;
@@ -14,7 +15,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.xmldb.api.base.XMLDBException;
 
-import javax.mail.MessagingException;
 import javax.xml.bind.JAXBException;
 import javax.xml.datatype.DatatypeConfigurationException;
 import javax.xml.datatype.DatatypeFactory;
@@ -40,10 +40,9 @@ public class SpisakTerminaService implements AbstractXmlService<SpisakTermina> {
     private XmlConversionAgent<SpisakTermina> spisakTerminaXmlConversionAgent;
 
     @Autowired
-    private B2BService b2bService;
+    private UUIDHelper uuidHelper;
 
-    @Autowired
-    private EmailService emailService;
+    @Autowired B2BService b2bService;
 
 
     public void injectRepositoryProperties() {
@@ -166,20 +165,16 @@ public class SpisakTerminaService implements AbstractXmlService<SpisakTermina> {
             if (datumDana.equals(datum)) {
                 found = true;
                 if (checkSlobodniTerminiZaDan(dan)) {
-                    if (!b2bService.ukloniDozuVakcine(tipVakcine)) {
-                        emailService.sendNemaDostupnihDozaEmail("korisnik@gmail.com", tipVakcine); //todo: ne treba zakucana vrednost
+                    if (!b2bService.ukloniDozuVakcine(tipVakcine))
                         throw new Exception("Neuspesno uzimanje vakcine");
-                    }
                     dan.setBrojZakazanihTermina(dan.getBrojZakazanihTermina().add(BigInteger.ONE));
                     return dan;
                 }
             }
         }
         if (!found) {
-            if (!b2bService.ukloniDozuVakcine(tipVakcine)) {
-                emailService.sendNemaDostupnihDozaEmail("korisnik@gmail.com", tipVakcine); //todo: ne treba zakucana vrednost
+            if (!b2bService.ukloniDozuVakcine(tipVakcine))
                 throw new Exception("Neuspesno uzimanje vakcine");
-            }
 
             Dan noviDan = new Dan();
             noviDan.setBrojZakazanihTermina(BigInteger.ONE); // jedan zakazan dan - ovaj sto sad dodajemo
@@ -193,18 +188,12 @@ public class SpisakTerminaService implements AbstractXmlService<SpisakTermina> {
 
     public Dan zakaziTermin(String mesto, LocalDate zeljeniDatum, String tipVakcine, int unapred) {
 
-        if (zeljeniDatum.isBefore(LocalDate.now())) {
+        if (zeljeniDatum.isBefore(LocalDate.now())){
             throw new InvalidXmlException(ZakazivanjeTerminaDTO.class, "Odabran datum nije validan");
         }
 
-        if (!b2bService.proveriDostupnostVakcine(tipVakcine)) {
-            try {
-                emailService.sendNemaDostupnihDozaEmail("korisnik@gmail.com", tipVakcine);
-            } catch (MessagingException e) {
-                e.printStackTrace();
-            }
-            return null;
-        }
+        if (!b2bService.proveriDostupnostVakcine(tipVakcine))
+            return null; // todo throw...
         SpisakTermina spisakTermina = findById(1L);
         List<Dan> dani = checkMesto(mesto, spisakTermina);
         for (int i = 0; i < unapred; i++) {
@@ -223,21 +212,10 @@ public class SpisakTerminaService implements AbstractXmlService<SpisakTermina> {
                     e.printStackTrace();
                 }
 
-                try {
-                    emailService.sendSledeciTerminEmail("korisnik@gmail.com", dan.getDatum().toString(), mesto); // todo: ne treba zakucana vrednost
-                } catch (MessagingException e) {
-                    e.printStackTrace();
-                }
                 return dan;
             }
         }
-        try {
-            emailService.sendNemaSlobodnihTerminaEmail("korisnik@gmail.com", zeljeniDatum.toString(), mesto); //todo: ne treba zakucana vrednost
-        } catch (MessagingException e) {
-            e.printStackTrace();
-        }
-
-        return null;
+        return null; // todo: ili throw kao "Ne moze se zakazati toliko unapred, nema termina..."
     }
 
     private Termini addMesto(String mesto, SpisakTermina spisak) {
