@@ -87,7 +87,7 @@
                                         <td><b>Ime roditelja: </b><xsl:value-of select="//os:ime_roditelja" /></td>
                                     </tr>
                                     <tr>
-                                        <td><b>Adresa: </b><xsl:value-of select="//os:adresa/os:Mesto" /></td>
+                                        <td><b>Adresa: </b><xsl:value-of select="//os:adresa/os:Mesto" /> <xsl:value-of select="//os:adresa/os:Opstina" /></td>
                                         <td><b>Ulica: </b><xsl:value-of select="//os:adresa/os:Ulica" /></td>
                                         <td><b>Broj: </b><xsl:value-of select="//os:adresa/os:Broj" /></td>
                                     </tr>
@@ -100,6 +100,17 @@
                                         <td><b>Pol: </b><xsl:value-of select="//os:pol" /></td>
                                         <td><b>Datum rojdenja: </b><xsl:value-of select="//os:datum_rodjenja" /></td>
                                         <td><b>Mesto rodjenja: </b><xsl:value-of select="//os:pacijent/os:mesto_rodjenja" /></td>
+                                    </tr>
+                                    <tr>
+                                        <td><b>Socijalna zastita: </b>
+                                            <xsl:choose>
+                                                <xsl:when test="//os:socijalna_zastita/os:korisnik = 'true'">&#9745;</xsl:when>
+                                                <xsl:otherwise>&#9746;</xsl:otherwise>
+                                            </xsl:choose></td>
+                                        <td><b>Naziv ustanove: </b>
+                                            <xsl:value-of select="//os:sediste/os:naziv"/></td>
+                                        <td><b>Opstina: </b>
+                                            <xsl:value-of select="//os:sediste/os:opstina"/></td>
                                     </tr>
                                 </tbody>
                             </table>
