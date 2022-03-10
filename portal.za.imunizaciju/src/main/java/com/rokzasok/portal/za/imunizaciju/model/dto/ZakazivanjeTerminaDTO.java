@@ -40,6 +40,6 @@ public class ZakazivanjeTerminaDTO {
     }
 
     public Integer getUnapred() {
-        return 5;
+        return 7;
     }
 }
