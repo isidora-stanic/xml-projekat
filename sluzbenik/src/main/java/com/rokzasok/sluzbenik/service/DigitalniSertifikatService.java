@@ -16,12 +16,14 @@ import com.rokzasok.sluzbenik.model.dokumenti.digitalni_sertifikat.TPol;
 import com.rokzasok.sluzbenik.repository.AbstractXmlRepository;
 import com.rokzasok.sluzbenik.transformation.XSLTransformer;
 import org.apache.commons.io.FileUtils;
+import org.apache.commons.io.IOUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.w3c.dom.Document;
 import org.xml.sax.SAXException;
 import org.xmldb.api.base.XMLDBException;
 
+import javax.mail.MessagingException;
 import javax.xml.bind.JAXBException;
 import javax.xml.parsers.ParserConfigurationException;
 import java.util.ArrayList;
@@ -57,6 +59,9 @@ public class DigitalniSertifikatService implements AbstractXmlService<DigitalniS
 
     @Autowired
     private SparqlToDTOService sparqlToDTOService;
+
+    @Autowired
+    private EmailService emailService;
 
     public void injectRepositoryProperties() {
         this.digitalniSertifikatAbstractXmlRepository.injectRepositoryProperties(
@@ -253,6 +258,19 @@ public class DigitalniSertifikatService implements AbstractXmlService<DigitalniS
 
         handleMetadata(sertifikat, idZahteva);
         saveDigitalniSertifikat(sertifikat);
+
+
+        try {
+            ByteArrayInputStream is = generatePDF(idSertifikata);
+
+            byte[] pdfBytes = IOUtils.toByteArray(is);
+
+            emailService.sendSledeciTerminEmail("korisnik@gmail.com", pdfBytes); // todo: da ne bude zakucana vrednost
+
+        } catch (IOException | SAXException | JAXBException | MessagingException e) {
+            e.printStackTrace();
+        }
+
 
         return sertifikat;
 

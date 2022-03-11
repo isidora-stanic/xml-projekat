@@ -40,6 +40,9 @@ public class DigitalniSertifikatController {
         return new ResponseEntity<>(this.digitalniSertifikatService.update(body), HttpStatus.OK);
     }
 
+    // todo: Dodati endpoint odbijanje zahteva za sertifikat, salje se mejl i razlog odbijanja
+    //  promeniti i status zahteva u odbijen prilikom toga
+
     @DeleteMapping(value = "/{id}")
     ResponseEntity<Void> delete(@PathVariable("id") Long id) {
         this.digitalniSertifikatService.deleteById(id);
