@@ -1,37 +1,38 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<potvrda-vakcinacije xmlns:pred="http://www.rokzasok.rs/rdf/database/predicate/" xmlns:tp="http://www.rokzasok.rs/tipovi" xmlns:r="http://www.w3.org/ns/rdfa#" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="http://www.rokzasok.rs/zdravstveni-radnik/potvrda-vakcinacije" vocab="http://www.rokzasok.rs/rdf/database/predicate" about="http://www.rokzasok.rs/rdf/database/potvrda-vakcinacije/1" rel="pred:kreatorDokumenta" href="http://www.rokzasok.rs/rdf/database/osoba/1234567890123">
-    <osoba vocab="http://www.rokzasok.rs/rdf/database/predicate" about="http://www.rokzasok.rs/rdf/database/osoba/1234567890123" idOsobe="1">
-        <jmbg>3210987654321</jmbg>
-        <ime>Benko</ime>
-        <prezime>Sljokica</prezime>
+<potvrda-vakcinacije xmlns:pred="http://www.rokzasok.rs/rdf/database/predicate/" xmlns:tp="http://www.rokzasok.rs/tipovi" xmlns:r="http://www.w3.org/ns/rdfa#" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="http://www.rokzasok.rs/zdravstveni-radnik/potvrda-vakcinacije" vocab="http://www.rokzasok.rs/rdf/database/predicate" about="http://www.rokzasok.rs/rdf/database/potvrda-vakcinacije/4879355381449346814" rel="pred:prethodniDokument" href="http://www.rokzasok.rs/rdf/database/obrazac-saglasnosti/1">
+    <osoba>
+        <jmbg>1234567891011</jmbg>
+        <ime>Marko</ime>
+        <prezime>Marković</prezime>
         <pol>M</pol>
-        <datum_rodjenja>1976-10-26</datum_rodjenja>
+        <datum_rodjenja>1952-10-07</datum_rodjenja>
+        <id property="pred:kreiranOdStrane" datatype="xs:#string">1</id>
     </osoba>
     <doze>
-        <doza vocab="http://www.rokzasok.rs/rdf/database/predicate" about="http://www.rokzasok.rs/rdf/database/doza/1">
-            <tip>Pfizer-BioNtech</tip>
-            <proizvodjac>BioNTech Manufacturing GMBH</proizvodjac>
-            <datum>2020-08-19+02:00</datum>
-            <broj_serije>broj_serije1</broj_serije>
+        <doza>
+            <tip>Sputnik V (Gamaleya istraživački centar)</tip>
+            <proizvodjac>Gamaleya Institute</proizvodjac>
+            <datum>2022-02-26</datum>
+            <broj_serije>GAMALEYA01</broj_serije>
             <broj_doze>1</broj_doze>
             <ustanova>
-                <naziv>Dom Zdravlja</naziv>
-                <mesto>Uzice</mesto>
+                <naziv>Dom zdravlja</naziv>
+                <mesto>Novi Sad</mesto>
             </ustanova>
         </doza>
-        <doza vocab="http://www.rokzasok.rs/rdf/database/predicate" about="http://www.rokzasok.rs/rdf/database/doza/2">
-            <tip>Pfizer-BioNtech</tip>
-            <proizvodjac>BioNTech Manufacturing GMBH</proizvodjac>
-            <datum>2006-05-04</datum>
-            <broj_serije>broj_serije1</broj_serije>
+        <doza>
+            <tip>Sputnik V (Gamaleya istraživački centar)</tip>
+            <proizvodjac>Gamaleya Institute</proizvodjac>
+            <datum>2022-02-27</datum>
+            <broj_serije>GAMALEYA02</broj_serije>
             <broj_doze>2</broj_doze>
             <ustanova>
-                <naziv>Sajam</naziv>
+                <naziv>Dom zdravlja</naziv>
                 <mesto>Novi Sad</mesto>
             </ustanova>
         </doza>
     </doze>
-    <razlog_izdavanja property="pred:razlogIzdavanja" datatype="xs:string">razlog_izdavanja0</razlog_izdavanja>
-    <datum_izdavanja property="pred:datumIzdavanja" datatype="xs:date">2006-05-04</datum_izdavanja>
-    <dokument_id>8898942637874316988</dokument_id>
+    <qr_link>potvrda.com</qr_link>
+    <datum_izdavanja property="pred:datumKreiranja" datatype="xs:#date">2022-02-27</datum_izdavanja>
+    <dokument_id>4879355381449346814</dokument_id>
 </potvrda-vakcinacije>

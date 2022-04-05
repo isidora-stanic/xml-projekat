@@ -68,7 +68,7 @@ public class PotvrdaVakcinacijeController {
         return new ResponseEntity<>(new InputStreamResource(is), headers, HttpStatus.OK);
     }
 
-    @GetMapping(value = "/pdf-fo/{dokumentId}")
+    @GetMapping(value = "/pdf/{dokumentId}")
     ResponseEntity<InputStreamResource> getPdfFo(@PathVariable Long dokumentId) {
         ByteArrayInputStream is;
         try {

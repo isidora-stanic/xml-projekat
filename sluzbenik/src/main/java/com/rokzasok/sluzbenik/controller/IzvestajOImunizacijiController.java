@@ -23,7 +23,7 @@ import java.io.IOException;
 import java.time.LocalDate;
 
 @Controller
-@RequestMapping(value = "/izvestaj")
+@RequestMapping(value = "/api/izvestaj-o-imunizaciji")
 public class IzvestajOImunizacijiController {
 
     @Autowired
