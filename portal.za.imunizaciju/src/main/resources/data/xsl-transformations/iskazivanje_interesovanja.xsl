@@ -1,16 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xsl:stylesheet version="1.0"
                 xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
+                xmlns:tp="http://www.rokzasok.rs/tipovi"
                 xmlns:is="http://www.rokzasok.rs/gradjanin/iskazivanje-interesovanja">
-
     <xsl:template match="/">
         <html>
-
             <head>
                 <style>
                     #page{
-                    padding-left: 300px;
-                    padding-right: 300px;
                     }
 
                     #title{
@@ -22,116 +19,117 @@
                     }
 
                     .form-control {
-                    border: none; border-bottom: 2px solid; border-bottom-style: dotted; width: 100%;
+                    border: none; border-bottom: 2px solid; border-bottom-style: dotted; width: 100%; margin-bottom: 20px;
                     }
                 </style>
             </head>
-
             <body>
                 <div id="page">
-                    <h2 id="title">Исказивање интересовања за вакцинисање против COVID-19</h2>
+                    <h2 id="title">Iskazivanje interesovanja za vakcinisanje protiv COVID-19</h2>
                     <form name="interesovanje">
                     <div>
                         <br />
-                        Одаберите опцију: <br />
+                        Državljanstvo: <br />
+                        <b><xsl:value-of select="//is:drzavljanstvo" /></b>
+                        <hr class="form-control"/>
+                        <xsl:choose>
+                            <xsl:when test="//is:drzavljanstvo='Državljanin Republike Srbije'">
+                                JMBG:
+                            </xsl:when>
+                            <xsl:otherwise>
+                                Broj pasoša:
+                            </xsl:otherwise>
+                        </xsl:choose>
+                        <br/><b><xsl:value-of select="//tp:JMBG" /></b>
+                        <hr class="form-control"/>
+                        Ime:<br/><b>
+                        <xsl:value-of select="//is:ime" /></b>
+                        <hr class="form-control"/>
+                        Prezime:<br/><b>
+                        <xsl:value-of select="//is:prezime" /></b>
+                        <hr class="form-control"/>
+                        Adresa elektronske pošte:<br/><b>
+                        <xsl:value-of select="//is:email" /></b>
+                        <hr class="form-control"/>
+                        Broj mobilnog telefona (navesti broju formatu 06X..... bez razmaka i
+                        crtica):<br /><b>
+                        <xsl:value-of select="//is:broj_mobilnog_telefona" /></b>
+                        <hr class="form-control"/>
+                        Broj fiksnog telefona (navesti broju formatu 011..... bez razmaka i
+                        crtica):<br /><b>
+                        <xsl:value-of select="//is:broj_fiksnog_telefona" /></b>
+                        <hr class="form-control"/>
+                        Odaberite lokaciju gde želite da primitevakcinu (unesite opštinu):<br/>
+                        <b><xsl:value-of select="//is:lokacija_opstina" /></b>
+                        <hr class="form-control"/>
 
-                        <div id="grupa">
-                            <xsl:value-of select="//is:drzavljanstvo" />
-                            <input type="radio" name="radio3" value="Pfizer-BioNtech">
-                                <xsl:if test="//is:drzavljanstvo='Pfizer-BioNtech'">
-                                    <xsl:attribute name="checked">checked</xsl:attribute></xsl:if>
-                            </input>Pfizer-BioNTech
-                            <br/>
-                            <input type="radio" name="radio3" value="Sputnik V (Gamaleya istraživački centar)">
-                                <xsl:if test="//is:drzavljanstvo='Sputnik V (Gamaleya istraživački centar)'">
-                                    <xsl:attribute name="checked">checked</xsl:attribute></xsl:if>
-                            </input>Sputnik V (Gamaleya истраживачки центар) <br/>
-                            <input type="radio" name="radio3" value="Sinopharm">
-                                <xsl:if test="//is:drzavljanstvo='Sinopharm'">
-                                    <xsl:attribute name="checked">checked</xsl:attribute></xsl:if>
-                            </input>Sinopharm <br/>
-                        </div>
+                        Iskazujem interesovanje da primim isključivo vakcinu sledećih
+                        proizvođača za koji Agencija za lekove i medicinska sredstva potvrdi
+                        bezbednost, efikasnost i kvalitet i izda dozvolu za upotrebu leka: <br />
+                        <b><xsl:value-of select="//is:tip_vakcine"/></b><hr class="form-control"/>
+<!--                        <div id="grupa">-->
+<!--                            <input type="radio" name="radio2" value="Pfizer-BioNtech" disabled="true">-->
+<!--                                <xsl:if test="//is:tip_vakcine='Pfizer-BioNtech'">-->
+<!--                                    <xsl:attribute name="checked">checked</xsl:attribute></xsl:if>-->
+<!--                            </input>Pfizer-BioNTech-->
+<!--                            <br/>-->
+<!--                            <input type="radio" name="radio2" value="Sputnik V (Gamaleya istraživački centar)" disabled="true">-->
+<!--                                <xsl:if test="//is:tip_vakcine='Sputnik V (Gamaleya istraživački centar)'">-->
+<!--                                    <xsl:attribute name="checked">checked</xsl:attribute></xsl:if>-->
+<!--                            </input>Sputnik V (Gamaleya истраживачки центар) <br/>-->
+<!--                            <input type="radio" name="radio2" value="Sinopharm" disabled="true">-->
+<!--                                <xsl:if test="//is:tip_vakcine='Sinopharm'">-->
+<!--                                    <xsl:attribute name="checked">checked</xsl:attribute></xsl:if>-->
+<!--                            </input>Sinopharm <br/>-->
 
-                        ЈМБГ:
-                        <xsl:value-of select="//is:JMBG" />
-                        <br />
-                        Име:
-                        <xsl:value-of select="//is:ime" />
+<!--                            <input type="radio" name="radio2" value="AstraZeneca" disabled="true">-->
+<!--                                <xsl:if test="//is:tip_vakcine='AstraZeneca'">-->
+<!--                                    <xsl:attribute name="checked">checked</xsl:attribute></xsl:if>-->
+<!--                            </input>AstraZeneca <br/>-->
+<!--                            <input type="radio" name="radio2" value="Moderna" disabled="true">-->
+<!--                                <xsl:if test="//is:tip_vakcine='Moderna'">-->
+<!--                                    <xsl:attribute name="checked">checked</xsl:attribute></xsl:if>-->
+<!--                            </input>Moderna <br/>-->
 
-                        Презиме:
-                        <xsl:value-of select="//is:prezime" />
-                        <br />
+<!--                            <input type="radio" name="radio2" value="Bilo koja" disabled="true">-->
+<!--                                <xsl:choose>-->
+<!--                                    <xsl:when test="//is:tip_vakcine='Bilo koja'">-->
+<!--                                        <xsl:attribute name="checked">checked</xsl:attribute>-->
+<!--                                    </xsl:when>-->
+<!--                                    <xsl:otherwise>-->
+<!--                                        <xsl:attribute name="checked">false</xsl:attribute>-->
+<!--                                    </xsl:otherwise>-->
+<!--                                </xsl:choose>-->
 
-                        Адреса електронске поште:
-                        <xsl:value-of select="//is:email" />
-                        <br />
+<!--                            </input>Bilo koja-->
 
-                        Број мобилног телефона (навести број у формату 06X..... без размака и
-                        цртица):
-                        <xsl:value-of select="//is:broj_mobilnog_telefona" />
-                        <br />
+<!--                        </div>-->
+<!--                        <br />-->
+                        Da li ste dobrovoljni davalac krvi? <br />
+                        <xsl:choose>
+                            <xsl:when test="//is:davalac_krvi='true'">
+                                <b>Da</b>
+                            </xsl:when>
+                            <xsl:otherwise>
+                                <b>Ne</b>
+                            </xsl:otherwise>
+                        </xsl:choose><hr class="form-control"/>
+<!--                        <div id="grupa">-->
 
-                        Број фиксног телефона (навести број у формату нпр. 011..... без размака и
-                        цртица):
-                        <xsl:value-of select="//is:broj_fiksnog_telefona" />
-                        <br />Одаберите локацију где желите да примите вакцину (унесите општину):
-                        <xsl:value-of select="//is:lokacija_opstina" />
+<!--                            <input type="radio" name="radio1" value="true" disabled="true">-->
+<!--                                <xsl:if test="//is:davalac_krvi='true'">-->
+<!--                                    <xsl:attribute name="checked">checked</xsl:attribute></xsl:if>-->
+<!--                            </input>Da <br/>-->
 
-                        <br />Исказујем интересовање да примим искључиво вакцину следећих
-                        произвођача за који Агенција за лекове и медицинска средства потврди
-                        безбедност, ефикасност и квалитет и изда дозволу за употребу лека: <br />
-                        <div id="grupa">
-                            <input type="radio" name="radio2" value="Pfizer-BioNtech">
-                                <xsl:if test="//is:tip_vakcine='Pfizer-BioNtech'">
-                                    <xsl:attribute name="checked">checked</xsl:attribute></xsl:if>
-                            </input>Pfizer-BioNTech
-                            <br/>
-                            <input type="radio" name="radio2" value="Sputnik V (Gamaleya istraživački centar)">
-                                <xsl:if test="//is:tip_vakcine='Sputnik V (Gamaleya istraživački centar)'">
-                                    <xsl:attribute name="checked">checked</xsl:attribute></xsl:if>
-                            </input>Sputnik V (Gamaleya истраживачки центар) <br/>
-                            <input type="radio" name="radio2" value="Sinopharm">
-                                <xsl:if test="//is:tip_vakcine='Sinopharm'">
-                                    <xsl:attribute name="checked">checked</xsl:attribute></xsl:if>
-                            </input>Sinopharm <br/>
+<!--                            <input type="radio" name="radio1" value="false" disabled="true">-->
+<!--                                <xsl:if test="//is:davalac_krvi='false'">-->
+<!--                                    <xsl:attribute name="checked">checked</xsl:attribute></xsl:if>-->
+<!--                            </input>Ne-->
 
-                            <input type="radio" name="radio2" value="AstraZeneca">
-                                <xsl:if test="//is:tip_vakcine='AstraZeneca'">
-                                    <xsl:attribute name="checked">checked</xsl:attribute></xsl:if>
-                            </input>AstraZeneca <br/>
-                            <input type="radio" name="radio2" value="Moderna">
-                                <xsl:if test="//is:tip_vakcine='Moderna'">
-                                    <xsl:attribute name="checked">checked</xsl:attribute></xsl:if>
-                            </input>Moderna <br/>
-
-                            <input type="radio" name="radio2" value="Bilo koja">
-                                <xsl:if test="//is:tip_vakcine='Bilo koja'">
-                                    <xsl:attribute name="checked">checked</xsl:attribute></xsl:if>
-                                <xsl:else>
-                                    <xsl:attribute name="checked">false</xsl:attribute></xsl:else>
-
-                            </input>Било која
-
-                        </div>
-                        <br />
-                        Да ли сте добровољни давалац крви? <br />
-                        <div id="grupa">
-
-                            <input type="radio" name="radio1" value="true">
-                                <xsl:if test="//is:davalac_krvi='true'">
-                                    <xsl:attribute name="checked">checked</xsl:attribute></xsl:if>
-                            </input>Да <br/>
-
-                            <input type="radio" name="radio1" value="false">
-                                <xsl:if test="//is:davalac_krvi='false'">
-                                    <xsl:attribute name="checked">checked</xsl:attribute></xsl:if>
-                            </input>Не
-
-                            <br />
-                        </div>
-                        <br /><br /><br /><br /><br />
-                        <xsl:value-of select="//is:datum_podnosenja" /> <br /><br /><br />
-
+<!--                            <br />-->
+<!--                        </div>-->
+                        <br /><br />
+                        Datum <xsl:value-of select="//is:datum_podnosenja" />. <br /><br /><br />
                 </div>
             </form>
         </div>
@@ -140,5 +138,4 @@
 
         </html>
     </xsl:template>
-
 </xsl:stylesheet>

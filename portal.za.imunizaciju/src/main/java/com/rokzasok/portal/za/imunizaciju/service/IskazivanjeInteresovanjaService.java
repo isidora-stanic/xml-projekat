@@ -6,6 +6,7 @@ import com.rokzasok.portal.za.imunizaciju.helper.UUIDHelper;
 import com.rokzasok.portal.za.imunizaciju.helper.XmlConversionAgent;
 import com.rokzasok.portal.za.imunizaciju.model.dokumenti.gradjanin.iskazivanje_interesovanja.ObrazacInteresovanja;
 import com.rokzasok.portal.za.imunizaciju.model.dokumenti.gradjanin.obrazac_saglasnosti.ObrazacSaglasnosti;
+import com.rokzasok.portal.za.imunizaciju.model.dokumenti.gradjanin.zahtev_za_sertifikat.Zahtev;
 import com.rokzasok.portal.za.imunizaciju.repository.AbstractXmlRepository;
 import com.rokzasok.portal.za.imunizaciju.transformation.XSLTransformer;
 import org.apache.commons.io.FileUtils;
@@ -289,6 +290,33 @@ public class IskazivanjeInteresovanjaService implements AbstractXmlService<Obraz
             ));
         }
         catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return null;
+    }
+
+    public ByteArrayInputStream generatePDF(Long dokumentId) throws IOException, SAXException, JAXBException {
+        String xslFile = "src/main/resources/data/xsl-transformations/iskazivanje_interesovanja.xsl";
+        String outputHtmlFile = "src/main/resources/data/xsl-transformations/generated/output-html/iskazivanje_interesovanja.html";
+        String outputPdfFile = "src/main/resources/data/xsl-transformations/generated/output-pdf/iskazivanje_interesovanja.pdf";
+        String outputXmlFile = "src/main/resources/data/xsl-transformations/generated/output-xml-fo/iskazivanje_interesovanja.xml";
+
+        XSLTransformer xslTransformer = new XSLTransformer();
+        xslTransformer.setXSLT_FILE(xslFile);
+        xslTransformer.setOUTPUT_FILE_HTML(outputHtmlFile);
+        xslTransformer.setOUTPUT_FILE_PDF(outputPdfFile);
+
+        ObrazacInteresovanja zahtev = this.findById(dokumentId);
+        try {
+            this.obrazacInteresovanjaXmlConversionAgent.marshallToFile(
+                    zahtev,
+                    this.jaxbContextPath,
+                    outputXmlFile
+            );
+            xslTransformer.generatePDF_HTML(outputXmlFile);
+            return new ByteArrayInputStream(FileUtils.readFileToByteArray(new File(outputPdfFile)));
+        } catch (Exception e) {
             e.printStackTrace();
         }
 

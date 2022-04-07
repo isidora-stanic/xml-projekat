@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<potvrda-vakcinacije xmlns:pred="http://www.rokzasok.rs/rdf/database/predicate/" xmlns:tp="http://www.rokzasok.rs/tipovi" xmlns:r="http://www.w3.org/ns/rdfa#" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="http://www.rokzasok.rs/zdravstveni-radnik/potvrda-vakcinacije" vocab="http://www.rokzasok.rs/rdf/database/predicate" about="http://www.rokzasok.rs/rdf/database/potvrda-vakcinacije/4879355381449346814" rel="pred:prethodniDokument" href="http://www.rokzasok.rs/rdf/database/obrazac-saglasnosti/1">
+<potvrda-vakcinacije xmlns:pred="http://www.rokzasok.rs/rdf/database/predicate/" xmlns:tp="http://www.rokzasok.rs/tipovi" xmlns:r="http://www.w3.org/ns/rdfa#" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="http://www.rokzasok.rs/zdravstveni-radnik/potvrda-vakcinacije" vocab="http://www.rokzasok.rs/rdf/database/predicate" about="http://www.rokzasok.rs/rdf/database/potvrda-vakcinacije/8400379780779807233" rel="pred:prethodniDokument" href="http://www.rokzasok.rs/rdf/database/obrazac-saglasnosti/1">
     <osoba>
         <jmbg>1234567891011</jmbg>
         <ime>Marko</ime>
@@ -34,5 +34,5 @@
     </doze>
     <qr_link>potvrda.com</qr_link>
     <datum_izdavanja property="pred:datumKreiranja" datatype="xs:#date">2022-02-27</datum_izdavanja>
-    <dokument_id>4879355381449346814</dokument_id>
+    <dokument_id>8400379780779807233</dokument_id>
 </potvrda-vakcinacije>
