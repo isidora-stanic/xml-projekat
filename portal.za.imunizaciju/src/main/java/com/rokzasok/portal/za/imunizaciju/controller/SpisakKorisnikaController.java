@@ -61,7 +61,9 @@ public class SpisakKorisnikaController {
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
-    //todo: implementiraj logIn metodu
-
+    @PostMapping(value = "/login", produces = MediaType.APPLICATION_XML_VALUE)
+    ResponseEntity<Korisnik> login(@RequestBody CreateKorisnikDTO korisnikDTO) {
+        return new ResponseEntity<>(this.spisakKorisnikaService.login(korisnikDTO), HttpStatus.OK);
+    }
 
 }

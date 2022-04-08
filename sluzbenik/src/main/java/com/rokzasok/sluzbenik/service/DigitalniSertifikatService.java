@@ -321,17 +321,20 @@ public class DigitalniSertifikatService implements AbstractXmlService<DigitalniS
 
         DigitalniSertifikat sertifikat = this.findById(dokumentId);
         try {
+            System.out.println("dje puklo");
             this.digitalniSertifikatXmlConversionAgent.marshallToFile(
                     sertifikat,
                     this.jaxbContextPath,
                     outputXmlFile
             );
+            System.out.println("aloooooooooooooooooooooooooooooooooooooo");
             xslTransformer.generatePDF_HTML(outputXmlFile);
+            System.out.println("breeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee");
             return new ByteArrayInputStream(FileUtils.readFileToByteArray(new File(outputPdfFile)));
         } catch (Exception e) {
             e.printStackTrace();
         }
-
+        System.out.println("budalooooooooooooooooooooooooooooooooo");
         return null;
     }
 }

@@ -25,7 +25,7 @@ public class SparqlToDTOService {
     @Autowired
     private SparqlService sparqlService;
 
-    public DokumentiKorisnikaDTO getDokumentiKorisnika(Long idKorisnika) {
+    public DokumentiKorisnikaDTO getDokumentiKorisnikaPortal(Long idKorisnika) {
         try {
             List<SparqlService.SparqlQueryResult> sparqlDokumentLinkovi = sparqlService.getAllKreiranOdStrane(idKorisnika.toString());
 

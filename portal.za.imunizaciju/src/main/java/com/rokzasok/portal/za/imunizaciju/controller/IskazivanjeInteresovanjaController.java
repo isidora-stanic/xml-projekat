@@ -77,37 +77,37 @@ public class IskazivanjeInteresovanjaController {
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
-    @GetMapping(value = "/html/{dokumentId}")
-    ResponseEntity<InputStreamResource> getHtml(@PathVariable Long dokumentId) {
-        ByteArrayInputStream is;
-        try {
-            is = this.zahtjevZaImunizacijuService.generateHtml(dokumentId);
-        }
-        catch (IOException | SAXException e) {
-            e.printStackTrace();
-            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
-        }
-
-        HttpHeaders headers = new HttpHeaders();
-        headers.add("Content-Disposition", "inline: filename=potvrda.html");
-
-        return new ResponseEntity<>(new InputStreamResource(is), headers, HttpStatus.OK);
-    }
-
-    @GetMapping(value = "/pdf/{dokumentId}")
-    ResponseEntity<InputStreamResource> getPdf(@PathVariable Long dokumentId) {
-        ByteArrayInputStream is;
-        try {
-            is = this.zahtjevZaImunizacijuService.generatePDF(dokumentId);
-        }
-        catch (IOException | SAXException | JAXBException e) {
-            e.printStackTrace();
-            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
-        }
-
-        HttpHeaders headers = new HttpHeaders();
-        headers.add("Content-Disposition", "inline: filename=zahtev.pdf");
-
-        return new ResponseEntity<>(new InputStreamResource(is), headers, HttpStatus.OK);
-    }
+//    @GetMapping(value = "/html/{dokumentId}")
+//    ResponseEntity<InputStreamResource> getHtml(@PathVariable Long dokumentId) {
+//        ByteArrayInputStream is;
+//        try {
+//            is = this.zahtjevZaImunizacijuService.generateHtml(dokumentId);
+//        }
+//        catch (IOException | SAXException e) {
+//            e.printStackTrace();
+//            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+//        }
+//
+//        HttpHeaders headers = new HttpHeaders();
+//        headers.add("Content-Disposition", "inline: filename=potvrda.html");
+//
+//        return new ResponseEntity<>(new InputStreamResource(is), headers, HttpStatus.OK);
+//    }
+//
+//    @GetMapping(value = "/pdf/{dokumentId}")
+//    ResponseEntity<InputStreamResource> getPdf(@PathVariable Long dokumentId) {
+//        ByteArrayInputStream is;
+//        try {
+//            is = this.zahtjevZaImunizacijuService.generatePDF(dokumentId);
+//        }
+//        catch (IOException | SAXException | JAXBException e) {
+//            e.printStackTrace();
+//            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+//        }
+//
+//        HttpHeaders headers = new HttpHeaders();
+//        headers.add("Content-Disposition", "inline: filename=zahtev.pdf");
+//
+//        return new ResponseEntity<>(new InputStreamResource(is), headers, HttpStatus.OK);
+//    }
 }

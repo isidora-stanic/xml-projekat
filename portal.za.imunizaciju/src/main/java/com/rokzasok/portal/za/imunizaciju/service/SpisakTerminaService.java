@@ -6,6 +6,7 @@ import com.rokzasok.portal.za.imunizaciju.exception.InvalidXmlException;
 import com.rokzasok.portal.za.imunizaciju.exception.XmlDatabaseException;
 import com.rokzasok.portal.za.imunizaciju.helper.XmlConversionAgent;
 import com.rokzasok.portal.za.imunizaciju.model.dto.ZakazivanjeTerminaDTO;
+import com.rokzasok.portal.za.imunizaciju.model.ostalo.spisak_korisnika.SpisakKorisnika;
 import com.rokzasok.portal.za.imunizaciju.model.ostalo.spisak_termina.Dan;
 import com.rokzasok.portal.za.imunizaciju.model.ostalo.spisak_termina.SpisakTermina;
 import com.rokzasok.portal.za.imunizaciju.model.ostalo.spisak_termina.Termini;
@@ -192,7 +193,6 @@ public class SpisakTerminaService implements AbstractXmlService<SpisakTermina> {
     }
 
     public Dan zakaziTermin(String mesto, LocalDate zeljeniDatum, String tipVakcine, int unapred) {
-
         if (zeljeniDatum.isBefore(LocalDate.now())) {
             throw new InvalidXmlException(ZakazivanjeTerminaDTO.class, "Odabran datum nije validan");
         }
@@ -205,7 +205,20 @@ public class SpisakTerminaService implements AbstractXmlService<SpisakTermina> {
             }
             return null;
         }
-        SpisakTermina spisakTermina = findById(1L);
+
+        SpisakTermina spisakTermina;
+        System.out.println("Trazim spisakkkk!!!");
+        try {
+            spisakTermina = findById(1L);
+        } catch (EntityNotFoundException e) {
+            System.out.println("Nema spiska korisnika! Sad cu da kreiram jedan!!!");
+            create("<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n" +
+                    "<spisakTermina xmlns=\"www.rokzasok.rs/termini\"\n" +
+                    " xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\"\n" +
+                    " xsi:schemaLocation=\"www.rokzasok.rs/termini ./schema/termini.xsd\">\n" +
+                    "</spisakTermina>");
+            spisakTermina = findById(1L);
+        }
         List<Dan> dani = checkMesto(mesto, spisakTermina);
         for (int i = 0; i < unapred; i++) {
             Dan dan = null;

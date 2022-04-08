@@ -85,5 +85,13 @@ public class SparqlUtil {
                 "}";
     }
 
+    public static String selectKreiranOdStrane(String osobaId, String dataEndpointString) {
+        return "SELECT * FROM <" + dataEndpointString + "/sparql/metadata>\n" +
+                "WHERE {\n" +
+                "  ?dokument <http://www.rokzasok.rs/rdf/database/predicate/kreiranOdStrane> \"" + osobaId + "\" ; " +
+                "  <http://www.rokzasok.rs/rdf/database/predicate/datumKreiranja> ?date .\n" +
+                "}";
+    }
+
 
 }

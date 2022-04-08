@@ -44,7 +44,7 @@ public class B2BController {
     // korisnici
     @GetMapping(value = "/dokumenti-po-korisniku/{idKorisnika}", produces = MediaType.APPLICATION_XML_VALUE)
     ResponseEntity<DokumentiKorisnikaDTO> getDokumentiKorisnika(@PathVariable("idKorisnika") Long idKorisnika) {
-        return new ResponseEntity<>(sparqlToDTOService.getDokumentiKorisnika(idKorisnika), HttpStatus.OK);
+        return new ResponseEntity<>(sparqlToDTOService.getDokumentiKorisnikaPortal(idKorisnika), HttpStatus.OK);
     }
 
     // dokumenti sa portala koji su potrebni sluzbeniku

@@ -120,7 +120,24 @@ public class DostupneDozeService implements AbstractXmlService<DostupneDoze> {
     }
 
     public DostupneDoze addDoze(String tipVakcine, BigInteger noveDoze) {
-        DostupneDoze dostupneDoze = findById(1L);
+        DostupneDoze dostupneDoze;
+        System.out.println("Trazim dozeeeeeee!!!");
+        try {
+            dostupneDoze = findById(1L);
+        } catch (EntityNotFoundException e) {
+            System.out.println("Nema spiska korisnika! Sad cu da kreiram jedan!!!");
+            create("<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n" +
+                    "<dostupneDoze xmlns=\"www.rokzasok.rs/dostupne-doze-vakcina\"\n" +
+                    " xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\"\n" +
+                    " xsi:schemaLocation=\"www.rokzasok.rs/dostupne-doze-vakcina ./schema/dostupne_doze.xsd\">\n" +
+                    "    <brojDoza tipVakcine=\"Pfizer-BioNtech\">10</brojDoza>\n" +
+                    "    <brojDoza tipVakcine=\"Sputnik V (Gamaleya istraživački centar)\">10</brojDoza>\n" +
+                    "    <brojDoza tipVakcine=\"AstraZeneca\">10</brojDoza>\n" +
+                    "    <brojDoza tipVakcine=\"Moderna\">10</brojDoza>\n" +
+                    "    <brojDoza tipVakcine=\"Sinopharm\">10</brojDoza>\n" +
+                    "</dostupneDoze>");
+            dostupneDoze = findById(1L);
+        }
         List<DostupneDoze.BrojDoza> dozePoTipu = dostupneDoze.getBrojDoza();
 
         for (DostupneDoze.BrojDoza brojDoza : dozePoTipu) {

@@ -49,8 +49,8 @@
                 <div class="center">
                     <div class="wrapper">
                         <div class="header">
-                            <h1>Potvrda vakcinacije</h1>
-                            <h3>Vaccination certificate</h3>
+                            <h1>Digitalni sertifikat</h1>
+                            <h3>Digital certificate</h3>
                         </div>
                         <hr />
 

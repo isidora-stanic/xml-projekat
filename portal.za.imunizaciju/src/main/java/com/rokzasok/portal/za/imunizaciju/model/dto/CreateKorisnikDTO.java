@@ -4,7 +4,7 @@ import javax.xml.bind.annotation.*;
 
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name="", propOrder = {"korisnickoIme", "lozinka"})
-@XmlRootElement(name="CreateKorisnikDTO")
+@XmlRootElement(name="korisnik")
 public class CreateKorisnikDTO {
     @XmlElement(name="korisnickoIme", required = true)
     private String korisnickoIme;

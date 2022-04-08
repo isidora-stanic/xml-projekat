@@ -59,37 +59,37 @@ public class ObrazacSaglasnostiController {
 //        return new ResponseEntity<>(kolekcijaObrazacaSaglasnosti, HttpStatus.OK);
 //    }
 
-    @GetMapping(value = "/html/{dokumentId}")
-    ResponseEntity<InputStreamResource> getHtml(@PathVariable Long dokumentId) {
-        ByteArrayInputStream is;
-        try {
-            is = this.obrazacSaglasnostiService.generateHtml(dokumentId);
-        }
-        catch (IOException | SAXException e) {
-            e.printStackTrace();
-            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
-        }
-
-        HttpHeaders headers = new HttpHeaders();
-        headers.add("Content-Disposition", "inline: filename=obrazac.html");
-
-        return new ResponseEntity<>(new InputStreamResource(is), headers, HttpStatus.OK);
-    }
-
-    @GetMapping(value = "/pdf/{dokumentId}")
-    ResponseEntity<InputStreamResource> getPdf(@PathVariable Long dokumentId) {
-        ByteArrayInputStream is;
-        try {
-            is = this.obrazacSaglasnostiService.generatePDF(dokumentId);
-        }
-        catch (IOException | SAXException | JAXBException e) {
-            e.printStackTrace();
-            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
-        }
-
-        HttpHeaders headers = new HttpHeaders();
-        headers.add("Content-Disposition", "inline: filename=obrazac.pdf");
-
-        return new ResponseEntity<>(new InputStreamResource(is), headers, HttpStatus.OK);
-    }
+//    @GetMapping(value = "/html/{dokumentId}")
+//    ResponseEntity<InputStreamResource> getHtml(@PathVariable Long dokumentId) {
+//        ByteArrayInputStream is;
+//        try {
+//            is = this.obrazacSaglasnostiService.generateHtml(dokumentId);
+//        }
+//        catch (IOException | SAXException e) {
+//            e.printStackTrace();
+//            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+//        }
+//
+//        HttpHeaders headers = new HttpHeaders();
+//        headers.add("Content-Disposition", "inline: filename=obrazac.html");
+//
+//        return new ResponseEntity<>(new InputStreamResource(is), headers, HttpStatus.OK);
+//    }
+//
+//    @GetMapping(value = "/pdf/{dokumentId}")
+//    ResponseEntity<InputStreamResource> getPdf(@PathVariable Long dokumentId) {
+//        ByteArrayInputStream is;
+//        try {
+//            is = this.obrazacSaglasnostiService.generatePDF(dokumentId);
+//        }
+//        catch (IOException | SAXException | JAXBException e) {
+//            e.printStackTrace();
+//            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+//        }
+//
+//        HttpHeaders headers = new HttpHeaders();
+//        headers.add("Content-Disposition", "inline: filename=obrazac.pdf");
+//
+//        return new ResponseEntity<>(new InputStreamResource(is), headers, HttpStatus.OK);
+//    }
 }
