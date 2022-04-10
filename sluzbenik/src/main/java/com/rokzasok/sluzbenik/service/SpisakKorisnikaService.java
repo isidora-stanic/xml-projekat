@@ -16,6 +16,7 @@ import org.xmldb.api.base.XMLDBException;
 
 import javax.xml.bind.JAXBException;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import static com.rokzasok.sluzbenik.helper.XQueryExpressions.*;
 
@@ -130,7 +131,19 @@ public class SpisakKorisnikaService implements AbstractXmlService<SpisakKorisnik
     }
 
     public Korisnik addKorisnik(CreateKorisnikDTO noviKorisnikDTO) {
-        SpisakKorisnika spisakKorisnika = findById(1L);
+        SpisakKorisnika spisakKorisnika;
+        System.out.println("Trazim spisakkkk!!!");
+        try {
+            spisakKorisnika = findById(1L);
+        } catch (EntityNotFoundException e) {
+            System.out.println("Nema spiska korisnika! Sad cu da kreiram jedan!!!");
+            create("<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n" +
+                    "<spisakKorisnika xmlns=\"www.rokzasok.rs/korisnici\"\n" +
+                    "                 xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\"\n" +
+                    "                 xsi:schemaLocation=\"www.rokzasok.rs/korisnici ./schema/korisnici.xsd\">\n" +
+                    "</spisakKorisnika>");
+            spisakKorisnika = findById(1L);
+        }
         List<Korisnik> korisnici = spisakKorisnika.getKorisnik();
 
         Korisnik noviKorisnik = new Korisnik();
@@ -185,5 +198,16 @@ public class SpisakKorisnikaService implements AbstractXmlService<SpisakKorisnik
         }
 
         throw new EntityNotFoundException(idKorisnika, Korisnik.class);
+    }
+
+    public Korisnik login(CreateKorisnikDTO korisnikDTO) {
+        SpisakKorisnika korisnici = findById(1L);
+        List<Korisnik> odgovarajuci = korisnici.getKorisnik().stream()
+                .filter(k -> k.getKorisnickoIme().equals(korisnikDTO.getKorisnickoIme()) &&
+                        k.getLozinka().equals(korisnikDTO.getLozinka())).collect(Collectors.toList());
+        if (odgovarajuci.isEmpty()) {
+            throw new EntityNotFoundException(0L, Korisnik.class);
+        }
+        return odgovarajuci.get(0);
     }
 }
