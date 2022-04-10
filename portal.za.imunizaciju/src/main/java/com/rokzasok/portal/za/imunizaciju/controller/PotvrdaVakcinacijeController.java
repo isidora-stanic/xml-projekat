@@ -87,7 +87,7 @@ public class PotvrdaVakcinacijeController {
 
     // todo: pozvati slanje mejla sa sledećim terminom vakcinacije nakon generisanja
     @GetMapping(value="/gen/{idObrascaSaglasnosti}", produces = MediaType.APPLICATION_XML_VALUE)
-    ResponseEntity<PotvrdaVakcinacije> kreirajPotvrduZaObrazac(@PathVariable Long idObrascaSaglasnosti){
-        return new ResponseEntity<>(this.potvrdaVakcinacijeService.generateForObrazacSaglasnosti(idObrascaSaglasnosti), HttpStatus.OK);
+    ResponseEntity<PotvrdaVakcinacije> kreirajPotvrduZaObrazac(@PathVariable Long idObrascaSaglasnosti, @RequestParam String razlog){
+        return new ResponseEntity<>(this.potvrdaVakcinacijeService.generateForObrazacSaglasnosti(idObrascaSaglasnosti, razlog), HttpStatus.OK);
     }
 }

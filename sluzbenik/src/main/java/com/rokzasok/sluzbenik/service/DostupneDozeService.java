@@ -121,11 +121,11 @@ public class DostupneDozeService implements AbstractXmlService<DostupneDoze> {
 
     public DostupneDoze addDoze(String tipVakcine, BigInteger noveDoze) {
         DostupneDoze dostupneDoze;
-        System.out.println("Trazim dozeeeeeee!!!");
+        System.out.println("Trazim spisakkkk!!!");
         try {
             dostupneDoze = findById(1L);
         } catch (EntityNotFoundException e) {
-            System.out.println("Nema spiska korisnika! Sad cu da kreiram jedan!!!");
+            System.out.println("Nema spiska doza! Sad cu da kreiram jedan!!!");
             create("<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n" +
                     "<dostupneDoze xmlns=\"www.rokzasok.rs/dostupne-doze-vakcina\"\n" +
                     " xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\"\n" +

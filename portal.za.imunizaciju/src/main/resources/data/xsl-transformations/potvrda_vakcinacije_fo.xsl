@@ -195,7 +195,7 @@
 
                     <fo:block>
                         <fo:inline font-weight="bold">Razlog / Purpose: </fo:inline>
-                        <xsl:value-of select="//po:razlog_izdavanja"/>
+                        <xsl:value-of select="//po:razlog"/>
                     </fo:block>
                 </fo:flow>
             </fo:page-sequence>

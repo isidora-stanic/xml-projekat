@@ -161,12 +161,20 @@ public class PotvrdaVakcinacijeService implements AbstractXmlService<PotvrdaVakc
         return potvrdaVakcinacije;
     }
 
-    public PotvrdaVakcinacije generateForObrazacSaglasnosti(Long idObrascaSaglasnosti) {
-        PotvrdaVakcinacije potvrda = genPotvrdaVakcinacije(idObrascaSaglasnosti);
+    public PotvrdaVakcinacije generateForObrazacSaglasnosti(Long idObrascaSaglasnosti, String razlog) {
+        injectRepositoryProperties();
+        System.out.println(this.potvrdaVakcinacijeRepository.jaxbContextPath);
+
+        PotvrdaVakcinacije potvrda = genPotvrdaVakcinacije(idObrascaSaglasnosti, razlog);
+        System.out.print("================================Potvrdaaaaaaaaa ");
+        System.out.println(potvrda.getDokumentId());
 
         this.handleMetadata(potvrda, idObrascaSaglasnosti);
+        System.out.print("================================Potvrdaaaaaaaaa ");
+        System.out.println(potvrda.getDokumentId());
 
         try {
+            injectRepositoryProperties();
             potvrdaVakcinacijeRepository.createEntity(potvrda);
         } catch (XMLDBException | JAXBException e) {
             e.printStackTrace();
@@ -186,7 +194,7 @@ public class PotvrdaVakcinacijeService implements AbstractXmlService<PotvrdaVakc
         return potvrda;
     }
 
-    private PotvrdaVakcinacije genPotvrdaVakcinacije(Long idObrascaSaglasnosti) {
+    private PotvrdaVakcinacije genPotvrdaVakcinacije(Long idObrascaSaglasnosti, String razlog) {
         ObrazacSaglasnosti obrazac = obrazacSaglasnostiService.findById(idObrascaSaglasnosti);
         PotvrdaVakcinacije potvrda = new PotvrdaVakcinacije();
 
@@ -235,6 +243,8 @@ public class PotvrdaVakcinacijeService implements AbstractXmlService<PotvrdaVakc
         potvrda.setQrLink("nekilink.com"); // todo: generisanje qr koda
 
         potvrda.setDatumIzdavanja(LocalDate.now());
+
+        potvrda.setRazlog(razlog);
 
         potvrda.setDokumentId(uuidHelper.getUUID());
         return potvrda;

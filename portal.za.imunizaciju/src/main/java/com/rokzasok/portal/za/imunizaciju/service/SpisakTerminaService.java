@@ -211,7 +211,7 @@ public class SpisakTerminaService implements AbstractXmlService<SpisakTermina> {
         try {
             spisakTermina = findById(1L);
         } catch (EntityNotFoundException e) {
-            System.out.println("Nema spiska korisnika! Sad cu da kreiram jedan!!!");
+            System.out.println("Nema spiska termina! Sad cu da kreiram jedan!!!");
             create("<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n" +
                     "<spisakTermina xmlns=\"www.rokzasok.rs/termini\"\n" +
                     " xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\"\n" +

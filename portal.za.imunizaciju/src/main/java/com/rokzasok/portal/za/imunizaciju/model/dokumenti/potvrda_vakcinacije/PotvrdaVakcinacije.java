@@ -12,7 +12,7 @@ import java.util.List;
 
 
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "", propOrder = {"osoba", "doze", "qrLink", "datumIzdavanja", "dokumentId"})
+@XmlType(name = "", propOrder = {"osoba", "doze", "qrLink", "razlog", "datumIzdavanja", "dokumentId"})
 @XmlRootElement(name = "potvrda-vakcinacije", namespace = "http://www.rokzasok.rs/zdravstveni-radnik/potvrda-vakcinacije")
 public class PotvrdaVakcinacije implements Identifiable {
 
@@ -22,6 +22,8 @@ public class PotvrdaVakcinacije implements Identifiable {
     protected Doze doze;
     @XmlElement(name = "qr_link", namespace = "http://www.rokzasok.rs/zdravstveni-radnik/potvrda-vakcinacije", required = true)
     protected String qrLink;
+    @XmlElement(name = "razlog", namespace = "http://www.rokzasok.rs/zdravstveni-radnik/potvrda-vakcinacije", required = false)
+    protected String razlog;
     @XmlElement(name = "datum_izdavanja", namespace = "http://www.rokzasok.rs/zdravstveni-radnik/potvrda-vakcinacije", required = true)
     protected DatumIzdavanja datumIzdavanja;
     @XmlElement(name = "dokument_id", namespace = "http://www.rokzasok.rs/zdravstveni-radnik/potvrda-vakcinacije", required = true)
@@ -35,6 +37,7 @@ public class PotvrdaVakcinacije implements Identifiable {
     protected String rel;
     @XmlAttribute(name = "href")
     protected String href;
+
 
     public PotvrdaVakcinacije() {
         this.osoba = new TOsoba();
@@ -69,6 +72,15 @@ public class PotvrdaVakcinacije implements Identifiable {
 
     public void setQrLink(String value) {
         this.qrLink = value;
+    }
+
+    public String getRazlog() {
+        return razlog;
+    }
+
+
+    public void setRazlog(String value) {
+        this.razlog = value;
     }
 
 

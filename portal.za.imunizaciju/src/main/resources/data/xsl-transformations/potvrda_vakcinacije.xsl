@@ -147,7 +147,7 @@
                         <table>
                             <tr>
                                 <td><strong>Razlog / Purpose: </strong></td>
-                                <td><xsl:value-of select="//po:razlog_izdavanja" /></td>
+                                <td><xsl:value-of select="//po:razlog" /></td>
                             </tr>
                         </table>
 

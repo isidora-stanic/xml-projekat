@@ -87,7 +87,7 @@
                                         <td><b>Ime roditelja: </b><xsl:value-of select="//os:ime_roditelja" /></td>
                                     </tr>
                                     <tr>
-                                        <td><b>Adresa: </b><xsl:value-of select="//os:adresa/os:Mesto" /> <xsl:value-of select="//os:adresa/os:Opstina" /></td>
+                                        <td><b>Adresa: </b><xsl:value-of select="//os:adresa/os:Mesto" />, <xsl:value-of select="//os:adresa/os:Opstina" /></td>
                                         <td><b>Ulica: </b><xsl:value-of select="//os:adresa/os:Ulica" /></td>
                                         <td><b>Broj: </b><xsl:value-of select="//os:adresa/os:Broj" /></td>
                                     </tr>
@@ -142,8 +142,8 @@
                                     <th><b>Tip</b></th>
                                     <th><b>Proizvodjac</b></th>
                                     <th><b>Br. serije</b></th>
-                                    <th><b>Ustanova</b></th>
-                                    <th><b>Punkt</b></th>
+<!--                                    <th><b>Ustanova</b></th>-->
+<!--                                    <th><b>Punkt</b></th>-->
                                 </tr>
 
                                 <xsl:for-each select="//os:doza">
@@ -151,11 +151,11 @@
                                     <tr>
                                         <td><b><xsl:value-of select="os:broj_doze" /></b></td>
                                         <td><xsl:value-of select="os:datum" /></td>
+                                        <td><xsl:value-of select="os:tip" />alo</td>
                                         <td><xsl:value-of select="os:proizvodjac" /></td>
-                                        <td><xsl:value-of select="os:tip" /></td>
                                         <td><xsl:value-of select="os:broj_serije" /></td>
-                                        <td><xsl:value-of select="os:ustanova/os:naziv" /></td>
-                                        <td><xsl:value-of select="os:ustanova/os:mesto" /></td>
+<!--                                        <td><xsl:value-of select="os:ustanova/os:naziv" /></td>-->
+<!--                                        <td><xsl:value-of select="os:ustanova/os:punkt" /></td>-->
                                     </tr>
                                 </xsl:for-each>
 
