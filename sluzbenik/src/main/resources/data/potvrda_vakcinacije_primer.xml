@@ -38,6 +38,7 @@
         </po:doza>
     </po:doze>
     <po:qr_link>potvrda.com</po:qr_link>
+    <po:razlog>Razlog?</po:razlog>
     <po:datum_izdavanja>2022-02-27</po:datum_izdavanja>
     <po:dokument_id>1</po:dokument_id>
 </po:potvrda-vakcinacije>

@@ -78,12 +78,15 @@ public class SparqlToDTOService {
 
             // popunjavanje izvestaja
             IzvestajOImunizaciji izvestaj = new IzvestajOImunizaciji();
+            izvestaj.setDozeVakcina(new IzvestajOImunizaciji.DozeVakcina());
+            izvestaj.setRaspodelaPoProizvodjacima(new IzvestajOImunizaciji.RaspodelaPoProizvodjacima());
 
             izvestaj.setBrInteresovanja(Long.valueOf(sparqlBrInteresovanja.get(0).getVarValue().asNode().getLiteralValue().toString()));
             izvestaj.setBrIzdatihZahtevaZaSertifikat(0L);
             izvestaj.setBrPrimljenihZahtevaZaSertifikat(Long.valueOf(sparqlBrZahteva.get(0).getVarValue().asNode().getLiteralValue().toString()));
 
             // redni br doze
+            izvestaj.setBrDozaZbirno(0L);
             setUpDoze(izvestaj, 1L, odDatum, doDatum);
             setUpDoze(izvestaj, 2L, odDatum, doDatum);
             setUpDoze(izvestaj, 3L, odDatum, doDatum);
@@ -116,6 +119,7 @@ public class SparqlToDTOService {
         IzvestajOImunizaciji.DozeVakcina.Doza doza = new IzvestajOImunizaciji.DozeVakcina.Doza();
         doza.setRedniBrojDoze(brDoze);
         doza.setBrojDatih(Long.valueOf(sparqlBrDoza.get(0).getVarValue().asNode().getLiteralValue().toString()));
+        izvestaj.setBrDozaZbirno(izvestaj.getBrDozaZbirno() + doza.getBrojDatih());
         izvestaj.getDozeVakcina().getDoza().add(doza);
     }
 

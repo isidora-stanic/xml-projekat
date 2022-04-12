@@ -74,6 +74,7 @@ public class PotvrdaVakcinacije implements Identifiable {
         this.qrLink = value;
     }
 
+
     public String getRazlog() {
         return razlog;
     }

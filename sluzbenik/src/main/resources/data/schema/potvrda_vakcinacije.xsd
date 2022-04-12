@@ -22,6 +22,7 @@
                     </xs:complexType>
                 </xs:element>
                 <xs:element name="qr_link" type="xs:string"/>
+                <xs:element name="razlog" type="xs:string" minOccurs="0"/>
                 <xs:element name="datum_izdavanja">
                     <xs:complexType>
                         <xs:simpleContent>

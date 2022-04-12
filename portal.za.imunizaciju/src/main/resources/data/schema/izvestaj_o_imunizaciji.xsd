@@ -9,6 +9,7 @@
                 <xs:element name="br_interesovanja" type="xs:positiveInteger"/>
                 <xs:element name="br_primljenih_zahteva_za_sertifikat" type="xs:positiveInteger"/>
                 <xs:element name="br_izdatih_zahteva_za_sertifikat" type="xs:positiveInteger"/>
+                <xs:element name="br_doza_zbirno" type="xs:positiveInteger"/>
                 <xs:element name="doze_vakcina">
                     <xs:complexType>
                         <xs:sequence>

@@ -1,5 +1,6 @@
 package com.rokzasok.sluzbenik.controller;
 
+import com.rokzasok.sluzbenik.helper.XmlConversionAgent;
 import com.rokzasok.sluzbenik.model.dokumenti.izvestaj_o_imunizaciji.IzvestajOImunizaciji;
 import com.rokzasok.sluzbenik.model.dokumenti.izvestaj_o_imunizaciji.KolekcijaIzvestaja;
 import com.rokzasok.sluzbenik.service.B2BService;
@@ -34,6 +35,9 @@ public class IzvestajOImunizacijiController {
 
     @Autowired
     private B2BService b2bService;
+
+    @Autowired
+    private XmlConversionAgent<IzvestajOImunizaciji> izvestajOImunizacijiXmlConversionAgent;
 
     @GetMapping(produces = MediaType.APPLICATION_XML_VALUE)
     ResponseEntity<KolekcijaIzvestaja> findAll() {
@@ -72,7 +76,8 @@ public class IzvestajOImunizacijiController {
             izvestaj.setDatumIzdavanja(
                     DatatypeFactory.newInstance().newXMLGregorianCalendar(
                             LocalDate.now().toString()));
-        } catch (DatatypeConfigurationException e) {
+            izvestaj = izvestajService.create(izvestajOImunizacijiXmlConversionAgent.marshall(izvestaj, "com.rokzasok.sluzbenik.model.dokumenti.izvestaj_o_imunizaciji"));
+        } catch (DatatypeConfigurationException | JAXBException e) {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
         return new ResponseEntity<>(izvestaj, HttpStatus.OK);

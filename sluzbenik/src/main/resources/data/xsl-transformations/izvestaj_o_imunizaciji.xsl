@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
+<xsl:stylesheet version="1.0"
+                xmlns:ioi="http://www.rokzasok.rs/sluzbenik/izvestaj-o-imunizaciji"
+                xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
     <xsl:template match="/">
         <html>
             <head>
@@ -28,17 +30,17 @@
                                 <tr>
                                     <td><strong>Broj interesovanja</strong></td>
                                     <td>
-                                        <xsl:value-of select="//br_interesovanja"/></td>
+                                        <xsl:value-of select="//ioi:br_interesovanja"/></td>
                                 </tr>
                                 <tr>
                                     <td><strong>Broj primljenih zahteva za sertifikat</strong></td>
                                     <td>
-                                        <xsl:value-of select="//br_primljenih_zahteva_za_sertifikat"/></td>
+                                        <xsl:value-of select="//ioi:br_primljenih_zahteva_za_sertifikat"/></td>
                                 </tr>
                                 <tr>
                                     <td><strong>Broj izdatih zahteva za sertifikat</strong></td>
                                     <td>
-                                        <xsl:value-of select="//br_izdatih_zahteva_za_sertifikat"/></td>
+                                        <xsl:value-of select="//ioi:br_izdatih_zahteva_za_sertifikat"/></td>
                                 </tr>
                             </table>
 
@@ -47,14 +49,15 @@
 
                         <div class="podaci-doze">
                             <h2>Broj primljenih doza</h2>
+                            Ukupno: <xsl:value-of select="//ioi:br_doza_zbirno"/>
                             <table>
-                                <xsl:for-each select="//doza">
-                                    <xsl:sort select="redni_broj_doze" order="ascending"/>
+                                <xsl:for-each select="//ioi:doza">
+                                    <xsl:sort select="ioi:redni_broj_doze" order="ascending"/>
                                     <tr>
                                         <td><strong>
-                                            <xsl:value-of select="redni_broj_doze"/></strong></td>
+                                            <xsl:value-of select="ioi:redni_broj_doze"/></strong></td>
                                         <td>
-                                            <xsl:value-of select="broj_datih"/></td>
+                                            <xsl:value-of select="ioi:broj_datih"/></td>
                                     </tr>
                                 </xsl:for-each>
                             </table>
@@ -65,14 +68,14 @@
                         <div class="podaci-proizvodjaci">
                             <h2>Raspodela po proizvodjacima</h2>
                             <table>
-                                <xsl:for-each select="//proizvodjac">
-                                    <xsl:sort select="naziv" order="ascending"/>
+                                <xsl:for-each select="//ioi:proizvodjac">
+                                    <xsl:sort select="ioi:naziv" order="ascending"/>
 
                                     <tr>
                                         <td><strong>
-                                            <xsl:value-of select="naziv"/></strong></td>
+                                            <xsl:value-of select="ioi:naziv"/></strong></td>
                                         <td>
-                                            <xsl:value-of select="broj_primljenih_doza"/></td>
+                                            <xsl:value-of select="ioi:broj_primljenih_doza"/></td>
                                     </tr>
                                 </xsl:for-each>
                             </table>
@@ -82,10 +85,10 @@
 
                         <div class="datumi">
                             <p><strong>Datum izdavanja: </strong>
-                                <xsl:value-of select="//datum_izdavanja"/></p>
-                            <p><strong>Period izvestaja: </strong> od <strong>
-                                <xsl:value-of select="//period_izvestaja/od"/></strong> do <strong>
-                                <xsl:value-of select="//period_izvestaja/do"/></strong></p>
+                                <xsl:value-of select="//ioi:datum_izdavanja"/></p>
+                            <p><strong>Period izvestaja:<br/></strong> od <strong>
+                                <xsl:value-of select="//ioi:period_izvestaja/ioi:od"/></strong> do <strong>
+                                <xsl:value-of select="//ioi:period_izvestaja/ioi:do"/></strong></p>
                         </div>
                     </div>
                 </div>

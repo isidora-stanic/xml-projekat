@@ -14,6 +14,7 @@ import java.util.List;
         "brInteresovanja",
         "brPrimljenihZahtevaZaSertifikat",
         "brIzdatihZahtevaZaSertifikat",
+        "brDozaZbirno",
         "dozeVakcina",
         "raspodelaPoProizvodjacima",
         "datumIzdavanja",
@@ -32,6 +33,9 @@ public class IzvestajOImunizaciji implements Identifiable {
     @XmlElement(name = "br_izdatih_zahteva_za_sertifikat", namespace = "http://www.rokzasok.rs/sluzbenik/izvestaj-o-imunizaciji", required = true)
     @XmlSchemaType(name = "positiveInteger")
     protected Long brIzdatihZahtevaZaSertifikat;
+    @XmlElement(name = "br_doza_zbirno", namespace = "http://www.rokzasok.rs/sluzbenik/izvestaj-o-imunizaciji", required = true)
+    @XmlSchemaType(name = "positiveInteger")
+    protected Long brDozaZbirno;
     @XmlElement(name = "doze_vakcina", namespace = "http://www.rokzasok.rs/sluzbenik/izvestaj-o-imunizaciji", required = true)
     protected DozeVakcina dozeVakcina;
     @XmlElement(name = "raspodela_po_proizvodjacima", namespace = "http://www.rokzasok.rs/sluzbenik/izvestaj-o-imunizaciji", required = true)
@@ -73,6 +77,16 @@ public class IzvestajOImunizaciji implements Identifiable {
 
     public void setBrIzdatihZahtevaZaSertifikat(Long value) {
         this.brIzdatihZahtevaZaSertifikat = value;
+    }
+
+
+    public Long getBrDozaZbirno() {
+        return brDozaZbirno;
+    }
+
+
+    public void setBrDozaZbirno(Long brDozaZbirno) {
+        this.brDozaZbirno = brDozaZbirno;
     }
 
 
