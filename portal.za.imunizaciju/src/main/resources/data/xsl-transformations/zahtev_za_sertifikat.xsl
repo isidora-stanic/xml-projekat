@@ -47,12 +47,24 @@
                 <div class="center">
                     <div class="wrapper">
                         <div class="heading">
-                            <h1>Zahtev za sertifikat</h1>
+                            <h1>Zahtev za sertifikat
+                                <xsl:choose>
+                                    <xsl:when test="//zh:status='true'">
+                                        [Odobren]
+                                    </xsl:when>
+                                    <xsl:when test="//zh:status='false'">
+                                        [Odbijen]
+                                    </xsl:when>
+                                    <xsl:otherwise>
+                                    </xsl:otherwise>
+                                </xsl:choose>
+                            </h1>
                             <h3>Certificate request</h3>
                             <hr />
                         </div>
 
                         <div class="info">
+                            <p id="idKorisnika" style="display: none; color: white; font-size: 4pt;">ID korisnika: <xsl:value-of select="//zh:id"/></p>
                             <table class="info-table">
                                 <tbody class="document-info">
                                     <tr>

@@ -4,16 +4,25 @@ import com.rokzasok.sluzbenik.model.b2b.gradjanin.iskazivanje_interesovanja.Obra
 import com.rokzasok.sluzbenik.model.b2b.gradjanin.obrazac_saglasnosti.ObrazacSaglasnosti;
 import com.rokzasok.sluzbenik.model.b2b.gradjanin.zahtev_za_sertifikat.Zahtev;
 import com.rokzasok.sluzbenik.model.b2b.potvrda_vakcinacije.PotvrdaVakcinacije;
+import com.rokzasok.sluzbenik.model.dto.DokumentiIzPretrageDTO;
 import com.rokzasok.sluzbenik.model.dto.DokumentiKorisnikaDTO;
 import com.rokzasok.sluzbenik.service.B2BService;
+import com.rokzasok.sluzbenik.service.DigitalniSertifikatService;
+import com.rokzasok.sluzbenik.service.IzvestajOImunizacijiService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.InputStreamResource;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
+import org.xml.sax.SAXException;
+
+import javax.mail.MessagingException;
+import javax.xml.bind.JAXBException;
+import java.io.ByteArrayInputStream;
+import java.io.IOException;
 
 @Controller
 @RequestMapping("/api/dokumenti")
@@ -21,6 +30,99 @@ public class PortalDokumentiController {
 
     @Autowired
     private B2BService b2bService;
+
+    @Autowired
+    private DigitalniSertifikatService digitalniSertifikatService;
+
+    @Autowired
+    private IzvestajOImunizacijiService izvestajOImunizacijiService;
+
+    @GetMapping(value = "/html/{tip}/{dokumentId}")
+    ResponseEntity<InputStreamResource> getHtml5(@PathVariable String tip, @PathVariable Long dokumentId) {
+        if (tip.equals("digitalni-sertifikat")) {
+            ByteArrayInputStream is;
+            try {
+                is = this.digitalniSertifikatService.generateHtml(dokumentId);
+            }
+            catch (IOException | SAXException e) {
+                e.printStackTrace();
+                return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+            }
+
+            HttpHeaders headers = new HttpHeaders();
+            headers.add("Content-Disposition", "inline: filename=sertifikat.html");
+
+            return new ResponseEntity<>(new InputStreamResource(is), headers, HttpStatus.OK);
+        }
+        else if (tip.equals("izvestaj-o-imunizaciji")) {
+
+            ByteArrayInputStream is;
+            try {
+                is = this.izvestajOImunizacijiService.generateHtml(dokumentId);
+            }
+            catch (IOException | SAXException e) {
+                e.printStackTrace();
+                return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+            }
+
+            HttpHeaders headers = new HttpHeaders();
+            headers.add("Content-Disposition", "inline: filename=izvestaj.html");
+
+            return new ResponseEntity<>(new InputStreamResource(is), headers, HttpStatus.OK);
+        }
+        else {
+            InputStreamResource is;
+            is = this.b2bService.generateHtmlPortal(tip, dokumentId);
+
+            HttpHeaders headers = new HttpHeaders();
+            headers.add("Content-Disposition", "inline: filename=sertifikat.html");
+
+            return new ResponseEntity<>(is, headers, HttpStatus.OK);
+        }
+    }
+
+    @GetMapping(value = "/pdf/{tip}/{dokumentId}")
+    ResponseEntity<InputStreamResource> getPdf5(@PathVariable String tip, @PathVariable Long dokumentId) {
+        if (tip.equals("digitalni-sertifikat")) {
+            ByteArrayInputStream is;
+            try {
+                is = this.digitalniSertifikatService.generatePDF(dokumentId);
+            }
+            catch (IOException | SAXException | JAXBException e) {
+                e.printStackTrace();
+                return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+            }
+
+            HttpHeaders headers = new HttpHeaders();
+            headers.add("Content-Disposition", "inline: filename=sertifikat.pdf");
+
+            return new ResponseEntity<>(new InputStreamResource(is), headers, HttpStatus.OK);
+        }
+        else if (tip.equals("izvestaj-o-imunizaciji")) {
+            ByteArrayInputStream is;
+            try {
+                is = this.digitalniSertifikatService.generatePDF(dokumentId);
+            }
+            catch (IOException | SAXException | JAXBException e) {
+                e.printStackTrace();
+                return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+            }
+
+            HttpHeaders headers = new HttpHeaders();
+            headers.add("Content-Disposition", "inline: filename=izvestaj.pdf");
+
+            return new ResponseEntity<>(new InputStreamResource(is), headers, HttpStatus.OK);
+        }
+        else {
+            InputStreamResource is;
+            is = this.b2bService.generatePdfPortal(tip, dokumentId);
+
+            HttpHeaders headers = new HttpHeaders();
+            headers.add("Content-Disposition", "inline: filename=sertifikat.pdf");
+
+            return new ResponseEntity<>(is, headers, HttpStatus.OK);
+        }
+    }
 
 
     @GetMapping(value="iskazivanje-interesovanja/{id}", produces = MediaType.APPLICATION_XML_VALUE)
@@ -46,6 +148,16 @@ public class PortalDokumentiController {
     @GetMapping(value = "{idKorisnika}", produces = MediaType.APPLICATION_XML_VALUE)
     public ResponseEntity<DokumentiKorisnikaDTO> getDokumentiKorisnika(@PathVariable("idKorisnika") Long idKorisnika) {
         return new ResponseEntity<>(b2bService.getDokumentiKorisnika(idKorisnika.toString()), HttpStatus.OK);
+    }
+
+    @GetMapping(value = "zahtevi-za-sertifikat/neobradjeni", produces = MediaType.APPLICATION_XML_VALUE)
+    public ResponseEntity<DokumentiIzPretrageDTO> getZahteviZaSertNeobradjeni() {
+        return new ResponseEntity<>(b2bService.getZahteviZaSertNeobradjeni(), HttpStatus.OK);
+    }
+
+    @GetMapping(value = "odbij/zahtev-za-sertifikat/{id}", produces = MediaType.APPLICATION_XML_VALUE)
+    public ResponseEntity<Zahtev> odbijZahteviZaSert(@PathVariable Long id, @RequestParam String razlog) throws MessagingException {
+        return new ResponseEntity<>(b2bService.odbijZahteviZaSert(id, razlog), HttpStatus.OK);
     }
 
     

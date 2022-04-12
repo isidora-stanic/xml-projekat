@@ -79,6 +79,21 @@ public class B2BController {
         return new ResponseEntity<>(potvrdaVakcinacijeService.findById(idPotvrde), HttpStatus.OK);
     }
 
+    @GetMapping(value = "/zahtevi-za-sertifikat/neobradjeni", produces = MediaType.APPLICATION_XML_VALUE)
+    ResponseEntity<DokumentiIzPretrageDTO> getZahteviZaSertNeobradjeni() throws XPathExpressionException, JAXBException, ParserConfigurationException {
+        return new ResponseEntity<>(zahtevZaSertifikatService.getNeobradjeni(), HttpStatus.OK);
+    }
+
+    @GetMapping(value = "/prihvati/zahtev-za-sertifikat/{id}", produces = MediaType.APPLICATION_XML_VALUE)
+    ResponseEntity<Zahtev> prihvatiZahteviZaSert(@PathVariable Long id) throws XPathExpressionException, JAXBException, ParserConfigurationException {
+        return new ResponseEntity<>(zahtevZaSertifikatService.prihvatiZahteviZaSert(id), HttpStatus.OK);
+    }
+
+    @GetMapping(value = "/odbij/zahtev-za-sertifikat/{id}", produces = MediaType.APPLICATION_XML_VALUE)
+    ResponseEntity<Zahtev> odbijZahteviZaSert(@PathVariable Long id) throws XPathExpressionException, JAXBException, ParserConfigurationException {
+        return new ResponseEntity<>(zahtevZaSertifikatService.odbijZahteviZaSert(id), HttpStatus.OK);
+    }
+
     @GetMapping(value = "/search", produces = MediaType.APPLICATION_XML_VALUE)
     ResponseEntity<DokumentiIzPretrageDTO> searchText(@RequestParam String query) throws XPathExpressionException, JAXBException, ParserConfigurationException {
         return new ResponseEntity<>(textSearchService.searchAll(query), HttpStatus.OK);

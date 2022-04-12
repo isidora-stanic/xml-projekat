@@ -4,20 +4,30 @@ import com.rokzasok.sluzbenik.model.b2b.gradjanin.iskazivanje_interesovanja.Obra
 import com.rokzasok.sluzbenik.model.b2b.gradjanin.obrazac_saglasnosti.ObrazacSaglasnosti;
 import com.rokzasok.sluzbenik.model.b2b.gradjanin.zahtev_za_sertifikat.Zahtev;
 import com.rokzasok.sluzbenik.model.b2b.potvrda_vakcinacije.PotvrdaVakcinacije;
+import com.rokzasok.sluzbenik.model.dokumenti.digitalni_sertifikat.DigitalniSertifikat;
 import com.rokzasok.sluzbenik.model.dokumenti.izvestaj_o_imunizaciji.IzvestajOImunizaciji;
 import com.rokzasok.sluzbenik.model.dto.DokumentiIzPretrageDTO;
 import com.rokzasok.sluzbenik.model.dto.DokumentiKorisnikaDTO;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.InputStreamResource;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Service;
+import org.springframework.web.reactive.function.BodyInserters;
 import org.springframework.web.reactive.function.client.WebClient;
 
+import javax.mail.MessagingException;
 import javax.xml.datatype.DatatypeConfigurationException;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class B2BService {
 
     private static final String BASE_URI = "http://localhost:9091";
+    @Autowired
+    private EmailService emailService;
 
     // dokumenti od korisnka
     public DokumentiKorisnikaDTO getDokumentiKorisnika(String idKorisnika) {
@@ -30,6 +40,19 @@ public class B2BService {
                 .bodyToMono(DokumentiKorisnikaDTO.class)
                 .log()
                 .block();
+        // dodavanje digitalnih sertifikata u rezultate -- NE TREBA JER SE NA PORTALU OBAVI SVA MEDJUSOBNA KOMUNIKACIJA
+        // PA SE SPOJI SVE LEPO U JEDAN REZULTAT
+//        List<DigitalniSertifikat> sertifikati = digitalniSertifikatService.findAll()
+//                .stream()
+//                .filter(s -> s.getGradjanin().getId().getValue() == Long.parseLong(idKorisnika))
+//                .collect(Collectors.toList());
+//        for (DigitalniSertifikat ds : sertifikati) {
+//            dokumenti.getListaDokumenata()
+//                    .add(new DokumentiKorisnikaDTO.DokumentDTO(
+//                            "digitalni-sertifikat/"+ds.getDokumentId(),
+//                            ds.getTipDokumenta(),
+//                            ds.getDatumKreiranja()));
+//        }
         return dokumenti;
     }
 
@@ -130,5 +153,78 @@ public class B2BService {
                 .log()
                 .block();
         return dokument;
+    }
+
+    public InputStreamResource generateHtmlPortal(String tip, Long dokumentId) {
+        WebClient client = WebClient.create(BASE_URI);
+
+        InputStreamResource stream = client.get()
+                .uri("/api/dokumenti/html/"+ tip + "/" + dokumentId)
+                .retrieve()
+                .bodyToMono(InputStreamResource.class)
+                .log()
+                .block();
+
+        return stream;
+    }
+
+    public InputStreamResource generatePdfPortal(String tip, Long dokumentId) {
+        WebClient client = WebClient.create(BASE_URI);
+
+        InputStreamResource stream = client.get()
+                .uri("/api/dokumenti/pdf/" + tip + "/" + dokumentId)
+                .retrieve()
+                .bodyToMono(InputStreamResource.class)
+                .log()
+                .block();
+
+        return stream;
+    }
+
+    public DokumentiIzPretrageDTO getZahteviZaSertNeobradjeni() {
+        WebClient client = WebClient.create(BASE_URI);
+
+        DokumentiIzPretrageDTO zahtevi = client.get()
+                .uri("/b2b/zahtevi-za-sertifikat/neobradjeni")
+                .header(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_XML_VALUE)
+                .retrieve()
+                .bodyToMono(DokumentiIzPretrageDTO.class)
+                .log()
+                .block();
+
+        return zahtevi;
+    }
+
+    public Zahtev prihvatiZahtev(Long idZahteva) {
+        WebClient client = WebClient.create(BASE_URI);
+
+        Zahtev Uzahtev = client.get()
+                .uri("/b2b/prihvati/zahtev-za-sertifikat/"+idZahteva)
+                .header(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_XML_VALUE)
+                .retrieve()
+                .bodyToMono(Zahtev.class)
+                .log()
+                .block();
+
+        return Uzahtev;
+    }
+
+    public Zahtev odbijZahteviZaSert(Long id, String razlog) throws MessagingException {
+        emailService.sendOdbijenZahtevZaSertifikat("a@email.com", razlog);
+        // todo: dobavi mail korisnika nekako
+        //      ili prebacifju u portal pa neka se tamo sve menja i salje
+        WebClient client = WebClient.create(BASE_URI);
+
+        Zahtev Uzahtev = client.get()
+                .uri(uriBuilder -> uriBuilder
+                        .path("/b2b/odbij/zahtev-za-sertifikat/"+id)
+                        .build())
+                .header(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_XML_VALUE)
+                .retrieve()
+                .bodyToMono(Zahtev.class)
+                .log()
+                .block();
+
+        return Uzahtev;
     }
 }

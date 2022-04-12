@@ -156,7 +156,12 @@ public class SparqlToDTOService {
             e.printStackTrace();
         }
 
-        String val = sparqlBrDigitalnih.get(0).getVarValue().toString().split("potvrda-vakcinacije/")[1];
+        String val;
+        try{
+            val = sparqlBrDigitalnih.get(0).getVarValue().toString().split("potvrda-vakcinacije/")[1];
+        } catch (Exception e) {
+            val = "0";
+        }
 
         return Long.valueOf(val);
     }

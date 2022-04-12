@@ -8,6 +8,8 @@ import com.rokzasok.portal.za.imunizaciju.helper.UUIDHelper;
 import com.rokzasok.portal.za.imunizaciju.helper.XmlConversionAgent;
 import com.rokzasok.portal.za.imunizaciju.model.dokumenti.gradjanin.iskazivanje_interesovanja.ObrazacInteresovanja;
 import com.rokzasok.portal.za.imunizaciju.model.dokumenti.gradjanin.zahtev_za_sertifikat.Zahtev;
+import com.rokzasok.portal.za.imunizaciju.model.dto.DokumentiIzPretrageDTO;
+import com.rokzasok.portal.za.imunizaciju.model.dto.DokumentiKorisnikaDTO;
 import com.rokzasok.portal.za.imunizaciju.repository.AbstractXmlRepository;
 import com.rokzasok.portal.za.imunizaciju.transformation.XSLTransformer;
 import org.apache.commons.io.FileUtils;
@@ -22,7 +24,9 @@ import javax.xml.parsers.ParserConfigurationException;
 import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import static com.rokzasok.portal.za.imunizaciju.helper.XQueryExpressions.X_QUERY_FIND_ALL_ZAHTEV_ZA_SERTIFIKAT_EXPRESSION;
 import static com.rokzasok.portal.za.imunizaciju.helper.XQueryExpressions.X_UPDATE_REMOVE_ZAHTEV_ZA_SERTIFIKAT_BY_ID_EXPRESSION;
@@ -254,4 +258,36 @@ public class ZahtevZaSertifikatService implements AbstractXmlService<Zahtev> {
         return null;
     }
 
+    public DokumentiIzPretrageDTO getNeobradjeni() {
+        DokumentiIzPretrageDTO zahtevi = new DokumentiIzPretrageDTO();
+        zahtevi.setQuery("neobradjeni");
+        zahtevi.setListaDokumenata(new ArrayList<>());
+        List<Zahtev> neobradjeni = findAll().stream().filter(z -> z.getStatus() == null).collect(Collectors.toList());
+        for (Zahtev z : neobradjeni) {
+            zahtevi.getListaDokumenata().add(new DokumentiKorisnikaDTO.DokumentDTO("zahtev-za-sertifikat/"+z.getDokumentId(), z.getTipDokumenta(), z.getDatumKreiranja()));
+        }
+        return zahtevi;
+    }
+
+    public Zahtev odbijZahteviZaSert(Long id) throws JAXBException {
+        Zahtev zahtev = findById(id);
+        zahtev.setStatus(new Zahtev.Status());
+        zahtev.getStatus().setValue(false);
+        zahtev.getStatus().setDatatype("xs:#boolean");
+        zahtev.getStatus().setProperty("pred:status");
+        String zahtevXML = this.zahtevZaSertifikatConverionAgent.marshall(zahtev, this.jaxbContextPath);
+        Zahtev z = update(zahtevXML);
+        return z;
+    }
+
+    public Zahtev prihvatiZahteviZaSert(Long id) throws JAXBException {
+        Zahtev zahtev = findById(id);
+        zahtev.setStatus(new Zahtev.Status());
+        zahtev.getStatus().setValue(true);
+        zahtev.getStatus().setDatatype("xs:#boolean");
+        zahtev.getStatus().setProperty("pred:status");
+        String zahtevXML = this.zahtevZaSertifikatConverionAgent.marshall(zahtev, this.jaxbContextPath);
+        Zahtev z = update(zahtevXML);
+        return z;
+    }
 }

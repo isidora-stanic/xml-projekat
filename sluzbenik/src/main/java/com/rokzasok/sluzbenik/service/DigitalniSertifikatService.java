@@ -47,6 +47,8 @@ public class DigitalniSertifikatService implements AbstractXmlService<DigitalniS
 
     @Autowired
     private XmlConversionAgent<DigitalniSertifikat> digitalniSertifikatXmlConversionAgent;
+    @Autowired
+    private XmlConversionAgent<Zahtev> zahtevXmlConversionAgent;
 
     @Autowired
     private RDFService rdfService;
@@ -259,6 +261,7 @@ public class DigitalniSertifikatService implements AbstractXmlService<DigitalniS
         handleMetadata(sertifikat, idZahteva);
         saveDigitalniSertifikat(sertifikat);
 
+        b2BService.prihvatiZahtev(idZahteva);
 
         try {
             ByteArrayInputStream is = generatePDF(idSertifikata);
