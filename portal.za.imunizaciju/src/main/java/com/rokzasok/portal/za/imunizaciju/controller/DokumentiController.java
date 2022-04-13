@@ -145,7 +145,8 @@ public class DokumentiController {
     ResponseEntity<InputStreamResource> getPdfFo3(@PathVariable Long dokumentId) {
         ByteArrayInputStream is;
         try {
-            is = this.potvrdaVakcinacijeService.generatePDF_FO(dokumentId);
+            //is = this.potvrdaVakcinacijeService.generatePDF_FO(dokumentId);
+            is = this.potvrdaVakcinacijeService.generatePDF_HTML(dokumentId);
         }
         catch (IOException | SAXException | JAXBException e) {
             e.printStackTrace();

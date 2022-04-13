@@ -258,6 +258,8 @@ public class DigitalniSertifikatService implements AbstractXmlService<DigitalniS
 
         sertifikat.setDokumentId(idSertifikata);
 
+        sertifikat.getInfoOSertifikatu().setQrLink("http://localhost:4200/pregled/digitalni-sertifikat/" + idSertifikata);
+
         handleMetadata(sertifikat, idZahteva);
         saveDigitalniSertifikat(sertifikat);
 

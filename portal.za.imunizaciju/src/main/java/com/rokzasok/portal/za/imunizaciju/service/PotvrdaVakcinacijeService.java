@@ -240,13 +240,15 @@ public class PotvrdaVakcinacijeService implements AbstractXmlService<PotvrdaVakc
         }
         potvrda.setDoze(new PotvrdaVakcinacije.Doze(spisakDozaZaPotvrdu));
 
-        potvrda.setQrLink("nekilink.com"); // todo: generisanje qr koda
+        potvrda.setDokumentId(uuidHelper.getUUID());
+
+        potvrda.setQrLink("http://localhost:4200/pregled/potvrda-vakcinacije/" + potvrda.getDokumentId());
 
         potvrda.setDatumIzdavanja(LocalDate.now());
 
         potvrda.setRazlog(razlog);
 
-        potvrda.setDokumentId(uuidHelper.getUUID());
+
         return potvrda;
     }
 
@@ -344,6 +346,33 @@ public class PotvrdaVakcinacijeService implements AbstractXmlService<PotvrdaVakc
         try {
             this.potvrdaVakcinacijeXmlConversionAgent.marshallToFile(potvrda, this.jaxbContextPath, outputXmlFile);
             xslTransformer.generatePDF_FO(outputXmlFile);
+            return new ByteArrayInputStream(FileUtils.readFileToByteArray(new File(outputPdfFile)));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return null;
+    }
+
+    public ByteArrayInputStream generatePDF_HTML(Long dokumentId) throws IOException, SAXException, JAXBException {
+        String xslFile = "src/main/resources/data/xsl-transformations/potvrda_vakcinacije.xsl";
+        String outputHtmlFile = "src/main/resources/data/xsl-transformations/generated/output-html/potvrda.html";
+        String outputPdfFile = "src/main/resources/data/xsl-transformations/generated/output-pdf/potvrda.pdf";
+        String outputXmlFile = "src/main/resources/data/xsl-transformations/generated/output-xml-fo/potvrda.xml";
+
+        XSLTransformer xslTransformer = new XSLTransformer();
+        xslTransformer.setXSLT_FILE(xslFile);
+        xslTransformer.setOUTPUT_FILE_HTML(outputHtmlFile);
+        xslTransformer.setOUTPUT_FILE_PDF(outputPdfFile);
+
+        PotvrdaVakcinacije potvrda = this.findById(dokumentId);
+        try {
+            this.potvrdaVakcinacijeXmlConversionAgent.marshallToFile(
+                    potvrda,
+                    this.jaxbContextPath,
+                    outputXmlFile
+            );
+            xslTransformer.generatePDF_HTML(outputXmlFile);
             return new ByteArrayInputStream(FileUtils.readFileToByteArray(new File(outputPdfFile)));
         } catch (Exception e) {
             e.printStackTrace();

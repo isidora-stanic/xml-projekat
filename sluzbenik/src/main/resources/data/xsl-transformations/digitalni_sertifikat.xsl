@@ -2,7 +2,7 @@
 <xsl:stylesheet version="1.0"
                 xmlns:ds="http://www.rokzasok.rs/sluzbenik/digitalni-sertifikat"
                 xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
-
+    <xsl:param name="qr_link" select="//ds:qr_link"/>
     <xsl:template match="/">
 
         <html lang="en">
@@ -51,6 +51,7 @@
                         <div class="header">
                             <h1>Digitalni sertifikat</h1>
                             <h3>Digital certificate</h3>
+                            <img src="https://chart.googleapis.com/chart?cht=qr&amp;chl={$qr_link}&amp;chs=160x160&amp;chld=L|0" class="qr-code img-thumbnail img-responsive"/>
                         </div>
                         <hr />
 

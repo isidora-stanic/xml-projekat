@@ -2,7 +2,7 @@
 <xsl:stylesheet version="1.0" 
     xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
     xmlns:po="http://www.rokzasok.rs/zdravstveni-radnik/potvrda-vakcinacije">
-    
+    <xsl:param name="qr_link" select="//po:qr_link"/>
     <xsl:template match="/">
         <html>
 
@@ -38,7 +38,12 @@
                     .vakcinacija td {
                         padding-left: 30pt;
                     }
-                    
+
+                    .qr-code {
+                        max-width: 200px;
+                        margin: 10px;
+                    }
+
                 </style>
             </head>
 
@@ -151,8 +156,13 @@
                             </tr>
                         </table>
 
+                        <img src="https://chart.googleapis.com/chart?cht=qr&amp;chl={$qr_link}&amp;chs=160x160&amp;chld=L|0" class="qr-code img-thumbnail img-responsive"/>
+
                     </div>
                 </div>
+<!--                -->
+<!--                <script src="https://code.jquery.com/jquery-3.5.1.js">-->
+<!--                </script>-->
             </body>
 
         </html>

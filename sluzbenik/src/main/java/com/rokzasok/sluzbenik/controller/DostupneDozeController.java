@@ -35,7 +35,7 @@ public class DostupneDozeController {
         return new ResponseEntity<>(this.dostupneDozeService.update(body), HttpStatus.OK);
     }
 
-    @PatchMapping(value = "/dodaj-doze", produces = MediaType.APPLICATION_XML_VALUE)
+    @GetMapping(value = "/dodaj-doze", produces = MediaType.APPLICATION_XML_VALUE)
     ResponseEntity<DostupneDoze> addDoze(@RequestParam("naziv-vakcine") String nazivVakcine, @RequestParam("broj-doza") BigInteger brojDoza) {
         return new ResponseEntity<>(this.dostupneDozeService.addDoze(nazivVakcine, brojDoza), HttpStatus.OK);
     }
