@@ -3,7 +3,7 @@ package com.rokzasok.sluzbenik.exception;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
-@ResponseStatus(code = HttpStatus.NOT_FOUND, reason = "Entity Not Found")
+@ResponseStatus(code = HttpStatus.NOT_FOUND)
 public class EntityNotFoundException extends RuntimeException {
 
     private Long id;

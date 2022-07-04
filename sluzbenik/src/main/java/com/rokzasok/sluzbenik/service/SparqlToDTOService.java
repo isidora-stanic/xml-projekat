@@ -79,4 +79,47 @@ public class SparqlToDTOService {
 
         return null;
     }
+
+
+    public DokumentiKorisnikaDTO getReferenciraniDokumenti(String dokumentUri) {
+        try {
+            List<SparqlService.SparqlQueryResult> sparqlDokumentLinkovi = sparqlService.getPrethodniDokumenti(dokumentUri);
+
+            DokumentiKorisnikaDTO dokumentiKorisnikaDTO = new DokumentiKorisnikaDTO();
+            dokumentiKorisnikaDTO.setListaDokumenata(new ArrayList<>());
+
+            dokumentiKorisnikaDTO.setIdKorisnika(-1L);
+
+            int i = 0;
+
+            while (i < sparqlDokumentLinkovi.size()) {
+                SparqlService.SparqlQueryResult result = sparqlDokumentLinkovi.get(i);
+                String dokumentURI = result.getVarValue().toString();
+
+                String tipDokumentaWithId = dokumentURI.split("database/")[1];
+
+                String[] split = tipDokumentaWithId.split("/");
+
+                String tipDokumenta = split[0].replaceAll("-", " ");
+                tipDokumenta = tipDokumenta.substring(0, 1).toUpperCase() + tipDokumenta.substring(1);
+
+                //result = sparqlDokumentLinkovi.get(i + 1);
+                //XSDDateTime xsdDatum = (XSDDateTime) result.getVarValue().asNode().getLiteralValue();
+
+                //XMLGregorianCalendar xmlDatum = DatatypeFactory.newInstance().newXMLGregorianCalendar(xsdDatum.toString());
+
+
+                dokumentiKorisnikaDTO.getListaDokumenata().add(new DokumentiKorisnikaDTO.DokumentDTO(dokumentURI, tipDokumenta, null));
+
+                i++;
+            }
+
+            return dokumentiKorisnikaDTO;
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        return null;
+    }
 }

@@ -3,7 +3,7 @@ package com.rokzasok.sluzbenik.exception;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
-@ResponseStatus(code = HttpStatus.BAD_REQUEST, reason = "Invalid Xml Exception - JAXB Unmarshaling")
+@ResponseStatus(code = HttpStatus.BAD_REQUEST)
 public class InvalidXmlException extends RuntimeException {
 
     private Class classObject;

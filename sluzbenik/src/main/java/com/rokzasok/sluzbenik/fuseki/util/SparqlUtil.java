@@ -93,5 +93,12 @@ public class SparqlUtil {
                 "}";
     }
 
+    public static String selectReferenciraniDokumenti(String dokumentUri, String dataEndpointString) {
+        return "SELECT * FROM <" + dataEndpointString + "/sparql/metadata>\n" +
+                "WHERE {\n" +
+                "  ?dokument <http://www.rokzasok.rs/rdf/database/predicate/prethodniDokument> <http://www.rokzasok.rs/rdf/database/" + dokumentUri + "> \n" +
+                "}";
+    }
+
 
 }
