@@ -32,13 +32,13 @@ Bazi se može pristupiti na http://localhost:8081
 
 **za sluzbenika**
 
-    docker run --name fuseki-sluzbenik -p 3030:3030 ADMIN_PASSWORD=password stain/jena-fuseki
+    docker run --init --name fuseki-sluzbenik -p 3030:3030 -e ADMIN_PASSWORD=password stain/jena-fuseki:3.14.0
 
 Nakon pokretanja treba otići na http://localhost:3030/, ulogovati se kao `admin` (`password`) i kreirati novi dataset **eUpravaDataset**
 
 **za portal**
 
-    docker run --name fuseki-portal -p 3031:3030 -e ADMIN_PASSWORD=password stain/jena-fuseki
+    docker run --init --name fuseki-portal -p 3031:3030 -e ADMIN_PASSWORD=password stain/jena-fuseki:3.14.0
 
 Nakon pokretanja treba otići na http://localhost:3031/, ulogovati se kao `admin` (`password`) i kreirati novi dataset **eUpravaDataset**
 
