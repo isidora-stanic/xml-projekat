@@ -116,7 +116,8 @@
                                             <strong>Razlog / Request reason: </strong>
                                         </td>
                                         <td class="last">
-                                            <xsl:value-of select="//zh:razlog_podnosenja"/>
+<!--                                            <xsl:copy-of select="//zh:razlog_podnosenja/text()"/>-->
+                                            <xsl:value-of select="//zh:razlog_podnosenja" disable-output-escaping="yes"/>
                                         </td>
                                     </tr>
                                 </tbody>

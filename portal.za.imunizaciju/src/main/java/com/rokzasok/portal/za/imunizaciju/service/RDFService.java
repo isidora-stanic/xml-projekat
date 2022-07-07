@@ -105,29 +105,6 @@ public class RDFService {
         System.out.println(rdfdbConnectionProperties.getUpdateEndpoint());
 
         processor.execute();
-        String res = null;
-        try {
-            res = getRDFAsJSON(rdfa);
-        } catch (IOException e) {
-            e.printStackTrace();
-        } catch (SAXException e) {
-            e.printStackTrace();
-        } catch (TransformerException e) {
-            e.printStackTrace();
-        }
-        System.out.println("RESULT AS JSON:" + res);
-
-        String res1 = null;
-        try {
-            res1 = getRDFAsRDF(rdfa);
-        } catch (IOException e) {
-            e.printStackTrace();
-        } catch (SAXException e) {
-            e.printStackTrace();
-        } catch (TransformerException e) {
-            e.printStackTrace();
-        }
-        System.out.println("RESULT AS RDF/XML:" + res1);
 
         return true;
     }

@@ -242,7 +242,7 @@ public class PotvrdaVakcinacijeService implements AbstractXmlService<PotvrdaVakc
 
         potvrda.setDokumentId(uuidHelper.getUUID());
 
-        potvrda.setQrLink("http://localhost:4200/pregled/potvrda-vakcinacije/" + potvrda.getDokumentId());
+        potvrda.setQrLink("http://localhost:4201/pregled/potvrda-vakcinacije/" + potvrda.getDokumentId());
 
         potvrda.setDatumIzdavanja(LocalDate.now());
 

@@ -33,7 +33,7 @@ public class EmailService {
         // todo: Na ovaj način se šalje PDF kao attachment, za digitalni sertifikat
         helper.addAttachment("Digitalni_sertifikat.txt", new ByteArrayResource(digitalniSertifikatPdf));
 
-        helper.setText("Poštovani,\n\nU prilogu Vam šaljemo digitalni sertifikat, po Vašem zahtevu.\n\nVaša eUprava.");
+        helper.setText("Poštovani,\n\nU prilogu Vam šaljemo digitalni sertifikat, po Vašem zahtevu.\n\nVaša eUprava.", true);
 
         mailSender.send(message);
     }
@@ -47,9 +47,9 @@ public class EmailService {
         helper.setTo(emailAddress);
         helper.setSubject("Odbijen zahtev za digitalni sertifikat");
 
-        helper.setText("Poštovani,\n\nVaš zahtev za digitalni sertifikat je odbijen: " +
-                ".\n\nRazlog: " + razlog +
-                "\n\nHvala na razumevanju, Vaša eUprava.");
+        helper.setText("Poštovani,\n\nVaš zahtev za digitalni sertifikat je odbijen." +
+                "\n\nRazlog: " + razlog +
+                "\n\nHvala na razumevanju, Vaša eUprava.", true);
 
         mailSender.send(message);
     }
