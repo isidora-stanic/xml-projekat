@@ -49,14 +49,14 @@ Nakon pokretanja treba otići na http://localhost:3031/, ulogovati se kao `admin
     npm install
     ng serve
 
-link http://localhost:4201
+link http://localhost:4200
 
 **portal-za-imunizaciju-app**
 
     npm install
     ng serve
 
-link http://localhost:4200
+link http://localhost:4201
 
 
 link do frontend repozitorijuma: https://github.com/JolaKl/xml-front
