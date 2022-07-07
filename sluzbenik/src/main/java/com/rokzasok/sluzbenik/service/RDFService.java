@@ -92,13 +92,64 @@ public class RDFService {
         // UpdateRequest represents a unit of execution
         UpdateRequest update = UpdateFactory.create(sparqlUpdate);
 
-        UpdateProcessor processor = UpdateExecutionFactory.createRemote(update, rdfdbConnectionProperties.getUpdateEndpoint());
+        UpdateProcessor processor = UpdateExecutionFactory.createRemote(update, "http://localhost:3030/eUpravaDataset");//rdfdbConnectionProperties.getUpdateEndpoint());
 
         System.out.println(rdfdbConnectionProperties.getUpdateEndpoint());
 
         processor.execute();
 
+        String res = getRDFAsJSON(rdfa);
+        System.out.println("RESULT AS JSON:" + res);
+
+        try {
+            res = getRDFAsRDF(rdfa);
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (SAXException e) {
+            e.printStackTrace();
+        } catch (TransformerException e) {
+            e.printStackTrace();
+        }
+        System.out.println("RESULT AS RDF/XML:" + res);
+
         return true;
+    }
+
+    public String getRDFAsRDF(String rdfa) throws IOException, SAXException, TransformerException {
+//        MetadataExtractor metadataExtractor = new MetadataExtractor();
+//        ByteArrayOutputStream xmlrdf = new ByteArrayOutputStream();
+//        System.out.println("[INFO] Extracting metadata from RDFa attributes...");
+//        //String rdf = "";
+//        InputStream targetStream = new ByteArrayInputStream(rdfa.getBytes());
+//        metadataExtractor.extractMetadata(
+//                targetStream,
+//                xmlrdf);
+//        System.out.println(xmlrdf);
+//        return xmlrdf.toString();
+        Model model = ModelFactory.createDefaultModel();
+        InputStream xmlrdfIn = new ByteArrayInputStream(rdfa.getBytes());
+        model.read(xmlrdfIn, "");
+
+        ByteArrayOutputStream outNTRIPLES = new ByteArrayOutputStream();
+        model.write(outNTRIPLES, SparqlUtil.NTRIPLES);
+
+        System.out.println("[INFO] Extracted metadata as RDF/XML...");
+        model.write(System.out, SparqlUtil.RDF_XML);
+        return outNTRIPLES.toString();
+    }
+
+    public String getRDFAsJSON(String rdfa) {
+        Model model = ModelFactory.createDefaultModel();
+        InputStream xmlrdfIn = new ByteArrayInputStream(rdfa.getBytes());
+        model.read(xmlrdfIn, "");
+
+        ByteArrayOutputStream outNTRIPLES = new ByteArrayOutputStream();
+        model.write(outNTRIPLES, SparqlUtil.NTRIPLES);
+
+        System.out.println("[INFO] Extracted metadata as RDF/XML...");
+        model.write(System.out, SparqlUtil.RDF_JSON);
+
+        return outNTRIPLES.toString();
     }
 
     public RDFDBConnectionProperties getRdfdbConnectionProperties() {

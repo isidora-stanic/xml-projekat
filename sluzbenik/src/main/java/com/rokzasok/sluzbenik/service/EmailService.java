@@ -31,7 +31,7 @@ public class EmailService {
         helper.setSubject("Digitalni sertifikat");
 
         // todo: Na ovaj način se šalje PDF kao attachment, za digitalni sertifikat
-        helper.addAttachment("MyTestFile.txt", new ByteArrayResource(digitalniSertifikatPdf));
+        helper.addAttachment("Digitalni_sertifikat.txt", new ByteArrayResource(digitalniSertifikatPdf));
 
         helper.setText("Poštovani,\n\nU prilogu Vam šaljemo digitalni sertifikat, po Vašem zahtevu.\n\nVaša eUprava.");
 

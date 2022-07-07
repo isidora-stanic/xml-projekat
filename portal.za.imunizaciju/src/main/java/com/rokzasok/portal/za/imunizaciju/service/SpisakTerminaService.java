@@ -5,6 +5,7 @@ import com.rokzasok.portal.za.imunizaciju.exception.InvalidXmlDatabaseException;
 import com.rokzasok.portal.za.imunizaciju.exception.InvalidXmlException;
 import com.rokzasok.portal.za.imunizaciju.exception.XmlDatabaseException;
 import com.rokzasok.portal.za.imunizaciju.helper.XmlConversionAgent;
+import com.rokzasok.portal.za.imunizaciju.model.dokumenti.gradjanin.obrazac_saglasnosti.ObrazacSaglasnosti;
 import com.rokzasok.portal.za.imunizaciju.model.dto.ZakazivanjeTerminaDTO;
 import com.rokzasok.portal.za.imunizaciju.model.ostalo.spisak_korisnika.SpisakKorisnika;
 import com.rokzasok.portal.za.imunizaciju.model.ostalo.spisak_termina.Dan;
@@ -132,6 +133,18 @@ public class SpisakTerminaService implements AbstractXmlService<SpisakTermina> {
     }
 
     @Override
+    public String getRdfaString(Long dokumentId) throws JAXBException {
+        injectRepositoryProperties();
+
+        SpisakTermina dokument;
+        dokument = this.findById(dokumentId);
+        String entityXml = this.spisakTerminaXmlConversionAgent.marshall(dokument, this.jaxbContextPath);
+        System.out.println(entityXml);
+        return entityXml;
+
+    }
+
+    @Override
     public boolean deleteById(Long entityId) {
         injectRepositoryProperties();
 
@@ -159,7 +172,7 @@ public class SpisakTerminaService implements AbstractXmlService<SpisakTermina> {
         return addMesto(mesto, spisak).getDan();
     }
 
-    private Dan checkDan(LocalDate datum, List<Dan> dani, String tipVakcine) throws DatatypeConfigurationException, Exception {
+    private Dan checkDan(LocalDate datum, List<Dan> dani, String tipVakcine, String ime) throws DatatypeConfigurationException, Exception {
         boolean found = false;
 
         for (Dan dan : dani) {
@@ -168,7 +181,7 @@ public class SpisakTerminaService implements AbstractXmlService<SpisakTermina> {
                 found = true;
                 if (checkSlobodniTerminiZaDan(dan)) {
                     if (!b2bService.ukloniDozuVakcine(tipVakcine)) {
-                        emailService.sendNemaDostupnihDozaEmail("korisnik@gmail.com", tipVakcine); //todo: ne treba zakucana vrednost
+                        emailService.sendNemaDostupnihDozaEmail(ime+"@gmail.com", tipVakcine);
                         throw new Exception("Neuspesno uzimanje vakcine");
                     }
                     dan.setBrojZakazanihTermina(dan.getBrojZakazanihTermina().add(BigInteger.ONE));
@@ -178,7 +191,7 @@ public class SpisakTerminaService implements AbstractXmlService<SpisakTermina> {
         }
         if (!found) {
             if (!b2bService.ukloniDozuVakcine(tipVakcine)) {
-                emailService.sendNemaDostupnihDozaEmail("korisnik@gmail.com", tipVakcine); //todo: ne treba zakucana vrednost
+                emailService.sendNemaDostupnihDozaEmail(ime+"@gmail.com", tipVakcine);
                 throw new Exception("Neuspesno uzimanje vakcine");
             }
 
@@ -192,14 +205,14 @@ public class SpisakTerminaService implements AbstractXmlService<SpisakTermina> {
         return null;
     }
 
-    public Dan zakaziTermin(String mesto, LocalDate zeljeniDatum, String tipVakcine, int unapred) {
+    public Dan zakaziTermin(String mesto, LocalDate zeljeniDatum, String tipVakcine, int unapred, String ime) {
         if (zeljeniDatum.isBefore(LocalDate.now())) {
             throw new InvalidXmlException(ZakazivanjeTerminaDTO.class, "Odabran datum nije validan");
         }
 
         if (!b2bService.proveriDostupnostVakcine(tipVakcine)) {
             try {
-                emailService.sendNemaDostupnihDozaEmail("korisnik@gmail.com", tipVakcine);
+                emailService.sendNemaDostupnihDozaEmail(ime+"@gmail.com", tipVakcine);
             } catch (MessagingException e) {
                 e.printStackTrace();
             }
@@ -223,7 +236,7 @@ public class SpisakTerminaService implements AbstractXmlService<SpisakTermina> {
         for (int i = 0; i < unapred; i++) {
             Dan dan = null;
             try {
-                dan = checkDan(zeljeniDatum.plusDays(i), dani, tipVakcine);
+                dan = checkDan(zeljeniDatum.plusDays(i), dani, tipVakcine, ime);
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -237,7 +250,7 @@ public class SpisakTerminaService implements AbstractXmlService<SpisakTermina> {
                 }
 
                 try {
-                    emailService.sendSledeciTerminEmail("korisnik@gmail.com", dan.getDatum().toString(), mesto); // todo: ne treba zakucana vrednost
+                    emailService.sendSledeciTerminEmail(ime+"@gmail.com", dan.getDatum().toString(), mesto);
                 } catch (MessagingException e) {
                     e.printStackTrace();
                 }
@@ -245,7 +258,7 @@ public class SpisakTerminaService implements AbstractXmlService<SpisakTermina> {
             }
         }
         try {
-            emailService.sendNemaSlobodnihTerminaEmail("korisnik@gmail.com", zeljeniDatum.toString(), mesto); //todo: ne treba zakucana vrednost
+            emailService.sendNemaSlobodnihTerminaEmail(ime+"@gmail.com", zeljeniDatum.toString(), mesto);
         } catch (MessagingException e) {
             e.printStackTrace();
         }

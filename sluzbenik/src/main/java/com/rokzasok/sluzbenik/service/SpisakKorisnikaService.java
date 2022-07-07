@@ -120,6 +120,18 @@ public class SpisakKorisnikaService implements AbstractXmlService<SpisakKorisnik
     }
 
     @Override
+    public String getRdfaString(Long dokumentId) throws JAXBException {
+        injectRepositoryProperties();
+
+        SpisakKorisnika dokument;
+        dokument = this.findById(dokumentId);
+        String entityXml = this.spisakKorisnikaXmlConversionAgent.marshall(dokument, this.jaxbContextPath);
+        System.out.println(entityXml);
+        return entityXml;
+
+    }
+
+    @Override
     public boolean deleteById(Long entityId) {
         injectRepositoryProperties();
 

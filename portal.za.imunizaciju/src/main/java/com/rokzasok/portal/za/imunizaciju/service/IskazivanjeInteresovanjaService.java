@@ -207,6 +207,18 @@ public class IskazivanjeInteresovanjaService implements AbstractXmlService<Obraz
     }
 
     @Override
+    public String getRdfaString(Long dokumentId) throws JAXBException {
+        injectRepositoryProperties();
+
+        ObrazacInteresovanja dokument;
+        dokument = this.findById(dokumentId);
+        String entityXml = this.obrazacInteresovanjaXmlConversionAgent.marshall(dokument, this.jaxbContextPath);
+        System.out.println(entityXml);
+        return entityXml;
+
+    }
+
+    @Override
     public boolean deleteById(Long entityId) {
         injectRepositoryProperties();
 

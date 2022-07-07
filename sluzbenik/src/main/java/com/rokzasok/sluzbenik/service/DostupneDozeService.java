@@ -109,6 +109,18 @@ public class DostupneDozeService implements AbstractXmlService<DostupneDoze> {
     }
 
     @Override
+    public String getRdfaString(Long dokumentId) throws JAXBException {
+        injectRepositoryProperties();
+
+        DostupneDoze dokument;
+        dokument = this.findById(dokumentId);
+        String entityXml = this.dostupneDozeXmlConversionAgent.marshall(dokument, this.jaxbContextPath);
+        System.out.println(entityXml);
+        return entityXml;
+
+    }
+
+    @Override
     public boolean deleteById(Long entityId) {
         injectRepositoryProperties();
 

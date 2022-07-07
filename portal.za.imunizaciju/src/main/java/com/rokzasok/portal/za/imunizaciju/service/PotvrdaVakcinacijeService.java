@@ -277,6 +277,18 @@ public class PotvrdaVakcinacijeService implements AbstractXmlService<PotvrdaVakc
     }
 
     @Override
+    public String getRdfaString(Long dokumentId) throws JAXBException {
+        injectRepositoryProperties();
+
+        PotvrdaVakcinacije dokument;
+        dokument = this.findById(dokumentId);
+        String entityXml = this.potvrdaVakcinacijeXmlConversionAgent.marshall(dokument, this.jaxbContextPath);
+        System.out.println(entityXml);
+        return entityXml;
+
+    }
+
+    @Override
     public boolean deleteById(Long entityId) {
         injectRepositoryProperties();
 

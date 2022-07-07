@@ -1,5 +1,8 @@
 package com.rokzasok.portal.za.imunizaciju.controller;
 
+import com.rokzasok.portal.za.imunizaciju.helper.XmlConversionAgent;
+import com.rokzasok.portal.za.imunizaciju.model.dokumenti.gradjanin.iskazivanje_interesovanja.ObrazacInteresovanja;
+import com.rokzasok.portal.za.imunizaciju.model.dokumenti.gradjanin.obrazac_saglasnosti.ObrazacSaglasnosti;
 import com.rokzasok.portal.za.imunizaciju.model.dto.DokumentiKorisnikaDTO;
 import com.rokzasok.portal.za.imunizaciju.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,8 +18,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.xml.sax.SAXException;
 
 import javax.xml.bind.JAXBException;
+import javax.xml.transform.TransformerException;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 
 @Controller
@@ -35,6 +40,12 @@ public class DokumentiController {
     PotvrdaVakcinacijeService potvrdaVakcinacijeService;
     @Autowired
     ZahtevZaSertifikatService zahtevZaSertifikatService;
+
+    @Autowired
+    RDFService rdfService;
+
+    @Autowired
+    private XmlConversionAgent<ObrazacSaglasnosti> obrazacSaglasnostiXmlConversionAgent;
 
 
     @GetMapping(value = "/digitalni-sertifikati-korisnika/{id}", produces = MediaType.APPLICATION_XML_VALUE)
@@ -90,6 +101,46 @@ public class DokumentiController {
         return new ResponseEntity<>(new InputStreamResource(is), headers, HttpStatus.OK);
     }
 
+    @GetMapping(value = "/metadata/rdf/iskazivanje-interesovanja/{dokumentId}")
+    ResponseEntity<InputStreamResource> getMetadataRdf1(@PathVariable Long dokumentId) {
+        ByteArrayInputStream is;
+        try {
+            String xmlEntity = this.zahtjevZaImunizacijuService.getRdfaString(dokumentId);
+            System.out.println(xmlEntity);
+            is = new ByteArrayInputStream(this.rdfService.getRDFAsRDF(xmlEntity).getBytes());
+        }
+        catch (IOException | SAXException | JAXBException | TransformerException e) {
+            e.printStackTrace();
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+
+        HttpHeaders headers = new HttpHeaders();
+        headers.add("Content-Disposition", "inline: filename=obrazac-metadata.rdf");
+
+        return new ResponseEntity<>(new InputStreamResource(is), headers, HttpStatus.OK);
+    }
+
+    @GetMapping(value = "/metadata/json/iskazivanje-interesovanja/{dokumentId}")
+    ResponseEntity<InputStreamResource> getMetadataJson1(@PathVariable Long dokumentId) {
+        ByteArrayInputStream is;
+        try {
+            String xmlEntity = this.zahtjevZaImunizacijuService.getRdfaString(dokumentId);
+            System.out.println(xmlEntity);
+            is = new ByteArrayInputStream(this.rdfService.getRDFAsJSON(xmlEntity).getBytes());
+        }
+        catch (IOException | SAXException | JAXBException | TransformerException e) {
+            e.printStackTrace();
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+
+        HttpHeaders headers = new HttpHeaders();
+        headers.add("Content-Disposition", "inline: filename=obrazac-metadata.json");
+
+        return new ResponseEntity<>(new InputStreamResource(is), headers, HttpStatus.OK);
+    }
+
+    // ------------------------------------------------------------------------------------------------
+
     @GetMapping(value = "/html/obrazac-saglasnosti/{dokumentId}")
     ResponseEntity<InputStreamResource> getHtml2(@PathVariable Long dokumentId) {
         ByteArrayInputStream is;
@@ -123,6 +174,46 @@ public class DokumentiController {
 
         return new ResponseEntity<>(new InputStreamResource(is), headers, HttpStatus.OK);
     }
+
+    @GetMapping(value = "/metadata/rdf/obrazac-saglasnosti/{dokumentId}")
+    ResponseEntity<InputStreamResource> getMetadataRdf2(@PathVariable Long dokumentId) {
+        ByteArrayInputStream is;
+        try {
+            String xmlEntity = this.obrazacSaglasnostiService.getRdfaString(dokumentId);
+            System.out.println(xmlEntity);
+            is = new ByteArrayInputStream(this.rdfService.getRDFAsRDF(xmlEntity).getBytes());
+        }
+        catch (IOException | SAXException | JAXBException | TransformerException e) {
+            e.printStackTrace();
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+
+        HttpHeaders headers = new HttpHeaders();
+        headers.add("Content-Disposition", "inline: filename=obrazac-metadata.rdf");
+
+        return new ResponseEntity<>(new InputStreamResource(is), headers, HttpStatus.OK);
+    }
+
+    @GetMapping(value = "/metadata/json/obrazac-saglasnosti/{dokumentId}")
+    ResponseEntity<InputStreamResource> getMetadataJson2(@PathVariable Long dokumentId) {
+        ByteArrayInputStream is;
+        try {
+            String xmlEntity = this.obrazacSaglasnostiService.getRdfaString(dokumentId);
+            System.out.println(xmlEntity);
+            is = new ByteArrayInputStream(this.rdfService.getRDFAsJSON(xmlEntity).getBytes());
+        }
+        catch (IOException | SAXException | JAXBException | TransformerException e) {
+            e.printStackTrace();
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+
+        HttpHeaders headers = new HttpHeaders();
+        headers.add("Content-Disposition", "inline: filename=obrazac-metadata.json");
+
+        return new ResponseEntity<>(new InputStreamResource(is), headers, HttpStatus.OK);
+    }
+
+    // ------------------------------------------------------------------------------------------------
 
     @GetMapping(value = "/html/potvrda-vakcinacije/{dokumentId}")
     ResponseEntity<InputStreamResource> getHtml3(@PathVariable Long dokumentId) {
@@ -159,6 +250,46 @@ public class DokumentiController {
         return new ResponseEntity<>(new InputStreamResource(is), headers, HttpStatus.OK);
     }
 
+    @GetMapping(value = "/metadata/rdf/potvrda-vakcinacije/{dokumentId}")
+    ResponseEntity<InputStreamResource> getMetadataRdf3(@PathVariable Long dokumentId) {
+        ByteArrayInputStream is;
+        try {
+            String xmlEntity = this.potvrdaVakcinacijeService.getRdfaString(dokumentId);
+            System.out.println(xmlEntity);
+            is = new ByteArrayInputStream(this.rdfService.getRDFAsRDF(xmlEntity).getBytes());
+        }
+        catch (IOException | SAXException | JAXBException | TransformerException e) {
+            e.printStackTrace();
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+
+        HttpHeaders headers = new HttpHeaders();
+        headers.add("Content-Disposition", "inline: filename=obrazac-metadata.rdf");
+
+        return new ResponseEntity<>(new InputStreamResource(is), headers, HttpStatus.OK);
+    }
+
+    @GetMapping(value = "/metadata/json/potvrda-vakcinacije/{dokumentId}")
+    ResponseEntity<InputStreamResource> getMetadataJson3(@PathVariable Long dokumentId) {
+        ByteArrayInputStream is;
+        try {
+            String xmlEntity = this.potvrdaVakcinacijeService.getRdfaString(dokumentId);
+            System.out.println(xmlEntity);
+            is = new ByteArrayInputStream(this.rdfService.getRDFAsJSON(xmlEntity).getBytes());
+        }
+        catch (IOException | SAXException | JAXBException | TransformerException e) {
+            e.printStackTrace();
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+
+        HttpHeaders headers = new HttpHeaders();
+        headers.add("Content-Disposition", "inline: filename=obrazac-metadata.json");
+
+        return new ResponseEntity<>(new InputStreamResource(is), headers, HttpStatus.OK);
+    }
+
+    // ------------------------------------------------------------------------------------------------
+
     @GetMapping(value = "/html/zahtev-za-sertifikat/{dokumentId}")
     ResponseEntity<InputStreamResource> getHtml4(@PathVariable Long dokumentId) {
         ByteArrayInputStream is;
@@ -193,6 +324,46 @@ public class DokumentiController {
         return new ResponseEntity<>(new InputStreamResource(is), headers, HttpStatus.OK);
     }
 
+    @GetMapping(value = "/metadata/rdf/zahtev-za-sertifikat/{dokumentId}")
+    ResponseEntity<InputStreamResource> getMetadataRdf4(@PathVariable Long dokumentId) {
+        ByteArrayInputStream is;
+        try {
+            String xmlEntity = this.zahtevZaSertifikatService.getRdfaString(dokumentId);
+            System.out.println(xmlEntity);
+            is = new ByteArrayInputStream(this.rdfService.getRDFAsRDF(xmlEntity).getBytes());
+        }
+        catch (IOException | SAXException | JAXBException | TransformerException e) {
+            e.printStackTrace();
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+
+        HttpHeaders headers = new HttpHeaders();
+        headers.add("Content-Disposition", "inline: filename=obrazac-metadata.rdf");
+
+        return new ResponseEntity<>(new InputStreamResource(is), headers, HttpStatus.OK);
+    }
+
+    @GetMapping(value = "/metadata/json/zahtev-za-sertifikat/{dokumentId}")
+    ResponseEntity<InputStreamResource> getMetadataJson4(@PathVariable Long dokumentId) {
+        ByteArrayInputStream is;
+        try {
+            String xmlEntity = this.zahtevZaSertifikatService.getRdfaString(dokumentId);
+            System.out.println(xmlEntity);
+            is = new ByteArrayInputStream(this.rdfService.getRDFAsJSON(xmlEntity).getBytes());
+        }
+        catch (IOException | SAXException | JAXBException | TransformerException e) {
+            e.printStackTrace();
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+
+        HttpHeaders headers = new HttpHeaders();
+        headers.add("Content-Disposition", "inline: filename=obrazac-metadata.json");
+
+        return new ResponseEntity<>(new InputStreamResource(is), headers, HttpStatus.OK);
+    }
+
+    // ------------------------------------------------------------------------------------------------
+
     // digitalni sa sluzbenika pdf i html
     @GetMapping(value = "/html/digitalni-sertifikat/{dokumentId}")
     ResponseEntity<InputStreamResource> getHtml5(@PathVariable Long dokumentId) {
@@ -212,6 +383,28 @@ public class DokumentiController {
 
         HttpHeaders headers = new HttpHeaders();
         headers.add("Content-Disposition", "inline: filename=sertifikat.pdf");
+
+        return new ResponseEntity<>(is, headers, HttpStatus.OK);
+    }
+
+    @GetMapping(value = "/metadata/rdf/digitalni-sertifikat/{dokumentId}")
+    ResponseEntity<InputStreamResource> getMetadataRdf5(@PathVariable Long dokumentId) {
+        InputStreamResource is;
+        is = this.b2bService.generateRdfDigitalni(dokumentId);
+
+        HttpHeaders headers = new HttpHeaders();
+        headers.add("Content-Disposition", "inline: filename=sertifikat-metadata.rdf");
+
+        return new ResponseEntity<>(is, headers, HttpStatus.OK);
+    }
+
+    @GetMapping(value = "/metadata/json/digitalni-sertifikat/{dokumentId}")
+    ResponseEntity<InputStreamResource> getMetadataJson5(@PathVariable Long dokumentId) {
+        InputStreamResource is;
+        is = this.b2bService.generateJsonDigitalni(dokumentId);
+
+        HttpHeaders headers = new HttpHeaders();
+        headers.add("Content-Disposition", "inline: filename=sertifikat-metadata.json");
 
         return new ResponseEntity<>(is, headers, HttpStatus.OK);
     }

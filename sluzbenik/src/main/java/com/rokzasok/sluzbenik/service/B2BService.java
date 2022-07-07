@@ -168,6 +168,32 @@ public class B2BService {
         return stream;
     }
 
+    public InputStreamResource generateRDFPortal(String tip, Long dokumentId) {
+        WebClient client = WebClient.create(BASE_URI);
+
+        InputStreamResource stream = client.get()
+                .uri("/api/dokumenti/metadata/rdf/"+ tip + "/" + dokumentId)
+                .retrieve()
+                .bodyToMono(InputStreamResource.class)
+                .log()
+                .block();
+
+        return stream;
+    }
+
+    public InputStreamResource generateJSONPortal(String tip, Long dokumentId) {
+        WebClient client = WebClient.create(BASE_URI);
+
+        InputStreamResource stream = client.get()
+                .uri("/api/dokumenti/metadata/json/"+ tip + "/" + dokumentId)
+                .retrieve()
+                .bodyToMono(InputStreamResource.class)
+                .log()
+                .block();
+
+        return stream;
+    }
+
     public InputStreamResource generatePdfPortal(String tip, Long dokumentId) {
         WebClient client = WebClient.create(BASE_URI);
 
@@ -210,9 +236,6 @@ public class B2BService {
     }
 
     public Zahtev odbijZahteviZaSert(Long id, String razlog) throws MessagingException {
-        emailService.sendOdbijenZahtevZaSertifikat("a@email.com", razlog);
-        // todo: dobavi mail korisnika nekako
-        //      ili prebacifju u portal pa neka se tamo sve menja i salje
         WebClient client = WebClient.create(BASE_URI);
 
         Zahtev Uzahtev = client.get()
@@ -224,6 +247,8 @@ public class B2BService {
                 .bodyToMono(Zahtev.class)
                 .log()
                 .block();
+
+        emailService.sendOdbijenZahtevZaSertifikat(Uzahtev.getPacijent().getIme()+"@email.com", razlog);
 
         return Uzahtev;
     }

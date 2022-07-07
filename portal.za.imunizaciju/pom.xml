@@ -198,6 +198,13 @@
 			<artifactId>spring-boot-starter-webflux</artifactId>
 		</dependency>
 
+		<!--converting rdf to json-->
+		<dependency>
+			<groupId>com.github.jsonld-java</groupId>
+			<artifactId>jsonld-java</artifactId>
+			<version>0.13.4</version>
+		</dependency>
+
 	</dependencies>
 
 	<build>

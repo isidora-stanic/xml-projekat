@@ -191,6 +191,18 @@ public class DigitalniSertifikatService implements AbstractXmlService<DigitalniS
     }
 
     @Override
+    public String getRdfaString(Long dokumentId) throws JAXBException {
+        injectRepositoryProperties();
+
+        DigitalniSertifikat dokument;
+        dokument = this.findById(dokumentId);
+        String entityXml = this.digitalniSertifikatXmlConversionAgent.marshall(dokument, this.jaxbContextPath);
+        System.out.println(entityXml);
+        return entityXml;
+
+    }
+
+    @Override
     public boolean deleteById(Long entityId) {
         injectRepositoryProperties();
 
@@ -270,7 +282,7 @@ public class DigitalniSertifikatService implements AbstractXmlService<DigitalniS
 
             byte[] pdfBytes = IOUtils.toByteArray(is);
 
-            emailService.sendSledeciTerminEmail("korisnik@gmail.com", pdfBytes); // todo: da ne bude zakucana vrednost
+            emailService.sendSledeciTerminEmail(pacijent.getIme()+"@gmail.com", pdfBytes); // TODO: da bude username umesto korisnickog imena?
 
         } catch (IOException | SAXException | JAXBException | MessagingException e) {
             e.printStackTrace();

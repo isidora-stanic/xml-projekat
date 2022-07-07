@@ -20,10 +20,10 @@ public class SpisakTerminaController {
     @Autowired
     private SpisakTerminaService spisakTerminaService;
 
-    @PostMapping(value = "/zakazi-termin", produces = APPLICATION_XML_VALUE)
-    ResponseEntity<Dan> nadjiTermin(@RequestBody ZakazivanjeTerminaDTO terminDTO) {
+    @PostMapping(value = "/zakazi-termin/{ime}", produces = APPLICATION_XML_VALUE)
+    ResponseEntity<Dan> nadjiTermin(@PathVariable String ime, @RequestBody ZakazivanjeTerminaDTO terminDTO) {
         return new ResponseEntity<>(this.spisakTerminaService.zakaziTermin(terminDTO.getMesto(), 
-                terminDTO.getDatum(), terminDTO.getTipVakcine(), terminDTO.getUnapred()), HttpStatus.OK);
+                terminDTO.getDatum(), terminDTO.getTipVakcine(), terminDTO.getUnapred(), ime), HttpStatus.OK);
     }
 
     @PostMapping(value = "", produces = APPLICATION_XML_VALUE)

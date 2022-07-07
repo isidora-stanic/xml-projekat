@@ -180,6 +180,18 @@ public class IzvestajOImunizacijiService implements AbstractXmlService<IzvestajO
     }
 
     @Override
+    public String getRdfaString(Long dokumentId) throws JAXBException {
+        injectRepositoryProperties();
+
+        IzvestajOImunizaciji dokument;
+        dokument = this.findById(dokumentId);
+        String entityXml = this.izvestajXmlConversionAgent.marshall(dokument, this.jaxbContextPath);
+        System.out.println(entityXml);
+        return entityXml;
+
+    }
+
+    @Override
     public boolean deleteById(Long entityId) {
         injectRepositoryProperties();
 

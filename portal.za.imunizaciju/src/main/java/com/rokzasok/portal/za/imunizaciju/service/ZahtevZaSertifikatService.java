@@ -7,6 +7,7 @@ import com.rokzasok.portal.za.imunizaciju.exception.XmlDatabaseException;
 import com.rokzasok.portal.za.imunizaciju.helper.UUIDHelper;
 import com.rokzasok.portal.za.imunizaciju.helper.XmlConversionAgent;
 import com.rokzasok.portal.za.imunizaciju.model.dokumenti.gradjanin.iskazivanje_interesovanja.ObrazacInteresovanja;
+import com.rokzasok.portal.za.imunizaciju.model.dokumenti.gradjanin.obrazac_saglasnosti.ObrazacSaglasnosti;
 import com.rokzasok.portal.za.imunizaciju.model.dokumenti.gradjanin.zahtev_za_sertifikat.Zahtev;
 import com.rokzasok.portal.za.imunizaciju.model.dto.DokumentiIzPretrageDTO;
 import com.rokzasok.portal.za.imunizaciju.model.dto.DokumentiKorisnikaDTO;
@@ -167,6 +168,18 @@ public class ZahtevZaSertifikatService implements AbstractXmlService<Zahtev> {
         } catch (XMLDBException e) {
             throw new InvalidXmlException(Zahtev.class, e.getMessage());
         }
+    }
+
+    @Override
+    public String getRdfaString(Long dokumentId) throws JAXBException {
+        injectRepositoryProperties();
+
+        Zahtev dokument;
+        dokument = this.findById(dokumentId);
+        String entityXml = this.zahtevZaSertifikatConverionAgent.marshall(dokument, this.jaxbContextPath);
+        System.out.println(entityXml);
+        return entityXml;
+
     }
 
     @Override

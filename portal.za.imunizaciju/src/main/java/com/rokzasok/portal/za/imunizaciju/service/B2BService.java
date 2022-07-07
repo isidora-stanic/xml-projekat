@@ -87,4 +87,30 @@ public class B2BService {
 
         return stream;
     }
+
+    public InputStreamResource generateRdfDigitalni(Long dokumentId) {
+        WebClient client = WebClient.create(BASE_URI);
+
+        InputStreamResource stream = client.get()
+                .uri("/api/digitalni-sertifikat/metadata/rdf/" + dokumentId)
+                .retrieve()
+                .bodyToMono(InputStreamResource.class)
+                .log()
+                .block();
+
+        return stream;
+    }
+
+    public InputStreamResource generateJsonDigitalni(Long dokumentId) {
+        WebClient client = WebClient.create(BASE_URI);
+
+        InputStreamResource stream = client.get()
+                .uri("/api/digitalni-sertifikat/metadata/json/" + dokumentId)
+                .retrieve()
+                .bodyToMono(InputStreamResource.class)
+                .log()
+                .block();
+
+        return stream;
+    }
 }

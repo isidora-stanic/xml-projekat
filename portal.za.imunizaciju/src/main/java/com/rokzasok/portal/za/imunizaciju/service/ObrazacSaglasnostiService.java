@@ -187,6 +187,18 @@ public class ObrazacSaglasnostiService implements AbstractXmlService<ObrazacSagl
     }
 
     @Override
+    public String getRdfaString(Long dokumentId) throws JAXBException {
+        injectRepositoryProperties();
+
+        ObrazacSaglasnosti dokument;
+        dokument = this.findById(dokumentId);
+        String entityXml = this.obrazacSaglasnostiXmlConversionAgent.marshall(dokument, this.jaxbContextPath);
+        System.out.println(entityXml);
+        return entityXml;
+
+    }
+
+    @Override
     public boolean deleteById(Long entityId) {
         injectRepositoryProperties();
 

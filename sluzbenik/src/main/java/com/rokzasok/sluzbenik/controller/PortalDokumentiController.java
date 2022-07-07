@@ -9,6 +9,7 @@ import com.rokzasok.sluzbenik.model.dto.DokumentiKorisnikaDTO;
 import com.rokzasok.sluzbenik.service.B2BService;
 import com.rokzasok.sluzbenik.service.DigitalniSertifikatService;
 import com.rokzasok.sluzbenik.service.IzvestajOImunizacijiService;
+import com.rokzasok.sluzbenik.service.RDFService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.InputStreamResource;
 import org.springframework.http.HttpHeaders;
@@ -21,6 +22,7 @@ import org.xml.sax.SAXException;
 
 import javax.mail.MessagingException;
 import javax.xml.bind.JAXBException;
+import javax.xml.transform.TransformerException;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 
@@ -36,6 +38,9 @@ public class PortalDokumentiController {
 
     @Autowired
     private IzvestajOImunizacijiService izvestajOImunizacijiService;
+
+    @Autowired
+    private RDFService rdfService;
 
     @GetMapping(value = "/html/{tip}/{dokumentId}")
     ResponseEntity<InputStreamResource> getHtml5(@PathVariable String tip, @PathVariable Long dokumentId) {
@@ -119,6 +124,72 @@ public class PortalDokumentiController {
 
             HttpHeaders headers = new HttpHeaders();
             headers.add("Content-Disposition", "inline: filename=sertifikat.pdf");
+
+            return new ResponseEntity<>(is, headers, HttpStatus.OK);
+        }
+    }
+
+    @GetMapping(value = "/metadata/rdf/{tip}/{dokumentId}")
+    ResponseEntity<InputStreamResource> getRDF(@PathVariable String tip, @PathVariable Long dokumentId) {
+        if (tip.equals("digitalni-sertifikat")) {
+            ByteArrayInputStream is;
+            try {
+                String xmlEntity = this.digitalniSertifikatService.getRdfaString(dokumentId);
+                System.out.println(xmlEntity);
+                is = new ByteArrayInputStream(this.rdfService.getRDFAsRDF(xmlEntity).getBytes());
+            }
+            catch (IOException | SAXException | JAXBException | TransformerException e) {
+                e.printStackTrace();
+                return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+            }
+
+            HttpHeaders headers = new HttpHeaders();
+            headers.add("Content-Disposition", "inline: filename=sertifikat-metadata.rdf");
+
+            return new ResponseEntity<>(new InputStreamResource(is), headers, HttpStatus.OK);
+        }
+        else if (tip.equals("izvestaj-o-imunizaciji")) {
+            return new ResponseEntity<>(HttpStatus.METHOD_NOT_ALLOWED);
+        }
+        else {
+            InputStreamResource is;
+            is = this.b2bService.generateRDFPortal(tip, dokumentId);
+
+            HttpHeaders headers = new HttpHeaders();
+            headers.add("Content-Disposition", "inline: filename=metadata.rdf");
+
+            return new ResponseEntity<>(is, headers, HttpStatus.OK);
+        }
+    }
+
+    @GetMapping(value = "/metadata/json/{tip}/{dokumentId}")
+    ResponseEntity<InputStreamResource> getJSON(@PathVariable String tip, @PathVariable Long dokumentId) {
+        if (tip.equals("digitalni-sertifikat")) {
+            ByteArrayInputStream is;
+            try {
+                String xmlEntity = this.digitalniSertifikatService.getRdfaString(dokumentId);
+                System.out.println(xmlEntity);
+                is = new ByteArrayInputStream(this.rdfService.getRDFAsJSON(xmlEntity).getBytes());
+            }
+            catch (JAXBException e) {
+                e.printStackTrace();
+                return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+            }
+
+            HttpHeaders headers = new HttpHeaders();
+            headers.add("Content-Disposition", "inline: filename=sertifikat-metadata.json");
+
+            return new ResponseEntity<>(new InputStreamResource(is), headers, HttpStatus.OK);
+        }
+        else if (tip.equals("izvestaj-o-imunizaciji")) {
+            return new ResponseEntity<>(HttpStatus.METHOD_NOT_ALLOWED);
+        }
+        else {
+            InputStreamResource is;
+            is = this.b2bService.generateJSONPortal(tip, dokumentId);
+
+            HttpHeaders headers = new HttpHeaders();
+            headers.add("Content-Disposition", "inline: filename=metadata.json");
 
             return new ResponseEntity<>(is, headers, HttpStatus.OK);
         }

@@ -6,6 +6,7 @@ import com.rokzasok.portal.za.imunizaciju.exception.InvalidXmlException;
 import com.rokzasok.portal.za.imunizaciju.exception.XmlDatabaseException;
 import com.rokzasok.portal.za.imunizaciju.helper.UUIDHelper;
 import com.rokzasok.portal.za.imunizaciju.helper.XmlConversionAgent;
+import com.rokzasok.portal.za.imunizaciju.model.dokumenti.gradjanin.obrazac_saglasnosti.ObrazacSaglasnosti;
 import com.rokzasok.portal.za.imunizaciju.model.dto.CreateKorisnikDTO;
 import com.rokzasok.portal.za.imunizaciju.model.ostalo.spisak_korisnika.Korisnik;
 import com.rokzasok.portal.za.imunizaciju.model.ostalo.spisak_korisnika.SpisakKorisnika;
@@ -118,6 +119,18 @@ public class SpisakKorisnikaService implements AbstractXmlService<SpisakKorisnik
         } catch (JAXBException e) {
             throw new InvalidXmlDatabaseException(SpisakKorisnika.class, e.getMessage());
         }
+    }
+
+    @Override
+    public String getRdfaString(Long dokumentId) throws JAXBException {
+        injectRepositoryProperties();
+
+        SpisakKorisnika dokument;
+        dokument = this.findById(dokumentId);
+        String entityXml = this.spisakKorisnikaXmlConversionAgent.marshall(dokument, this.jaxbContextPath);
+        System.out.println(entityXml);
+        return entityXml;
+
     }
 
     @Override

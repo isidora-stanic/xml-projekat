@@ -2,6 +2,7 @@ package com.rokzasok.sluzbenik.controller;
 
 import com.rokzasok.sluzbenik.model.dokumenti.digitalni_sertifikat.DigitalniSertifikat;
 import com.rokzasok.sluzbenik.service.DigitalniSertifikatService;
+import com.rokzasok.sluzbenik.service.RDFService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.InputStreamResource;
 import org.springframework.http.HttpHeaders;
@@ -16,6 +17,7 @@ import javax.xml.bind.JAXBException;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 
+import javax.xml.transform.TransformerException;
 import javax.xml.ws.Response;
 
 @Controller
@@ -24,6 +26,9 @@ public class DigitalniSertifikatController {
 
     @Autowired
     private DigitalniSertifikatService digitalniSertifikatService;
+
+    @Autowired
+    private RDFService rdfService;
 
     @GetMapping(value = "/{id}", produces = MediaType.APPLICATION_XML_VALUE)
     ResponseEntity<DigitalniSertifikat> findOne(@PathVariable("id") Long id) {
@@ -84,6 +89,44 @@ public class DigitalniSertifikatController {
 
         HttpHeaders headers = new HttpHeaders();
         headers.add("Content-Disposition", "inline: filename=sertifikat.pdf");
+
+        return new ResponseEntity<>(new InputStreamResource(is), headers, HttpStatus.OK);
+    }
+
+    @GetMapping(value = "/metadata/rdf/{dokumentId}")
+    ResponseEntity<InputStreamResource> getMetadataRdf(@PathVariable Long dokumentId) {
+        ByteArrayInputStream is;
+        try {
+            String xmlEntity = this.digitalniSertifikatService.getRdfaString(dokumentId);
+            System.out.println(xmlEntity);
+            is = new ByteArrayInputStream(this.rdfService.getRDFAsRDF(xmlEntity).getBytes());
+        }
+        catch (IOException | SAXException | JAXBException | TransformerException e) {
+            e.printStackTrace();
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+
+        HttpHeaders headers = new HttpHeaders();
+        headers.add("Content-Disposition", "inline: filename=sertifikat-metadata.rdf");
+
+        return new ResponseEntity<>(new InputStreamResource(is), headers, HttpStatus.OK);
+    }
+
+    @GetMapping(value = "/metadata/json/{dokumentId}")
+    ResponseEntity<InputStreamResource> getMetadataJson(@PathVariable Long dokumentId) {
+        ByteArrayInputStream is;
+        try {
+            String xmlEntity = this.digitalniSertifikatService.getRdfaString(dokumentId);
+            System.out.println(xmlEntity);
+            is = new ByteArrayInputStream(this.rdfService.getRDFAsJSON(xmlEntity).getBytes());
+        }
+        catch (JAXBException e) {
+            e.printStackTrace();
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+
+        HttpHeaders headers = new HttpHeaders();
+        headers.add("Content-Disposition", "inline: filename=sertifikat-metadata.json");
 
         return new ResponseEntity<>(new InputStreamResource(is), headers, HttpStatus.OK);
     }
