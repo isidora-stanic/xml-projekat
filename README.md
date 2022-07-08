@@ -60,3 +60,9 @@ link http://localhost:4201
 
 
 link do frontend repozitorijuma: https://github.com/JolaKl/xml-front
+
+
+- U bazi inicijalno postoje dodati korisnici radi lakšeg testiranja:
+    - milan [službenik] (password)
+    - branka [zdravstveni radnik] (password)
+    - marko [građanin] (password)
