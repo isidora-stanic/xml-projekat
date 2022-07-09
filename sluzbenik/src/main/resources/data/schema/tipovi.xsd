@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+           targetNamespace="http://www.rokzasok.rs/tipovi" xmlns="http://www.rokzasok.rs/tipovi">
+
+    <xs:element name="JMBG" type="T_JMBG"/>
+    <xs:element name="pol" type="T_pol"/>
+    <xs:element name="broj_pasosa" type="T_broj_pasosa"/>
+    <xs:simpleType name="T_JMBG">
+        <xs:restriction base="xs:string">
+            <xs:length value="13"/>
+            <xs:pattern value="\d{13}"/>
+        </xs:restriction>
+    </xs:simpleType>
+
+    <xs:simpleType name="T_broj_pasosa">
+        <xs:restriction base="xs:string">
+            <xs:maxLength value="10"/>
+            <xs:pattern value="\d{9,10}"/>
+        </xs:restriction>
+    </xs:simpleType>
+
+    <xs:simpleType name="T_pol">
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="M"/>
+            <xs:enumeration value="Ž"/>
+        </xs:restriction>
+    </xs:simpleType>
+
+
+    <xs:simpleType name="T_fiksni">
+        <xs:restriction base="xs:string">
+            <xs:pattern value="0((1[0-9])|(230|2[0-7])|(3[0-7]))[0-9]{6,7}"/>
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:simpleType name="T_mobilni">
+        <xs:restriction base="xs:string">
+            <xs:pattern value="06[0-9]{7,8}"/>
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:simpleType name="T_email">
+        <xs:restriction base="xs:string">
+            <xs:pattern
+                    value="([0-9a-zA-Z]([-.\w]*[0-9a-zA-Z])*@([0-9a-zA-Z][-\w]*[0-9a-zA-Z]\.)+[a-zA-Z]{2,9})"
+            />
+        </xs:restriction>
+    </xs:simpleType>
+</xs:schema>

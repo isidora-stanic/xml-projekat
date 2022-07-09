@@ -1,0 +1,20 @@
+<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:h="http://www.w3.org/1999/xhtml">
+  <rdf:Description rdf:about="http://www.rokzasok.rs/rdf/database/osoba/1234567890123">
+    <pred:pol xmlns:pred="http://www.rokzasok.rs/rdf/database/predicate/" rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Z</pred:pol>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.rokzasok.rs/rdf/database/osoba/1234567890123">
+    <pred:datumRodjenja xmlns:pred="http://www.rokzasok.rs/rdf/database/predicate/" rdf:datatype="http://www.w3.org/2001/XMLSchema#date">2006-05-04</pred:datumRodjenja>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.rokzasok.rs/rdf/database/osoba/1234567890123">
+    <pred:brojFiksnogTelefona xmlns:pred="http://www.rokzasok.rs/rdf/database/predicate/" rdf:datatype="http://www.w3.org/2001/XMLSchema#string">0211234567</pred:brojFiksnogTelefona>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.rokzasok.rs/rdf/database/osoba/1234567890123">
+    <pred:email xmlns:pred="http://www.rokzasok.rs/rdf/database/predicate/" rdf:datatype="http://www.w3.org/2001/XMLSchema#string">isimail@mail.com</pred:email>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.rokzasok.rs/rdf/database/doza/1">
+    <pred:saglasnost xmlns:pred="http://www.rokzasok.rs/rdf/database/predicate/" rdf:resource="http://www.rokzasok.rs/rdf/database/obrazac-saglasnosti/1"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.rokzasok.rs/rdf/database/obrazac-saglasnosti/1">
+    <pred:kreiranOdStrane xmlns:pred="http://www.rokzasok.rs/rdf/database/predicate/" rdf:resource="http://www.rokzasok.rs/rdf/database/osoba/1234567890123"/>
+  </rdf:Description>
+</rdf:RDF>

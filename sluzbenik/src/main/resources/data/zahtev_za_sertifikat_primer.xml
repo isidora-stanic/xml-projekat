@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<zh:zahtev xmlns:zh="www.rokzasok.rs/gradjanin/zahtev-za-sertifikat"
+           xmlns:tp="http://www.rokzasok.rs/tipovi"
+           xmlns:r="http://www.w3.org/ns/rdfa#"
+           xmlns:pred="http://www.rokzasok.rs/rdf/database/predicate/"
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:schemaLocation="www.rokzasok.rs/gradjanin/zahtev-za-sertifikat schema/zahtev_za_sertifikat.xsd">
+    <zh:razlog_podnosenja>Lični zahtev</zh:razlog_podnosenja>
+    <zh:mesto>Novi Sad</zh:mesto>
+    <zh:datum>2022-02-27</zh:datum>
+    <zh:pacijent>
+        <zh:jmbg>1234567891011</zh:jmbg>
+        <zh:ime>Marko</zh:ime>
+        <zh:prezime>Marković</zh:prezime>
+        <zh:pol>M</zh:pol>
+        <zh:datum_rodjenja>1952-10-07</zh:datum_rodjenja>
+        <zh:broj_pasosa>1234567890</zh:broj_pasosa>
+        <zh:id>1</zh:id>
+    </zh:pacijent>
+    <zh:dokument_id>1</zh:dokument_id>
+</zh:zahtev>

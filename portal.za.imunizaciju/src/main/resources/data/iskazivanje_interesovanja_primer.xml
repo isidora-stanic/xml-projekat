@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<is:obrazac_interesovanja xmlns:ns1="http://www.rokzasok.rs/tipovi"
+                          xmlns:r="http://www.w3.org/ns/rdfa#"
+                          xmlns:pred="http://www.rokzasok.rs/rdf/database/predicate/"
+                          xmlns:is="http://www.rokzasok.rs/gradjanin/iskazivanje-interesovanja"
+                          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                          xsi:schemaLocation="http://www.rokzasok.rs/gradjanin/iskazivanje-interesovanja schema/iskazivanje_interesovanja.xsd">
+    <is:podaci_o_osobi>
+        <is:drzavljanstvo>Državljanin Republike Srbije</is:drzavljanstvo>
+        <ns1:JMBG>1234567891011</ns1:JMBG>
+        <is:ime>Marko</is:ime>
+        <is:prezime>Marković</is:prezime>
+        <is:email>m.markovic@mailinator.com</is:email>
+        <is:broj_mobilnog_telefona>066123456</is:broj_mobilnog_telefona>
+        <is:broj_fiksnog_telefona>021123456</is:broj_fiksnog_telefona>
+    </is:podaci_o_osobi>
+    <is:opsti_podaci>
+        <is:lokacija_opstina>Novi Sad</is:lokacija_opstina>
+        <is:tip_vakcine>Pfizer-BioNtech</is:tip_vakcine>
+        <is:davalac_krvi>false</is:davalac_krvi>
+        <is:datum_podnosenja>2022-02-27</is:datum_podnosenja>
+        <is:idPodnosioca>1</is:idPodnosioca>
+    </is:opsti_podaci>
+    <is:dokument_id>1</is:dokument_id>
+</is:obrazac_interesovanja>

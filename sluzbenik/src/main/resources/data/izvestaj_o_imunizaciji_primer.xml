@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<izvestaj_o_imunizaciji xmlns="http://www.rokzasok.rs/sluzbenik/izvestaj-o-imunizaciji"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.rokzasok.rs/sluzbenik/izvestaj-o-imunizaciji schema/izvestaj_o_imunizaciji.xsd">
+    <br_interesovanja>452</br_interesovanja>
+    <br_primljenih_zahteva_za_sertifikat>567</br_primljenih_zahteva_za_sertifikat>
+    <br_izdatih_zahteva_za_sertifikat>452</br_izdatih_zahteva_za_sertifikat>
+    <br_doza_zbirno>3267</br_doza_zbirno>
+    <doze_vakcina>
+        <doza>
+            <redni_broj_doze>1</redni_broj_doze>
+            <broj_datih>1789</broj_datih>
+        </doza>
+        <doza>
+            <redni_broj_doze>2</redni_broj_doze>
+            <broj_datih>1289</broj_datih>
+        </doza>
+        <doza>
+            <redni_broj_doze>3</redni_broj_doze>
+            <broj_datih>189</broj_datih>
+        </doza>
+    </doze_vakcina>
+    <raspodela_po_proizvodjacima>
+        <proizvodjac>
+            <naziv>Pfizer, BioNTech</naziv>
+            <broj_primljenih_doza>1400</broj_primljenih_doza>
+        </proizvodjac>
+        <proizvodjac>
+            <naziv>Sinopharm</naziv>
+            <broj_primljenih_doza>1500</broj_primljenih_doza>
+        </proizvodjac>
+        <proizvodjac>
+            <naziv>Sputnik V</naziv>
+            <broj_primljenih_doza>100</broj_primljenih_doza>
+        </proizvodjac>
+        <proizvodjac>
+            <naziv>AstraZeneca, Oxford</naziv>
+            <broj_primljenih_doza>89</broj_primljenih_doza>
+        </proizvodjac>
+    </raspodela_po_proizvodjacima>
+    <datum_izdavanja>2021-09-11</datum_izdavanja>
+    <period_izvestaja>
+        <od>2021-08-01</od>
+        <do>2021-09-01</do>
+    </period_izvestaja>
+    <dokument_id>123456</dokument_id>
+</izvestaj_o_imunizaciji>

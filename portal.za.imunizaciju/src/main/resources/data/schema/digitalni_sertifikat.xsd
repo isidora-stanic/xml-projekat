@@ -1,0 +1,190 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified"
+    targetNamespace="http://www.rokzasok.rs/sluzbenik/digitalni-sertifikat"
+    xmlns:ds="http://www.rokzasok.rs/sluzbenik/digitalni-sertifikat"
+    xmlns:tp="http://www.rokzasok.rs/tipovi" xmlns:r="http://www.w3.org/ns/rdfa#"
+    xmlns:pred="http://www.rokzasok.rs/rdf/database/predicate/">
+
+    <xs:import namespace="http://www.rokzasok.rs/tipovi" schemaLocation="tipovi.xsd"/>
+
+    <xs:element name="digitalni_sertifikat">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="gradjanin" type="ds:TOsoba"/>
+                <xs:element name="vakcinacija">
+                    <xs:complexType>
+                        <xs:sequence>
+                            <xs:element maxOccurs="unbounded" minOccurs="0" name="doza">
+                                <xs:complexType>
+                                    <xs:complexContent>
+                                        <xs:extension base="ds:TDoza">
+                                            <xs:attribute
+                                                fixed="http://www.rokzasok.rs/rdf/database/predicate"
+                                                name="vocab" type="xs:string"/>
+                                            <xs:attribute name="about" type="xs:string"/>
+                                        </xs:extension>
+                                    </xs:complexContent>
+                                </xs:complexType>
+                            </xs:element>
+                        </xs:sequence>
+                    </xs:complexType>
+                </xs:element>
+                <xs:element name="testovi">
+                    <xs:complexType>
+                        <xs:sequence>
+                            <xs:element maxOccurs="3" minOccurs="3" name="test" type="ds:TTest"/>
+                        </xs:sequence>
+                    </xs:complexType>
+                </xs:element>
+                <xs:element name="info_o_sertifikatu">
+                    <xs:complexType>
+                        <xs:sequence>
+                            <xs:element name="qr_link" type="xs:string"> </xs:element>
+                            <xs:element name="datum">
+                                <xs:complexType>
+                                    <xs:simpleContent>
+                                        <xs:extension base="xs:dateTime">
+                                            <xs:attribute default="pred:datumKreiranja"
+                                                name="property" type="xs:string"/>
+                                            <xs:attribute default="xs:dateTime" name="datatype"
+                                                type="xs:string"/>
+                                        </xs:extension>
+                                    </xs:simpleContent>
+                                </xs:complexType>
+                            </xs:element>
+                        </xs:sequence>
+                    </xs:complexType>
+                </xs:element>
+                <xs:element name="dokument_id" type="xs:positiveInteger"/>
+            </xs:sequence>
+            <xs:attribute fixed="http://www.rokzasok.rs/rdf/database/predicate" name="vocab"
+                type="xs:string"/>
+            <xs:attribute name="about" type="xs:string"/>
+            <xs:attribute default="pred:prethodniDokument" name="rel" type="xs:string"/>
+            <xs:attribute default="xs:string" name="href" type="xs:string"/>
+        </xs:complexType>
+    </xs:element>
+
+
+    <xs:complexType name="TTest">
+        <xs:sequence>
+            <xs:element name="naziv" type="xs:string"/>
+            <xs:element name="opis" type="xs:string"/>
+            <xs:element default="N/A" name="vrsta_uzorka" type="xs:string"/>
+            <xs:element default="N/A" name="proizvodjac" type="xs:string"/>
+            <xs:element name="datum_i_vreme_uzorkovanja" type="xs:string"/>
+            <xs:element name="datum_i_vreme_rezultata" type="xs:string"/>
+            <xs:element default="N/A" name="rezultat" type="xs:string"/>
+            <xs:element default="N/A" name="laboratorija" type="xs:string"/>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="TOsoba">
+        <xs:sequence>
+            <xs:element name="jmbg" type="tp:T_JMBG"/>
+            <xs:element name="ime" type="xs:string"/>
+            <xs:element name="prezime" type="xs:string"/>
+            <xs:element name="pol">
+                <xs:complexType>
+                    <xs:simpleContent>
+                        <xs:extension base="tp:T_pol"/>
+                    </xs:simpleContent>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="datum_rodjenja">
+                <xs:complexType>
+                    <xs:simpleContent>
+                        <xs:extension base="xs:date"/>
+                    </xs:simpleContent>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="broj_pasosa">
+                <xs:complexType>
+                    <xs:simpleContent>
+                        <xs:extension base="tp:T_broj_pasosa"/>
+                    </xs:simpleContent>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="id">
+                <xs:complexType>
+                    <xs:simpleContent>
+                        <xs:extension base="xs:long">
+                            <xs:attribute default="pred:kreiranOdStrane" name="property"
+                                type="xs:string"/>
+                            <xs:attribute default="xs:long" name="datatype" type="xs:string"/>
+                        </xs:extension>
+                    </xs:simpleContent>
+                </xs:complexType>
+            </xs:element>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="TDoza">
+        <xs:sequence>
+            <xs:element name="tip">
+                <xs:complexType>
+                    <xs:simpleContent>
+                        <xs:extension base="ds:T_tip_vakcine"/>
+                    </xs:simpleContent>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="proizvodjac">
+                <xs:complexType>
+                    <xs:simpleContent>
+                        <xs:extension base="ds:T_proizvodjac_vakcine"/>
+                    </xs:simpleContent>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="datum">
+                <xs:complexType>
+                    <xs:simpleContent>
+                        <xs:extension base="xs:date"/>
+                    </xs:simpleContent>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="broj_serije">
+                <xs:complexType>
+                    <xs:simpleContent>
+                        <xs:extension base="xs:string"/>
+                    </xs:simpleContent>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="broj_doze">
+                <xs:complexType>
+                    <xs:simpleContent>
+                        <xs:extension base="xs:positiveInteger"/>
+                    </xs:simpleContent>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="ustanova" type="ds:TUstanova"/>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="TAdresa">
+        <xs:sequence>
+            <xs:element name="Mesto" type="xs:string"/>
+            <xs:element name="Ulica" type="xs:string"/>
+            <xs:element name="Broj" type="xs:int"/>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="TUstanova">
+        <xs:sequence>
+            <xs:element name="naziv" type="xs:string"/>
+            <xs:element name="mesto" type="xs:string"/>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:simpleType name="T_tip_vakcine">
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="Pfizer-BioNtech"/>
+            <xs:enumeration value="Sputnik V (Gamaleya istraživački centar)"/>
+            <xs:enumeration value="Sinopharm"/>
+            <xs:enumeration value="AstraZeneca"/>
+            <xs:enumeration value="Moderna"/>
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:simpleType name="T_proizvodjac_vakcine">
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="BioNTech Manufacturing GMBH"/>
+            <xs:enumeration value="Sinopharm"/>
+            <xs:enumeration value="Gamaleya Institute"/>
+            <xs:enumeration value="Oxford"/>
+        </xs:restriction>
+    </xs:simpleType>
+</xs:schema>

@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<os:obrazac_saglasnosti xmlns:os="http://www.rokzasok.rs/gradjanin/obrazac-saglasnosti"
+                        xmlns:tp="http://www.rokzasok.rs/tipovi"
+                        xmlns:r="http://www.w3.org/ns/rdfa#"
+                        xmlns:pred="http://www.rokzasok.rs/rdf/database/predicate/"
+                        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                        xsi:schemaLocation="http://www.rokzasok.rs/gradjanin/obrazac-saglasnosti schema/obrazac_saglasnosti.xsd">
+    <os:evidencija_pacijent>
+        <os:pacijent>
+            <os:drzavljanstvo>
+                <os:srpsko>
+                    <tp:JMBG>1234567891011</tp:JMBG>
+                </os:srpsko>
+            </os:drzavljanstvo>
+            <os:pacijent_info>
+                <os:ime>Marko</os:ime>
+                <os:prezime>Marković</os:prezime>
+                <os:pol>M</os:pol>
+                <os:datum_rodjenja>1952-10-07</os:datum_rodjenja>
+                <os:adresa>
+                    <os:Opstina>Novi Sad</os:Opstina>
+                    <os:Mesto>Novi Sad</os:Mesto>
+                    <os:Ulica>Trg Dositeja Obradovića</os:Ulica>
+                    <os:Broj>6</os:Broj>
+                </os:adresa>
+            </os:pacijent_info>
+            <os:kontakt>
+                <os:tel_fiksni>021123456</os:tel_fiksni>
+                <os:tel_mobilni>066123456</os:tel_mobilni>
+                <os:email>m.markovic@mailinator.com</os:email>
+            </os:kontakt>
+            <os:radni_status>zaposlen</os:radni_status>
+            <os:zanimanje>zdravstvena zastita</os:zanimanje>
+            <os:socijalna_zastita>
+                <os:korisnik>false</os:korisnik>
+                <os:sediste>
+                    <os:naziv>Dom zdravlja</os:naziv>
+                    <os:opstina>Novi Sad</os:opstina>
+                </os:sediste>
+            </os:socijalna_zastita>
+            <os:ime_roditelja>Milica</os:ime_roditelja>
+            <os:mesto_rodjenja>Novi Sad</os:mesto_rodjenja>
+        </os:pacijent>
+    </os:evidencija_pacijent>
+    <os:evidencija_vakcinacija>
+        <os:ustanova>
+            <os:naziv>Dom zdravlja</os:naziv>
+            <os:punkt>Punkt A1</os:punkt>
+        </os:ustanova>
+        <os:lekar>
+            <os:fax>+38121666999</os:fax>
+            <os:ime>Petar</os:ime>
+            <os:prezime>Petrović</os:prezime>
+            <os:telefon>021333444</os:telefon>
+        </os:lekar>
+        <os:tabela>
+            <os:doza>
+                <os:tip>Pfizer-BioNtech</os:tip>
+                <os:proizvodjac>BioNTech Manufacturing GMBH</os:proizvodjac>
+                <os:datum>2022-02-01</os:datum>
+                <os:broj_serije>PFI01</os:broj_serije>
+                <os:broj_doze>1</os:broj_doze>
+                <os:nezeljene_reakcije>-</os:nezeljene_reakcije>
+            </os:doza>
+            <os:doza>
+                <os:tip>Pfizer-BioNtech</os:tip>
+                <os:proizvodjac>BioNTech Manufacturing GMBH</os:proizvodjac>
+                <os:datum>2022-02-27</os:datum>
+                <os:broj_serije>PFI02</os:broj_serije>
+                <os:broj_doze>2</os:broj_doze>
+                <os:nezeljene_reakcije>Kašalj</os:nezeljene_reakcije>
+            </os:doza>
+            <os:privremene_kontraindikacije>
+                <os:datum>2022-02-27</os:datum>
+                <os:dijagnoza>-</os:dijagnoza>
+            </os:privremene_kontraindikacije>
+            <os:odluka_komisije>false</os:odluka_komisije>
+        </os:tabela>
+    </os:evidencija_vakcinacija>
+    <os:dokument_info>
+        <os:dokument_id>1</os:dokument_id>
+        <os:saglasnost>
+            <os:izjava>true</os:izjava>
+            <os:naziv_leka>Ivermectin</os:naziv_leka>
+        </os:saglasnost>
+        <os:idPodnosioca>1</os:idPodnosioca>
+        <os:datum_kreiranja>2022-02-06</os:datum_kreiranja>
+    </os:dokument_info>
+</os:obrazac_saglasnosti>
