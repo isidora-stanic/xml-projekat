@@ -36,7 +36,7 @@
                     }
             
                     .vakcinacija td {
-                        padding-left: 30pt;
+                        padding-left: 10pt;
                     }
 
                     .qr-code {
@@ -67,14 +67,17 @@
                                                 Broj dokumenta / Document no.: <strong><xsl:value-of select="//po:dokument_id" /></strong>
                                             </small>
                                         </td>
-                                        <td class="last">
+                                    </tr>
+                                    <tr>
+                                        <td>
                                             <small>
                                                 Datum izdavanja / Certificate issuing date: <strong><xsl:value-of select="//po:datum_izdavanja" /></strong>
                                             </small>
                                         </td>
-                                    </tr> 
+                                    </tr>
                                 </tbody>
                                 <tbody class="person-info">
+                                    <p id="idKorisnika" style="display: none; color: white; font-size: 4pt;">ID korisnika: <xsl:value-of select="//po:id"/></p>
                                     <tr>
                                         <td>
                                             <strong>Ime i prezime / Name and surname: </strong>

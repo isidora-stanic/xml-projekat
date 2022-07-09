@@ -58,14 +58,20 @@
                         <div class="info">
                             <table class="info-table">
                                 <tbody class="document-info">
+                                    <p id="idKorisnika" style="display: none; color: white; font-size: 4pt;">ID korisnika: <xsl:value-of select="//ds:id"/></p>
                                     <tr>
                                         <td>
                                             <small>Broj dokumenta / Document no.: <strong>
                                                 <xsl:value-of select="//ds:dokument_id"/></strong></small>
                                         </td>
-                                        <td class="last">
+                                    </tr>
+                                    <tr>
+                                        <td>
                                             <small>Datum izdavanja / Certificate issuing date: <strong>
-                                                <xsl:value-of select="//ds:info_o_sertifikatu/ds:datum"/></strong></small>
+                                                <xsl:variable name="di" select="//ds:info_o_sertifikatu/ds:datum" />
+                                                <xsl:value-of select="substring-before($di,'T')" />,  <xsl:value-of select="substring-before(substring-after($di,'T'), '.')" />
+                                            </strong></small>
+
                                         </td>
                                     </tr>
                                 </tbody>
@@ -86,26 +92,27 @@
                                             <xsl:value-of select="//ds:jmbg"/>
                                         </td>
                                     </tr>
+<!--                                    <tr>-->
+<!--                                        <td>-->
+<!--                                            <strong>Mesto: </strong>-->
+<!--                                            <xsl:value-of select="//ds:TAdresa/ds:Mesto"/>-->
+<!--                                        </td>-->
+<!--                                        <td>-->
+<!--                                            <strong>Ulica: </strong>-->
+<!--                                            <xsl:value-of-->
+<!--                                                    select="concat(//ds:adresa/ds:Ulica, ' ', //ds:adresa/ds:Broj)"/>-->
+<!--                                        </td>-->
+<!--                                    </tr>-->
                                     <tr>
-                                        <td>
-                                            <strong>Mesto: </strong>
-                                            <xsl:value-of select="//ds:adresa/ds:Mesto"/>
-                                        </td>
-                                        <td>
-                                            <strong>Ulica: </strong>
-                                            <xsl:value-of
-                                                    select="concat(//ds:adresa/ds:Ulica, ' ', //ds:adresa/ds:Broj)"/>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td class="last">
-                                            <strong>Pol / Sex: </strong>
-                                            <xsl:value-of select="//ds:pol"/>
-                                        </td>
                                         <td class="last">
                                             <strong>Broj pasosa / Passport no. </strong>
                                             <xsl:value-of select="//ds:broj_pasosa"/>
                                         </td>
+                                        <td class="last">
+                                            <strong>Pol / Sex: </strong>
+                                            <xsl:value-of select="//ds:pol"/>
+                                        </td>
+
                                     </tr>
                                 </tbody>
                             </table>

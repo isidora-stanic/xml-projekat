@@ -24,6 +24,7 @@ import java.math.BigInteger;
 import java.time.LocalDate;
 import java.util.Comparator;
 import java.util.List;
+import java.util.Locale;
 
 import static com.rokzasok.portal.za.imunizaciju.helper.XQueryExpressions.X_QUERY_FIND_ALL_SPISAK_TERMINA;
 import static com.rokzasok.portal.za.imunizaciju.helper.XQueryExpressions.X_UPDATE_REMOVE_SPISAK_TERMINA_BY_ID_EXPRESSION;
@@ -175,13 +176,17 @@ public class SpisakTerminaService implements AbstractXmlService<SpisakTermina> {
     private Dan checkDan(LocalDate datum, List<Dan> dani, String tipVakcine, String ime) throws DatatypeConfigurationException, Exception {
         boolean found = false;
 
+        String emailAddress = ime.toLowerCase(Locale.ROOT).trim().replace(" ", "")
+                + "@gmail.com";
+
         for (Dan dan : dani) {
             LocalDate datumDana = LocalDate.of(dan.getDatum().getYear(), dan.getDatum().getMonth(), dan.getDatum().getDay());
             if (datumDana.equals(datum)) {
                 found = true;
                 if (checkSlobodniTerminiZaDan(dan)) {
                     if (!b2bService.ukloniDozuVakcine(tipVakcine)) {
-                        emailService.sendNemaDostupnihDozaEmail(ime+"@gmail.com", tipVakcine);
+                        emailService.sendNemaDostupnihDozaEmail(
+                                emailAddress, tipVakcine);
                         throw new Exception("Neuspesno uzimanje vakcine");
                     }
                     dan.setBrojZakazanihTermina(dan.getBrojZakazanihTermina().add(BigInteger.ONE));
@@ -191,7 +196,8 @@ public class SpisakTerminaService implements AbstractXmlService<SpisakTermina> {
         }
         if (!found) {
             if (!b2bService.ukloniDozuVakcine(tipVakcine)) {
-                emailService.sendNemaDostupnihDozaEmail(ime+"@gmail.com", tipVakcine);
+                emailService.sendNemaDostupnihDozaEmail(
+                        emailAddress, tipVakcine);
                 throw new Exception("Neuspesno uzimanje vakcine");
             }
 
@@ -210,27 +216,31 @@ public class SpisakTerminaService implements AbstractXmlService<SpisakTermina> {
             throw new InvalidXmlException(ZakazivanjeTerminaDTO.class, "Odabran datum nije validan");
         }
 
+        String emailAddress = ime.toLowerCase(Locale.ROOT).trim().replace(" ", "")
+                + "@gmail.com";
+
         if (!b2bService.proveriDostupnostVakcine(tipVakcine)) {
             try {
-                emailService.sendNemaDostupnihDozaEmail(ime+"@gmail.com", tipVakcine);
+                emailService.sendNemaDostupnihDozaEmail(
+                        emailAddress, tipVakcine);
             } catch (MessagingException e) {
                 e.printStackTrace();
             }
             return null;
         }
 
-        SpisakTermina spisakTermina;
+        SpisakTermina spisakTermina = null;
         System.out.println("Trazim spisakkkk!!!");
         try {
             spisakTermina = findById(1L);
         } catch (EntityNotFoundException e) {
-            System.out.println("Nema spiska termina! Sad cu da kreiram jedan!!!");
-            create("<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n" +
-                    "<spisakTermina xmlns=\"www.rokzasok.rs/termini\"\n" +
-                    " xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\"\n" +
-                    " xsi:schemaLocation=\"www.rokzasok.rs/termini ./schema/termini.xsd\">\n" +
-                    "</spisakTermina>");
-            spisakTermina = findById(1L);
+//            System.out.println("Nema spiska termina! Sad cu da kreiram jedan!!!");
+//            create("<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n" +
+//                    "<spisakTermina xmlns=\"www.rokzasok.rs/termini\"\n" +
+//                    " xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\"\n" +
+//                    " xsi:schemaLocation=\"www.rokzasok.rs/termini ./schema/termini.xsd\">\n" +
+//                    "</spisakTermina>");
+//            spisakTermina = findById(1L);
         }
         List<Dan> dani = checkMesto(mesto, spisakTermina);
         for (int i = 0; i < unapred; i++) {
@@ -250,7 +260,8 @@ public class SpisakTerminaService implements AbstractXmlService<SpisakTermina> {
                 }
 
                 try {
-                    emailService.sendSledeciTerminEmail(ime+"@gmail.com", dan.getDatum().toString(), mesto);
+                    emailService.sendSledeciTerminEmail(
+                            emailAddress, dan.getDatum().toString(), mesto);
                 } catch (MessagingException e) {
                     e.printStackTrace();
                 }
@@ -258,7 +269,8 @@ public class SpisakTerminaService implements AbstractXmlService<SpisakTermina> {
             }
         }
         try {
-            emailService.sendNemaSlobodnihTerminaEmail(ime+"@gmail.com", zeljeniDatum.toString(), mesto);
+            emailService.sendNemaSlobodnihTerminaEmail(
+                    emailAddress, zeljeniDatum.toString(), mesto);
         } catch (MessagingException e) {
             e.printStackTrace();
         }
@@ -272,6 +284,14 @@ public class SpisakTerminaService implements AbstractXmlService<SpisakTermina> {
 
         spisak.getTermini().add(novoMesto);
         return novoMesto;
+    }
+
+    public void initEmptySpisak() {
+        this.create("<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n" +
+                "<spisakTermina xmlns=\"www.rokzasok.rs/termini\"\n" +
+                " xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\"\n" +
+                " xsi:schemaLocation=\"www.rokzasok.rs/termini ./schema/termini.xsd\">\n" +
+                "</spisakTermina>");
     }
 
 }

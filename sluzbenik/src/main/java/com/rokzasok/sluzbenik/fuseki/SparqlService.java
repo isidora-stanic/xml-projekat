@@ -1,25 +1,14 @@
 package com.rokzasok.sluzbenik.fuseki;
 
-import com.rokzasok.sluzbenik.fuseki.util.MetadataExtractor;
 import com.rokzasok.sluzbenik.fuseki.util.SparqlAuthenticationUtilities;
 import com.rokzasok.sluzbenik.fuseki.util.SparqlUtil;
 import com.rokzasok.sluzbenik.helper.RDFDBConnectionProperties;
+
 import org.apache.jena.query.*;
-import org.apache.jena.rdf.model.Model;
-import org.apache.jena.rdf.model.ModelFactory;
 import org.apache.jena.rdf.model.RDFNode;
-import org.apache.jena.update.UpdateExecutionFactory;
-import org.apache.jena.update.UpdateFactory;
-import org.apache.jena.update.UpdateProcessor;
-import org.apache.jena.update.UpdateRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.xml.sax.SAXException;
 
-import javax.xml.transform.TransformerException;
-import java.io.ByteArrayOutputStream;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -31,6 +20,7 @@ public class SparqlService {
     public static SparqlAuthenticationUtilities.ConnectionProperties conn;
     @Autowired
     private RDFDBConnectionProperties rdfdbConnectionProperties;
+
 
     public List<SparqlQueryResult> getBrojDigitalnihSertifikataUVremenskomPeriodu(String d1, String d2) throws IOException {
         System.out.println("[INFO] Retrieving broj digitalnih sertifikata od " + d1 + " do " + d2 + " from RDF store.");

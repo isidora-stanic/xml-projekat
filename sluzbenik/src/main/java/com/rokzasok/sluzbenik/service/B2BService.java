@@ -4,7 +4,6 @@ import com.rokzasok.sluzbenik.model.b2b.gradjanin.iskazivanje_interesovanja.Obra
 import com.rokzasok.sluzbenik.model.b2b.gradjanin.obrazac_saglasnosti.ObrazacSaglasnosti;
 import com.rokzasok.sluzbenik.model.b2b.gradjanin.zahtev_za_sertifikat.Zahtev;
 import com.rokzasok.sluzbenik.model.b2b.potvrda_vakcinacije.PotvrdaVakcinacije;
-import com.rokzasok.sluzbenik.model.dokumenti.digitalni_sertifikat.DigitalniSertifikat;
 import com.rokzasok.sluzbenik.model.dokumenti.izvestaj_o_imunizaciji.IzvestajOImunizaciji;
 import com.rokzasok.sluzbenik.model.dto.DokumentiIzPretrageDTO;
 import com.rokzasok.sluzbenik.model.dto.DokumentiKorisnikaDTO;
@@ -13,14 +12,10 @@ import org.springframework.core.io.InputStreamResource;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Service;
-import org.springframework.web.reactive.function.BodyInserters;
 import org.springframework.web.reactive.function.client.WebClient;
 
 import javax.mail.MessagingException;
 import javax.xml.datatype.DatatypeConfigurationException;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.stream.Collectors;
 
 @Service
 public class B2BService {
@@ -251,5 +246,21 @@ public class B2BService {
         emailService.sendOdbijenZahtevZaSertifikat(Uzahtev.getPacijent().getIme()+"@email.com", razlog);
 
         return Uzahtev;
+    }
+
+    public DokumentiKorisnikaDTO getRefDokumenti(String dokumentURI) {
+        WebClient client = WebClient.create(BASE_URI);
+
+        DokumentiKorisnikaDTO result = client.get()
+                .uri(uriBuilder -> uriBuilder
+                        .path("/b2b/referencirani-dokumenti/"+dokumentURI)
+                        .build())
+                .header(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_XML_VALUE)
+                .retrieve()
+                .bodyToMono(DokumentiKorisnikaDTO.class)
+                .log()
+                .block();
+
+        return result;
     }
 }

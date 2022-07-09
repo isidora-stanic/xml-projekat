@@ -132,39 +132,46 @@ public class DostupneDozeService implements AbstractXmlService<DostupneDoze> {
     }
 
     public DostupneDoze addDoze(String tipVakcine, BigInteger noveDoze) {
-        DostupneDoze dostupneDoze;
+        DostupneDoze dostupneDoze = null;
         System.out.println("Trazim spisakkkk!!!");
         try {
             dostupneDoze = findById(1L);
         } catch (EntityNotFoundException e) {
-            System.out.println("Nema spiska doza! Sad cu da kreiram jedan!!!");
-            create("<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n" +
-                    "<dostupneDoze xmlns=\"www.rokzasok.rs/dostupne-doze-vakcina\"\n" +
-                    " xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\"\n" +
-                    " xsi:schemaLocation=\"www.rokzasok.rs/dostupne-doze-vakcina ./schema/dostupne_doze.xsd\">\n" +
-                    "    <brojDoza tipVakcine=\"Pfizer-BioNtech\">10</brojDoza>\n" +
-                    "    <brojDoza tipVakcine=\"Sputnik V (Gamaleya istraživački centar)\">10</brojDoza>\n" +
-                    "    <brojDoza tipVakcine=\"AstraZeneca\">10</brojDoza>\n" +
-                    "    <brojDoza tipVakcine=\"Moderna\">10</brojDoza>\n" +
-                    "    <brojDoza tipVakcine=\"Sinopharm\">10</brojDoza>\n" +
-                    "</dostupneDoze>");
-            dostupneDoze = findById(1L);
+            System.out.println("Nema spiska doza!");
+//            create("<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n" +
+//                    "<dostupneDoze xmlns=\"www.rokzasok.rs/dostupne-doze-vakcina\"\n" +
+//                    " xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\"\n" +
+//                    " xsi:schemaLocation=\"www.rokzasok.rs/dostupne-doze-vakcina ./schema/dostupne_doze.xsd\">\n" +
+//                    "    <brojDoza tipVakcine=\"Pfizer-BioNtech\">10</brojDoza>\n" +
+//                    "    <brojDoza tipVakcine=\"Sputnik V (Gamaleya istraživački centar)\">10</brojDoza>\n" +
+//                    "    <brojDoza tipVakcine=\"AstraZeneca\">10</brojDoza>\n" +
+//                    "    <brojDoza tipVakcine=\"Moderna\">10</brojDoza>\n" +
+//                    "    <brojDoza tipVakcine=\"Sinopharm\">10</brojDoza>\n" +
+//                    "</dostupneDoze>");
+//            dostupneDoze = findById(1L);
         }
         List<DostupneDoze.BrojDoza> dozePoTipu = dostupneDoze.getBrojDoza();
-
-        for (DostupneDoze.BrojDoza brojDoza : dozePoTipu) {
-            if (brojDoza.getTipVakcine().value().equals(tipVakcine)) {
-                brojDoza.setValue(brojDoza.getValue().add(noveDoze));
-                try {
-                    update(dostupneDozeXmlConversionAgent.marshall(dostupneDoze, jaxbContextPath));
-                } catch (JAXBException e) {
-                    throw new InvalidXmlException(DostupneDoze.class, "Greška pri konvertovanju u XML");
+        if (dozePoTipu.size() < 1) {
+            try {
+                update(dostupneDozeXmlConversionAgent.marshall(dostupneDoze, jaxbContextPath));
+            } catch (JAXBException e) {
+                throw new InvalidXmlException(DostupneDoze.class, "Greška pri konvertovanju u XML");
+            }
+        } else {
+            for (DostupneDoze.BrojDoza brojDoza : dozePoTipu) {
+                if (brojDoza.getTipVakcine().value().equals(tipVakcine)) {
+                    brojDoza.setValue(brojDoza.getValue().add(noveDoze));
+                    try {
+                        update(dostupneDozeXmlConversionAgent.marshall(dostupneDoze, jaxbContextPath));
+                    } catch (JAXBException e) {
+                        throw new InvalidXmlException(DostupneDoze.class, "Greška pri konvertovanju u XML");
+                    }
                 }
-                return dostupneDoze;
             }
         }
-
-        throw new EntityNotFoundException(1L, DostupneDoze.BrojDoza.class);
+//
+//        throw new EntityNotFoundException(1L, DostupneDoze.BrojDoza.class);
+        return dostupneDoze;
     }
 
     public DostupneDoze removeDoze(String tipVakcine, BigInteger obrisaneDoze) throws InvalidXmlException, EntityNotFoundException {
@@ -224,5 +231,26 @@ public class DostupneDozeService implements AbstractXmlService<DostupneDoze> {
     public boolean proveriDostupnostVakcine(String tipVakcine){
         DostupneDoze.BrojDoza dostupnostDoza = findByTipVakcine(tipVakcine);
         return dostupnostDoza != null && (dostupnostDoza.getValue().compareTo(BigInteger.ZERO) != 0);
+    }
+
+    public void initEmptySpisak() {
+        this.create("<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n" +
+                "<dostupneDoze xmlns=\"www.rokzasok.rs/dostupne-doze-vakcina\"\n" +
+                " xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\"\n" +
+                " xsi:schemaLocation=\"www.rokzasok.rs/dostupne-doze-vakcina ./schema/dostupne_doze.xsd\">\n" +
+                "</dostupneDoze>");
+    }
+
+    public void initDefaultSpisakDoza() {
+        create("<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n" +
+                    "<dostupneDoze xmlns=\"www.rokzasok.rs/dostupne-doze-vakcina\"\n" +
+                    " xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\"\n" +
+                    " xsi:schemaLocation=\"www.rokzasok.rs/dostupne-doze-vakcina ./schema/dostupne_doze.xsd\">\n" +
+                    "    <brojDoza tipVakcine=\"Pfizer-BioNtech\">10</brojDoza>\n" +
+                    "    <brojDoza tipVakcine=\"Sputnik V (Gamaleya istraživački centar)\">10</brojDoza>\n" +
+                    "    <brojDoza tipVakcine=\"AstraZeneca\">10</brojDoza>\n" +
+                    "    <brojDoza tipVakcine=\"Moderna\">10</brojDoza>\n" +
+                    "    <brojDoza tipVakcine=\"Sinopharm\">10</brojDoza>\n" +
+                    "</dostupneDoze>");
     }
 }

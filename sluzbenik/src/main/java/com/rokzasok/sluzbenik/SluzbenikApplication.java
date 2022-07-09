@@ -1,5 +1,11 @@
 package com.rokzasok.sluzbenik;
 
+import com.rokzasok.sluzbenik.exception.EntityNotFoundException;
+import com.rokzasok.sluzbenik.model.ostalo.dostupne_doze.DostupneDoze;
+import com.rokzasok.sluzbenik.model.ostalo.spisak_korisnika.SpisakKorisnika;
+import com.rokzasok.sluzbenik.service.DostupneDozeService;
+import com.rokzasok.sluzbenik.service.SpisakKorisnikaService;
+import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.context.properties.ConfigurationPropertiesScan;
@@ -32,6 +38,29 @@ public class SluzbenikApplication {
 		UrlBasedCorsConfigurationSource urlBasedCorsConfigurationSource = new UrlBasedCorsConfigurationSource();
 		urlBasedCorsConfigurationSource.registerCorsConfiguration("/**", corsConfiguration);
 		return new CorsFilter(urlBasedCorsConfigurationSource);
+	}
+
+	@Bean
+	public CommandLineRunner initUsers(SpisakKorisnikaService korisnikService, DostupneDozeService dozeService) {
+		return args -> {
+			try {
+				SpisakKorisnika korisnici = korisnikService.findById(1L);
+				if (korisnici != null) {
+					System.out.println("Vec postoje korisnici u bazi");
+				}
+			} catch (EntityNotFoundException e) {
+				korisnikService.initDefaultSpisakKorisnika();
+			}
+
+			try {
+				DostupneDoze doze = dozeService.findById(1L);
+				if (doze != null) {
+					System.out.println("Vec postoji stanje doza u bazi");
+				}
+			} catch (EntityNotFoundException e) {
+				dozeService.initDefaultSpisakDoza();
+			}
+		};
 	}
 
 }

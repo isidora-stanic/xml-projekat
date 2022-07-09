@@ -145,18 +145,18 @@ public class SpisakKorisnikaService implements AbstractXmlService<SpisakKorisnik
     }
 
     public Korisnik addKorisnik(CreateKorisnikDTO noviKorisnikDTO, String uloga) {
-        SpisakKorisnika spisakKorisnika;
+        SpisakKorisnika spisakKorisnika = null;
         System.out.println("Trazim spisakkkk!!!");
         try {
             spisakKorisnika = findById(1L);
         } catch (EntityNotFoundException e) {
-            System.out.println("Nema spiska korisnika! Sad cu da kreiram jedan!!!");
-            create("<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n" +
-                    "<spisakKorisnika xmlns=\"www.rokzasok.rs/korisnici\"\n" +
-                    "                 xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\"\n" +
-                    "                 xsi:schemaLocation=\"www.rokzasok.rs/korisnici ./schema/korisnici.xsd\">\n" +
-                    "</spisakKorisnika>");
-            spisakKorisnika = findById(1L);
+            System.out.println("Nema spiska korisnika!");
+//            create("<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n" +
+//                    "<spisakKorisnika xmlns=\"www.rokzasok.rs/korisnici\"\n" +
+//                    "                 xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\"\n" +
+//                    "                 xsi:schemaLocation=\"www.rokzasok.rs/korisnici ./schema/korisnici.xsd\">\n" +
+//                    "</spisakKorisnika>");
+//            spisakKorisnika = findById(1L);
         }
         List<Korisnik> korisnici = spisakKorisnika.getKorisnik();
 
@@ -224,5 +224,29 @@ public class SpisakKorisnikaService implements AbstractXmlService<SpisakKorisnik
             throw new EntityNotFoundException(0L, Korisnik.class);
         }
         return odgovarajuci.get(0);
+    }
+
+    public void initEmptySpisak() {
+        this.create("<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n" +
+                "<spisakKorisnika xmlns=\"www.rokzasok.rs/korisnici\"\n" +
+                "                 xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\"\n" +
+                "                 xsi:schemaLocation=\"www.rokzasok.rs/korisnici ./schema/korisnici.xsd\">\n" +
+                "</spisakKorisnika>\n");
+    }
+
+    public void initDefaultSpisakKorisnika() {
+        this.initEmptySpisak();
+
+        CreateKorisnikDTO zdrRadnik = new CreateKorisnikDTO();
+        zdrRadnik.setKorisnickoIme("branka");
+        zdrRadnik.setLozinka("password");
+        this.addKorisnik(zdrRadnik, "zdravstveni_radnik");
+        System.out.println("Dodat zdravstveni radnik");
+
+        CreateKorisnikDTO gradj = new CreateKorisnikDTO();
+        gradj.setKorisnickoIme("marko");
+        gradj.setLozinka("password");
+        this.addKorisnik(gradj, "gradjanin");
+        System.out.println("Dodat gradjanin");
     }
 }

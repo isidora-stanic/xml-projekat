@@ -222,4 +222,22 @@ public class SpisakKorisnikaService implements AbstractXmlService<SpisakKorisnik
         }
         return odgovarajuci.get(0);
     }
+
+    public void initEmptySpisak() {
+        this.create("<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n" +
+                "<spisakKorisnika xmlns=\"www.rokzasok.rs/korisnici\"\n" +
+                "                 xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\"\n" +
+                "                 xsi:schemaLocation=\"www.rokzasok.rs/korisnici ./schema/korisnici.xsd\">\n" +
+                "</spisakKorisnika>\n");
+    }
+
+    public void initDefaultSpisakKorisnika() {
+        this.initEmptySpisak();
+
+        CreateKorisnikDTO sluzb = new CreateKorisnikDTO();
+        sluzb.setKorisnickoIme("milan");
+        sluzb.setLozinka("password");
+        this.addKorisnik(sluzb);
+        System.out.println("Dodat sluzbenik");
+    }
 }

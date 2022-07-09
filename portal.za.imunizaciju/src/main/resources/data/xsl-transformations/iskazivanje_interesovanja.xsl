@@ -28,6 +28,7 @@
                     <h2 id="title">Iskazivanje interesovanja za vakcinisanje protiv COVID-19</h2>
                     <form name="interesovanje">
                     <div>
+                        <p id="idKorisnika" style="display: none; color: white; font-size: 4pt;">ID korisnika: <xsl:value-of select="//is:idPodnosioca"/></p>
                         <br />
                         Državljanstvo: <br />
                         <b><xsl:value-of select="//is:drzavljanstvo" /></b>

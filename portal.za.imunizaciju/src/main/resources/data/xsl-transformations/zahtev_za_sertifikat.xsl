@@ -28,19 +28,6 @@
                     padding-bottom: 7pt;
                     }
 
-                    .vakcinacija {
-                    border-bottom: 1pt dashed black;
-                    border-top: 1pt dashed black;
-                    font-size: small;
-                    }
-
-                    .vakcinacija td {
-                    padding-left: 30pt;
-                    }
-
-                    .reason td {
-                    border-top: 1px solid black;
-                    }
                 </style>
             </head>
             <body>
@@ -50,17 +37,17 @@
                             <h1>Zahtev za sertifikat
                                 <xsl:choose>
                                     <xsl:when test="//zh:status='true'">
-                                        [Odobren]
+                                        <span id="status">[Odobren]</span>
                                     </xsl:when>
                                     <xsl:when test="//zh:status='false'">
-                                        [Odbijen]
+                                        <span id="status">[Odbijen]</span>
                                     </xsl:when>
                                     <xsl:otherwise>
                                     </xsl:otherwise>
                                 </xsl:choose>
                             </h1>
                             <h3>Certificate request</h3>
-                            <hr />
+
                         </div>
 
                         <div class="info">
@@ -72,9 +59,12 @@
                                             <small>Broj dokumenta / Document no.: <strong>
                                                 <xsl:value-of select="//zh:dokument_id"/></strong></small>
                                         </td>
+                                    </tr>
+                                    <tr>
                                         <td>
                                             <small>Datum zahteva / Request issuing date: <strong>
-                                                <xsl:value-of select="//zh:datum"/></strong></small>
+                                                <xsl:value-of select="//zh:datum"/>
+                                            </strong></small>
                                         </td>
                                     </tr>
                                     <tr>
@@ -84,46 +74,58 @@
                                         </td>
                                     </tr>
                                 </tbody>
+                            </table>
+                            <hr/>
+                            <table class="info-table">
                                 <tbody class="person-info">
                                     <tr>
                                         <td>
-                                            <strong>Ime i prezime / Name and surname: </strong>
-                                            <xsl:value-of select="concat(//zh:ime, ' ', //zh:prezime)"/>
+                                            Ime i prezime / Name and surname:
+                                        <strong><xsl:value-of select="concat(//zh:ime, ' ', //zh:prezime)"/></strong>
                                         </td>
                                     </tr>
                                     <tr>
                                         <td>
-                                            <strong>Datum rodjenja / Birth date: </strong>
-                                            <xsl:value-of select="//zh:datum_rodjenja"/>
-                                        </td>
-                                        <td>
-                                            <strong>JMBG: </strong>
-                                            <xsl:value-of select="//zh:jmbg"/>
+                                            Datum rodjenja / Birth date:
+                                        <strong><xsl:value-of select="//zh:datum_rodjenja"/></strong>
                                         </td>
                                     </tr>
                                     <tr>
                                         <td>
-                                            <strong>Pol / Sex: </strong>
-                                            <xsl:value-of select="//zh:pol"/>
-                                        </td>
-                                        <td>
-                                            <strong>Broj pasosa / Passport number: </strong>
-                                            <xsl:value-of select="//zh:broj_pasosa"/>
+                                            JMBG:
+                                        <strong><xsl:value-of select="//zh:jmbg"/></strong>
                                         </td>
                                     </tr>
-                                    <tr class="reason">
-                                        <td class="last">
-                                            <strong>Razlog / Request reason: </strong>
+                                    <tr>
+                                        <td>
+                                            Broj pasosa / Passport number:
+                                        <strong><xsl:value-of select="//zh:broj_pasosa"/></strong>
                                         </td>
-                                        <td class="last">
-<!--                                            <xsl:copy-of select="//zh:razlog_podnosenja/text()"/>-->
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            Pol / Sex:
+                                        <strong><xsl:value-of select="//zh:pol"/></strong>
+                                        </td>
+                                    </tr>
+
+                                </tbody>
+                            </table>
+                           <hr/>
+                            <table class="info-table">
+                                <tbody class="person-info">
+                                    <tr>
+                                        <td>
+                                            Razlog / Request reason:
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
                                             <xsl:value-of select="//zh:razlog_podnosenja" disable-output-escaping="yes"/>
                                         </td>
                                     </tr>
                                 </tbody>
                             </table>
-
-                            <hr />
                         </div>
                     </div>
                 </div>

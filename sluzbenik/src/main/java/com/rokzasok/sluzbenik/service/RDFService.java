@@ -98,19 +98,19 @@ public class RDFService {
 
         processor.execute();
 
-        String res = getRDFAsJSON(rdfa);
-        System.out.println("RESULT AS JSON:" + res);
-
-        try {
-            res = getRDFAsRDF(rdfa);
-        } catch (IOException e) {
-            e.printStackTrace();
-        } catch (SAXException e) {
-            e.printStackTrace();
-        } catch (TransformerException e) {
-            e.printStackTrace();
-        }
-        System.out.println("RESULT AS RDF/XML:" + res);
+//        String res = getRDFAsJSON(rdfa);
+//        System.out.println("RESULT AS JSON:" + res);
+//
+//        try {
+//            res = getRDFAsRDF(rdfa);
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        } catch (SAXException e) {
+//            e.printStackTrace();
+//        } catch (TransformerException e) {
+//            e.printStackTrace();
+//        }
+//        System.out.println("RESULT AS RDF/XML:" + res);
 
         return true;
     }

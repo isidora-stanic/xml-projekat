@@ -23,6 +23,8 @@ import java.util.List;
 public class SparqlToDTOService {
     @Autowired
     private SparqlService sparqlService;
+    @Autowired
+    private B2BService b2BService;
 
 
     public Long getBrojDigitalnihSertifikata(String odDatum, String doDatum) {
@@ -82,6 +84,9 @@ public class SparqlToDTOService {
 
 
     public DokumentiKorisnikaDTO getReferenciraniDokumenti(String dokumentUri) {
+        if (!dokumentUri.contains("digitalni")) {
+            return b2BService.getRefDokumenti(dokumentUri);
+        }
         try {
             List<SparqlService.SparqlQueryResult> sparqlDokumentLinkovi = sparqlService.getPrethodniDokumenti(dokumentUri);
 
@@ -102,12 +107,6 @@ public class SparqlToDTOService {
 
                 String tipDokumenta = split[0].replaceAll("-", " ");
                 tipDokumenta = tipDokumenta.substring(0, 1).toUpperCase() + tipDokumenta.substring(1);
-
-                //result = sparqlDokumentLinkovi.get(i + 1);
-                //XSDDateTime xsdDatum = (XSDDateTime) result.getVarValue().asNode().getLiteralValue();
-
-                //XMLGregorianCalendar xmlDatum = DatatypeFactory.newInstance().newXMLGregorianCalendar(xsdDatum.toString());
-
 
                 dokumentiKorisnikaDTO.getListaDokumenata().add(new DokumentiKorisnikaDTO.DokumentDTO(dokumentURI, tipDokumenta, null));
 

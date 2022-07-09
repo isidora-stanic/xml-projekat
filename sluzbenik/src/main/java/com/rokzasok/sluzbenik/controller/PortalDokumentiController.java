@@ -106,7 +106,7 @@ public class PortalDokumentiController {
         else if (tip.equals("izvestaj-o-imunizaciji")) {
             ByteArrayInputStream is;
             try {
-                is = this.digitalniSertifikatService.generatePDF(dokumentId);
+                is = this.izvestajOImunizacijiService.generatePDF(dokumentId);
             }
             catch (IOException | SAXException | JAXBException e) {
                 e.printStackTrace();

@@ -3,14 +3,6 @@
 Za pregled UML dijagrama treba instalirati StarUML.
 
 ## Uputstvo za pokretanje:
-### Backend
-**sluzbenik**
-
-pokrenuti iz IntelliJ ili Eclipse IDE
-
-**portal.za.imunizaciju**
-
-pokrenuti iz IntelliJ ili Eclipse IDE
 
 ### ExistDB
 
@@ -42,6 +34,15 @@ Nakon pokretanja treba otići na http://localhost:3030/, ulogovati se kao `admin
 
 Nakon pokretanja treba otići na http://localhost:3031/, ulogovati se kao `admin` (`password`) i kreirati novi dataset **eUpravaDataset**
 
+### Backend
+**sluzbenik**
+
+pokrenuti iz IntelliJ ili Eclipse IDE
+
+**portal.za.imunizaciju**
+
+pokrenuti iz IntelliJ ili Eclipse IDE
+
 ### Frontend
 
 **sluzbenik-app**
@@ -61,8 +62,11 @@ link http://localhost:4201
 
 link do frontend repozitorijuma: https://github.com/JolaKl/xml-front
 
+### Napomene
 
 - U bazi inicijalno postoje dodati korisnici radi lakšeg testiranja:
     - milan [službenik] (password)
     - branka [zdravstveni radnik] (password)
     - marko [građanin] (password)
+
+- Inicijalno je definisano da postoji po 10 komada svake vrste vakcine

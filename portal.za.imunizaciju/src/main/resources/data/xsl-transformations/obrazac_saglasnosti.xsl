@@ -81,6 +81,7 @@
                                     </tr>
                                 </tbody>
                                 <tbody class="patient-info">
+                                    <p id="idKorisnika" style="display: none; color: white; font-size: 4pt;">ID korisnika: <xsl:value-of select="//os:pacijent_info/os:idPodnosioca"/></p>
                                     <tr>
                                         <td><b>Prezime: </b><xsl:value-of select="//os:pacijent_info/os:prezime" /></td>
                                         <td><b>Ime: </b><xsl:value-of select="//os:pacijent_info/os:ime" /></td>

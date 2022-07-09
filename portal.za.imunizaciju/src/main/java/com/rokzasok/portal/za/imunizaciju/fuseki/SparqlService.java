@@ -132,6 +132,15 @@ public class SparqlService {
         return getResults(sparqlQuery);
     }
 
+    public List<SparqlQueryResult> getPrethodniDokumenti(String dokumentURI) throws IOException {
+        System.out.println("[INFO] Retrieving prethodni dokument " + dokumentURI + " from RDF store.");
+        System.out.println("[INFO] Using \"" + SPARQL_NAMED_GRAPH_URI + "\" named graph.");
+        String sparqlQuery = SparqlUtil.selectReferenciraniDokumenti(dokumentURI, rdfdbConnectionProperties.getDataEndpoint());
+        System.out.println(sparqlQuery);
+
+        return getResults(sparqlQuery);
+    }
+
     public static class SparqlQueryResult {
         private String varName;
 

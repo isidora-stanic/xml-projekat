@@ -1,5 +1,12 @@
 package com.rokzasok.portal.za.imunizaciju;
 
+import com.rokzasok.portal.za.imunizaciju.exception.EntityNotFoundException;
+import com.rokzasok.portal.za.imunizaciju.model.dto.CreateKorisnikDTO;
+import com.rokzasok.portal.za.imunizaciju.model.ostalo.spisak_korisnika.SpisakKorisnika;
+import com.rokzasok.portal.za.imunizaciju.model.ostalo.spisak_termina.SpisakTermina;
+import com.rokzasok.portal.za.imunizaciju.service.SpisakKorisnikaService;
+import com.rokzasok.portal.za.imunizaciju.service.SpisakTerminaService;
+import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.context.properties.ConfigurationPropertiesScan;
@@ -32,6 +39,29 @@ public class Application {
 		UrlBasedCorsConfigurationSource urlBasedCorsConfigurationSource = new UrlBasedCorsConfigurationSource();
 		urlBasedCorsConfigurationSource.registerCorsConfiguration("/**", corsConfiguration);
 		return new CorsFilter(urlBasedCorsConfigurationSource);
+	}
+
+	@Bean
+	public CommandLineRunner initUsers(SpisakKorisnikaService korisnikService, SpisakTerminaService terminService) {
+		return args -> {
+			try {
+				SpisakKorisnika korisnici = korisnikService.findById(1L);
+				if (korisnici != null) {
+					System.out.println("Vec postoje korisnici u bazi");
+				}
+			} catch (EntityNotFoundException e) {
+				korisnikService.initDefaultSpisakKorisnika();
+			}
+
+			try {
+				SpisakTermina termini = terminService.findById(1L);
+				if (termini != null) {
+					System.out.println("Vec postoji spisak termina u bazi");
+				}
+			} catch (EntityNotFoundException e) {
+				terminService.initEmptySpisak();
+			}
+		};
 	}
 
 }

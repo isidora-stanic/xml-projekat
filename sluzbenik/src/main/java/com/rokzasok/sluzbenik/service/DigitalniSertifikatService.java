@@ -31,6 +31,7 @@ import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.IOException;
 import java.util.List;
+import java.util.Locale;
 
 import static com.rokzasok.sluzbenik.helper.XQueryExpressions.X_QUERY_FIND_ALL_DIGITALNI_SERTIFIKAT_EXPRESSION;
 import static com.rokzasok.sluzbenik.helper.XQueryExpressions.X_UPDATE_REMOVE_DIGITALNI_SERTIFIKAT_BY_ID_EXPRESSION;
@@ -282,7 +283,9 @@ public class DigitalniSertifikatService implements AbstractXmlService<DigitalniS
 
             byte[] pdfBytes = IOUtils.toByteArray(is);
 
-            emailService.sendSledeciTerminEmail(pacijent.getIme()+"@gmail.com", pdfBytes); // TODO: da bude username umesto korisnickog imena?
+            emailService.sendSledeciTerminEmail(pacijent.getIme()
+                    .toLowerCase(Locale.ROOT).trim().replace(" ", "")
+                    + "@gmail.com", pdfBytes); // TODO: da bude username umesto korisnickog imena?
 
         } catch (IOException | SAXException | JAXBException | MessagingException e) {
             e.printStackTrace();
@@ -344,14 +347,11 @@ public class DigitalniSertifikatService implements AbstractXmlService<DigitalniS
                     this.jaxbContextPath,
                     outputXmlFile
             );
-            System.out.println("aloooooooooooooooooooooooooooooooooooooo");
             xslTransformer.generatePDF_HTML(outputXmlFile);
-            System.out.println("breeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee");
             return new ByteArrayInputStream(FileUtils.readFileToByteArray(new File(outputPdfFile)));
         } catch (Exception e) {
             e.printStackTrace();
         }
-        System.out.println("budalooooooooooooooooooooooooooooooooo");
         return null;
     }
 }

@@ -87,8 +87,13 @@
                             <p><strong>Datum izdavanja: </strong>
                                 <xsl:value-of select="//ioi:datum_izdavanja"/></p>
                             <p><strong>Period izvestaja:<br/></strong> od <strong>
-                                <xsl:value-of select="//ioi:period_izvestaja/ioi:od"/></strong> do <strong>
-                                <xsl:value-of select="//ioi:period_izvestaja/ioi:do"/></strong></p>
+                                <xsl:variable name="od" select="//ioi:period_izvestaja/ioi:od" />
+                                <xsl:value-of select="format-date($od,'[Y0001]-[M01]-[D01]')" />
+                            </strong> do <strong>
+                                <xsl:variable name="do" select="//ioi:period_izvestaja/ioi:do" />
+                                <xsl:value-of select="format-date($do,'[Y0001]-[M01]-[D01]')" />
+                            </strong>
+                            </p>
                         </div>
                     </div>
                 </div>

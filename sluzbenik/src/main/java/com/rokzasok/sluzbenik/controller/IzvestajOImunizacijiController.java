@@ -72,7 +72,7 @@ public class IzvestajOImunizacijiController {
         IzvestajOImunizaciji izvestaj;
         try {
             izvestaj = b2bService.getIzvestajOImunizaciji(odKad, doKad);
-            izvestaj.setBrPrimljenihZahtevaZaSertifikat(sparqlToDTOService.getBrojDigitalnihSertifikata(odKad, doKad));
+            izvestaj.setBrIzdatihZahtevaZaSertifikat(sparqlToDTOService.getBrojDigitalnihSertifikata(odKad, doKad));
             izvestaj.setDatumIzdavanja(
                     DatatypeFactory.newInstance().newXMLGregorianCalendar(
                             LocalDate.now().toString()));
