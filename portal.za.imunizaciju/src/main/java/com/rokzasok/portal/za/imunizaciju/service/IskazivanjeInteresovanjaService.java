@@ -20,6 +20,7 @@ import org.w3c.dom.Document;
 import org.xml.sax.SAXException;
 import org.xmldb.api.base.XMLDBException;
 
+import javax.mail.MessagingException;
 import javax.xml.bind.JAXBException;
 import javax.xml.parsers.ParserConfigurationException;
 import java.io.ByteArrayInputStream;
@@ -54,6 +55,9 @@ public class IskazivanjeInteresovanjaService implements AbstractXmlService<Obraz
     @Autowired
     private RDFService rdfService;
 
+    @Autowired
+    private EmailService emailService;
+
 //
 //    @Autowired
 //    private PretrageHelper pretrageHelper;
@@ -65,6 +69,9 @@ public class IskazivanjeInteresovanjaService implements AbstractXmlService<Obraz
 //
     @Autowired
     private UUIDHelper uuidHelper;
+
+    @Autowired
+    private SpisakTerminaService spisakTerminaService;
 //
 //    @Autowired
 //    private SparqlUtil sparqlUtil;
@@ -145,10 +152,10 @@ public class IskazivanjeInteresovanjaService implements AbstractXmlService<Obraz
         ObrazacInteresovanja obrazacInteresovanja = null;
         try {
             obrazacInteresovanja = this.obrazacInteresovanjaXmlConversionAgent.unmarshall(xmlEntity, this.jaxbContextPath);
-            if(!proveriDaLiMozeDaKreiraInteresovanje(obrazacInteresovanja.getOpstiPodaci().getIdPodnosioca().getValue())){
-                System.out.println("OBRAZAC INTERESOVANJA JE VEC NAPRAVLJEN I NIJE PROSLO 7 DANA, PA SE NE MOZE NAPRAVITI NOVI.");
-                throw new ObrazacInteresovanjaException("OBRAZAC INTERESOVANJA JE VEC NAPRAVLJEN I NIJE PROSLO 7 DANA, PA SE NE MOZE NAPRAVITI NOVI.");
-            }
+//            if(!proveriDaLiMozeDaKreiraInteresovanje(obrazacInteresovanja.getOpstiPodaci().getIdPodnosioca().getValue())){
+//                System.out.println("OBRAZAC INTERESOVANJA JE VEC NAPRAVLJEN I NIJE PROSLO 7 DANA, PA SE NE MOZE NAPRAVITI NOVI.");
+//                throw new ObrazacInteresovanjaException("OBRAZAC INTERESOVANJA JE VEC NAPRAVLJEN I NIJE PROSLO 7 DANA, PA SE NE MOZE NAPRAVITI NOVI.");
+//            }
             obrazacInteresovanja.setDokumentId(this.uuidHelper.getUUID());
             this.handleMetadata(obrazacInteresovanja);
         } catch (JAXBException e) {
@@ -178,7 +185,15 @@ public class IskazivanjeInteresovanjaService implements AbstractXmlService<Obraz
             e.printStackTrace();
         }
 
-        //izvestajClient.sendIzvestaj(izvestaj);
+        try {
+            emailService.uspesnoPoslatoInteresovanjeEmail(obrazacInteresovanja.getPodaciOOsobi().getEmail().getValue(), obrazacInteresovanja);
+        } catch (MessagingException e) {
+            e.printStackTrace();
+        }
+
+        spisakTerminaService.zakaziTermin(obrazacInteresovanja.getOpstiPodaci().getLokacijaOpstina().getValue(),
+                LocalDate.now().plusDays(1), obrazacInteresovanja.getOpstiPodaci().getTipVakcine().getValue().value(),
+                7, obrazacInteresovanja.getPodaciOOsobi().getIme() + ' ' + obrazacInteresovanja.getPodaciOOsobi().getPrezime());
 
         return obrazacInteresovanja;
     }

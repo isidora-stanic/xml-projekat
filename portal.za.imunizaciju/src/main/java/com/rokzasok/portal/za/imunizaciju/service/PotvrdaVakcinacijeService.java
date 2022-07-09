@@ -12,6 +12,7 @@ import com.rokzasok.portal.za.imunizaciju.model.dokumenti.gradjanin.obrazac_sagl
 import com.rokzasok.portal.za.imunizaciju.model.dokumenti.potvrda_vakcinacije.PotvrdaVakcinacije;
 import com.rokzasok.portal.za.imunizaciju.model.dokumenti.potvrda_vakcinacije.TDoza;
 import com.rokzasok.portal.za.imunizaciju.model.dokumenti.potvrda_vakcinacije.TPol;
+import com.rokzasok.portal.za.imunizaciju.model.ostalo.spisak_termina.Dan;
 import com.rokzasok.portal.za.imunizaciju.repository.AbstractXmlRepository;
 import com.rokzasok.portal.za.imunizaciju.transformation.XSLTransformer;
 import org.apache.commons.io.FileUtils;
@@ -59,6 +60,9 @@ public class PotvrdaVakcinacijeService implements AbstractXmlService<PotvrdaVakc
 
     @Autowired
     private ObrazacSaglasnostiService obrazacSaglasnostiService;
+
+    @Autowired
+    private SpisakTerminaService spisakTerminaService;
 
     //@PostConstruct
     public void injectRepositoryProperties() {
@@ -248,6 +252,47 @@ public class PotvrdaVakcinacijeService implements AbstractXmlService<PotvrdaVakc
 
         potvrda.setRazlog(razlog);
 
+        int kolikoDanaSlTermin = 0;
+        switch (spisakDozaZaPotvrdu.size()){
+            case 1:
+                switch (spisakDozaZaPotvrdu.get(spisakDozaZaPotvrdu.size() - 1).getTip()) {
+//                    <xs:enumeration value="Pfizer-BioNtech"/>
+//                        <xs:enumeration value="Sputnik V (Gamaleya istraživački centar)"/>
+//                        <xs:enumeration value="Sinopharm"/>
+//                        <xs:enumeration value="AstraZeneca"/>
+//                        <xs:enumeration value="Moderna"/>
+                    case "Pfizer-BioNtech":
+                        kolikoDanaSlTermin = 6 * 30;
+                        break;
+                    case "Sputnik V (Gamaleya istraživački centar)":
+                        kolikoDanaSlTermin = 3 * 30;
+                        break;
+                    case "Sinopharm":
+                        kolikoDanaSlTermin = 28;
+                        break;
+                    case "AstraZeneca":
+                        kolikoDanaSlTermin = 21;
+                        break;
+                    case "Moderna":
+                        kolikoDanaSlTermin = 20;
+                        break;
+                }
+                break;
+            case 2:
+                kolikoDanaSlTermin = 6 * 30; // treca doza je za sve bila za 6 meseci
+                break;
+            default:
+                kolikoDanaSlTermin = -1; // oznaka da ne treba zakazivati sl termin
+        }
+
+        if (kolikoDanaSlTermin > 0) {
+            Dan sledeciTermin = spisakTerminaService.zakaziTermin(obrazac.getEvidencijaVakcinacija().getUstanova().getNaziv(),
+                    LocalDate.now().plusDays(28), spisakDoza.get(0).getTip().getValue().value(),
+                    7, obrazac.getEvidencijaPacijent().getPacijent().getPacijentInfo().getIme() + ' ' + obrazac.getEvidencijaPacijent().getPacijent().getPacijentInfo().getPrezime());
+
+            potvrda.setRazlog(potvrda.getRazlog() + " | Sledeći termin je zakazan: " + sledeciTermin.getDatum().toString() + ", na istom mestu.");
+
+        }
 
         return potvrda;
     }

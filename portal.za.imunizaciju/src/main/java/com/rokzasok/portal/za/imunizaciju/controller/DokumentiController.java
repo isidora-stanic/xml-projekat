@@ -55,14 +55,15 @@ public class DokumentiController {
 
     @GetMapping(value = "/dokumenti-po-korisniku/{idKorisnika}", produces = MediaType.APPLICATION_XML_VALUE)
     ResponseEntity<DokumentiKorisnikaDTO> getDokumentiKorisnika(@PathVariable("idKorisnika") Long idKorisnika) {
-        System.out.println("ayo?");
         DokumentiKorisnikaDTO d1 = sparqlToDTOService.getDokumentiKorisnikaPortal(idKorisnika);
         DokumentiKorisnikaDTO d2 = b2bService.getDigitalniSertifikatiKorisnika(idKorisnika);
         DokumentiKorisnikaDTO dFinal = new DokumentiKorisnikaDTO();
         dFinal.setIdKorisnika(idKorisnika);
         dFinal.setListaDokumenata(new ArrayList<>());
-        dFinal.getListaDokumenata().addAll(d1.getListaDokumenata());
-        dFinal.getListaDokumenata().addAll(d2.getListaDokumenata());
+        if (d1 != null && d1.getListaDokumenata() != null && d1.getListaDokumenata().size() > 0)
+            dFinal.getListaDokumenata().addAll(d1.getListaDokumenata());
+        if (d2 != null && d2.getListaDokumenata() != null && d2.getListaDokumenata().size() > 0)
+            dFinal.getListaDokumenata().addAll(d2.getListaDokumenata());
         return new ResponseEntity<>(dFinal, HttpStatus.OK);
     }
 

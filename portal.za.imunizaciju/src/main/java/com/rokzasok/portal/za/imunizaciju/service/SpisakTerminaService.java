@@ -259,6 +259,8 @@ public class SpisakTerminaService implements AbstractXmlService<SpisakTermina> {
                     e.printStackTrace();
                 }
 
+                System.out.println("Nadjen termin! " + dan.getDatum() + " " + mesto);
+
                 try {
                     emailService.sendSledeciTerminEmail(
                             emailAddress, dan.getDatum().toString(), mesto);
