@@ -12,7 +12,7 @@ import java.util.List;
 
 
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "", propOrder = {"osoba", "doze", "qrLink", "datumIzdavanja", "dokumentId"})
+@XmlType(name = "", propOrder = {"osoba", "doze", "qrLink", "razlog", "datumIzdavanja", "dokumentId"})
 @XmlRootElement(name = "potvrda-vakcinacije", namespace = "http://www.rokzasok.rs/zdravstveni-radnik/potvrda-vakcinacije")
 public class PotvrdaVakcinacije implements Identifiable {
 

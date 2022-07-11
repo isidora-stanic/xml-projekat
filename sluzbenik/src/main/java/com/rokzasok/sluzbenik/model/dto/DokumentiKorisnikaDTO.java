@@ -34,7 +34,7 @@ public class DokumentiKorisnikaDTO {
     }
 
     @XmlAccessorType(XmlAccessType.FIELD)
-    @XmlType(name = "dokument", propOrder = {"documentURI", "tipDokumenta", "datumKreiranja"})
+    @XmlType(name = "dokument", propOrder = {"documentURI", "tipDokumenta", "datumKreiranja", "kojiReferenciraju"})
     public static class DokumentDTO {
         @XmlElement(name="documentURI")
         private String documentURI;

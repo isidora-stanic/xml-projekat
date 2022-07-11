@@ -1,5 +1,6 @@
 package com.rokzasok.sluzbenik.service;
 
+import com.rokzasok.sluzbenik.exception.EntityNotFoundException;
 import com.rokzasok.sluzbenik.model.b2b.gradjanin.iskazivanje_interesovanja.ObrazacInteresovanja;
 import com.rokzasok.sluzbenik.model.b2b.gradjanin.obrazac_saglasnosti.ObrazacSaglasnosti;
 import com.rokzasok.sluzbenik.model.b2b.gradjanin.zahtev_za_sertifikat.Zahtev;
@@ -10,6 +11,7 @@ import com.rokzasok.sluzbenik.model.dto.DokumentiKorisnikaDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.InputStreamResource;
 import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;
@@ -257,6 +259,26 @@ public class B2BService {
                         .build())
                 .header(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_XML_VALUE)
                 .retrieve()
+                .onStatus(HttpStatus::is4xxClientError, (err) -> {
+                    System.out.println("Nema referenciranih dokumenata"); return null; })
+                .bodyToMono(DokumentiKorisnikaDTO.class)
+                .log()
+                .block();
+
+        return result;
+    }
+
+    public DokumentiKorisnikaDTO getKojiRefDokument(String dokumentURI) {
+        WebClient client = WebClient.create(BASE_URI);
+
+        DokumentiKorisnikaDTO result = client.get()
+                .uri(uriBuilder -> uriBuilder
+                        .path("/b2b/referenciraju-dokument/"+dokumentURI)
+                        .build())
+                .header(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_XML_VALUE)
+                .retrieve()
+                .onStatus(HttpStatus::is4xxClientError, (err) -> {
+                    System.out.println("Nema dokumenata koji referenciraju ovaj"); return null; })
                 .bodyToMono(DokumentiKorisnikaDTO.class)
                 .log()
                 .block();

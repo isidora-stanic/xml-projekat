@@ -49,6 +49,15 @@ public class SparqlService {
         return getResults(sparqlQuery);
     }
 
+    public List<SparqlQueryResult> getIzvedeniDokumenti(String dokumentURI) throws IOException {
+        System.out.println("[INFO] Retrieving izvedeni dokumenti " + dokumentURI + " from RDF store.");
+        System.out.println("[INFO] Using \"" + SPARQL_NAMED_GRAPH_URI + "\" named graph.");
+        String sparqlQuery = SparqlUtil.selectDokumentiKojiReferenciraju(dokumentURI, rdfdbConnectionProperties.getDataEndpoint());
+        System.out.println(sparqlQuery);
+
+        return getResults(sparqlQuery);
+    }
+
     // parsiranje rezultata
     public List<SparqlQueryResult> getResults(String queryString) {
 

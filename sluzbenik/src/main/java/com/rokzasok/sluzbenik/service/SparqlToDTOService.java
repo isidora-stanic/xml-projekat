@@ -84,39 +84,93 @@ public class SparqlToDTOService {
 
 
     public DokumentiKorisnikaDTO getReferenciraniDokumenti(String dokumentUri) {
-        if (!dokumentUri.contains("digitalni")) {
+
+        // digitalni - sluzbenik
+        // zahtev - nigde
+        // potvrda - portal
+        // obrazac - nigde
+        // interesovanje - nigde
+
+        if (dokumentUri.contains("potvrda")) {
             return b2BService.getRefDokumenti(dokumentUri);
-        }
-        try {
-            List<SparqlService.SparqlQueryResult> sparqlDokumentLinkovi = sparqlService.getPrethodniDokumenti(dokumentUri);
+        } else if (dokumentUri.contains("digitalni")) {
+            try {
+                List<SparqlService.SparqlQueryResult> sparqlDokumentLinkovi = sparqlService.getPrethodniDokumenti(dokumentUri);
 
-            DokumentiKorisnikaDTO dokumentiKorisnikaDTO = new DokumentiKorisnikaDTO();
-            dokumentiKorisnikaDTO.setListaDokumenata(new ArrayList<>());
+                DokumentiKorisnikaDTO dokumentiKorisnikaDTO = new DokumentiKorisnikaDTO();
+                dokumentiKorisnikaDTO.setListaDokumenata(new ArrayList<>());
 
-            dokumentiKorisnikaDTO.setIdKorisnika(-1L);
+                dokumentiKorisnikaDTO.setIdKorisnika(-1L);
 
-            int i = 0;
+                int i = 0;
 
-            while (i < sparqlDokumentLinkovi.size()) {
-                SparqlService.SparqlQueryResult result = sparqlDokumentLinkovi.get(i);
-                String dokumentURI = result.getVarValue().toString();
+                while (i < sparqlDokumentLinkovi.size()) {
+                    SparqlService.SparqlQueryResult result = sparqlDokumentLinkovi.get(i);
+                    String dokumentURI = result.getVarValue().toString();
 
-                String tipDokumentaWithId = dokumentURI.split("database/")[1];
+                    String tipDokumentaWithId = dokumentURI.split("database/")[1];
 
-                String[] split = tipDokumentaWithId.split("/");
+                    String[] split = tipDokumentaWithId.split("/");
 
-                String tipDokumenta = split[0].replaceAll("-", " ");
-                tipDokumenta = tipDokumenta.substring(0, 1).toUpperCase() + tipDokumenta.substring(1);
+                    String tipDokumenta = split[0].replaceAll("-", " ");
+                    tipDokumenta = tipDokumenta.substring(0, 1).toUpperCase() + tipDokumenta.substring(1);
 
-                dokumentiKorisnikaDTO.getListaDokumenata().add(new DokumentiKorisnikaDTO.DokumentDTO(dokumentURI, tipDokumenta, null));
+                    dokumentiKorisnikaDTO.getListaDokumenata().add(new DokumentiKorisnikaDTO.DokumentDTO(dokumentURI, tipDokumenta, null));
 
-                i++;
+                    i++;
+                }
+
+                return dokumentiKorisnikaDTO;
+
+            } catch (IOException e) {
+                e.printStackTrace();
             }
+        }
+        return null;
+    }
 
-            return dokumentiKorisnikaDTO;
+    public DokumentiKorisnikaDTO getDokumentiKojiReferenciraju(String dokumentUri) {
 
-        } catch (IOException e) {
-            e.printStackTrace();
+        // digitalni - nigde
+        // zahtev - sluzbenik
+        // potvrda - nigde
+        // obrazac - portal
+        // interesovanje - nigde
+
+        if (dokumentUri.contains("obrazac")) {
+            return b2BService.getKojiRefDokument(dokumentUri);
+        } else if (dokumentUri.contains("zahtev")) {
+            try {
+                List<SparqlService.SparqlQueryResult> sparqlDokumentLinkovi = sparqlService.getIzvedeniDokumenti(dokumentUri);
+
+                DokumentiKorisnikaDTO dokumentiKorisnikaDTO = new DokumentiKorisnikaDTO();
+                dokumentiKorisnikaDTO.setListaDokumenata(new ArrayList<>());
+
+                dokumentiKorisnikaDTO.setIdKorisnika(-1L);
+
+                int i = 0;
+
+                while (i < sparqlDokumentLinkovi.size()) {
+                    SparqlService.SparqlQueryResult result = sparqlDokumentLinkovi.get(i);
+                    String dokumentURI = result.getVarValue().toString();
+
+                    String tipDokumentaWithId = dokumentURI.split("database/")[1];
+
+                    String[] split = tipDokumentaWithId.split("/");
+
+                    String tipDokumenta = split[0].replaceAll("-", " ");
+                    tipDokumenta = tipDokumenta.substring(0, 1).toUpperCase() + tipDokumenta.substring(1);
+
+                    dokumentiKorisnikaDTO.getListaDokumenata().add(new DokumentiKorisnikaDTO.DokumentDTO(dokumentURI, tipDokumenta, null));
+
+                    i++;
+                }
+
+                return dokumentiKorisnikaDTO;
+
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
 
         return null;

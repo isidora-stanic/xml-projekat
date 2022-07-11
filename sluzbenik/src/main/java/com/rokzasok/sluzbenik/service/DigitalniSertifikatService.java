@@ -283,7 +283,7 @@ public class DigitalniSertifikatService implements AbstractXmlService<DigitalniS
 
             byte[] pdfBytes = IOUtils.toByteArray(is);
 
-            emailService.sendSledeciTerminEmail(pacijent.getIme()
+            emailService.sendDigitalniSertifikatEmail(pacijent.getIme()
                     .toLowerCase(Locale.ROOT).trim().replace(" ", "")
                     + "@gmail.com", pdfBytes); // TODO: da bude username umesto korisnickog imena?
 

@@ -105,5 +105,14 @@ public class B2BController {
         return new ResponseEntity<>(textSearchService.searchMetadata(metadata), HttpStatus.OK);
     }
 
+    @GetMapping(value = "/referencirani-dokumenti/{tip}/{id}", produces = MediaType.APPLICATION_XML_VALUE)
+    ResponseEntity<DokumentiKorisnikaDTO> prethodniDokumenti(@PathVariable String tip, @PathVariable String id) {
+        return new ResponseEntity<>(sparqlToDTOService.getReferenciraniDokumenti(tip + "/" + id), HttpStatus.OK);
+    }
+
+    @GetMapping(value = "/referenciraju-dokument/{tip}/{id}", produces = MediaType.APPLICATION_XML_VALUE)
+    ResponseEntity<DokumentiKorisnikaDTO> izvedeniDokumenti(@PathVariable String tip, @PathVariable String id) {
+        return new ResponseEntity<>(sparqlToDTOService.getDokumentiKojiReferenciraju(tip + "/" + id), HttpStatus.OK);
+    }
 
 }
