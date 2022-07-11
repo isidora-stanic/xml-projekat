@@ -21,7 +21,7 @@ public class EmailService {
     }
 
 
-    public void sendSledeciTerminEmail(String emailAddress, byte[] digitalniSertifikatPdf) throws MessagingException {
+    public void sendDigitalniSertifikatEmail(String emailAddress, byte[] digitalniSertifikatPdf) throws MessagingException {
         MimeMessage message = mailSender.createMimeMessage();
         MimeMessageHelper helper = new MimeMessageHelper(message, true);
 
@@ -31,7 +31,7 @@ public class EmailService {
         helper.setSubject("Digitalni sertifikat");
 
         // todo: Na ovaj način se šalje PDF kao attachment, za digitalni sertifikat
-        helper.addAttachment("Digitalni_sertifikat.txt", new ByteArrayResource(digitalniSertifikatPdf));
+        helper.addAttachment("Digitalni_sertifikat.pdf", new ByteArrayResource(digitalniSertifikatPdf));
 
         helper.setText("Poštovani,\n\nU prilogu Vam šaljemo digitalni sertifikat, po Vašem zahtevu.\n\nVaša eUprava.", true);
 

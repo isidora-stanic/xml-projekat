@@ -70,36 +70,54 @@
                             <table>
                                 <tbody class="citizenship-info">
                                     <tr>
-                                        <td><b>Drzavljanstvo:</b></td>
-                                        <td>Republika Srbija</td>
+                                        <td><b>Drzavljanstvo:</b> Republika Srbija</td>
+                                    </tr>
+                                    <tr>
                                         <td><b>JMBG: </b><xsl:value-of select="//tp:JMBG" /></td>
                                     </tr>
                                     <tr>
-                                        <td></td>
-                                        <td></td>
                                         <td><b>Broj pasosa: </b></td>
                                     </tr>
                                 </tbody>
+                            </table>
+                            <table>
                                 <tbody class="patient-info">
                                     <p id="idKorisnika" style="display: none; color: white; font-size: 4pt;">ID korisnika: <xsl:value-of select="//os:pacijent_info/os:idPodnosioca"/></p>
                                     <tr>
                                         <td><b>Prezime: </b><xsl:value-of select="//os:pacijent_info/os:prezime" /></td>
-                                        <td><b>Ime: </b><xsl:value-of select="//os:pacijent_info/os:ime" /></td>
-                                        <td><b>Ime roditelja: </b><xsl:value-of select="//os:ime_roditelja" /></td>
                                     </tr>
                                     <tr>
+                                        <td><b>Ime: </b><xsl:value-of select="//os:pacijent_info/os:ime" /></td>
+                                    </tr>
+                                    <tr>
+                                        <td><b>Ime roditelja: </b><xsl:value-of select="//os:ime_roditelja" /></td>
+                                    </tr>
+
+                                    <tr>
                                         <td><b>Adresa: </b><xsl:value-of select="//os:adresa/os:Mesto" />, <xsl:value-of select="//os:adresa/os:Opstina" /></td>
+                                    </tr>
+                                    <tr>
                                         <td><b>Ulica: </b><xsl:value-of select="//os:adresa/os:Ulica" /></td>
+                                    </tr>
+                                    <tr>
                                         <td><b>Broj: </b><xsl:value-of select="//os:adresa/os:Broj" /></td>
                                     </tr>
                                     <tr>
                                         <td><b>E-mail: </b><xsl:value-of select="//os:kontakt/os:email" /></td>
+                                    </tr>
+                                    <tr>
                                         <td><b>Mobilni: </b><xsl:value-of select="//os:kontakt/os:tel_mobilni" /></td>
+                                    </tr>
+                                    <tr>
                                         <td><b>Fiksni: </b><xsl:value-of select="//os:kontakt/os:tel_fiksni" /></td>
                                     </tr>
                                     <tr>
                                         <td><b>Pol: </b><xsl:value-of select="//os:pol" /></td>
+                                    </tr>
+                                    <tr>
                                         <td><b>Datum rojdenja: </b><xsl:value-of select="//os:datum_rodjenja" /></td>
+                                    </tr>
+                                    <tr>
                                         <td><b>Mesto rodjenja: </b><xsl:value-of select="//os:pacijent/os:mesto_rodjenja" /></td>
                                     </tr>
                                     <tr>
@@ -108,8 +126,12 @@
                                                 <xsl:when test="//os:socijalna_zastita/os:korisnik = 'true'">&#9745;</xsl:when>
                                                 <xsl:otherwise>&#9746;</xsl:otherwise>
                                             </xsl:choose></td>
+                                    </tr>
+                                    <tr>
                                         <td><b>Naziv ustanove: </b>
                                             <xsl:value-of select="//os:sediste/os:naziv"/></td>
+                                    </tr>
+                                    <tr>
                                         <td><b>Opstina: </b>
                                             <xsl:value-of select="//os:sediste/os:opstina"/></td>
                                     </tr>

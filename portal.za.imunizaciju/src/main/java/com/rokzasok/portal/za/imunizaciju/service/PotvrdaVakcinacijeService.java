@@ -256,11 +256,6 @@ public class PotvrdaVakcinacijeService implements AbstractXmlService<PotvrdaVakc
         switch (spisakDozaZaPotvrdu.size()){
             case 1:
                 switch (spisakDozaZaPotvrdu.get(spisakDozaZaPotvrdu.size() - 1).getTip()) {
-//                    <xs:enumeration value="Pfizer-BioNtech"/>
-//                        <xs:enumeration value="Sputnik V (Gamaleya istraživački centar)"/>
-//                        <xs:enumeration value="Sinopharm"/>
-//                        <xs:enumeration value="AstraZeneca"/>
-//                        <xs:enumeration value="Moderna"/>
                     case "Pfizer-BioNtech":
                         kolikoDanaSlTermin = 6 * 30;
                         break;
